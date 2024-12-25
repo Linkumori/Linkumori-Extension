@@ -65,6 +65,10 @@ cat > "$BUILD_DIR/webstore/manifest.json" << EOL
     "http://*/*",
     "https://*/*"
   ],
+    "options_ui": {
+    "page": "panel/option.html",
+    "open_in_tab": true
+  },
   
   "declarative_net_request": {
     "rule_resources": [
@@ -151,6 +155,10 @@ cat > "$BUILD_DIR/selfhosted/manifest.json" << EOL
     "http://*/*",
     "https://*/*"
   ],
+    "options_ui": {
+    "page": "panel/option.html",
+    "open_in_tab": true
+  },
   "declarative_net_request": {
     "rule_resources": [
       {

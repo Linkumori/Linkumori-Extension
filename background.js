@@ -734,7 +734,7 @@ async function handleContextMenuClick(info, tab) {
 
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "option.html") {
+  if (request.action === "cleanurls-tools") {
       try {
           const cleanedUrl = removeUrlParameters(request.url);
           // Send to options page

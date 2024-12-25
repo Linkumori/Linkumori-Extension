@@ -37,9 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     --logo-bg: #ffffff;          /* White in dark mode */
     --logo-accent: #2563eb; 
     /* Text Colors */
-    --text-primary: #f8fafc; 
-    --text-primary-domain: #f8fafc;    /* Almost white for primary text */
-    /* Almost white for primary text */
+    --text-primary: #f8fafc;     /* Almost white for primary text */
+    --text-primary-domain: #f8fafc;    
     --text-secondary: #cbd5e1;  /* Slightly dimmed for secondary text */
     --text-muted: #94a3b8;      /* More muted for less important text */
 
@@ -95,10 +94,21 @@ body {
     background: var(--bg-secondary);
     padding: 12px;
     display: flex;
-    gap: 10px;
     align-items: center;
     box-shadow: 0 2px 4px var(--shadow-color);
     position: relative;
+    justify-content: space-between; /* Align items to the sides */
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Reduced gap to make text closer to the logo */
+}
+
+.header-buttons {
+    display: flex;
+    gap: 2px; /* Further reduced gap to make buttons closer */
 }
 
 .logo {
@@ -114,7 +124,8 @@ body {
 
 /* Theme Toggle and Advanced Tools Styles */
 .theme-toggle-btn,
-.advanced-tools-btn {
+.advanced-tools-btn,
+.setting-tools-btn {
     background: var(--bg-primary-theme);
     padding: 6px;
     cursor: pointer;
@@ -126,39 +137,51 @@ body {
 }
 
 .advanced-tools-btn {
-    margin-left: auto;
-    margin-right: 8px;
+    margin-left: 4px; /* Reduced margin to make buttons closer */
+    margin-right: 4px; /* Reduced margin to make buttons closer */
+}
+
+.setting-tools-btn {
+    margin-right: 4px; /* Reduced margin to make buttons closer */
 }
 
 .theme-toggle-btn:hover,
-.advanced-tools-btn:hover {
+.advanced-tools-btn:hover,
+.setting-tools-btn:hover {
     background: var(--bg-primary-theme);
 }
 
 .theme-toggle-btn:focus,
-.advanced-tools-btn:focus {
+.advanced-tools-btn:focus,
+.setting-tools-btn:focus {
     outline: none;
     box-shadow: 0 0 0 2px var(--bg-primary-theme);
 }
 
 .sun-icon,
-.moon-icon {
+.moon-icon,
+.setting-light-icon,
+.setting-dark-icon {
     display: none;
 }
 
-:root[data-theme="light"] .sun-icon {
+:root[data-theme="light"] .sun-icon,
+:root[data-theme="light"] .setting-light-icon {
     display: block;
 }
 
-:root[data-theme="light"] .moon-icon {
+:root[data-theme="light"] .moon-icon,
+:root[data-theme="light"] .setting-dark-icon {
     display: none;
 }
 
-:root:not([data-theme="light"]) .sun-icon {
+:root:not([data-theme="light"]) .sun-icon,
+:root:not([data-theme="light"]) .setting-light-icon {
     display: none;
 }
 
-:root:not([data-theme="light"]) .moon-icon {
+:root:not([data-theme="light"]) .moon-icon,
+:root:not([data-theme="light"]) .setting-dark-icon {
     display: block;
 }
 

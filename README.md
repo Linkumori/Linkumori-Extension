@@ -6,9 +6,7 @@
 
 ![Linkumori](https://github.com/subham8907/Linkumori/blob/main/icons/default/icon128.png)
 
-
- <a href="https://chromewebstore.google.com/detail/linkumori-clean-urls/kcpfnbjlimolkcjllfooaipdpdjmjigg
-"><img height="58" src="https://i.imgur.com/K9Yh8G9.png" alt="Chrome Web Store"></a>
+<a href="https://chromewebstore.google.com/detail/linkumori-clean-urls/kcpfnbjlimolkcjllfooaipdpdjmjigg"><img height="58" src="https://i.imgur.com/K9Yh8G9.png" alt="Chrome Web Store"></a>
 
 Linkumori (URLs Cleaner) is a powerful browser extension for Chromium-based browsers that enhances your privacy by purifying URLs, removing tracking parameters, and blocking hyperlink auditing, all without interrupting your browsing experience.
 
@@ -116,8 +114,6 @@ Linkumori includes a domain whitelisting system that allows you to exempt specif
 4. For subdomains, always match exactly
 5. Test the whitelist entry by visiting different pages on the domain
 
-
-
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -143,8 +139,11 @@ The following files are completely under the GNU General Public License v3 or an
 - `/panel/style.css`
 - `/Linkumori-Artifact/Artifact.json`
 - `/panel/first-install.html`
--  `/panel/first-install.js`
+- `/panel/first-install.js`
+
 Copyright (c) 2024 Subham Mahesh
+
+For clarification, licenses embedded in the panelMenu.html file are not copyrighted by Subham Mahesh but by their respective owners.
 
 ### Mixed License (GPLv3 and MIT)
 
@@ -156,6 +155,17 @@ The following files contain a mix of GPLv3 and MIT licensed code:
 
 GPLv3 portions: Copyright (c) 2024 Subham Mahesh
 MIT portions: Copyright (c) 2022 Nick
+
+### MIT License
+The following files are licensed under MIT license:
+- `panel/sun.svg`  
+- `panel/moon.svg`
+
+Original source:
+- sun.svg: https://github.com/feathericons/feather/blob/main/icons/sun.svg
+- moon.svg: https://github.com/feathericons/feather/blob/main/icons/moon.svg
+
+Copyright (c) 2013-2023 Cole Bemis
 
 ### Rule Source Attribution
 The AdGuard filter lists were developed by AdGuard Software Ltd. which is license under (GNU General Public License v3.0 only) and have been converted by subham mahesh to work with Chrome's newer Declarative NetRequest API specification.
@@ -174,9 +184,6 @@ Converted rules from AdGuard's original filter lists
 rules that are independently developed by Subham Mahesh
 Modification Details
 For detailed information about modifications, including dates and specific changes to the original work, please refer to the rules/notice.txt file in the extension source code.
-
-
-
 
 ### Font License
 
@@ -204,17 +211,21 @@ The following icon files are licensed under the Creative Commons Attribution 4.0
 Copyright (c) 2024 Subham Mahesh
 
 ### Font Awesome Icons
+This project uses the Screwdriver Wrench icons and cog icons from Font Awesome Free, licensed under CC BY 4.0.
 
+Icon locations in source:
+- `/panel/advanced-tools-dark.svg`
+- `/panel/advanced-tools-light.svg`
+- `/panel/cog-light.svg`  
+- `/panel/cog-dark.svg`
 
-This project uses the Screwdriver Wrench icon from Font Awesome Free, which is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
-- Icon: Screwdriver Wrench
-- View Original Source of advanced-tools-dark.svg: https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23ffffff&sc=%23FFD43B%2F
+Original sources:
+- Advanced tools (dark): https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23ffffff&sc=%23FFD43B%2F
+- Advanced tools (light): https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23334155&sc=%23FFD43B%2F
+- Cog (dark): https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23ffffff&sc=%23ffffff
+- Cog (light): https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23334155&sc=%23334155
 
-- View Original Source of Sourceadvanced-tools-light.svg: https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23334155&sc=%23FFD43B%2F
--  icon locations in linkumori source code:
-  - `/panel/advanced-tools-dark.svg`
-  - `/panel/advanced-tools-light.svg`
-- Copyright: © 2024 Fonticons, Inc.
+Copyright: © 2024 Fonticons, Inc.
 
 ### Mozilla Public License 2.0
 

@@ -1,4 +1,3 @@
-
 <!--/*
 Linkumori(URLs Purifier)
 Copyright (C) 2024 Subham Mahesh
@@ -25,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <head>
     <meta charset="UTF-8">
     <title>Linkumori Settings</title>
-    <link rel="preload" href="../liberation-fonts/LiberationSerif-Regular.ttf" as="font" type="font/ttf" crossorigin>
     <style>
         @font-face {
             font-family: 'Liberation Serif';
@@ -34,15 +32,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             font-style: normal;
         }
 
-        /* Theme variables */
         :root {
             --bg-primary: #0f172a;
             --bg-secondary: #1e293b;
             --bg-tertiary: #334155;
-            --bg-tertiary-license:#334155;
-            --bg-primary-theme:#1e293b;
+            --bg-tertiary-license: #334155;
+            --bg-primary-theme: #1e293b;
             --button-primary: #2563eb;
-            --button-hover: #3b82f6;
             --button-danger: #dc2626;
             --button-danger-hover: #ef4444;
             --logo-bg: #ffffff;
@@ -56,25 +52,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             --input-bg: rgba(255, 255, 255, 0.05);
             --input-border: rgba(255, 255, 255, 0.1);
             --input-focus: #3b82f6;
-            --button-primary-toogle:rgba(255, 255, 255, 0.2);
+            --button-primary-toogle: rgba(255, 255, 255, 0.2);
         }
 
         :root[data-theme="light"] {
             --bg-primary: #ffffff;
             --bg-secondary: #f1f5f9;
             --bg-tertiary: #2563eb;
-            --bg-primary-theme:#f1f5f9;
-            --bg-tertiary-license:#818892;
+            --bg-primary-theme: #f1f5f9;
+            --bg-tertiary-license: #818892;
             --text-primary: #ffffff;
             --text-secondary: #334155;
-            --text-primary-domain:#334155;
+            --text-primary-domain: #334155;
             --text-muted: #64748b;
             --border-color: rgba(0, 0, 0, 0.1);
             --shadow-color: rgba(0, 0, 0, 0.1);
             --input-bg: rgba(0, 0, 0, 0.05);
             --input-border: rgba(0, 0, 0, 0.1);
             --button-primary: #2563eb;
-            --button-hover: #1e40af;
             --button-danger: #dc2626;
             --button-danger-hover: #ef4444;
             --input-focus: #1e3a8a;
@@ -88,261 +83,64 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             font-family: "Liberation Serif";
             background: var(--bg-primary);
             transition: background-color 0.2s;
-        }
-
-        .options-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Header styles */
-        .options-header {
-            background: var(--bg-secondary);
-            border-radius: 8px;
-            margin-bottom: 24px;
-            padding: 20px;
-            box-shadow: 0 2px 4px var(--shadow-color);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-title {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .logo-title .logo {
-            width: 40px;
-            height: 40px;
-        }
-
-        .logo-title h1 {
-            font-size: 24px;
-            color: var(--text-secondary);
-            margin: 0;
-        }
-
-        .version {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        /* Theme toggle */
-        .theme-toggle-btn {
-            background: var(--bg-primary-theme);
-            padding: 8px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .sun-icon, .moon-icon {
-            display: none;
-        }
-
-        :root[data-theme="light"] .sun-icon {
-            display: block;
-        }
-
-        :root[data-theme="light"] .moon-icon {
-            display: none;
-        }
-
-        :root:not([data-theme="light"]) .sun-icon {
-            display: none;
-        }
-
-        :root:not([data-theme="light"]) .moon-icon {
-            display: block;
-        }
-
-        /* Section styles */
-        .settings-section, .whitelist-section {
-            background: var(--bg-secondary);
-            border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 2px 4px var(--shadow-color);
-        }
-
-        .settings-section h2, .whitelist-section h2 {
-            font-size: 20px;
-            color: var(--text-secondary);
-            margin: 0 0 20px 0;
-        }
-
-        /* Toggle styles */
-        .toggle-group {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            gap: 16px;
         }
 
-        .toggle-setting {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .header {
+            background: var(--bg-secondary);
             padding: 12px;
-            background: var(--bg-primary);
-            border-radius: 6px;
-        }
-
-        .setting-info h3 {
-            font-size: 16px;
-            color: var(--text-secondary);
-            margin: 0 0 4px 0;
-        }
-
-        .setting-info p {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin: 0;
-        }
-
-        /* Whitelist styles */
-        .whitelist-header {
             display: flex;
-            justify-content: space-between;
+            gap: 10px;
             align-items: center;
-            margin-bottom: 24px;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .whitelist-actions {
-            display: flex;
-            gap: 8px;
+        .logo {
+            width: 24px;
+            height: 24px;
         }
 
-        /* Updated whitelist controls */
-        .whitelist-controls {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-
-        .search-box {
-            position: relative;
-            flex: 1 1 300px;
-            min-width: 0;
-        }
-
-        .add-domain {
-            display: flex;
-            gap: 8px;
-            flex: 1 1 300px;
-            min-width: 0;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
-
-        /* Input styles */
-        input {
-            padding: 10px;
-            border: 1px solid var(--input-border);
-            border-radius: 6px;
-            background: var(--input-bg);
-            color: var(--text-primary-domain);
-            font-family: "Liberation Serif";
-            font-size: 14px;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
             width: 100%;
             box-sizing: border-box;
         }
 
-        .search-box input {
-            padding-left: 40px;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--input-focus);
-        }
-
-        /* Button styles */
-        .action-button {
-            padding: 10px 20px;
-            background: var(--button-primary);
-            color: var(--text-primary);
-            border: none;
-            border-radius: 6px;
-            font-family: "Liberation Serif";
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            white-space: nowrap;
-        }
-
-        .action-button:hover {
-            background: var(--button-hover);
-        }
-
-        /* Table styles */
-        .whitelist-table {
-            background: var(--bg-primary);
-            border-radius: 6px;
-            overflow: hidden;
-            width: 100%;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            text-align: left;
-            padding: 12px 20px;
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        td {
-            padding: 12px 20px;
-            color: var(--text-secondary);
-            font-size: 14px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .remove-button {
-            color: var(--button-danger);
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-family: "Liberation Serif";
-            font-size: 14px;
-            padding: 4px 8px;
-            transition: color 0.2s;
-        }
-
-        .remove-button:hover {
-            color: var(--button-danger-hover);
-        }
-
-        .empty-message {
-            text-align: center;
+        .section {
+            background: var(--bg-secondary);
+            border-radius: 8px;
             padding: 20px;
-            color: var(--text-muted);
-            font-size: 14px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px var(--shadow-color);
         }
 
-        /* Toggle switch styles */
+        .section-title {
+            color: var(--text-secondary);
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 18px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            box-shadow: 0 1px 2px var(--shadow-color);
+            margin-bottom: 12px;
+        }
+
         .toggle-switch {
             width: 44px;
             height: 24px;
@@ -374,159 +172,280 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             transform: translateX(20px);
         }
 
-        /* Transitions */
-        body * {
-            transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+        .toggle-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .domain-input {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            background: var(--bg-secondary);
+            padding: 12px;
+            border-radius: 4px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid var(--input-border);
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: "Liberation Serif";
+            background: var(--input-bg);
+            color: var(--text-primary-domain);
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--input-focus);
+        }
+
+        .whitelist-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .whitelist-controls button {
+            flex: 1;
+        }
+
+        .whitelist-search {
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .whitelist-search svg {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            color: var(--text-muted);
+        }
+
+        .whitelist-search input {
+            width: 100%;
+            padding: 8px 8px 8px 32px;
+            box-sizing: border-box;
+        }
+
+        #whitelistContainer {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 6px;
+            position: relative;
+            min-height: 200px;
+        }
+
+        .empty-message, .no-results {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 16px;
+            font-size: 13px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+        }
+
+        .domain-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            box-shadow: 0 1px 2px var(--shadow-color);
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        button {
+            padding: 8px 12px;
+            background: var(--button-primary);
+            color: var(--text-primary);
+            border: none;
+            font-family: "Liberation Serif";
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background-color 0.2s;
+        }
+
+        .domain-item button {
+            background: var(--button-danger);
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+
+        .domain-item button:hover {
+            background: var(--button-danger-hover);
+        }
+
+        .theme-toggle-btn {
+            background: var(--bg-primary-theme);
+            padding: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            margin-left: auto;
+            border: none;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .sun-icon, .moon-icon {
+            display: none;
+        }
+
+        :root[data-theme="light"] .sun-icon {
+            display: block;
+        }
+
+        :root:not([data-theme="light"]) .moon-icon {
+            display: block;
+        }
+
+        .advanced-tools-btn .light-icon, .advanced-tools-btn .dark-icon {
+            display: none;
+        }
+
+        :root[data-theme="light"] .advanced-tools-btn .light-icon {
+            display: block;
+        }
+
+        :root:not([data-theme="light"]) .advanced-tools-btn .dark-icon {
+            display: block;
+        }
+
+        .theme-toggle-btn, .advanced-tools-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .theme-toggle-btn {
+            margin-right: 10px; /* Add margin to the right of the theme toggle button */
         }
     </style>
 </head>
 <body>
-    <div class="options-container">
-        <header class="options-header">
-            <div class="header-content">
-                <div class="logo-title">
-                    <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">             
-                        <circle cx="50" cy="50" r="45" fill="var(--logo-bg)"/>             
-                        <path d="M35 50 Q35 35, 50 35 L65 35 Q80 35, 80 50 Q80 65, 65 65 L60 65" 
-                              fill="none" 
-                              stroke="var(--logo-accent)" 
-                              stroke-width="8" 
-                              stroke-linecap="round"/>             
-                        <path d="M65 50 Q65 65, 50 65 L35 65 Q20 65, 20 50 Q20 35, 35 35 L40 35" 
-                              fill="none" 
-                              stroke="var(--logo-accent)" 
-                              stroke-width="8" 
-                              stroke-linecap="round"/>             
-                        <polygon points="75,20 78,28 86,31 78,34 75,42 72,34 64,31 72,28" 
-                                 fill="var(--logo-accent)"/>         
-                    </svg>
-                    <div>
-                        <h1>Linkumori Settings</h1>
-                        <span class="version">Version 1.0.0</span>
+    <header class="header">
+        <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-hidden="true">             
+            <circle cx="50" cy="50" r="45" fill="var(--logo-bg)"/>             
+            <path d="M35 50 Q35 35, 50 35 L65 35 Q80 35, 80 50 Q80 65, 65 65 L60 65" 
+                  fill="none" 
+                  stroke="var(--logo-accent)" 
+                  stroke-width="8" 
+                  stroke-linecap="round"/>             
+            <path d="M65 50 Q65 65, 50 65 L35 65 Q20 65, 20 50 Q20 35, 35 35 L40 35" 
+                  fill="none" 
+                  stroke="var(--logo-accent)" 
+                  stroke-width="8" 
+                  stroke-linecap="round"/>             
+            <polygon points="75,20 78,28 86,31 78,34 75,42 72,34 64,31 72,28" 
+                     fill="var(--logo-accent)"/>         
+        </svg>
+        <div style="display: flex; flex-direction: column;">
+            <h1 style="color: var(--text-secondary); font-size: 16px; margin: 0;">Linkumori Settings</h1>
+            <span style="color: var(--text-secondary); font-size: 12px;">Version 1.0.0</span>
+        </div>
+        <div style="margin-left: auto; display: flex; align-items: center; gap: 20px;">
+            <button id="advancedTools" class="advanced-tools-btn" aria-label="Advanced Tools">
+                <img src="advanced-tools-light.svg" width="16" height="16" alt="Advanced Tools Light" class="light-icon" aria-hidden="true" />
+                <img src="advanced-tools-dark.svg" width="16" height="16" alt="Advanced Tools Dark" class="dark-icon" aria-hidden="true" />
+            </button>
+            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                <img src="sun.svg" alt="sun icon" width="16" height="16" class="sun-icon" aria-hidden="true">
+                <img src="moon.svg" alt="moon icon" width="16" height="16" class="moon-icon" aria-hidden="true">
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="section">
+            <h2 class="section-title">Extension Settings</h2>
+            <div class="toggle-container">
+                <div id="toggleButton" class="toggle-button">
+                    <span class="toggle-label"></span>
+                    <div class="toggle-switch">
+                        <div class="toggle-slider"></div>
                     </div>
                 </div>
-                <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
-                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                </button>
             </div>
-        </header>
-
-        <div class="options-content">
-            <section class="settings-section">
-                <h2>General Settings</h2>
-                
-                <div class="toggle-group">
-                    <div class="toggle-setting">
-                        <div class="setting-info">
-                            <h3>Extension Status</h3>
-                            <p>Change the toogle for enabling or disabling extension</p>
-                        </div>
-                        <div id="mainToggle" class="toggle-button">
-                            <div class="toggle-switch">
-                                <div class="toggle-slider"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="toggle-setting">
-                        <div class="setting-info">
-                            <h3>History API Protection</h3>
-                            <p>Protect against history manipulation</p>
-                        </div>
-                        <div id="historyApiToggle" class="toggle-button">
-                            <div class="toggle-switch">
-                                <div class="toggle-slider"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="toggle-setting">
-                        <div class="setting-info">
-                            <h3>Block Hyperlink Auditing</h3>
-                            <p>Prevent ping tracking in links</p>
-                        </div>
-                        <div id="hyperlinkAuditingToggle" class="toggle-button">
-                            <div class="toggle-switch">
-                                <div class="toggle-slider"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="toggle-setting">
-                        <div class="setting-info">
-                            <h3>Show Badge</h3>
-                            <p>Display extension badge with counts</p>
-                        </div>
-                        <div id="badgeToggle" class="toggle-button">
-                            <div class="toggle-switch">
-                                <div class="toggle-slider"></div>
-                            </div>
-                        </div>
+            <div class="toggle-container">
+                <div id="newToggleButton" class="toggle-button">
+                    <span class="toggle-label">History API Protection</span>
+                    <div class="toggle-switch">
+                        <div class="toggle-slider"></div>
                     </div>
                 </div>
-            </section>
-            
-            <section class="whitelist-section">
-                <div class="whitelist-header">
-                    <h2>Domain Whitelist</h2>
-                    <div class="whitelist-actions">
-                        <button id="exportWhitelist" class="action-button">Export</button>
-                        <button id="importWhitelist" class="action-button">Import</button>
-                        <button id="removeAllDomains" class="action-button button-danger">Remove All</button>
+            </div>
+            <div class="toggle-container">
+                <div id="blockHyperlinkAuditingToggle" class="toggle-button">
+                    <span class="toggle-label">Block Hyperlink Auditing</span>
+                    <div class="toggle-switch">
+                        <div class="toggle-slider"></div>
                     </div>
                 </div>
-    
-                <div class="whitelist-controls">
-                    <div class="search-box">
-                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                        <input type="text" id="domainSearch" placeholder="Search domains...">
-                    </div>
-                    <div class="add-domain">
-                        <input type="text" id="domainInput" placeholder="Add domain (e.g., example.com)">
-                        <button id="addDomain" class="action-button">Add</button>
+            </div>
+            <div class="toggle-container">
+                <div id="updateBadgeOnOff" class="toggle-button">
+                    <span class="toggle-label"></span>
+                    <div class="toggle-switch">
+                        <div class="toggle-slider"></div>
                     </div>
                 </div>
-    
-                <div class="whitelist-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Domain</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="whitelistTableBody">
-                            <!-- Whitelist entries will be inserted here -->
-                            <tr>
-                                <td>example.com</td>
-                                <td>
-                                    <button class="remove-button" data-domain="example.com">
-                                        Remove
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Domain Management</h2>
+            <div class="domain-input">
+                <input type="text" id="domainInput" placeholder="Enter domain (e.g., example.com)">
+                <button id="addDomain">Add</button>
+            </div>
+            <div class="whitelist-controls">
+                <button id="exportWhitelist">Export Whitelist</button>
+                <button id="importWhitelist">Import Whitelist</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Whitelist</h2>
+            <div class="whitelist-search">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input 
+                    type="text" 
+                    id="searchDomain" 
+                    placeholder="Search whitelisted domains..."
+                    aria-label="Search domains">
+            </div>
+            <div id="whitelistContainer">
+                <!-- Domains will be populated here dynamically -->
+            </div>
         </div>
     </div>
+
     <script type="module" src="option.js"></script>
 </body>
 </html>

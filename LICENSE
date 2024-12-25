@@ -730,7 +730,7 @@ The following code in the files are completely under the GNU General Public Lice
 "/panel/style.css"
 "/Linkumori-Artifact/Artifact.json"
 Copyright: (c) 2024 Subham Mahesh
-
+For clarification, licenses embedded in the panelMenu.html file are not copyrighted by Subham Mahesh but by their respective owners.
 Full license texts for GPLv3 license here:
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
@@ -2608,16 +2608,21 @@ Exhibit B - "Incompatible With Secondary Licenses" Notice
 6) Icon Attribution
 
 
-This project uses the Screwdriver Wrench icon from Font Awesome Free, which is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
-Icon: Screwdriver Wrench
- View Original Source of advanced-tools-dark.svg: https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23ffffff&sc=%23FFD43B%2F
 
-View Original Source of Sourceadvanced-tools-light.svg: https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23334155&sc=%23FFD43B%2F
-Icon locations in linkumori source code:
-/panel/advanced-tools-dark.svg`
-/panel/advanced-tools-light.svg`
+This project uses the two Screwdriver Wrench icons and two cog icons from fontawesome.com, which is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+
+Source: (fontawesome.com)
 Copyright: © 2024 Fonticons, Inc.
+Location four icons in Linkumori source:
+"/panel/advanced-tools-dark.svg"
+"/panel/advanced-tools-light.svg"
+"/panel/cog-light.svg"
+"/panel/cog-dark.svg"
 
+View Original Source of advanced-tools-dark.svg: https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23ffffff&sc=%23FFD43B%2F
+View Original Source of Sourceadvanced-tools-light.svg: https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23334155&sc=%23FFD43B%2F
+View Original Source of cog-dark.svg https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23ffffff&sc=%23ffffff
+View Original Source of cog-light.svg https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23334155&sc=%23334155
 full text license:
 Attribution 4.0 International
 
@@ -3430,4 +3435,36 @@ licenses.
 
 Creative Commons may be contacted at creativecommons.org.
 
+=======================================================================
 
+8)The following files are licensed under MIT license
+
+location in linkumori source code:
+
+"panel/sun.svg"
+"panel/moon.svg"
+orginal source of sun.svg: https://github.com/feathericons/feather/blob/main/icons/sun.svg
+orginal source of moon.svg: https://github.com/feathericons/feather/blob/main/icons/moon.svg
+Full Text of MIT license
+
+The MIT License (MIT)
+
+Copyright (c) 2013-2023 Cole Bemis
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

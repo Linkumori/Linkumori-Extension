@@ -680,6 +680,19 @@ document.getElementById('fontAwesomeIconButton')?.addEventListener('click', () =
 document.getElementById('fontAwesomeIconButton1')?.addEventListener('click', () => {
     window.open('https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23334155&sc=%23FFD43B%2F', '_blank');
 });
+document.getElementById('cog-dark.svg')?.addEventListener('click', () => {
+    window.open('https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23ffffff&sc=%23ffffff', '_blank');
+});
+
+document.getElementById('cog-light.svg')?.addEventListener('click', () => {
+    window.open('https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23334155&sc=%23334155', '_blank');
+});
+document.getElementById('sun.svg')?.addEventListener('click', () => {
+    window.open('https://github.com/feathericons/feather/blob/main/icons/sun.svg', '_blank');
+});
+document.getElementById('moon.svg')?.addEventListener('click', () => {
+    window.open('https://github.com/feathericons/feather/blob/main/icons/moon.svg', '_blank');
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('themeToggle');
@@ -721,6 +734,16 @@ if (advancedToolsBtn) {
         // Open options.html in a new tab
         chrome.tabs.create({
             url: 'panel/cleanurls-tools.html'
+        });
+    });
+}
+
+const settingsBtn = document.getElementById('settings');
+if (settingsBtn) {
+    settingsBtn.addEventListener('click', () => {
+        // Open options.html in a new tab
+        chrome.tabs.create({
+            url: 'panel/option.html'
         });
     });
 }

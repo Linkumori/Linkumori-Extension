@@ -20,289 +20,261 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */-->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Linkumori</title>
-    <link rel="preload" href="../liberation-fonts/LiberationSerif-Regular.ttf" as="font" type="font/ttf" crossorigin>  
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linkumori Advanced Url Cleaning Tool</title>
     <style>
         @font-face {
             font-family: 'Liberation Serif';
             src: url('../liberation-fonts/LiberationSerif-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
         }
 
         :root {
-            /* Navy theme with original class structure */
-            --bg-primary: #0f1729;
-            --bg-secondary: #1a2238;
-            --bg-tertiary: #233049;
-            --bg-tertiary-license: #2d3b5e;
-            --bg-primary-theme: #1a2238;
-            --button-primary: #3b82f6;
-            --button-hover: #2563eb;
-            --button-danger: #dc2626;
-            --button-danger-hover: #ef4444;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --button-primary: #2563eb;
             --logo-bg: #ffffff;
-            --logo-accent: #3b82f6; 
+            --text-button-primary: #ffffff;
+            --logo-accent: #2563eb;
             --text-primary: #f8fafc;
-            --text-primary-domain: #f8fafc;
-            --text-secondary: #e2e8f0;
+            --text-secondary: #cbd5e1;
             --text-muted: #94a3b8;
-            --border-color: rgba(148, 163, 184, 0.1);
+            --border-color: rgba(255, 255, 255, 0.1);
             --shadow-color: rgba(0, 0, 0, 0.25);
             --input-bg: rgba(255, 255, 255, 0.05);
-            --input-border: rgba(148, 163, 184, 0.2);
+            --input-border: rgba(255, 255, 255, 0.1);
             --input-focus: #3b82f6;
-            --button-primary-toogle: rgba(59, 130, 246, 0.2);
         }
 
         :root[data-theme="light"] {
-            --bg-primary: #f8fafc;
-            --bg-secondary: #ffffff;
-            --bg-tertiary: ##ffffff;
-            --bg-primary-theme: #ffffff;
-            --bg-tertiary-license: #6b7280;
-            --text-primary: #ffffff;
-            --text-secondary: #1e293b;
-            --text-primary-domain: #1e293b;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f1f5f9;
+            --bg-tertiary: #2563eb;
+            --text-primary: #334155;
+            --text-button-primary: #ffffff;
+            --text-secondary: #334155;
             --text-muted: #64748b;
             --border-color: rgba(0, 0, 0, 0.1);
             --shadow-color: rgba(0, 0, 0, 0.1);
             --input-bg: rgba(0, 0, 0, 0.05);
             --input-border: rgba(0, 0, 0, 0.1);
-            --input-focus: #3b82f6;
-            --logo-bg: #3b82f6;
-            --logo-accent: #ffffff;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --button-primary: #2563eb;
+            --input-focus: #1e3a8a;
+            --logo-bg: #2563eb;
+            --logo-accent: #f1f5f9;
         }
 
         body {
+            margin: 0;
             font-family: "Liberation Serif";
-            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
-            color: var(--text-secondary);
-            line-height: 1.5;
+            background: var(--bg-primary);
+            transition: background-color 0.2s;
             min-height: 100vh;
-            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: var(--bg-secondary);
+            padding: 12px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            width: 24px;
+            height: 24px;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .header {
+        .section {
             background: var(--bg-secondary);
-            padding: 1.25rem;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            box-shadow: 0 4px 6px var(--shadow-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px var(--shadow-color);
         }
 
-        .logo {
-            width: 40px;
-            height: 40px;
-        }
-
-        .header-text h1 {
-            font-size: 1.75rem;
+        .section-title {
             color: var(--text-secondary);
-            margin-bottom: 0.25rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .header-text span {
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        .main-card {
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px var(--shadow-color);
-        }
-
-        .card-header {
-            padding: 1.25rem;
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 18px;
             border-bottom: 1px solid var(--border-color);
-            background: var(--bg-tertiary);
+            padding-bottom: 8px;
         }
 
-        .card-header p {
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .card-body {
-            padding: 1.5rem;
+        .theme-toggle-btn {
             background: var(--bg-secondary);
-        }
-
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .input-label {
+            padding: 6px;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
+            justify-content: center;
             color: var(--text-secondary);
-            font-size: 1.1rem;
+            border: none;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .setting-tools-btn {
+            background: var(--bg-secondary);
+            padding: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            border: none;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .setting-light-icon, .setting-dark-icon {
+            display: none;
+        }
+
+        :root[data-theme="light"] .setting-light-icon {
+            display: block;
+        }
+
+        :root:not([data-theme="light"]) .setting-dark-icon {
+            display: block;
         }
 
         .url-textarea {
             width: 100%;
-            min-height: 150px;
-            padding: 1rem;
+            min-height: 120px;
+            padding: 8px;
             border: 1px solid var(--input-border);
-            border-radius: 8px;
+            border-radius: 4px;
             background: var(--input-bg);
-            color: var(--text-primary-domain);
+            color: var(--text-primary);
             font-family: inherit;
-            font-size: 1rem;
+            font-size: 13px;
             resize: vertical;
-            transition: all 0.2s ease;
+            box-sizing: border-box;
+            margin-bottom: 12px;
         }
 
         .url-textarea:focus {
             outline: none;
             border-color: var(--input-focus);
-            box-shadow: 0 0 0 3px var(--button-primary-toogle);
         }
 
-        .card-footer {
-            padding: 1.25rem;
-            border-top: 1px solid var(--border-color);
+        .button-group {
             display: flex;
-            gap: 1rem;
-            background: var(--bg-tertiary);
+            gap: 8px;
         }
 
         button {
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(to right, var(--button-primary), var(--button-hover));
-            color: var(--text-primary);
+            padding: 8px 12px;
+            background: var(--button-primary);
+            color: var(--text-button-primary);
             border: none;
-            border-radius: 8px;
+            font-family: "Liberation Serif";
+            border-radius: 4px;
             cursor: pointer;
-            font-family: inherit;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-size: 13px;
+            transition: background-color 0.2s;
         }
 
-        button:hover {
-            background: var(--button-hover);
-            transform: translateY(-1px);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
+        
 
         .copy-status {
-            margin-top: 1rem;
-            text-align: center;
-            color: var(--button-primary);
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            font-size: 13px;
         }
 
-        [data-lucide] {
-            color: currentColor;
-            stroke-width: 1.5;
+        .sun-icon, .moon-icon {
+            display: none;
+        }
+
+        :root[data-theme="light"] .sun-icon {
+            display: block;
+        }
+
+        :root:not([data-theme="light"]) .moon-icon {
+            display: block;
         }
     </style>
 </head>
 <body>
+    <header class="header">
+        <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">             
+            <circle cx="50" cy="50" r="45" fill="var(--logo-bg)"/>             
+            <path d="M35 50 Q35 35, 50 35 L65 35 Q80 35, 80 50 Q80 65, 65 65 L60 65" 
+                  fill="none" 
+                  stroke="var(--logo-accent)" 
+                  stroke-width="8" 
+                  stroke-linecap="round"/>             
+            <path d="M65 50 Q65 65, 50 65 L35 65 Q20 65, 20 50 Q20 35, 35 35 L40 35" 
+                  fill="none" 
+                  stroke="var(--logo-accent)" 
+                  stroke-width="8" 
+                  stroke-linecap="round"/>             
+            <polygon points="75,20 78,28 86,31 78,34 75,42 72,34 64,31 72,28" 
+                     fill="var(--logo-accent)"/>         
+        </svg>
+        <div style="display: flex; flex-direction: column;">
+            <h1 style="color: var(--text-secondary); font-size: 16px; margin: 0;">Linkumori Clean URLs Tool</h1>
+            <span class="version" style="color: var(--text-secondary); font-size: 12px;"></span>
+        </div>
+        <div style="display: flex; gap: 10px; margin-left: auto;">
+            <button id="settings" class="setting-tools-btn" aria-label="Setting Tools">
+                <img src="cog-light.svg" width="18" height="18" class="setting-light-icon" alt="Settings-light">
+                <img src="cog-dark.svg" width="18" height="18" class="setting-dark-icon" alt="Settings-dark">
+            </button>
+            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                <img src="sun.svg" alt="sun icon" width="16" height="16" class="sun-icon">
+                <img src="moon.svg" alt="moon icon" width="16" height="16" class="moon-icon">
+            </button>
+        </div>
+    </header>
+
     <div class="container">
-        <header class="header">
-            <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">             
-                <circle cx="50" cy="50" r="45" fill="var(--logo-bg)"/>             
-                <path d="M35 50 Q35 35, 50 35 L65 35 Q80 35, 80 50 Q80 65, 65 65 L60 65" 
-                      fill="none" 
-                      stroke="var(--logo-accent)" 
-                      stroke-width="8" 
-                      stroke-linecap="round"/>             
-                <path d="M65 50 Q65 65, 50 65 L35 65 Q20 65, 20 50 Q20 35, 35 35 L40 35" 
-                      fill="none" 
-                      stroke="var(--logo-accent)" 
-                      stroke-width="8" 
-                      stroke-linecap="round"/>             
-                <polygon points="75,20 78,28 86,31 78,34 75,42 72,34 64,31 72,28" 
-                         fill="var(--logo-accent)"/>         
-            </svg>
-            <div class="header-text">
-                <h1>
-                    <i data-lucide="link-2"></i>
-                    Linkumori (URLs Cleaner)
-                </h1>
-                <span>Multiple URL Cleaning Tool</span>
-            </div>
-        </header>
+        <div class="section">
+            <h2 class="section-title">Input URLs</h2>
+            <textarea id="inputUrls" class="url-textarea" placeholder="Paste your URLs here, one per line"></textarea>
+        </div>
 
-        <main class="main-card">
-            <div class="card-header">
-                <p>
-                    <i data-lucide="alert-circle"></i>
-                    Enter your URLs below, one per line. We'll clean and format them automatically.
-                </p>
+        <div class="section">
+            <h2 class="section-title">Cleaned URLs</h2>
+            <textarea id="outputUrls" class="url-textarea" placeholder="Cleaned URLs will appear here" readonly></textarea>
+            <div class="button-group">
+                <button id="cleanUrls">Clean URLs</button>
+                <button id="copyUrls">Copy Results</button>
             </div>
-
-            <div class="card-body">
-                <div class="input-group">
-                    <label class="input-label">
-                        <i data-lucide="file-input"></i>
-                        Input URLs
-                    </label>
-                    <textarea id="inputUrls" class="url-textarea" placeholder="Paste your URLs here, one per line"></textarea>
-                </div>
-
-                <div class="input-group">
-                    <label class="input-label">
-                        <i data-lucide="file-output"></i>
-                        Cleaned URLs
-                    </label>
-                    <textarea id="outputUrls" class="url-textarea" placeholder="Cleaned URLs will appear here" readonly></textarea>
-                </div>
-            </div>
-
-            <div class="card-footer">
-                <button id="cleanUrls">
-                    <i data-lucide="spray-can"></i>
-                    Clean URLs
-                </button>
-                <button id="copyUrls">
-                    Copy Results
-                </button>
-            </div>
-        </main>
-        
+        </div>
     </div>
+    
     <div id="copyStatus" class="copy-status"></div>
-</div>
 
     <script src="cleanurls-tools.js"></script>
 </body>
