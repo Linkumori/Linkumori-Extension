@@ -140,6 +140,22 @@ The following files are completely under the GNU General Public License v3 or an
 - `/Linkumori-Artifact/Artifact.json`
 - `/panel/first-install.html`
 - `/panel/first-install.js`
+- `icons/default/icon48.png`
+- `icons/default/icon96.png`  
+- `icons/default/icon128.png`
+- `icons/light/icon16.png`
+- `icons/light/icon32.png`
+- `icons/light/icon128.png`
+- `icons/light/icon48.png`
+- `icons/light/icon96.png`
+- `icons/light/icon128.png`
+- `icons/dark/icon16.png`
+- `icons/dark/icon32.png`
+- `icons/dark/icon128.png` 
+- `icons/dark/icon48.png`
+- `icons/dark/icon96.png`
+- `icons/dark/icon128.png`
+
 
 Copyright (c) 2024 Subham Mahesh
 
@@ -189,26 +205,6 @@ For detailed information about modifications, including dates and specific chang
 
 This project uses the Liberation Serif Regular font, located in the `./liberation-fonts` directory. The font is licensed under the SIL Open Font License, Version 1.1.The font is located in the `./liberation-fonts` directory.
 
-### Creative Commons License 
-
-The following icon files are licensed under the Creative Commons Attribution 4.0 International License:
-- `icons/default/icon48.png`
-- `icons/default/icon96.png`  
-- `icons/default/icon128.png`
-- `icons/light/icon16.png`
-- `icons/light/icon32.png`
-- `icons/light/icon128.png`
-- `icons/light/icon48.png`
-- `icons/light/icon96.png`
-- `icons/light/icon128.png`
-- `icons/dark/icon16.png`
-- `icons/dark/icon32.png`
-- `icons/dark/icon128.png` 
-- `icons/dark/icon48.png`
-- `icons/dark/icon96.png`
-- `icons/dark/icon128.png`
-
-Copyright (c) 2024 Subham Mahesh
 
 ### Font Awesome Icons
 This project uses the Screwdriver Wrench icons and cog icons from Font Awesome Free, licensed under CC BY 4.0.
