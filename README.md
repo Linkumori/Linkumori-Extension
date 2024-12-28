@@ -127,6 +127,7 @@ This project uses multiple licenses:
 The following files are completely under the GNU General Public License v3 or any later version:
 
 - `/rules/rules7.json`
+- `/rules/rules9.json`
 - `/rules/rules8.json`
 - `common/rules.js`
 - `panel/option.js`
