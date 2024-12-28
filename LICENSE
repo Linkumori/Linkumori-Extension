@@ -716,6 +716,7 @@ Public License instead of this License.  But first, please read
 The following code in the files are completely under the GNU General Public License v3  or later version:
 
 "/rules/rules7.json"
+"/rules/rules9.json"
 "/rules/rules8.json"
 "/panel/first-install.html"
 "/panel/first-install.js"
