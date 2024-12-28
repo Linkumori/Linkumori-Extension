@@ -9,7 +9,6 @@
       }
     },
     "condition": {
-      "urlFilter": "google.com/url",
       "regexFilter": "^https?:\\/\\/(?:[a-z0-9-]+\\.)*google(?:\\.[a-z]{2,}){1,}\\/url\\?.*?(?:url|q)=(https?[^&]+)",
       "resourceTypes": ["main_frame", "sub_frame"]
     }
@@ -24,7 +23,6 @@
       }
     },
     "condition": {
-      "urlFilter": "google.com/adurl",
       "regexFilter": "^https?:\\/\\/(?:[a-z0-9-]+\\.)*google(?:\\.[a-z]{2,}){1,}\\/.*?adurl=([^&]+)",
       "resourceTypes": ["main_frame", "sub_frame"]
     }
@@ -39,7 +37,6 @@
       }
     },
     "condition": {
-      "urlFilter": "google.com/amp/s",
       "regexFilter": "^https?:\\/\\/(?:[a-z0-9-]+\\.)*google(?:\\.[a-z]{2,}){1,}\\/amp\\/s\\/([^&]+)",
       "resourceTypes": ["main_frame", "sub_frame"]
     }
