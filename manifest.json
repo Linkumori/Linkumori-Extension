@@ -31,7 +31,8 @@
     "alarms",
     "unlimitedStorage",
     "contextMenus",
-    "webNavigation"
+    "webNavigation",
+    "webRequest"
   ],
   
   "host_permissions": [

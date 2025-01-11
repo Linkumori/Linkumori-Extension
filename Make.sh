@@ -58,7 +58,9 @@ cat > "$BUILD_DIR/webstore/manifest.json" << EOL
     "alarms",
     "unlimitedStorage",
     "contextMenus",
-    "webNavigation"
+    "webNavigation",
+        "webRequest"
+
   ],
   
   "host_permissions": [
@@ -230,7 +232,9 @@ cat > "$BUILD_DIR/selfhosted/manifest.json" << EOL
     "alarms",
     "unlimitedStorage",
     "contextMenus",
-    "webNavigation"
+    "webNavigation",
+        "webRequest"
+
   ],
   
   "host_permissions": [

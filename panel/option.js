@@ -54,7 +54,8 @@ class OptionsMenuController {
         this.exportWhitelist = this.exportWhitelist.bind(this);
         this.importWhitelist = this.importWhitelist.bind(this);
         this.setupURLExtractor();  // Already called here
-
+        this.updateStats = this.updateStats.bind(this);
+        this.setupStats();
 
         this.init();
         this.setupNavigation();
@@ -274,6 +275,37 @@ class OptionsMenuController {
             console.error('Failed to toggle Badge On/Off:', error);
         }
     }
+    async setupStats() {
+        // Update stats every 5 seconds
+        setInterval(this.updateStats, 5000);
+        this.updateStats();
+
+        // Add reset handler
+        document.getElementById('resetStats')?.addEventListener('click', async () => {
+            if (confirm('Are you sure you want to reset all statistics?')) {
+                await chrome.runtime.sendMessage({action: 'resetStats'});
+                this.updateStats();
+            }
+        });
+    }
+
+    // Add new method
+    async updateStats() {
+        try {
+            const response = await chrome.runtime.sendMessage({action: 'getStats'});
+            if (response?.success) {
+                const stats = response.stats;
+                
+                document.getElementById('modifiedRequests').textContent = 
+                    stats.summary.totalModified.toLocaleString();
+                document.getElementById('activeRules').textContent = 
+                    stats.summary.ruleEffectiveness.length.toLocaleString();
+            }
+        } catch (error) {
+            console.error('Failed to update stats:', error);
+        }
+    }
+
 
    
     async toggleHyperlinkAuditing() {

@@ -763,6 +763,39 @@ blockquote {
 #repoLinkButton:hover {
     background: var(--button-primary-toogle);
 }
+.stats-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    background: var(--bg-secondary-toogle);
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.stat-value {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.reset-stats-btn {
+    background: var(--button-danger);
+    margin-top: 12px;
+}
     </style>
 </head>
 <body>
@@ -804,6 +837,7 @@ blockquote {
             <button class="nav-tab active" data-tab="settings">Extension Settings</button>
             <button class="nav-tab" data-tab="rules">Custom DNR Rules</button>
             <button class="nav-tab" data-tab="whitelist">Whitelist Management</button>
+            <button class="nav-tab" data-tab="stats">Statistics</button>
             <button class="nav-tab" data-tab="license">License Information</button>
         </div>
 
@@ -882,6 +916,26 @@ blockquote {
                 <div id="whitelistContainer">
                     <!-- Domains will be populated here -->
                 </div>
+            </div>
+        </div>
+
+        <!-- Statistics Section -->
+        <div id="statsSection" class="section-content">
+            <div class="section">
+                <h2 class="section-title">Rule Statistics</h2>
+                <div class="stats-container">
+
+                    <div class="stat-item">
+                        <span class="stat-label">The number of requests where URL parameters were successfully removed.
+                        </span>
+                        <span id="modifiedRequests" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label"> Total number of parameters removed by this extension                       </span>
+                        <span id="activeRules" class="stat-value">0</span>
+                    </div>
+                </div>
+                <button id="resetStats" class="reset-stats-btn">Reset Statistics</button>
             </div>
         </div>
 
