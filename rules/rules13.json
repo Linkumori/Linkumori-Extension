@@ -1,0 +1,3 @@
+[
+{"action":{"redirect":{"transform":{"queryTransform":{"removeParams":["_bg_fs","_oak_freesia_scene","_oak_gallery_order","_oak_mp_inf","_oak_page_source","_oak_rec_ext_1","_oak_region","_p_jump_id","_p_rfs","_x_ads_channel","_x_ads_sub_channel","_x_campaign","_x_channel_scene","_x_channel_src","_x_cid","_x_sessn_id","_x_vst_scene","freesia_scene","from_share","g_ccy","g_lg","g_region","g_site","refer_page_el_sn","refer_page_id","refer_page_name","refer_page_sn","refer_share_channel","refer_share_id","refer_share_suin","refer_source","share_img","sku_id","spec_gallery_id","top_gallery_url"]}}},"type":"redirect"},"condition":{"requestDomains":["temu.com"],"resourceTypes":["main_frame","sub_frame","xmlhttprequest"]},"id":1,"priority":2}
+]

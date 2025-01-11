@@ -1,5 +1,9 @@
-/*
-Linkumori(URLs Purifier)
+/***********************************************************************************************
+ * Linkumori (URLs Purifier) Extension - rules.js
+ * ------------------------------------------------------------
+    * 
+   SPDX-License-Identifier: GPL-3.0-or-later
+
 Copyright (C) 2024 Subham Mahesh
 
 This program is free software: you can redistribute it and/or modify
@@ -13,8 +17,10 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+along with this program.  If not, see <http://www.gnu.org/licenses/>..
+
+
+* ***********************************************************************************************/
 export const parameterRules = [
     {
         // Generic parameters
@@ -5387,7 +5393,7 @@ removeParams: [
 ]
 },
 { regexPattern: "^https?:\\/\\/(?:[a-z0-9-]+\\.)*?google(?:\\.[a-z]{2,}){1,}",
-    removeParams: ["ls_rcp","gs_lcrp","gs_lcp","sca_esv","source","ei","oq","gs_lp","sclient","sourceid","ie","ved","uact","client","dpr","sei","je","usg","pcampaignid","cad","dcr","aqs","atyp","rlz","sxsrf","_u","vet","sa","esrc","cd","site","i-would-rather-use-firefox","gs_ssp","sca_upv","fbs","cshid","biw","bih","ictx","iflsig","hl"]
+    removeParams: ["ls_rcp","gs_lcrp","gs_lcp","sca_esv","source","ei","oq","gs_lp","sclient","sourceid","ie","ved","uact","client","dpr","sei","je","usg","pcampaignid","cad","dcr","aqs","atyp","rlz","sxsrf","_u","vet","sa","esrc","cd","site","i-would-rather-use-firefox","gs_ssp","sca_upv","fbs","cshid","biw","bih","ictx","iflsig","hl","sstk"]
 },
 {regexFilter:"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?lazda(?:\\.[a-z]{2,}){1,}",
 removeParams:["clickTrackInfo","abid","pvid","ad_src","spm","src","from","scm","pa","pid_pvid","did","mp","cid","impsrc","pos"]},

@@ -1,5 +1,8 @@
-/*
-linkumori (URLs Purifier) Extension for chromium based browsers
+/***********************************************************************************************
+ * Linkumori (URLs Purifier) Extension - constants.js
+ * ------------------------------------------------------------
+   SPDX-License-Identifier: GPL-3.0-or-later
+
 Copyright (C) 2024 Subham Mahesh
 
 This program is free software: you can redistribute it and/or modify
@@ -13,17 +16,17 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+along with this program.  If not, see <http://www.gnu.org/licenses/>..
+
+ 
+ Based on ERASER project script:https://github.com/Psychosynthesis/Eraser/blob/main/src/chrome/common/utils.js
+ Copyright (c) 2022 Nick
+ MIT License:
+ license: MIT
+ SPDX-License-Identifier: MIT
+
 *
-*
-* Based on:
-*   ERASER
-*   <https://github.com/subham8907/Purify-urls/blob/main/common/utils.js>
-*   Copyright (c) 2022 Nick
-    MIT License:
-*   You should have received a copy of the MIT License
-*  If not <https://github.com/subham8907/Linkumori/blob/main/LICENSE-MAIN>
-*/
+ ***********************************************************************************************/
 import { defaultSettings, SETTINGS_KEY } from './constants.js';
 
 export const readPurifyUrlsSettings = (callback) => {

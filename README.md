@@ -124,25 +124,26 @@ This project uses multiple licenses:
 
 ### GPLv3 License
 
-The following files are completely under the GNU General Public License v3 or any later version:
+The following code in the linkurmori source code files are completely under the GNU General Public License v3 or (at your option) any later version.
 
-- `/rules/rules7.json`
 - `/rules/rules9.json`
 - `/rules/rules8.json`
+- `/rules/rules16.json`
+- `/rules/rules17.json`
+- `lib/amazon-url-prevention.js`
+- `/panel/first-install.html`
+- `/panel/first-install.js`
 - `common/rules.js`
 - `panel/option.js`
-- `panel/option.html`
 - `panel/cleanurls-tools.html`
 - `panel/cleanurls-tools.js`
 - `/panel/panelMenu.html`
 - `/panel/panelMenu.js`
-- `/content.js`
+- `lib/Anti-history-api.js`
 - `/panel/style.css`
 - `/Linkumori-Artifact/Artifact.json`
-- `/panel/first-install.html`
-- `/panel/first-install.js`
 - `icons/default/icon48.png`
-- `icons/default/icon96.png`  
+- `icons/default/icon96.png`
 - `icons/default/icon128.png`
 - `icons/light/icon16.png`
 - `icons/light/icon32.png`
@@ -152,30 +153,42 @@ The following files are completely under the GNU General Public License v3 or an
 - `icons/light/icon128.png`
 - `icons/dark/icon16.png`
 - `icons/dark/icon32.png`
-- `icons/dark/icon128.png` 
+- `icons/dark/icon128.png`
 - `icons/dark/icon48.png`
 - `icons/dark/icon96.png`
 - `icons/dark/icon128.png`
 
-
 Copyright (c) 2024 Subham Mahesh
 
 For clarification, licenses embedded in the panelMenu.html file are not copyrighted by Subham Mahesh but by their respective owners.
+For clarification: The licenses embedded in option.html belong to their respective license holders, not Subham Mahesh.
+
 
 ### Mixed License (GPLv3 and MIT)
 
 The following files contain a mix of GPLv3 and MIT licensed code:
 
-- `background.js`  
+1. Background and Common Files:
+- `background.js`
 - `common/constants.js`
 - `common/utils.js`
 
 GPLv3 portions: Copyright (c) 2024 Subham Mahesh
 MIT portions: Copyright (c) 2022 Nick
 
-### MIT License
+2. Fix Scripts:
+- `lib/google-fix.js`
+- `lib/yandex-fix.js`
+
+GPLv3 portions: Copyright (c) 2024 Subham Mahesh
+MIT portions: Copyright (c) 2017 kodango
+
+###  MIT License SVGS
+
 The following files are licensed under MIT license:
-- `panel/sun.svg`  
+
+1. Icons:
+- `panel/sun.svg`
 - `panel/moon.svg`
 
 Original source:
@@ -183,37 +196,53 @@ Original source:
 - moon.svg: https://github.com/feathericons/feather/blob/main/icons/moon.svg
 
 Copyright (c) 2013-2023 Cole Bemis
+###  MIT License Library
+
+- `lib/punycode.js` 
+
+Copyright Mathias Bynens
 
 ### Rule Source Attribution
-The AdGuard filter lists were developed by AdGuard Software Ltd. which is license under (GNU General Public License v3.0 only) and have been converted by subham mahesh to work with Chrome's newer Declarative NetRequest API specification.
 
-Rule File Locations
-rules/rules1.json
-rules/rules2.json
-rules/rules3.json
-rules/rules4.json
-rules/rules5.json
-rules/rules6.json
-Additional Information
+The AdguardFilters filter lists were developed by AdGuard Software Ltd. which is licensed under GNU General Public License v3.0 only and have been converted by Subham Mahesh to work with Chrome's newer Declarative NetRequest API specification.
+
+Rule File Locations:
+- rules/rules1.json
+- rules/rules2.json
+- rules/rules3.json
+- rules/rules4.json
+- rules/rules5.json
+- rules/rules6.json
+- rules/rules7.json
+- rules/rules10.json
+- rules/rules11.json
+- rules/rules12.json
+- rules/rules13.json
+- rules/rules14.json
+- rules/rules15.json
+
 Each JSON file contains two types of Declarative NetRequest static rules:
+- Converted rules from AdGuard's original filter lists
+- Rules independently developed by Subham Mahesh
 
-Converted rules from AdGuard's original filter lists
-rules that are independently developed by Subham Mahesh
-Modification Details
-For detailed information about modifications, including dates and specific changes to the original work, please refer to the rules/notice.txt file in the extension source code.
+For more information about the original work, please see: https://github.com/AdguardTeam/AdguardFilters
 
 ### Font License
 
-This project uses the Liberation Serif Regular font, located in the `./liberation-fonts` directory. The font is licensed under the SIL Open Font License, Version 1.1.The font is located in the `./liberation-fonts` directory.
+This project uses the Liberation Serif Regular font, located in the `./liberation-fonts` directory. The font is licensed under the SIL Open Font License, Version 1.1.
 
+Copyright:
+- Digitized data copyright (c) 2010 Google Corporation with Reserved Font Arimo, Tinos and Cousine
+- Copyright (c) 2012 Red Hat, Inc. with Reserved Font Name Liberation
 
 ### Font Awesome Icons
-This project uses the Screwdriver Wrench icons and cog icons from Font Awesome Free, licensed under CC BY 4.0.
+
+This project uses two Screwdriver Wrench icons and two cog icons from Font Awesome, licensed under CC BY 4.0.
 
 Icon locations in source:
 - `/panel/advanced-tools-dark.svg`
 - `/panel/advanced-tools-light.svg`
-- `/panel/cog-light.svg`  
+- `/panel/cog-light.svg`
 - `/panel/cog-dark.svg`
 
 Original sources:
@@ -226,7 +255,13 @@ Copyright: © 2024 Fonticons, Inc.
 
 ### Mozilla Public License 2.0
 
-The Linkumori (URLs Purifier) extension incorporates MPL 2.0 licensed code from the MDN Web Extensions repository, specifically the clipboard-helper.js file (original source: https://github.com/mdn/webextensions-examples/blob/main/context-menu-copy-link-with-types/clipboard-helper.js). This code is located at './clipboard-helper.js' within the Linkumori extension. In accordance with MPL 2.0 Section 3.3, recipients of this larger work have the option to receive and use this specific file under either the terms of the Mozilla Public License 2.0 or alternatively under the GNU General Public License version 3. This dual-licensing option applies exclusively to the clipboard-helper.js file and does not extend to other components of the Linkumori extension. Recipients must comply with the terms of whichever license they choose (MPL 2.0 or GPL v3) for this specific file, including maintaining appropriate notices and making the source code available as required by the chosen license.
+The Linkumori extension includes the clipboard-helper.js file, sourced from the MDN Web Extensions repository and licensed under the Mozilla Public License 2.0 (MPL 2.0). Located in ./lib/clipboard-helper.js within the Linkumori source code, this file also distributed under the GNU General Public License version 3 (GPL v3) as a secondary license, since requirements are fulfilled under MPL 2.0 Section 3.3. This dual-licensing applies only to clipboard-helper.js and not to other parts of the Linkumori extension unless explicitly stated. Recipients must comply with the terms of their selected license.
+
+Original source: https://github.com/mdn/webextensionsexamples/blob/main/context-menu-copy-link-with-types/clipboard-helper.js
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Acknowledgments
 
@@ -238,4 +273,4 @@ The Linkumori (URLs Purifier) extension incorporates MPL 2.0 licensed code from 
 
 Linkumori is provided "as is" without warranty of any kind. Use at your own risk.
 
-For full license texts, please see the [LICENSE](LICENSE) file in the project repository.
+For complete license texts and additional details, please see the LICENSE file in the project repository.

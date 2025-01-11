@@ -1,5 +1,6 @@
 /*
-Linkumori(URLs Purifier)
+SPDX-License-Identifier: GPL-3.0-or-later
+
 Copyright (C) 2024 Subham Mahesh
 
 This program is free software: you can redistribute it and/or modify
@@ -13,11 +14,13 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+along with this program.  If not, see <http://www.gnu.org/licenses/>..
+.
 */
 
 import { readPurifyUrlsSettings, setDefaultSettings } from '../common/utils.js';
 import { defaultSettings, SETTINGS_KEY, CANT_FIND_SETTINGS_MSG } from '../common/constants.js';
+import punycode from '../lib/punycode.js';
 
 class OptionsMenuController {
     constructor() {
@@ -27,6 +30,7 @@ class OptionsMenuController {
             blockHyperlinkAuditing: false,
             whitelist: [],
             updateBadgeOnOff: false,
+            customRules: []
         };
 
         this.domElements = {
@@ -42,14 +46,19 @@ class OptionsMenuController {
             addCurrentButton: null,
             badgeOnOffToggle: null,
             badgeOnOffLabel: null,
+            rulesContainer: null,
+            ruleDomainInput: null,
+            ruleParamInput: null
         };
 
         this.exportWhitelist = this.exportWhitelist.bind(this);
         this.importWhitelist = this.importWhitelist.bind(this);
+        this.setupURLExtractor();  // Already called here
+
 
         this.init();
+        this.setupNavigation();
     }
-
     async init() {
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
@@ -91,17 +100,21 @@ class OptionsMenuController {
             addCurrentButton: document.getElementById('addCurrentDomain'),
             badgeOnOffToggle: document.querySelector('#updateBadgeOnOff .toggle-switch'),
             badgeOnOffLabel: document.querySelector('#updateBadgeOnOff .toggle-label'),
+            rulesContainer: document.getElementById('rulesContainer'),
+            ruleDomainInput: document.getElementById('ruleDomainInput'),
+            ruleParamInput: document.getElementById('ruleParamInput')
         };
 
         this.setupEventListeners();
     }
-
     setupEventListeners() {
         const exportBtn = document.getElementById('exportWhitelist');
         const importBtn = document.getElementById('importWhitelist');
+        const addCustomRuleBtn = document.getElementById('addCustomRule');
 
         exportBtn?.addEventListener('click', this.exportWhitelist);
         importBtn?.addEventListener('click', this.importWhitelist);
+        addCustomRuleBtn?.addEventListener('click', () => this.handleAddCustomRule());
 
         this.domElements.searchInput?.addEventListener('input', (e) => {
             clearTimeout(this.searchTimeout);
@@ -116,12 +129,33 @@ class OptionsMenuController {
         document.getElementById('blockHyperlinkAuditingToggle')?.addEventListener('click', () => this.toggleHyperlinkAuditing());
         document.getElementById('updateBadgeOnOff')?.addEventListener('click', () => this.toggleBadgeOnOff());
         document.getElementById('addDomain')?.addEventListener('click', () => this.handleAddDomain());
+        
         this.domElements.domainInput?.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 this.handleAddDomain();
             }
         });
-        this.domElements.addCurrentButton?.addEventListener('click', () => this.handlecurrentbutton());
+
+        this.domElements.ruleDomainInput?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && this.domElements.ruleParamInput?.value) {
+                this.handleAddCustomRule();
+            }
+        });
+
+        this.domElements.ruleParamInput?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && this.domElements.ruleDomainInput?.value) {
+                this.handleAddCustomRule();
+            }
+        });
+
+        // Add search rules event listener
+        document.getElementById('searchRules')?.addEventListener('input', (e) => {
+            clearTimeout(this.searchTimeout);
+            this.searchTimeout = setTimeout(() => {
+                const searchTerm = e.target.value.trim();
+                this.renderCustomRules(searchTerm);
+            }, 300);
+        });
     }
 
     async loadInitialState() {
@@ -140,12 +174,14 @@ class OptionsMenuController {
                 historyApiProtection = false,
                 updateHyperlinkAuditing = false,
                 updateBadgeOnOff = false,
+                customRules = []
             } = await chrome.storage.local.get({
                 whitelist: [], 
                 enabled: false,
                 historyApiProtection: false,
                 updateHyperlinkAuditing: false,
                 updateBadgeOnOff: false,
+                customRules: []
             });
 
             this.state = {
@@ -155,6 +191,7 @@ class OptionsMenuController {
                 blockHyperlinkAuditing: updateHyperlinkAuditing,
                 whitelist,
                 updateBadgeOnOff,
+                customRules
             };
 
             this.updateUI();
@@ -188,6 +225,330 @@ class OptionsMenuController {
         if (Object.hasOwn(changes, 'whitelist')) {
             this.state.whitelist = changes.whitelist.newValue;
             this.renderWhitelist();
+        }
+
+        if (Object.hasOwn(changes, 'customRules')) {
+            this.state.customRules = changes.customRules.newValue;
+            this.renderCustomRules();
+        }
+    }
+    async togglePurifyUrlsSettings() {
+        try {
+            const newStatus = !this.state.isEnabled;
+            
+            await chrome.storage.local.set({
+                [SETTINGS_KEY]: {
+                    ...this.state,
+                    status: newStatus,
+                }
+            });
+            
+            await chrome.runtime.sendMessage({
+                action: 'updateRuleSet', 
+                enabled: newStatus
+            });
+            
+            this.state.isEnabled = newStatus;
+            this.updateUI();
+        } catch (error) {
+            console.error('Failed to toggle settings:', error);
+        }
+    }
+
+    async toggleBadgeOnOff() {
+        try {
+            const newStatus = !this.state.updateBadgeOnOff;
+            
+            await chrome.storage.local.set({ 
+                updateBadgeOnOff: newStatus 
+            });
+            
+            this.state.updateBadgeOnOff = newStatus;
+            this.updateBadgeOnOffToggleUI();
+            
+            await chrome.runtime.sendMessage({
+                action: 'updateBadgeOnOff',
+                enabled: newStatus
+            });
+        } catch (error) {
+            console.error('Failed to toggle Badge On/Off:', error);
+        }
+    }
+
+   
+    async toggleHyperlinkAuditing() {
+        try {
+            const { blockHyperlinkAuditing = false } = await chrome.storage.local.get('blockHyperlinkAuditing');
+            const newStatus = !blockHyperlinkAuditing;
+            
+            await chrome.storage.local.set({
+                blockHyperlinkAuditing: newStatus
+            });
+            
+            this.state.blockHyperlinkAuditing = newStatus;
+            this.updateHyperlinkAuditingToggleUI();
+            
+            await chrome.runtime.sendMessage({
+                action: 'updateHyperlinkAuditing',
+                enabled: newStatus
+            });
+        } catch (error) {
+            console.error('Failed to toggle Hyperlink Auditing:', error);
+        }
+    }
+    updateUI() {
+        this.updateToggleUI();
+        this.updateHistoryApiToggleUI();
+        this.updateHyperlinkAuditingToggleUI();
+        this.updateBadgeOnOffToggleUI();
+        this.renderWhitelist();
+        this.renderCustomRules();
+    }
+    updateToggleUI() {
+        if (!this.domElements.toggleSwitch || !this.domElements.toggleLabel) {
+            return;
+        }
+        
+        if (this.state.isEnabled) {
+            this.domElements.toggleSwitch.classList.add('active');
+            this.domElements.toggleLabel.textContent = 'Extension status: On with Network level protection';
+        } else {
+            this.domElements.toggleSwitch.classList.remove('active');
+            this.domElements.toggleLabel.textContent = 'Extension status: Off';
+        }
+    }
+
+    updateBadgeOnOffToggleUI() {
+      
+
+        if (!this.domElements.badgeOnOffToggle || !this.domElements.badgeOnOffLabel) {
+            return;
+        }
+        
+        // Update toggle class based on state regardless of extension status
+        if (this.state.updateBadgeOnOff) {
+            this.domElements.badgeOnOffToggle.classList.add('active');
+        } else {
+            this.domElements.badgeOnOffToggle.classList.remove('active');
+        }
+    
+        // Only update the text based on extension status
+        if (!this.state.isEnabled) {
+            this.domElements.badgeOnOffLabel.textContent = this.state.updateBadgeOnOff ? 
+                'Badge:(Inactive)' : 
+                'Badge:Off';
+        } else {
+            this.domElements.badgeOnOffLabel.textContent = this.state.updateBadgeOnOff ?
+                'Badge: On' :
+                'Badge: Off';
+        }
+    }
+
+    updateHistoryApiToggleUI() {
+        if (!this.domElements.historyApiToggle || !this.domElements.historyApiLabel) {
+            return;
+        }
+        
+        if (!this.state.isEnabled) {
+            if (this.state.historyApiProtection) {
+                this.domElements.historyApiToggle.classList.add('active');
+            } else {
+                this.domElements.historyApiToggle.classList.remove('active');
+            }
+            this.domElements.historyApiLabel.textContent = 'History API Protection: Inactive ';
+            return;
+        }
+        
+        if (this.state.historyApiProtection) {
+            this.domElements.historyApiToggle.classList.add('active');
+            this.domElements.historyApiLabel.textContent = 'History API Protection: On';
+        } else {
+            this.domElements.historyApiToggle.classList.remove('active');
+            this.domElements.historyApiLabel.textContent = 'History API Protection: Off';
+        }
+    }
+
+    updateHyperlinkAuditingToggleUI() {
+        if (!this.domElements.hyperlinkAuditingToggle || !this.domElements.hyperlinkAuditingLabel) {
+            return;
+        }
+        
+        // Update toggle class based on state regardless of extension status
+        if (this.state.blockHyperlinkAuditing) {
+            this.domElements.hyperlinkAuditingToggle.classList.add('active');
+        } else {
+            this.domElements.hyperlinkAuditingToggle.classList.remove('active');
+        }
+
+        // Only update the text based on extension status
+        if (!this.state.isEnabled) {
+            this.domElements.hyperlinkAuditingLabel.textContent = this.state.blockHyperlinkAuditing ?
+                'Block Hyperlink Auditing: (Inactive)' :
+                'Block Hyperlink Auditing: Off ';
+        } else {
+            this.domElements.hyperlinkAuditingLabel.textContent = this.state.blockHyperlinkAuditing ?
+                'Block Hyperlink Auditing: On' :
+                'Block Hyperlink Auditing: Off';
+        }
+    }
+    async handleAddDomain() {
+        const domain = this.domElements.domainInput?.value.trim().toLowerCase();
+        
+        if (!domain) return;
+        
+        const domainRegex = /^[a-z0-9\u00A1-\uFFFF]+([\-\.]{1}[a-z0-9\u00A1-\uFFFF]+)*\.[a-z\u00A1-\uFFFF]{2,}$/;
+        if (!domainRegex.test(domain)) {
+            alert('Please enter a valid domain (e.g., example.com)');
+            return;
+        }
+        
+        try {
+            const unicodeDomain = punycode.toUnicode(domain);
+            if (!this.state.whitelist.includes(unicodeDomain)) {
+                await this.handleWhitelistChange(unicodeDomain, true);
+            } else {
+                alert('Domain is already in the whitelist');
+            }
+            
+            if (this.domElements.domainInput) {
+                this.domElements.domainInput.value = '';
+            }
+        } catch (error) {
+            console.error('Failed to add domain:', error);
+        }
+    }
+
+    async handleWhitelistChange(domain, shouldAdd) {
+        try {
+            const unicodeDomain = punycode.toUnicode(domain);
+            let newWhitelist;
+            if (shouldAdd) {
+                newWhitelist = [...this.state.whitelist, unicodeDomain];
+            } else {
+                newWhitelist = this.state.whitelist.filter(d => d !== unicodeDomain);
+            }
+            
+            await chrome.storage.local.set({ whitelist: newWhitelist });
+            this.state.whitelist = newWhitelist;
+            this.renderWhitelist();
+        } catch (error) {
+            console.error('Failed to update whitelist:', error);
+        }
+    }
+    async setupURLExtractor() {
+        const urlInput = document.getElementById('urlInput');
+        const getParamsButton = document.getElementById('getParameters');
+        const addSelectedButton = document.getElementById('addSelectedParams');
+        const parameterInput = document.querySelector('.parameter-input');
+        const extractedParams = document.getElementById('extractedParams');
+    
+        getParamsButton?.addEventListener('click', () => {
+            this.extractParameters(urlInput?.value);
+        });
+    
+        urlInput?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.extractParameters(urlInput.value);
+            }
+        });
+    
+        addSelectedButton?.addEventListener('click', () => {
+            this.addParametersIndividually();
+        });
+    }
+    
+    extractParameters(url) {
+        try {
+            const urlObj = new URL(url);
+            const params = new URLSearchParams(urlObj.search);
+            const parameterInput = document.querySelector('.parameter-input');
+            const extractedParams = document.getElementById('extractedParams');
+            
+            if (!parameterInput || !extractedParams) return;
+            
+            extractedParams.innerHTML = '';
+            let hasParams = false;
+    
+            // Store URL host as data attribute
+            extractedParams.dataset.domain = urlObj.hostname;
+    
+            params.forEach((value, key) => {
+                hasParams = true;
+                const paramDiv = document.createElement('div');
+                paramDiv.className = 'param-checkbox';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `param-${key}`;
+                checkbox.value = key;
+                
+                const label = document.createElement('label');
+                label.htmlFor = `param-${key}`;
+                label.textContent = `${key} = ${value}`;
+                
+                paramDiv.appendChild(checkbox);
+                paramDiv.appendChild(label);
+                extractedParams.appendChild(paramDiv);
+            });
+    
+            if (hasParams) {
+                parameterInput.style.display = 'block';
+            } else {
+                parameterInput.style.display = 'none';
+                alert('No parameters found in the URL');
+            }
+        } catch (error) {
+            alert('Please enter a valid URL');
+            console.error('Error parsing URL:', error);
+        }
+    }
+    
+    async addParametersIndividually() {
+        const extractedParams = document.getElementById('extractedParams');
+        const checkboxes = document.querySelectorAll('#extractedParams input[type="checkbox"]:checked');
+        const domain = extractedParams?.dataset.domain;
+        
+        if (!domain || checkboxes.length === 0) {
+            alert('Please select at least one parameter');
+            return;
+        }
+        
+        try {
+            // Add each parameter as a separate rule
+            for (const checkbox of checkboxes) {
+                await chrome.runtime.sendMessage({
+                    action: 'addCustomRule',
+                    domain: domain,
+                    param: checkbox.value
+                });
+            }
+            
+            // Update UI state
+            const { customRules = [] } = await chrome.storage.local.get('customRules');
+            this.state.customRules = customRules;
+            this.renderCustomRules();
+            
+            // Clear the parameter display
+            const parameterInput = document.querySelector('.parameter-input');
+            if (parameterInput) {
+                parameterInput.style.display = 'none';
+            }
+            if (extractedParams) {
+                extractedParams.innerHTML = '';
+            }
+            
+            // Clear URL input
+            const urlInput = document.getElementById('urlInput');
+            if (urlInput) {
+                urlInput.value = '';
+            }
+    
+            // Show success message
+            alert(`Successfully added ${checkboxes.length} parameter${checkboxes.length > 1 ? 's' : ''}`);
+            
+        } catch (error) {
+            alert(error.message || 'Failed to add parameters');
+            console.error('Failed to add parameters:', error);
         }
     }
 
@@ -254,209 +615,6 @@ class OptionsMenuController {
         return confirm(`This will add ${count} entries to your current whitelist. Continue?`);
     }
 
-    async togglePurifyUrlsSettings() {
-        try {
-            const newStatus = !this.state.isEnabled;
-            
-            await chrome.storage.local.set({
-                [SETTINGS_KEY]: {
-                    ...this.state,
-                    status: newStatus,
-                }
-            });
-            
-            await chrome.runtime.sendMessage({
-                action: 'updateRuleSet', 
-                enabled: newStatus
-            });
-            
-            this.state.isEnabled = newStatus;
-            this.updateUI();
-        } catch (error) {
-            console.error('Failed to toggle settings:', error);
-        }
-    }
-
-    async toggleHyperlinkAuditing() {
-        try {
-            const { blockHyperlinkAuditing = false } = await chrome.storage.local.get('blockHyperlinkAuditing');
-            const newStatus = !blockHyperlinkAuditing;
-            
-            await chrome.storage.local.set({
-                blockHyperlinkAuditing: newStatus
-            });
-            
-            this.state.blockHyperlinkAuditing = newStatus;
-            this.updateHyperlinkAuditingToggleUI();
-            
-            await chrome.runtime.sendMessage({
-                action: 'updateHyperlinkAuditing',
-                enabled: newStatus
-            });
-        } catch (error) {
-            console.error('Failed to toggle Hyperlink Auditing:', error);
-        }
-    }
-    
-    
-
-   
-        
-    
-    
-    async handleAddDomain() {
-        const domain = this.domElements.domainInput?.value.trim().toLowerCase();
-        
-        if (!domain) return;
-        
-        const domainRegex = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,}$/;
-        if (!domainRegex.test(domain)) {
-            alert('Please enter a valid domain (e.g., example.com)');
-            return;
-        }
-        
-        try {
-            if (!this.state.whitelist.includes(domain)) {
-                await this.handleWhitelistChange(domain, true);
-            } else {
-                alert('Domain is already in the whitelist');
-            }
-            
-            if (this.domElements.domainInput) {
-                this.domElements.domainInput.value = '';
-            }
-        } catch (error) {
-            console.error('Failed to add domain:', error);
-        }
-    }
-
-    async handleWhitelistChange(domain, shouldAdd) {
-        try {
-            let newWhitelist;
-            if (shouldAdd) {
-                newWhitelist = [...this.state.whitelist, domain];
-            } else {
-                newWhitelist = this.state.whitelist.filter(d => d !== domain);
-            }
-            
-            await chrome.storage.local.set({ whitelist: newWhitelist });
-            this.state.whitelist = newWhitelist;
-            this.renderWhitelist();
-        } catch (error) {
-            console.error('Failed to update whitelist:', error);
-        }
-    }
-
-    async toggleBadgeOnOff() {
-        try {
-            const newStatus = !this.state.updateBadgeOnOff;
-            
-            await chrome.storage.local.set({ 
-                updateBadgeOnOff: newStatus 
-            });
-            
-            this.state.updateBadgeOnOff = newStatus;
-            this.updateBadgeOnOffToggleUI();
-            
-            await chrome.runtime.sendMessage({
-                action: 'updateBadgeOnOff',
-                enabled: newStatus
-            });
-        } catch (error) {
-            console.error('Failed to toggle Badge On/Off:', error);
-        }
-    }
-
-
-
-    updateUI() {
-        this.updateToggleUI();
-        this.updateHistoryApiToggleUI();
-        this.updateHyperlinkAuditingToggleUI();
-        this.updateBadgeOnOffToggleUI();
-        this.renderWhitelist();
-    }
-
-    updateToggleUI() {
-        if (!this.domElements.toggleSwitch || !this.domElements.toggleLabel) {
-            return;
-        }
-        
-        if (this.state.isEnabled) {
-            this.domElements.toggleSwitch.classList.add('active');
-            this.domElements.toggleLabel.textContent = 'Extension status: On with Network level protection';
-        } else {
-            this.domElements.toggleSwitch.classList.remove('active');
-            this.domElements.toggleLabel.textContent = 'Extension status: Off';
-        }
-    }
-
-    updateBadgeOnOffToggleUI() {
-        if (!this.domElements.badgeOnOffToggle || !this.domElements.badgeOnOffLabel) {
-            return;
-        }
-        
-        if (this.state.updateBadgeOnOff) {
-            this.domElements.badgeOnOffToggle.classList.add('active');
-        } else {
-            this.domElements.badgeOnOffToggle.classList.remove('active');
-        }
-
-        if (!this.state.isEnabled) {
-            this.domElements.badgeOnOffLabel.textContent = this.state.updateBadgeOnOff ? 
-                'Badge: (Inactive)' : 
-                'Badge: Off';
-        } else {
-            this.domElements.badgeOnOffLabel.textContent = this.state.updateBadgeOnOff ?
-                'Badge: On' :
-                'Badge: Off';
-        }
-    }
-
-    updateHistoryApiToggleUI() {
-        if (!this.domElements.historyApiToggle || !this.domElements.historyApiLabel) {
-            return;
-        }
-        
-        if (this.state.historyApiProtection) {
-            this.domElements.historyApiToggle.classList.add('active');
-        } else {
-            this.domElements.historyApiToggle.classList.remove('active');
-        }
-
-        if (!this.state.isEnabled) {
-            this.domElements.historyApiLabel.textContent = this.state.historyApiProtection ? 
-                'History API Protection: (Inactive)' : 
-                'History API Protection: Off';
-        } else {
-            this.domElements.historyApiLabel.textContent = this.state.historyApiProtection ?
-                'History API Protection: On' : 
-                'History API Protection: Off';
-        }
-    }
-
-    updateHyperlinkAuditingToggleUI() {
-        if (!this.domElements.hyperlinkAuditingToggle || !this.domElements.hyperlinkAuditingLabel) {
-            return;
-        }
-        
-        if (this.state.blockHyperlinkAuditing) {
-            this.domElements.hyperlinkAuditingToggle.classList.add('active');
-        } else {
-            this.domElements.hyperlinkAuditingToggle.classList.remove('active');
-        }
-
-        if (!this.state.isEnabled) {
-            this.domElements.hyperlinkAuditingLabel.textContent = this.state.blockHyperlinkAuditing ?
-                'Block Hyperlink Auditing: (Inactive)' :
-                'Block Hyperlink Auditing: Off';
-        } else {
-            this.domElements.hyperlinkAuditingLabel.textContent = this.state.blockHyperlinkAuditing ?
-                'Block Hyperlink Auditing: On' :
-                'Block Hyperlink Auditing: Off';
-        }
-    }
-
     renderWhitelist(searchTerm = '') {
         if (!this.domElements.whitelistContainer) return;
 
@@ -483,23 +641,520 @@ class OptionsMenuController {
             const item = document.createElement('div');
             item.className = 'domain-item';
 
+            const header = document.createElement('div');
+            header.className = 'domain-header';
+
             const text = document.createElement('span');
-            text.textContent = domain;
+            text.className = 'domain-text';
+            text.textContent = punycode.toASCII(domain);
+
+            const controls = document.createElement('div');
+            controls.className = 'rule-controls';
 
             const removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-rule-btn';
             removeBtn.textContent = 'Remove';
             removeBtn.onclick = () => this.handleWhitelistChange(domain, false);
 
-            item.appendChild(text);
-            item.appendChild(removeBtn);
+            controls.appendChild(removeBtn);
+            header.appendChild(text);
+            header.appendChild(controls);
+            item.appendChild(header);
             container.appendChild(item);
         });
+    }
+
+    async handleAddCustomRule() {
+        const domain = this.domElements.ruleDomainInput?.value.trim().toLowerCase();
+        const param = this.domElements.ruleParamInput?.value.trim();
+        
+        if (!domain || !param) return;
+        
+        const domainRegex = /^[a-z0-9\u00A1-\uFFFF]+([\-\.]{1}[a-z0-9\u00A1-\uFFFF]+)*\.[a-z\u00A1-\uFFFF]{2,}$/;
+        if (!domainRegex.test(domain)) {
+            alert('Please enter a valid domain (e.g., example.com)');
+            return;
+        }
+        
+        try {
+            const unicodeDomain = punycode.toUnicode(domain);
+            // Store expanded states before updating
+            const expandedStates = this.getExpandedStates();
+            
+            await chrome.runtime.sendMessage({
+                action: 'addCustomRule',
+                domain: unicodeDomain,
+                param
+            });
+            
+            this.domElements.ruleDomainInput.value = '';
+            this.domElements.ruleParamInput.value = '';
+            
+            const { customRules = [] } = await chrome.storage.local.get('customRules');
+            this.state.customRules = customRules;
+            
+            // Restore expanded states after rendering
+            this.renderCustomRules();
+            this.restoreExpandedStates(expandedStates);
+        } catch (error) {
+            alert(error.message || 'Failed to add custom rule');
+            console.error('Failed to add custom rule:', error);
+        }
+    }
+
+    async handleRemoveCustomRule(domain) {
+        try {
+            const unicodeDomain = punycode.toUnicode(domain);
+            await chrome.runtime.sendMessage({
+                action: 'removeCustomRule',
+                domain: unicodeDomain
+            });
+            
+            const { customRules = [] } = await chrome.storage.local.get('customRules');
+            this.state.customRules = customRules;
+            this.renderCustomRules();
+        } catch (error) {
+            console.error('Failed to remove custom rule:', error);
+        }
+    }
+
+    renderCustomRules(searchTerm = '') {
+        if (!this.domElements.rulesContainer) return;
+
+        const container = this.domElements.rulesContainer;
+        container.innerHTML = '';
+
+        const filteredRules = searchTerm
+            ? this.state.customRules.filter(rule =>
+                rule.domain.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                (Array.isArray(rule.params) 
+                    ? rule.params.some(p => p.toLowerCase().includes(searchTerm.toLowerCase()))
+                    : (rule.param && rule.param.toLowerCase().includes(searchTerm.toLowerCase())))
+            )
+            : this.state.customRules;
+
+        if (filteredRules.length === 0) {
+            const noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.textContent = searchTerm
+                ? `No rules found matching "${searchTerm}"`
+                : 'No custom rules defined';
+            container.appendChild(noResults);
+            return;
+        }
+
+        filteredRules.forEach(rule => {
+            const item = document.createElement('div');
+            item.className = 'domain-item';
+
+            const header = document.createElement('div');
+            header.className = 'domain-header';
+
+            const leftSection = document.createElement('div');
+            leftSection.className = 'domain-left';
+
+            const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            arrow.setAttribute('viewBox', '0 0 24 24');
+            arrow.setAttribute('width', '24');
+            arrow.setAttribute('height', '24');
+            arrow.setAttribute('class', 'dropdown-arrow');
+            arrow.innerHTML = `<path fill="currentColor" d="M7 10l5 5 5-5H7z"/>`;
+
+            const domainText = document.createElement('span');
+            domainText.className = 'domain-text';
+            domainText.textContent = punycode.toASCII(rule.domain);
+
+            leftSection.appendChild(arrow);
+            leftSection.appendChild(domainText);
+
+            const ruleControls = document.createElement('div');
+            ruleControls.className = 'rule-controls';
+
+            const addParamBtn = document.createElement('button');
+            addParamBtn.className = 'add-param-btn';
+            addParamBtn.innerHTML = '+';
+            addParamBtn.title = 'Add parameter';
+            addParamBtn.onclick = (e) => {
+                e.stopPropagation();
+                this.addParameter(rule.domain);
+            };
+
+            const removeRuleBtn = document.createElement('button');
+            removeRuleBtn.className = 'remove-rule-btn';
+            removeRuleBtn.textContent = 'Remove Rule';
+            removeRuleBtn.onclick = (e) => {
+                e.stopPropagation();
+                this.handleRemoveCustomRule(rule.domain);
+            };
+
+            ruleControls.appendChild(addParamBtn);
+            ruleControls.appendChild(removeRuleBtn);
+
+            header.appendChild(leftSection);
+            header.appendChild(ruleControls);
+
+            const content = document.createElement('div');
+            content.className = 'domain-content';
+
+            const paramsContainer = document.createElement('div');
+            paramsContainer.className = 'params-container';
+
+            const params = rule.params || [rule.param];
+            params.forEach(param => {
+                const paramTag = document.createElement('div');
+                paramTag.className = 'param-tag';
+
+                const paramText = document.createElement('span');
+                paramText.textContent = param;
+
+                const paramControls = document.createElement('div');
+                paramControls.className = 'param-controls';
+
+                const editBtn = document.createElement('button');
+                editBtn.className = 'edit-param-btn';
+                editBtn.textContent = 'Edit'; // Changed from '✎' to 'Edit'
+                editBtn.title = 'Edit parameter';
+                editBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    this.editParameter(rule.domain, param, paramTag);
+                };
+
+                const removeParamBtn = document.createElement('button');
+                removeParamBtn.className = 'edit-param-btn';
+                removeParamBtn.textContent = 'Remove'; // Changed from '×' to 'Remove'
+                removeParamBtn.title = 'Remove parameter';
+                removeParamBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    this.removeParameter(rule.domain, param);
+                };
+
+                paramControls.appendChild(editBtn);
+                paramControls.appendChild(removeParamBtn);
+
+                paramTag.appendChild(paramText);
+                paramTag.appendChild(paramControls);
+                paramsContainer.appendChild(paramTag);
+            });
+
+            content.appendChild(paramsContainer);
+            item.appendChild(header);
+            item.appendChild(content);
+
+            // Add click handler for dropdown
+            item.addEventListener('click', (e) => {
+                if (!e.target.closest('.edit-param-btn') && 
+                    !e.target.closest('.remove-rule-btn') && 
+                    !e.target.closest('.add-param-btn')) {
+                    content.classList.toggle('expanded');
+                    if (content.classList.contains('expanded')) {
+                        arrow.setAttribute('class', 'dropdown-arrow expanded');
+                    } else {
+                        arrow.setAttribute('class', 'dropdown-arrow');
+                    }
+                }
+            });
+
+            container.appendChild(item);
+        });
+    }
+
+    async editParameter(domain, oldParam, paramTag) {
+        const paramText = paramTag.querySelector('span');
+        if (!paramText) return; // Guard against missing span element
+    
+        const inputContainer = document.createElement('div');
+        inputContainer.className = 'param-edit-container';
+    
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'param-edit-input';
+        input.value = oldParam;
+    
+        const confirmBtn = document.createElement('button');
+        confirmBtn.className = 'confirm-btn';
+        confirmBtn.textContent = 'Confirm';
+    
+        const cancelBtn = document.createElement('button');
+        cancelBtn.className = 'cancel-btn';
+        cancelBtn.textContent = 'Cancel';
+    
+        inputContainer.appendChild(input);
+        inputContainer.appendChild(confirmBtn);
+        inputContainer.appendChild(cancelBtn);
+    
+        // Add gap between buttons
+        confirmBtn.style.marginRight = '8px';
+    
+        const handleEdit = async () => {
+            const newParam = input.value.trim();
+            if (newParam && newParam !== oldParam) {
+                try {
+                    const expandedStates = this.getExpandedStates();
+                    
+                    await chrome.runtime.sendMessage({
+                        action: 'editCustomRuleParam',
+                        domain,
+                        oldParam,
+                        newParam
+                    });
+                    
+                    const { customRules = [] } = await chrome.storage.local.get('customRules');
+                    this.state.customRules = customRules;
+                    this.renderCustomRules();
+                    this.restoreExpandedStates(expandedStates);
+                } catch (error) {
+                    alert(error.message || 'Failed to edit parameter');
+                }
+            } else {
+                handleCancel();
+            }
+            inputContainer.remove();
+        };
+    
+        const handleCancel = () => {
+            if (inputContainer.parentNode) {
+                inputContainer.parentNode.replaceChild(paramText, inputContainer);
+            }
+        };
+    
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleEdit();
+            }
+        });
+    
+        confirmBtn.addEventListener('click', handleEdit);
+        cancelBtn.addEventListener('click', handleCancel);
+    
+        // Replace the text with input
+        if (paramText.parentNode) {
+            paramText.parentNode.replaceChild(inputContainer, paramText);
+            input.focus();
+            input.select();
+        }
+    
+        // Prevent dropdown from collapsing when input or buttons are clicked
+        inputContainer.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
+    
+    async addParameter(domain) {
+        const inputContainer = document.createElement('div');
+        inputContainer.className = 'param-edit-container';
+    
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'param-edit-input new-param';
+        input.placeholder = 'New parameter';
+    
+        const confirmBtn = document.createElement('button');
+        confirmBtn.className = 'confirm-btn';
+        confirmBtn.textContent = 'Confirm';
+    
+        const cancelBtn = document.createElement('button');
+        cancelBtn.className = 'cancel-btn';
+        cancelBtn.textContent = 'Cancel';
+    
+        inputContainer.appendChild(input);
+        inputContainer.appendChild(confirmBtn);
+        inputContainer.appendChild(cancelBtn);
+    
+        // Add gap between buttons
+        confirmBtn.style.marginRight = '8px';
+    
+        const handleAdd = async () => {
+            const param = input.value.trim();
+            if (param) {
+                try {
+                    const expandedStates = this.getExpandedStates();
+                    
+                    await chrome.runtime.sendMessage({
+                        action: 'addCustomRuleParam',
+                        domain,
+                        param
+                    });
+                    
+                    const { customRules = [] } = await chrome.storage.local.get('customRules');
+                    this.state.customRules = customRules;
+                    this.renderCustomRules();
+                    this.restoreExpandedStates(expandedStates);
+                } catch (error) {
+                    alert(error.message || 'Failed to add parameter');
+                }
+            } else {
+                handleCancel();
+            }
+            inputContainer.remove();
+        };
+    
+        const handleCancel = () => {
+            if (inputContainer.parentNode) {
+                inputContainer.remove();
+            }
+        };
+    
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleAdd();
+            }
+        });
+    
+        confirmBtn.addEventListener('click', handleAdd);
+        cancelBtn.addEventListener('click', handleCancel);
+    
+        // Prevent dropdown from collapsing when input or buttons are clicked
+        inputContainer.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    
+        // Find the correct container by looking up from the clicked button
+        const domainItem = document.querySelector(`.domain-item:has([data-domain="${domain}"])`);
+        if (!domainItem) {
+            // Fallback to finding domain item by text content
+            const allDomainItems = document.querySelectorAll('.domain-item');
+            for (const item of allDomainItems) {
+                if (item.querySelector('.domain-text')?.textContent === domain) {
+                    const paramsContainer = item.querySelector('.params-container');
+                    if (paramsContainer) {
+                        paramsContainer.appendChild(inputContainer);
+                        input.focus();
+                        input.select();
+                        // Automatically expand the dropdown
+                        const content = item.querySelector('.domain-content');
+                        const arrow = item.querySelector('.dropdown-arrow');
+                        content?.classList.add('expanded');
+                        arrow?.setAttribute('class', 'dropdown-arrow expanded');
+                        return;
+                    }
+                }
+            }
+        } else {
+            const paramsContainer = domainItem.querySelector('.params-container');
+            if (paramsContainer) {
+                paramsContainer.appendChild(inputContainer);
+                input.focus();
+                input.select();
+                // Automatically expand the dropdown
+                const content = domainItem.querySelector('.domain-content');
+                const arrow = domainItem.querySelector('.dropdown-arrow');
+                content?.classList.add('expanded');
+                arrow?.setAttribute('class', 'dropdown-arrow expanded');
+                return;
+            }
+        }
+    
+        // If we get here, we couldn't find the container
+        console.error('Could not find params container for domain:', domain);
+    }
+    
+    async removeParameter(domain, param) {
+        if (confirm(`Remove parameter "${param}" from ${domain}?`)) {
+            try {
+                // Store expanded states before updating
+                const expandedStates = this.getExpandedStates();
+                
+                await chrome.runtime.sendMessage({
+                    action: 'removeCustomRuleParam',
+                    domain,
+                    param
+                });
+                
+                // Refresh and restore expanded states
+                const { customRules = [] } = await chrome.storage.local.get('customRules');
+                this.state.customRules = customRules;
+                this.renderCustomRules();
+                this.restoreExpandedStates(expandedStates);
+            } catch (error) {
+                alert(error.message || 'Failed to remove parameter');
+            }
+        }
     }
 
     async toggleHistoryApiProtection() {
         this.state.historyApiProtection = !this.state.historyApiProtection;
         await chrome.storage.local.set({ historyApiProtection: this.state.historyApiProtection });
         this.updateUI();
+    }
+
+    // Add these new helper methods
+    getExpandedStates() {
+        const states = new Map();
+        document.querySelectorAll('.domain-item').forEach(item => {
+            const domain = item.querySelector('.domain-text')?.textContent;
+            const isExpanded = item.querySelector('.domain-content.expanded') !== null;
+            if (domain) {
+                states.set(domain, isExpanded);
+            }
+        });
+        return states;
+    }
+
+    restoreExpandedStates(states) {
+        states.forEach((isExpanded, domain) => {
+            if (isExpanded) {
+                const domainItem = Array.from(document.querySelectorAll('.domain-item'))
+                    .find(item => item.querySelector('.domain-text')?.textContent === domain);
+                if (domainItem) {
+                    const content = domainItem.querySelector('.domain-content');
+                    const arrow = domainItem.querySelector('.dropdown-arrow');
+                    content?.classList.add('expanded');
+                    arrow?.setAttribute('class', 'dropdown-arrow expanded');
+                }
+            }
+        });
+    }
+
+    async updatedynamicurrentbutton() {
+        const domain = await this.getCurrentTabDomain();
+        if (!domain || !this.domElements.addCurrentButton) {
+            if (this.domElements.addCurrentButton) {
+                this.domElements.addCurrentButton.style.display = 'none';
+            }
+            return;
+        }
+        
+        const isWhitelisted = this.state.whitelist.includes(domain);
+        if (this.domElements.addCurrentButton) {
+            this.domElements.addCurrentButton.textContent = isWhitelisted ? 
+                `Remove ${punycode.toASCII(domain)} from Whitelist` : `Add ${punycode.toASCII(domain)} to Whitelist`;
+            this.domElements.addCurrentButton.style.display = 'block';
+        }
+    }
+
+    async updateDynamicWhitelistButton() {
+        const domain = await this.getCurrentTabDomain();
+        if (!domain || !this.domElements.dynamicWhitelistButton) {
+            if (this.domElements.dynamicWhitelistButton) {
+                this.domElements.dynamicWhitelistButton.style.display = 'none';
+            }
+            return;
+        }
+        
+        const isWhitelisted = this.state.whitelist.includes(domain);
+        if (this.domElements.dynamicWhitelistButton) {
+            this.domElements.dynamicWhitelistButton.textContent = isWhitelisted ? 
+                `Remove ${punycode.toASCII(domain)} from Whitelist` : `Add ${punycode.toASCII(domain)} to Whitelist`;
+            this.domElements.dynamicWhitelistButton.style.display = 'block';
+        }
+    }
+
+    setupNavigation() {
+        const tabs = document.querySelectorAll('.nav-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and sections
+                tabs.forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.section-content').forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                // Add active class to clicked tab and corresponding section
+                tab.classList.add('active');
+                const sectionId = `${tab.dataset.tab}Section`;
+                document.getElementById(sectionId)?.classList.add('active');
+            });
+        });
     }
 }
 
@@ -532,19 +1187,55 @@ document.addEventListener('DOMContentLoaded', () => {
         chrome.storage.local.set({ theme: newTheme });
     });
 });
-chrome.storage.onChanged.addListener((changes, namespace) => {
-    if (namespace === 'local' && changes.theme) {
-        document.documentElement.setAttribute('data-theme', changes.theme.newValue);
-    }
-});
+
+// Advanced tools button handler
 const advancedToolsBtn = document.getElementById('advancedTools');
 if (advancedToolsBtn) {
     advancedToolsBtn.addEventListener('click', () => {
-        // Open options.html in a new tab
         chrome.tabs.create({
             url: 'panel/cleanurls-tools.html'
         });
     });
 }
+chrome.storage.onChanged.addListener((changes, namespace) => {
+    if (namespace === 'local' && changes.theme) {
+        document.documentElement.setAttribute('data-theme', changes.theme.newValue);
+    }
+});
+document.getElementById('repoLinkButton')?.addEventListener('click', () => {
+    window.open('https://github.com/Linkumori/Linkumori-Extension/', '_blank');
+});
+
+document.getElementById('clipboardHelperButton')?.addEventListener('click', () => {
+    window.open('https://github.com/mdn/webextensions-examples/blob/main/context-menu-copy-link-with-types/clipboard-helper.js', '_blank');
+});
+document.getElementById('adguardSourceButton')?.addEventListener('click', () => {
+    window.open('https://github.com/AdguardTeam/AdguardFilters/blob/master/TrackParamFilter/sections/specific.txt', '_blank');
+});
+
+document.getElementById('fontAwesomeIconButton')?.addEventListener('click', () => {
+    window.open('https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23ffffff&sc=%23FFD43B%2F', '_blank');
+});
+document.getElementById('fontAwesomeIconButton1')?.addEventListener('click', () => {
+    window.open('https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23334155&sc=%23FFD43B%2F', '_blank');
+});
+document.getElementById('cog-dark.svg')?.addEventListener('click', () => {
+    window.open('https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23ffffff&sc=%23ffffff', '_blank');
+});
+
+document.getElementById('cog-light.svg')?.addEventListener('click', () => {
+    window.open('https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23334155&sc=%23334155', '_blank');
+});
+document.getElementById('sun.svg')?.addEventListener('click', () => {
+    window.open('https://github.com/feathericons/feather/blob/main/icons/sun.svg', '_blank');
+});
+document.getElementById('moon.svg')?.addEventListener('click', () => {
+    window.open('https://github.com/feathericons/feather/blob/main/icons/moon.svg', '_blank');
+});
+
+
+
+
+
 // Initialize the controller
 const controller = new OptionsMenuController();

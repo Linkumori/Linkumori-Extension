@@ -1,5 +1,6 @@
 /*
-Linkumori(URLs Purifier)
+   SPDX-License-Identifier: GPL-3.0-or-later
+
 Copyright (C) 2024 Subham Mahesh
 
 This program is free software: you can redistribute it and/or modify
@@ -13,12 +14,12 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*
-* 
+along with this program.  If not, see <http://www.gnu.org/licenses/>..
+
 */
 import { readPurifyUrlsSettings, setDefaultSettings } from '../common/utils.js';
 import { defaultSettings, SETTINGS_KEY, CANT_FIND_SETTINGS_MSG } from '../common/constants.js';
+import punycode from '../lib/punycode.js';
 
 class PanelMenuController {
     constructor() {
@@ -387,7 +388,7 @@ class PanelMenuController {
             }
             
             const url = new URL(tab.url);
-            return url.hostname.toLowerCase();
+            return punycode.toUnicode(url.hostname.toLowerCase());
         } catch (error) {
             console.error('Failed to get current tab domain:', error);
             return null;
@@ -406,7 +407,7 @@ class PanelMenuController {
         const isWhitelisted = this.state.whitelist.includes(domain);
         if (this.domElements.addCurrentButton) {
             this.domElements.addCurrentButton.textContent = isWhitelisted ? 
-                `Remove ${domain} from Whitelist` : `Add ${domain} to Whitelist`;
+                `Remove ${punycode.toASCII(domain)} from Whitelist` : `Add ${punycode.toASCII(domain)} to Whitelist`;
             this.domElements.addCurrentButton.style.display = 'block';
         }
     }
@@ -416,15 +417,16 @@ class PanelMenuController {
         
         if (!domain) return;
         
-        const domainRegex = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,}$/;
+        const domainRegex = /^[a-z0-9\u00A1-\uFFFF]+([\-\.]{1}[a-z0-9\u00A1-\uFFFF]+)*\.[a-z\u00A1-\uFFFF]{2,}$/;
         if (!domainRegex.test(domain)) {
             alert('Please enter a valid domain (e.g., example.com)');
             return;
         }
         
         try {
-            if (!this.state.whitelist.includes(domain)) {
-                await this.handleWhitelistChange(domain, true);
+            const unicodeDomain = punycode.toUnicode(domain);
+            if (!this.state.whitelist.includes(unicodeDomain)) {
+                await this.handleWhitelistChange(unicodeDomain, true);
             } else {
                 alert('Domain is already in the whitelist');
             }
@@ -439,11 +441,12 @@ class PanelMenuController {
 
     async handleWhitelistChange(domain, shouldAdd) {
         try {
+            const unicodeDomain = punycode.toUnicode(domain);
             let newWhitelist;
             if (shouldAdd) {
-                newWhitelist = [...this.state.whitelist, domain];
+                newWhitelist = [...this.state.whitelist, unicodeDomain];
             } else {
-                newWhitelist = this.state.whitelist.filter(d => d !== domain);
+                newWhitelist = this.state.whitelist.filter(d => d !== unicodeDomain);
             }
             
             await chrome.storage.local.set({ whitelist: newWhitelist });
@@ -480,8 +483,10 @@ class PanelMenuController {
             return;
         }
 
-        const isWhitelisted = this.state.whitelist.includes(domain);
-        await this.handleWhitelistChange(domain, !isWhitelisted);
+        const unicodeDomain = punycode.toUnicode(domain);
+        const isWhitelisted = this.state.whitelist.includes(unicodeDomain);
+        await this.handleWhitelistChange(unicodeDomain, !isWhitelisted);
+        this.updateDynamicWhitelistButton();
     }
 
     async handlecurrentbutton() {
@@ -491,8 +496,10 @@ class PanelMenuController {
             return;
         }
 
-        const isWhitelisted = this.state.whitelist.includes(domain);
-        await this.handleWhitelistChange(domain, !isWhitelisted);
+        const unicodeDomain = punycode.toUnicode(domain);
+        const isWhitelisted = this.state.whitelist.includes(unicodeDomain);
+        await this.handleWhitelistChange(unicodeDomain, !isWhitelisted);
+        this.updatedynamicurrentbutton();
     }
     
     async updateDynamicWhitelistButton() {
@@ -507,7 +514,7 @@ class PanelMenuController {
         const isWhitelisted = this.state.whitelist.includes(domain);
         if (this.domElements.dynamicWhitelistButton) {
             this.domElements.dynamicWhitelistButton.textContent = isWhitelisted ? 
-                `Remove ${domain} from Whitelist` : `Add ${domain} to Whitelist`;
+                `Remove ${punycode.toASCII(domain)} from Whitelist` : `Add ${punycode.toASCII(domain)} to Whitelist`;
             this.domElements.dynamicWhitelistButton.style.display = 'block';
         }
     }
@@ -645,7 +652,7 @@ class PanelMenuController {
             item.className = 'domain-item';
             
             const text = document.createElement('span');
-            text.textContent = domain;
+            text.textContent = punycode.toASCII(domain);
             
             const removeBtn = document.createElement('button');
             removeBtn.textContent = 'Remove';

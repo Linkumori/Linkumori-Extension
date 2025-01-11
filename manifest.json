@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Linkumori (URLs Cleaner)",
   "version": "105.0",
-  "description": "Clean tracking query parameters from URLs",
+  "description": "Clean tracking query parameters from URLs and prevent URL encoding",
   
   "icons": {
     "48": "icons/default/icon48.png",
@@ -30,12 +30,44 @@
     "scripting",
     "alarms",
     "unlimitedStorage",
-    "contextMenus"
+    "contextMenus",
+    "webNavigation"
   ],
   
   "host_permissions": [
     "http://*/*",
     "https://*/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.amazon.com/*",
+        "*://*.amazon.co.uk/*",
+        "*://*.amazon.de/*",
+        "*://*.amazon.fr/*",
+        "*://*.amazon.ca/*",
+        "*://*.amazon.jp/*",
+        "*://*.amazon.in/*",
+        "*://*.amazon.com.au/*"
+      ],
+      "js": ["lib/amazon-url-prevention.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["lib/amazon-url-prevention.js"],
+      "matches": [
+        "*://*.amazon.com/*",
+        "*://*.amazon.co.uk/*",
+        "*://*.amazon.de/*",
+        "*://*.amazon.fr/*",
+        "*://*.amazon.ca/*",
+        "*://*.amazon.jp/*",
+        "*://*.amazon.in/*",
+        "*://*.amazon.com.au/*"
+      ]
+    }
   ],
   "options_ui": {
     "page": "panel/option.html",
@@ -82,10 +114,51 @@
         "id": "ruleset_8",
         "enabled": true,
         "path": "rules/rules8.json"
-      },{
+      },
+      {
         "id": "ruleset_9",
         "enabled": true,
         "path": "rules/rules9.json"
+      },
+      {
+        "id": "ruleset_10",
+        "enabled": true,
+        "path": "rules/rules10.json"
+      },
+      {
+        "id": "ruleset_11",
+        "enabled": true,
+        "path": "rules/rules11.json"
+      },
+      {
+        "id": "ruleset_12",
+        "enabled": true,
+        "path": "rules/rules12.json"
+      },
+      {
+        "id": "ruleset_13",
+        "enabled": true,
+        "path": "rules/rules13.json"
+      },
+      {
+        "id": "ruleset_14",
+        "enabled": true,
+        "path": "rules/rules14.json"
+      },
+      {
+        "id": "ruleset_15",
+        "enabled": true,
+        "path": "rules/rules15.json"
+      },
+      {
+        "id": "ruleset_16",
+        "enabled": true,
+        "path": "rules/rules16.json"
+      },
+      {
+        "id": "ruleset_17",
+        "enabled": true,
+        "path": "rules/rules17.json"
       }
     ]
   }

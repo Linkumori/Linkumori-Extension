@@ -66,7 +66,36 @@ All previous files have been replaced with a new set of consolidated rule files 
 - Original tracking parameter filter lists: © AdGuard Software Ltd.
 - Independent URL parameter cleaning rules and conversions: © Subham Mahesh 2024
 
+Fifth Modification - Rule System Expansion
+Modified by Subham Mahesh in January 9, 2025, 23:54 IST
+Overview
+This modification expands the rule system by introducing new rule files and reorganizing the existing structure to better separate independently developed rules from converted rules.
+Previous Structure
+The files contained consolidated rules in rules1.json through rules6.json, which included both:
 
+Declarative NetRequest static rules converted from AdGuard's MV2 filter lists
+Independent URL parameter cleaning rules developed by Subham Mahesh
+
+New Structure
+The rule system has been expanded and reorganized to provide both mixed-content files and dedicated independent rule files:
+
+Mixed-content files containing:
+
+Declarative NetRequest static rules converted by Subham Mahesh from AdGuard's MV2 extension filter lists (originally developed by AdGuard Software Ltd.)
+Independent URL parameter cleaning rules developed by Subham Mahesh
+
+
+Dedicated files containing only independently developed rules by Subham Mahesh
+
+File Changes
+Added Files
+
+Mixed-content files: rules1.json through rules15.json (containing both converted AdGuard rules and independent rules)
+
+Attribution
+
+Original tracking parameter filter lists: © AdGuard Software Ltd.
+Independent URL parameter cleaning rules and conversions: © Subham Mahesh 2024
 
 ## License Information
 This work is licensed under the GNU General Public License version 3 (GPLv3) only

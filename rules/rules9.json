@@ -1,44 +1,7 @@
 [
-  {
-    "id": 1,
-    "priority": 1,
-    "action": {
-      "type": "redirect",
-      "redirect": {
-        "regexSubstitution": "\\1"
-      }
-    },
-    "condition": {
-      "regexFilter": "^https?:\\/\\/(?:[a-z0-9-]+\\.)*google(?:\\.[a-z]{2,}){1,}\\/url\\?.*?(?:url|q)=(https?[^&]+)",
-      "resourceTypes": ["main_frame", "sub_frame"]
-    }
-  },
-  {
-    "id": 2,
-    "priority": 1,
-    "action": {
-      "type": "redirect",
-      "redirect": {
-        "regexSubstitution": "\\1"
-      }
-    },
-    "condition": {
-      "regexFilter": "^https?:\\/\\/(?:[a-z0-9-]+\\.)*google(?:\\.[a-z]{2,}){1,}\\/.*?adurl=([^&]+)",
-      "resourceTypes": ["main_frame", "sub_frame"]
-    }
-  },
-  {
-    "id": 3,
-    "priority": 1,
-    "action": {
-      "type": "redirect",
-      "redirect": {
-        "regexSubstitution": "\\1"
-      }
-    },
-    "condition": {
-      "regexFilter": "^https?:\\/\\/(?:[a-z0-9-]+\\.)*google(?:\\.[a-z]{2,}){1,}\\/amp\\/s\\/([^&]+)",
-      "resourceTypes": ["main_frame", "sub_frame"]
-    }
-  }
-]
+  {"id":1,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*google(?:\\.[a-z]{2,}){1,}\\/url\\?(?:[^&]*&)*(?:url|q)=(https?:\\/\\/[^&]+)","resourceTypes":["main_frame","sub_frame"]}},
+  {"id":2,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*google(?:\\.[a-z]{2,}){1,}/.*?adurl=(https?:\\/\\/[^&]+)","resourceTypes":["main_frame","sub_frame"]}},
+  {"id":3,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*google(?:\\.[a-z]{2,}){1,}\\/amp\\/s/(https?:\\/\\/[^&]+)","resourceTypes":["main_frame","sub_frame"]}},
+  {"id":4,"priority":1,"action":{"type":"redirect","redirect":{"transform":{"queryTransform":{"removeParams":["publish_id","sp_atk","xptdk"]}}}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?shopee\\.(com|co\\.th)","resourceTypes":["sub_frame","main_frame","xmlhttprequest"]}}
+  ]
+  

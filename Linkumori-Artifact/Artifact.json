@@ -136,6 +136,46 @@
         "PC",
         "form"
       ]
-}
+},
+"amazon":{
+"urlPattern": "^https?:\\/\\/(?:[a-z0-9-]+\\.)*?amazon(?:\\.[a-z]{2,}){1,}",
+            "param": [
+                "p[fd]_rd_[a-z]*",
+                "qid",
+                "srs?",
+                "ref",
+                "__mk_[a-z]{1,3}_[a-z]{1,3}",
+                "spIA",
+                "ms3_c",
+                "[a-z%0-9]*ie",
+                "refRID",
+                "colii?d",
+                "[^a-z%0-9]adId",
+                "qualifier",
+                "_encoding",
+                "smid",
+                "field-lbr_brands_browse-bin",
+                "ref_?",
+                "th",
+                "sprefix",
+                "crid",
+                "keywords",
+                "cv_ct_[a-z]+",
+                "linkCode",
+                "creativeASIN",
+                "ascsubtag",
+                "aaxitk",
+                "hsa_cr_id",
+                "sb-ci-[a-z]+",
+                "rnid",
+                "dchild",
+                "camp",
+                "creative",
+                "s",
+                "content-id",
+                "dib",
+                "dib_tag"
+            ]
+  }
   }
 }

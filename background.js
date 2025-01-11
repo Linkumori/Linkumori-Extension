@@ -1,5 +1,8 @@
-/*
-Linkumori (URLs Purifier) Extension for chromium based browsers
+/***********************************************************************************************
+ * Linkumori (URLs Purifier) Extension - Background Service Worker
+ * ------------------------------------------------------------
+   SPDX-License-Identifier: GPL-3.0-or-later
+
 Copyright (C) 2024 Subham Mahesh
 
 This program is free software: you can redistribute it and/or modify
@@ -13,21 +16,26 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*
-* Based on:
-*   ERASER
-*   <https://github.com/Psychosynthesis/Eraser/blob/main/src/chrome/background.js>
-*   Copyright (c) 2022 Nick
-    MIT License:
-*   You should have received a copy of the MIT License
-*  If not <https://github.com/subham8907/Linkumori/blob/main/LICENSE-MAIN>
+along with this program.  If not, see <http://www.gnu.org/licenses/>..
 
-*/
+
+* Based on: ERASER project script :https://github.com/Psychosynthesis/Eraser/blob/main/src/chrome/background.js
+* Copyright (c) 2022 Nick
+ MIT License:
+ license: MIT
+ SPDX-License-Identifier: MIT
+
+*
+ ***********************************************************************************************/
+
 // ===== Linkumori Engine Start =====//
 import { readPurifyUrlsSettings, setDefaultSettings } from './common/utils.js';
 import { defaultSettings, SETTINGS_KEY, CANT_FIND_SETTINGS_MSG } from './common/constants.js';
 import { parameterRules,urlPatternRules  } from './common/rules.js';
+import punycode from './lib/punycode.js';
+
+
+
 
 let hasStarted = false;
 
@@ -170,6 +178,7 @@ chrome.runtime.onInstalled.addListener(async () => {
   badge(badgesettings);
   updateHyperlinkAuditing(updatesettings);
   updateExtensionIcon(currentTheme);
+  updateAllDNRRules(settings.status);
 });
 
 
@@ -180,7 +189,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 
 
 async function updateRuleSet(enabled) {
-  const allRulesets = ['ruleset_1', 'ruleset_2', 'ruleset_3', 'ruleset_4', 'ruleset_5', 'ruleset_6','ruleset_7','ruleset_8'];
+  const allRulesets = ['ruleset_1', 'ruleset_2', 'ruleset_3', 'ruleset_4', 'ruleset_5', 'ruleset_6', 'ruleset_7', 'ruleset_8', 'ruleset_9', 'ruleset_10', 'ruleset_11', 'ruleset_12', 'ruleset_13', 'ruleset_14', 'ruleset_15', 'ruleset_16', 'ruleset_17'];
 
   await chrome.declarativeNetRequest.updateEnabledRulesets({
     disableRulesetIds: enabled ? [] : allRulesets,
@@ -272,7 +281,7 @@ async function injectContentScript(tabId) {
 
     await chrome.scripting.executeScript({
       target: { tabId: tabId },
-      files: ['content.js']
+      files: ['./lib/Anti-history-api.js']
     });
   } catch (error) {
   }
@@ -311,6 +320,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse(settings);
         updateRuleSet(settings[SETTINGS_KEY].status);
         updateDNRRules(settings[SETTINGS_KEY].status);
+        updateAllDNRRules(settings[SETTINGS_KEY].status);
       }
     });
     return true; 
@@ -318,6 +328,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     updateRuleSet(message.enabled);
     updateDNRRules(message.enabled);
     badge(message.enabled);
+    updateAllDNRRules(message.enabled);
     chrome.storage.local.set({ [SETTINGS_KEY]: { status: message.enabled } });
     sendResponse({ success: true });
   } else if (message.action === "cleanUrl") {
@@ -330,6 +341,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         updateRuleSet(newStatus);
         updateDNRRules(newStatus);
         badge(newStatus);
+        updateAllDNRRules(newStatus);
         sendResponse({ status: newStatus ? "activated" : "deactivated" });
       });
     });
@@ -350,6 +362,45 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       badge();
       sendResponse({ success: true });
     });
+  } else if (message.action === 'editCustomRuleParam') {
+    editCustomRuleParam(message.domain, message.oldParam, message.newParam)
+      .then(rules => sendResponse({ success: true, rules }))
+      .catch(error => sendResponse({ success: false, error: error.message }));
+    return true;
+  } else if (message.action === 'removeCustomRuleParam') {
+    removeCustomRuleParam(message.domain, message.param)
+      .then(rules => sendResponse({ success: true, rules }))
+      .catch(error => sendResponse({ success: false, error: error.message }));
+    return true;
+  } else if (message.action === 'addCustomRuleParam') {
+    const { domain, param } = message;
+    chrome.storage.local.get('customRules', async ({ customRules = [] }) => {
+        const rule = customRules.find(r => r.domain === domain);
+        if (!rule) {
+            sendResponse({ error: 'Rule not found' });
+            return;
+        }
+
+        const params = rule.params || [rule.param];
+        if (params.includes(param)) {
+            sendResponse({ error: 'Parameter already exists' });
+            return;
+        }
+
+        const updatedRules = customRules.map(r =>
+            r.domain === domain
+                ? { domain, params: [...params, param] }
+                : r
+        );
+
+        await chrome.storage.local.set({ customRules: updatedRules });
+        const settings = await chrome.storage.local.get(SETTINGS_KEY);
+        if (settings[SETTINGS_KEY]?.status) {
+            await updateAllDNRRules(true);
+        }
+        sendResponse({ success: true });
+    });
+    return true;
   }
 
   return true; 
@@ -368,7 +419,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         // Get available rule count
         await new Promise((resolve) => {
           chrome.declarativeNetRequest.getAvailableStaticRuleCount((count) => {
-            console.log('Available static rule count:', count);
             resolve(count);
           });
         });
@@ -421,7 +471,6 @@ chrome.storage.onChanged.addListener(async (changes, area) => {
       // Get the available rule count first
       await new Promise((resolve) => {
         chrome.declarativeNetRequest.getAvailableStaticRuleCount((count) => {
-          console.log('Available static rule count:', count);
           resolve(count);
         });
       });
@@ -482,6 +531,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 });
 
 function createAllowRule(domain, ruleId) {
+  const punycodeDomain = punycode.toASCII(domain);
   return [{
     id: ruleId,
     priority: 1,
@@ -489,7 +539,7 @@ function createAllowRule(domain, ruleId) {
       type: "allow"
     },
     condition: {
-      requestDomains: [domain],
+      requestDomains: [punycodeDomain],
       resourceTypes: [
         "main_frame",
         "sub_frame",
@@ -505,7 +555,7 @@ function createAllowRule(domain, ruleId) {
       type: "allow"
     },
     condition: {
-      initiatorDomains: [domain],
+      initiatorDomains: [punycodeDomain],
       resourceTypes: [
         "main_frame",
         "sub_frame",
@@ -584,7 +634,6 @@ async function updateHyperlinkAuditing(enabled) {
     // Get available rule count first
     const count = await new Promise((resolve) => {
       chrome.declarativeNetRequest.getAvailableStaticRuleCount((count) => {
-        console.log('Available static rule count:', count);
         resolve(count);
       });
     });
@@ -717,7 +766,7 @@ async function handleContextMenuClick(info, tab) {
       if (!isFunction[0]?.result) {
           await chrome.scripting.executeScript({
               target: { tabId: tab.id },
-              files: ["clipboard-helper.js"]
+              files: ["./lib/clipboard-helper.js"]
           });
       }
 
@@ -808,3 +857,323 @@ chrome.runtime.onMessage.addListener((request) => {
   }
 });
 
+function isGoogleDomain(url) {
+  return /^https?:\/\/([a-zA-Z0-9-]+\.)*google\.(com|ad|ae|com\.af|com\.ag|com\.ai|al|am|co\.ao|com\.ar|as|at|com\.au|az|ba|com\.bd|be|bf|bg|com\.bh|bi|bj|com\.bn|com\.bo|com\.br|bs|bt|co\.bw|by|com\.bz|ca|cd|cf|cg|ch|ci|co\.ck|cl|cm|cn|com\.co|co\.cr|com\.cu|cv|com\.cy|cz|de|dj|dk|dm|com\.do|dz|com\.ec|ee|com\.eg|es|com\.et|fi|com\.fj|fm|fr|ga|ge|gg|com\.gh|com\.gi|gl|gm|gp|gr|com\.gt|gy|com\.hk|hn|hr|ht|hu|co\.id|ie|co\.il|im|co\.in|iq|is|it|je|com\.jm|jo|co\.jp|co\.ke|com\.kh|ki|kg|co\.kr|com\.kw|kz|la|com\.lb|li|lk|co\.ls|lt|lu|lv|com\.ly|co\.ma|md|me|mg|mk|ml|com\.mm|mn|ms|com\.mt|mu|mv|mw|com\.mx|com\.my|co\.mz|com\.na|com\.nf|com\.ng|com\.ni|ne|nl|no|com\.np|nr|nu|co\.nz|com\.om|com\.pa|com\.pe|com\.pg|com\.ph|com\.pk|pl|pn|com\.pr|ps|pt|com\.py|com\.qa|ro|ru|rw|com\.sa|com\.sb|sc|se|com\.sg|sh|si|sk|com\.sl|sn|so|sm|sr|st|com\.sv|td|tg|co\.th|com\.tj|tk|tl|tm|tn|to|com\.tr|tt|com\.tw|co\.tz|com\.ua|co\.ug|co\.uk|com\.uy|co\.uz|com\.vc|co\.ve|vg|co\.vi|com\.vn|vu|ws|rs|co\.za|co\.zm|co\.zw|cat)\/.*/i.test(url);
+}
+
+function isYandexDomain(url) {
+  return /^https?:\/\/([a-zA-Z0-9-]+\.)*(yandex\.ru|yandex\.com|ya\.ru)\/.*/i.test(url);
+}
+
+// Listen for tab updates
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.status === 'complete' && tab.url) {
+      if (isGoogleDomain(tab.url)) {
+          chrome.scripting.executeScript({
+              target: { tabId: tabId },
+              files: ['./lib/google-fix.js']
+          });
+      }
+      if (isYandexDomain(tab.url)) {
+          chrome.scripting.executeScript({
+              target: { tabId: tabId },
+              files: ['./lib/yandex-fix.js']
+          });
+      }
+  }
+});
+
+
+
+
+
+
+const CUSTOM_RULE_ID_START = 40000;
+
+
+
+
+async function saveCustomRule(domain, param) {
+  const punycodeDomain = punycode.toASCII(domain);
+  const { customRules: currentRules = [] } = await chrome.storage.local.get('customRules');
+  
+  // Find existing rule with same domain
+  const existingRule = currentRules.find(rule => rule.domain === punycodeDomain);
+  
+  let updatedRules;
+  if (existingRule) {
+    // If rule exists, check for duplicate param
+    const params = existingRule.params || [existingRule.param];
+    if (params.includes(param)) {
+      throw new Error('This parameter already exists for this domain');
+    }
+    
+    // Update existing rule with new param
+    updatedRules = currentRules.map(rule => 
+      rule.domain === punycodeDomain 
+        ? {
+            domain: punycodeDomain,
+            params: [...(rule.params || [rule.param]), param]
+          }
+        : rule
+    );
+  } else {
+    // Add new rule
+    updatedRules = [...currentRules, { domain: punycodeDomain, param }];
+  }
+  
+  await chrome.storage.local.set({ customRules: updatedRules });
+  
+  const settings = await chrome.storage.local.get(SETTINGS_KEY);
+  if (settings[SETTINGS_KEY]?.status) {
+    await updateAllDNRRules(true);
+  }
+  
+  return updatedRules;
+}
+
+async function removeCustomRule(domain) {
+  const punycodeDomain = punycode.toASCII(domain);
+  const { customRules: currentRules = [] } = await chrome.storage.local.get('customRules');
+  const updatedRules = currentRules.filter(rule => rule.domain !== punycodeDomain);
+  
+  await chrome.storage.local.set({ customRules: updatedRules });
+  
+  const settings = await chrome.storage.local.get(SETTINGS_KEY);
+  if (settings[SETTINGS_KEY]?.status) {
+    await updateAllDNRRules(true);
+  }
+  
+  return updatedRules;
+}
+
+async function updateAllDNRRules(enabled) {
+  try {
+    const existingRules = await chrome.declarativeNetRequest.getDynamicRules();
+    const existingRuleIds = existingRules.map(rule => rule.id);
+    
+    if (enabled) {
+      const { whitelist = [], customRules = [] } = await chrome.storage.local.get(['whitelist', 'customRules']);
+      
+      const whitelistRules = whitelist.flatMap((domain, index) => 
+        createAllowRule(domain, (index * 2) + RULE_ID_START)
+      );
+      
+      // Create parameter removal rules
+      const parameterRules = [];
+      let ruleId = CUSTOM_RULE_ID_START;
+      
+      customRules.forEach(rule => {
+        const params = rule.params || [rule.param];
+        parameterRules.push({
+          id: ruleId++,
+          priority: 2,
+          action: {
+            type: "redirect",
+            redirect: {
+              transform: {
+                queryTransform: {
+                  removeParams: params
+                }
+              }
+            }
+          },
+          condition: {
+            domains: [rule.domain],
+            resourceTypes: ["main_frame", "sub_frame","xmlhttprequest"]
+          }
+        });
+      });
+      
+      const allRules = [...whitelistRules, ...parameterRules];
+      
+      await chrome.declarativeNetRequest.updateDynamicRules({
+        removeRuleIds: existingRuleIds,
+        addRules: allRules
+      });
+    } else {
+      await chrome.declarativeNetRequest.updateDynamicRules({
+        removeRuleIds: existingRuleIds,
+        addRules: []
+      });
+    }
+  } catch (error) {
+    console.error('Error updating DNR rules:', error);
+  }
+}
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === 'addCustomRule') {
+    saveCustomRule(message.domain, message.param)
+      .then(rules => sendResponse({ success: true, rules }))
+      .catch(error => sendResponse({ success: false, error: error.message }));
+    return true;
+  }
+  
+  if (message.action === 'removeCustomRule') {
+    removeCustomRule(message.domain)
+      .then(rules => sendResponse({ success: true, rules }))
+      .catch(error => sendResponse({ success: false, error: error.message }));
+    return true;
+  }
+  
+  if (message.action === 'getCustomRules') {
+    chrome.storage.local.get('customRules', (result) => {
+      sendResponse({ rules: result.customRules || [] });
+    });
+    return true;
+  }
+});
+
+async function editCustomRuleParam(domain, oldParam, newParam) {
+  const punycodeDomain = punycode.toASCII(domain);
+  console.log(`Editing custom rule param for domain: ${domain} (Punycode: ${punycodeDomain}) from ${oldParam} to ${newParam}`);
+  const { customRules: currentRules = [] } = await chrome.storage.local.get('customRules');
+  
+  const rule = currentRules.find(r => r.domain === punycodeDomain);
+  if (!rule) {
+    throw new Error('Rule not found');
+  }
+
+  const params = rule.params || [rule.param];
+  const paramIndex = params.indexOf(oldParam);
+  if (paramIndex === -1) {
+    throw new Error('Parameter not found');
+  }
+
+  if (params.includes(newParam)) {
+    throw new Error('Parameter already exists');
+  }
+
+  params[paramIndex] = newParam;
+
+  const updatedRules = currentRules.map(r => 
+    r.domain === punycodeDomain 
+      ? { domain: punycodeDomain, params }
+      : r
+  );
+
+  await chrome.storage.local.set({ customRules: updatedRules });
+
+  const settings = await chrome.storage.local.get(SETTINGS_KEY);
+  if (settings[SETTINGS_KEY]?.status) {
+    await updateAllDNRRules(true);
+  }
+
+  return updatedRules;
+}
+
+async function removeCustomRuleParam(domain, param) {
+  const punycodeDomain = punycode.toASCII(domain);
+  const { customRules: currentRules = [] } = await chrome.storage.local.get('customRules');
+  
+  const rule = currentRules.find(r => r.domain === punycodeDomain);
+  if (!rule) {
+    throw new Error('Rule not found');
+  }
+
+  const params = rule.params || [rule.param];
+  if (params.length === 1) {
+    // If this is the last parameter, remove the entire rule
+    return removeCustomRule(domain);
+  }
+
+  const paramIndex = params.indexOf(param);
+  if (paramIndex === -1) {
+    throw new Error('Parameter not found');
+  }
+
+  params.splice(paramIndex, 1);
+
+  const updatedRules = currentRules.map(r => 
+    r.domain === punycodeDomain 
+      ? { domain: punycodeDomain, params }
+      : r
+  );
+
+  await chrome.storage.local.set({ customRules: updatedRules });
+
+  const settings = await chrome.storage.local.get(SETTINGS_KEY);
+  if (settings[SETTINGS_KEY]?.status) {
+    await updateAllDNRRules(true);
+  }
+
+  return updatedRules;
+}
+function extractRealUrl(url) {
+  try {
+      const parsedUrl = new URL(url);
+      
+      // Handle Google Ads URLs
+      if (parsedUrl.pathname === '/aclk') {
+          const adUrl = parsedUrl.searchParams.get('adurl');
+          if (adUrl) {
+              return decodeURIComponent(adUrl);
+          }
+      }
+
+      // Handle Google AMP URLs
+      if (parsedUrl.pathname.startsWith('/amp/')) {
+          const ampMatch = parsedUrl.pathname.match(/\/amp\/?s?\/(https?.+)/i);
+          if (ampMatch) {
+              return decodeURIComponent(ampMatch[1]);
+          }
+      }
+
+      // Handle standard Google redirects
+      if (parsedUrl.pathname === '/url') {
+          const redirectUrl = parsedUrl.searchParams.get('url') || 
+                            parsedUrl.searchParams.get('q');
+          if (redirectUrl) {
+              let decodedUrl = redirectUrl;
+              // Handle multiple levels of encoding
+              while (decodedUrl.includes('%')) {
+                  const prevUrl = decodedUrl;
+                  try {
+                      decodedUrl = decodeURIComponent(decodedUrl);
+                      if (decodedUrl === prevUrl) break;
+                  } catch {
+                      break;
+                  }
+              }
+              return decodedUrl.split('&')[0];
+          }
+      }
+  } catch (error) {
+      console.error('Error extracting real URL:', error);
+  }
+  return null;
+}
+
+// Handle navigation events
+chrome.webNavigation.onBeforeNavigate.addListener(
+  function(details) {
+      // Only handle main frame navigation
+      if (details.frameId !== 0) return;
+      
+      try {
+          const url = new URL(details.url);
+          
+          // Check if it's a Google domain
+          if (url.hostname.includes('google.')) {
+              const realUrl = extractRealUrl(details.url);
+              
+              if (realUrl) {
+                  // Cancel current navigation and redirect to real URL
+                  chrome.tabs.update(details.tabId, {
+                      url: realUrl
+                  });
+              }
+          }
+      } catch (error) {
+          console.error('Error in navigation handler:', error);
+      }
+  },
+  {
+      // Filter for Google URLs
+      url: [
+          { hostContains: 'google.' },
+      ]
+  }
+);
+// ===== Linkumori Engine Ends =====//
