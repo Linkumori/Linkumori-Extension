@@ -1565,7 +1565,7 @@ Each JSON file contains two types of Declarative NetRequest static rules:
 Converted rules from AdGuard's original filter lists
 rules that are independently developed by Subham Mahesh
 Modification Details
-For detailed information about modifications, including dates and specific changes to the original work, please refer to the rules/notice.txt file in the extension source code.
+For detailed information about modifications, including dates and specific changes to the original work, please refer to the rules/notice.md file in the extension source code.
 
 For more information about original work, please see the repository: https://github.com/AdguardTeam/AdguardFilters
 
