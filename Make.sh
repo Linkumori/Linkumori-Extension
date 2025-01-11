@@ -59,7 +59,7 @@ cat > "$BUILD_DIR/webstore/manifest.json" << EOL
     "unlimitedStorage",
     "contextMenus",
     "webNavigation",
-        "webRequest"
+    "webRequest"
 
   ],
   
@@ -233,7 +233,7 @@ cat > "$BUILD_DIR/selfhosted/manifest.json" << EOL
     "unlimitedStorage",
     "contextMenus",
     "webNavigation",
-        "webRequest"
+    "webRequest"
 
   ],
   
