@@ -796,6 +796,27 @@ blockquote {
     background: var(--button-danger);
     margin-top: 12px;
 }
+
+/* About section specific styles */
+#aboutSection {
+    color: var(--text-secondary);
+}
+
+#aboutSection p {
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+#aboutSection span {
+    font-weight: bold;
+}
+
+/* Adjust About tab size */
+.nav-tab[data-tab="about"] {
+    padding: 6px 12px;
+    font-size: 13px;
+}
     </style>
 </head>
 <body>
@@ -839,6 +860,7 @@ blockquote {
             <button class="nav-tab" data-tab="whitelist">Whitelist Management</button>
             <button class="nav-tab" data-tab="stats">Statistics</button>
             <button class="nav-tab" data-tab="license">License Information</button>
+            <button class="nav-tab" data-tab="about">About</button>
         </div>
 
         <!-- Settings Section -->
@@ -940,7 +962,7 @@ blockquote {
         </div>
 
         <!-- License Section -->
-                     <div id="licenseSection" class="section-content">
+        <div id="licenseSection" class="section-content">
 
             <div class="section">
                 <h2>Open Source License Compliance Notice</h2>
@@ -4259,9 +4281,30 @@ blockquote {
             &lt;<a href="https://www.gnu.org/licenses/why-not-lgpl.html" rel="noopener">https://www.gnu.org/licenses/why-not-lgpl.html</a>&gt;.</p>
             
             </body></html>
-            
+       
+                    
+                    </div>
+        </div>
+        <!-- About Section -->
+        <div id="aboutSection" class="section-content">
+            <div class="section">
+                <h2 class="section-title">About</h2>
+                <p class="text-secondary">This extension is maintained by Linkumori team.</p>
+                <p class="text-secondary"> <span id="aboutVersion">Loading...</span></p>
+                <p class="text-secondary">Version Source: <span id="aboutSource">Loading...</span></p>
+                <p class="text-secondary" id="aboutDetails"></p>
+                <p class="text-secondary">
+                    Official GitHub Repository: <a id="githubLink" href="#" target="_blank">https://github.com/Linkumori</a>
+                </p>
+                <p class="text-secondary">
+                    Official Site: <a id="officialSiteLink" href="#" target="_blank">https://linkumori.com/</a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+    
 <script type="module" src="option.js"></script>
 </body>
 </html>
 
-  

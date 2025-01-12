@@ -59,6 +59,7 @@ class OptionsMenuController {
 
         this.init();
         this.setupNavigation();
+        this.setupAboutSection();
     }
     async init() {
         if (document.readyState === 'loading') {
@@ -1187,6 +1188,43 @@ class OptionsMenuController {
                 document.getElementById(sectionId)?.classList.add('active');
             });
         });
+    }
+
+    async setupAboutSection() {
+        try {
+            const manifest = chrome.runtime.getManifest();
+            const updateUrl = manifest.update_url || '';
+            const aboutSourceSpan = document.getElementById('aboutSource');
+            const aboutDetailsSpan = document.getElementById('aboutDetails');
+            const versionSpan = document.getElementById('aboutVersion'); // Add this line
+            const githubLink = document.getElementById('githubLink'); // Add this line
+            const officialSiteLink = document.getElementById('officialSiteLink'); // Add this line
+
+            if (updateUrl.includes('github')) {
+                aboutSourceSpan.textContent = 'GitHub Version';
+                aboutDetailsSpan.textContent = 'This version is distributed via GitHub. It may include the latest features and updates directly from the repository.';
+            } else if (updateUrl.includes('google')) {
+                aboutSourceSpan.textContent = 'Chrome Web Store Version';
+                aboutDetailsSpan.textContent = 'This version is distributed via the Chrome Web Store. It is the stable version recommended for most users.';
+            } else {
+                aboutSourceSpan.textContent = 'Unknown Version';
+                aboutDetailsSpan.textContent = 'The source of this version could not be determined. Please check the extension settings or contact support for more information.';
+            }
+
+            if (versionSpan && manifest.version) { // Add this block
+                versionSpan.textContent = `Version ${manifest.version}`;
+            }
+
+            if (githubLink) { // Add this block
+                githubLink.href = 'https://github.com/Linkumori';
+            }
+
+            if (officialSiteLink) { // Add this block
+                officialSiteLink.href = 'https://linkumori.com/';
+            }
+        } catch (error) {
+            console.error('Failed to setup about section:', error);
+        }
     }
 }
 
