@@ -1159,10 +1159,6 @@ class OptionsMenuController {
             this.state.PreventGoogleandyandexscript = newStatus;
             this.updatePreventGoogleandyandexscriptToggleUI();
             
-            await chrome.runtime.sendMessage({
-                action: 'updatePreventGoogleandyandexscript',
-                enabled: newStatus
-            });
         } catch (error) {
             console.error('Failed to toggle Prevent Google and Yandex script:', error);
         }
