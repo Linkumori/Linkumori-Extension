@@ -458,7 +458,7 @@ class OptionsMenuController {
         } else {
             this.domElements.PreventGoogleandyandexscriptLabel.textContent = this.state.PreventGoogleandyandexscript ?
                 'Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached: On' :
-                '"Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached: Off';
+                'Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached: Off';
         }
     }
 
