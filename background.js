@@ -501,6 +501,19 @@ chrome.storage.onChanged.addListener(async (changes, area) => {
   }
 });
 
+chrome.storage.onChanged.addListener(async (changes, area) => {
+  if (area === 'local') {
+    if (changes.whitelist || changes[SETTINGS_KEY]) {
+      const tabs = await chrome.tabs.query({});
+      for (const tab of tabs) {
+        if (tab.url && (isGoogleDomain(tab.url) || isYandexDomain(tab.url))) {
+          chrome.tabs.reload(tab.id);
+        }
+      }
+    }
+  }
+});
+
 
 
 
