@@ -30,6 +30,7 @@ class OptionsMenuController {
             blockHyperlinkAuditing: false,
             whitelist: [],
             updateBadgeOnOff: false,
+            PreventGoogleandyandexscript: false,
             customRules: []
         };
 
@@ -48,7 +49,9 @@ class OptionsMenuController {
             badgeOnOffLabel: null,
             rulesContainer: null,
             ruleDomainInput: null,
-            ruleParamInput: null
+            ruleParamInput: null,
+            PreventGoogleandyandexscriptToggle: null,
+            PreventGoogleandyandexscriptLabel: null
         };
 
         this.exportWhitelist = this.exportWhitelist.bind(this);
@@ -96,6 +99,8 @@ class OptionsMenuController {
             historyApiLabel: document.querySelector('#newToggleButton .toggle-label'),
             hyperlinkAuditingToggle: document.querySelector('#blockHyperlinkAuditingToggle .toggle-switch'),
             hyperlinkAuditingLabel: document.querySelector('#blockHyperlinkAuditingToggle .toggle-label'),
+            PreventGoogleandyandexscriptToggle: document.querySelector('#blockPreventGoogleandyandexscriptToggle .toggle-switch'),
+            PreventGoogleandyandexscriptLabel: document.querySelector('#blockPreventGoogleandyandexscriptToggle .toggle-label'),
             whitelistContainer: document.getElementById('whitelistContainer'),
             domainInput: document.getElementById('domainInput'),
             searchInput: document.getElementById('searchDomain'),
@@ -131,6 +136,7 @@ class OptionsMenuController {
         document.getElementById('blockHyperlinkAuditingToggle')?.addEventListener('click', () => this.toggleHyperlinkAuditing());
         document.getElementById('updateBadgeOnOff')?.addEventListener('click', () => this.toggleBadgeOnOff());
         document.getElementById('addDomain')?.addEventListener('click', () => this.handleAddDomain());
+        document.getElementById('blockPreventGoogleandyandexscriptToggle')?.addEventListener('click', () => this.togglePreventGoogleandyandexscript());
         
         this.domElements.domainInput?.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
@@ -176,14 +182,16 @@ class OptionsMenuController {
                 historyApiProtection = false,
                 updateHyperlinkAuditing = false,
                 updateBadgeOnOff = false,
-                customRules = []
+                customRules = [],
+                PreventGoogleandyandexscript = false,
             } = await chrome.storage.local.get({
                 whitelist: [], 
                 enabled: false,
                 historyApiProtection: false,
                 updateHyperlinkAuditing: false,
                 updateBadgeOnOff: false,
-                customRules: []
+                customRules: [],
+                PreventGoogleandyandexscript: false
             });
 
             this.state = {
@@ -193,7 +201,8 @@ class OptionsMenuController {
                 blockHyperlinkAuditing: updateHyperlinkAuditing,
                 whitelist,
                 updateBadgeOnOff,
-                customRules
+                customRules,
+                PreventGoogleandyandexscript,
             };
 
             this.updateUI();
@@ -232,6 +241,11 @@ class OptionsMenuController {
         if (Object.hasOwn(changes, 'customRules')) {
             this.state.customRules = changes.customRules.newValue;
             this.renderCustomRules();
+        }
+
+        if (Object.hasOwn(changes, 'PreventGoogleandyandexscript')) {
+            this.state.PreventGoogleandyandexscript = changes.PreventGoogleandyandexscript.newValue;
+            this.updatePreventGoogleandyandexscriptToggleUI();
         }
     }
     async togglePurifyUrlsSettings() {
@@ -334,6 +348,7 @@ class OptionsMenuController {
         this.updateHistoryApiToggleUI();
         this.updateHyperlinkAuditingToggleUI();
         this.updateBadgeOnOffToggleUI();
+        this.updatePreventGoogleandyandexscriptToggleUI();
         this.renderWhitelist();
         this.renderCustomRules();
     }
@@ -424,6 +439,29 @@ class OptionsMenuController {
                 'Block Hyperlink Auditing: Off';
         }
     }
+
+    updatePreventGoogleandyandexscriptToggleUI() {
+        if (!this.domElements.PreventGoogleandyandexscriptToggle || !this.domElements.PreventGoogleandyandexscriptLabel) {
+            return;
+        }
+        
+        if (this.state.PreventGoogleandyandexscript) {
+            this.domElements.PreventGoogleandyandexscriptToggle.classList.add('active');
+        } else {
+            this.domElements.PreventGoogleandyandexscriptToggle.classList.remove('active');
+        }
+
+        if (!this.state.isEnabled) {
+            this.domElements.PreventGoogleandyandexscriptLabel.textContent = this.state.PreventGoogleandyandexscript ?
+                'Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached  : (Inactive)' :
+                'Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached: Off';
+        } else {
+            this.domElements.PreventGoogleandyandexscriptLabel.textContent = this.state.PreventGoogleandyandexscript ?
+                'Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached: On' :
+                '"Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached: Off';
+        }
+    }
+
     async handleAddDomain() {
         const domain = this.domElements.domainInput?.value.trim().toLowerCase();
         
@@ -1108,6 +1146,26 @@ class OptionsMenuController {
         this.state.historyApiProtection = !this.state.historyApiProtection;
         await chrome.storage.local.set({ historyApiProtection: this.state.historyApiProtection });
         this.updateUI();
+    }
+
+    async togglePreventGoogleandyandexscript() {
+        try {
+            const newStatus = !this.state.PreventGoogleandyandexscript;
+            
+            await chrome.storage.local.set({
+                PreventGoogleandyandexscript: newStatus
+            });
+            
+            this.state.PreventGoogleandyandexscript = newStatus;
+            this.updatePreventGoogleandyandexscriptToggleUI();
+            
+            await chrome.runtime.sendMessage({
+                action: 'updatePreventGoogleandyandexscript',
+                enabled: newStatus
+            });
+        } catch (error) {
+            console.error('Failed to toggle Prevent Google and Yandex script:', error);
+        }
     }
 
     // Add these new helper methods

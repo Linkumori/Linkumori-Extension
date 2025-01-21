@@ -503,7 +503,7 @@ chrome.storage.onChanged.addListener(async (changes, area) => {
 
 chrome.storage.onChanged.addListener(async (changes, area) => {
   if (area === 'local') {
-    if (changes.whitelist || changes[SETTINGS_KEY]) {
+    if (changes.whitelist || changes[SETTINGS_KEY] || changes.PreventGoogleandyandexscript) {
       const tabs = await chrome.tabs.query({});
       for (const tab of tabs) {
         if (tab.url && (isGoogleDomain(tab.url) || isYandexDomain(tab.url))) {
@@ -891,7 +891,10 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   if (!settings || !settings.status) {
     return;
   }
-
+  const { PreventGoogleandyandexscript } = await chrome.storage.local.get('PreventGoogleandyandexscript');
+  if (!PreventGoogleandyandexscript) {
+    return; 
+  }
   // Retrieve whitelist
   const { whitelist } = await chrome.storage.local.get('whitelist');
 
