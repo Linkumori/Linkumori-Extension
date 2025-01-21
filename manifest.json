@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Linkumori (URLs Cleaner)",
-  "version": "109.0",
+  "version": "110.0",
   "description": "Clean tracking query parameters from URLs and prevent URL encoding",
 
   "icons": {
