@@ -866,22 +866,46 @@ function isYandexDomain(url) {
 }
 
 // Listen for tab updates
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+  // Wait for settings from local storage
+  const settings = await new Promise((resolve) => {
+    chrome.storage.local.get(SETTINGS_KEY, (result) => {
+      resolve(result[SETTINGS_KEY]);
+    });
+  });
+
+  // If settings are not found or status is off, return
+  if (!settings || !settings.status) {
+    return;
+  }
+
+  // Retrieve whitelist
+  const { whitelist } = await chrome.storage.local.get('whitelist');
+
+  // Check if the current tab's URL is in the whitelist
+  const isWhitelisted = whitelist.some(domain => tab.url.includes(domain));
+  if (isWhitelisted) {
+    return; // Exit if the domain is whitelisted
+  }
+
+  // If the page has loaded completely
   if (changeInfo.status === 'complete' && tab.url) {
-      if (isGoogleDomain(tab.url)) {
-          chrome.scripting.executeScript({
-              target: { tabId: tabId },
-              files: ['./lib/google-fix.js']
-          });
-      }
-      if (isYandexDomain(tab.url)) {
-          chrome.scripting.executeScript({
-              target: { tabId: tabId },
-              files: ['./lib/yandex-fix.js']
-          });
-      }
+    // Execute appropriate script for Google or Yandex domain
+    if (isGoogleDomain(tab.url)) {
+      chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        files: ['./lib/google-fix.js']
+      });
+    }
+    if (isYandexDomain(tab.url)) {
+      chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        files: ['./lib/yandex-fix.js']
+      });
+    }
   }
 });
+
 
 
 
