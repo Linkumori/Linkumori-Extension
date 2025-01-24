@@ -275,3 +275,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 Linkumori is provided "as is" without warranty of any kind. Use at your own risk.
 
 For complete license texts and additional details, please see the LICENSE file in the project repository.
+By contributing to this project, you agree that all contributions are submitted under the terms of the GNU General Public License version 3 or any later version (GPL-3.0+).
