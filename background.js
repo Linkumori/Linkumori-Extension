@@ -683,7 +683,7 @@ async function updateHyperlinkAuditing(enabled) {
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "Copy-clean-url",
-    title: 'Copy Cleaned Url',
+    title: chrome.i18n.getMessage("menuItemCopyCleanUrl"),
     contexts: ["link"]
   });
 });
@@ -993,11 +993,8 @@ async function updateAllDNRRules(enabled) {
     const existingRuleIds = existingRules.map(rule => rule.id);
     
     if (enabled) {
-      const { whitelist = [], customRules = [] } = await chrome.storage.local.get(['whitelist', 'customRules']);
+      const {  customRules = [] } = await chrome.storage.local.get(['customRules']);
       
-      const whitelistRules = whitelist.flatMap((domain, index) => 
-        createAllowRule(domain, (index * 2) + RULE_ID_START)
-      );
       
       // Create parameter removal rules
       const parameterRules = [];
@@ -1019,13 +1016,13 @@ async function updateAllDNRRules(enabled) {
             }
           },
           condition: {
-            domains: [rule.domain],
+            requestDomains: [rule.domain],
             resourceTypes: ["main_frame", "sub_frame","xmlhttprequest"]
           }
         });
       });
       
-      const allRules = [...whitelistRules, ...parameterRules];
+      const allRules = [...parameterRules];
       
       await chrome.declarativeNetRequest.updateDynamicRules({
         removeRuleIds: existingRuleIds,
