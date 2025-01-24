@@ -1,0 +1,338 @@
+{
+  "extName": {
+    "message": "Linkumori settings"
+  },
+  "extDescription": {
+    "message": "Remove tracking parameters from URLs and protect your privacy"
+  },
+  "cleanUrlsToolTitle": {
+    "message": "Linkumori Advanced URL Cleaning Tool"
+  },
+  "cleanUrlsToolHeader": {
+    "message": "Linkumori Clean URLs Tool"
+  },
+  "popup": {
+    "message": "Linkumori"
+  },
+  "menuItemCopyCleanUrl": {
+    "message": "Copy Cleaned Url"
+  },
+  "statusOn": {
+    "message": "Extension status:On with Network level protection"
+  },
+  "statusOff": {
+    "message": "Extension status:Off"
+  },
+  "historyProtectionOn": {
+    "message": "History API Protection Active"
+  },
+  "historyProtectionOff": {
+    "message": "History API Protection Off"
+  },
+  "historyProtectionInactive": {
+    "message": "History API Protection (Extension Inactive)"
+  },
+  "hyperlinkAuditingOn": {
+    "message": "Hyperlink Auditing Protection Active"
+  },
+  "hyperlinkAuditingOff": {
+    "message": "Hyperlink Auditing Protection Off"
+  },
+  "hyperlinkAuditingInactive": {
+    "message": "Hyperlink Auditing Protection (Extension Inactive)"
+  },
+  "preventRedirectOn": {
+    "message": "Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached:  On"
+  },
+  "preventRedirectOff": {
+    "message": "Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached:  Off"
+  },
+  "preventRedirectInactive": {
+    "message": "Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached:  (Extension Inactive)"
+  },
+  "badgeOn": {
+    "message": "Badge Counter Active"
+  },
+  "badgeOff": {
+    "message": "Badge Counter Off"
+  },
+  "badgeInactive": {
+    "message": "Badge Counter (Extension Inactive)"
+  },
+  "navMain": {
+    "message": "Main"
+  },
+  "navWhitelist": {
+    "message": "Whitelist"
+  },
+  "navRules": {
+    "message": "Custom DNR Rules"
+  },
+  "navStats": {
+    "message": "Statistics"
+  },
+  "navLicense": {
+    "message": "License"
+  },
+  "navLegal": {
+    "message": "License Information"
+  },
+  "navAbout": {
+    "message": "About"
+  },
+  "navSettings": {
+    "message": "Extension Settings"
+  },
+  "settingsTitle": {
+    "message": "Extension Settings"
+  },
+  "whitelistTitle": {
+    "message": "Whitelist Management"
+  },
+  "inputUrlsTitle": {
+    "message": "Input URLs"
+  },
+  "cleanedUrlsTitle": {
+    "message": "Cleaned URLs"
+  },
+  "inputUrlsPlaceholder": {
+    "message": "Enter URLs to clean (one per line)"
+  },
+  "cleanedUrlsPlaceholder": {
+    "message": "Cleaned URLs will appear here"
+  },
+  "cleanUrlsButton": {
+    "message": "Clean URLs"
+  },
+  "copyUrlsButton": {
+    "message": "Copy Results"
+  },
+  "copySuccessMessage": {
+    "message": "URLs copied to clipboard"
+  },
+  "copyErrorMessage": {
+    "message": "Failed to copy URLs"
+  },
+  "whitelistDomainPlaceholder": {
+    "message": "Enter domain to whitelist (e.g. example.com)"
+  },
+  "exportWhitelist": {
+    "message": "Export Whitelist"
+  },
+  "importWhitelist": {
+    "message": "Import Whitelist"
+  },
+  "addCurrentDomain": {
+    "message": "Add Current Domain"
+  },
+  "addDomainToWhitelist": {
+    "message": "Add $1 to whitelist"
+  },
+  "removeDomainFromWhitelist": {
+    "message": "Remove $1 from whitelist"
+  },
+  "addDomain": {
+    "message": "Add"
+  },
+  "removeButton": {
+    "message": "Remove"
+  },
+  "removeparameter": {
+    "message": "Remove Parameter"
+  },
+  "editButton": {
+    "message": "Edit"
+  },
+  "confirmButton": {
+    "message": "Confirm"
+  },
+  "cancelButton": {
+    "message": "Cancel"
+  },
+  "noDomainsWhitelisted": {
+    "message": "No domains whitelisted"
+  },
+  "noDomainsFound": {
+    "message": "No domains found matching '$1'"
+  },
+  "noRulesDefined": {
+    "message": "No custom rules defined"
+  },
+  "noRulesFound": {
+    "message": "No rules found matching '$1'"
+  },
+  "errorMessages_invalidDomain": {
+    "message": "Please enter a valid domain (e.g. example.com)"
+  },
+  "errorMessages_domainExists": {
+    "message": "This domain is already whitelisted"
+  },
+  "errorMessages_getCurrentDomain": {
+    "message": "Could not get current domain"
+  },
+  "errorMessages_whitelistImport": {
+    "message": "Failed to import whitelist: $1"
+  },
+  "errorMessages_invalidUrl": {
+    "message": "Please enter a valid URL"
+  },
+  "errorMessages_noParamsFound": {
+    "message": "No parameters found in URL"
+  },
+  "errorMessages_noParamsSelected": {
+    "message": "No parameters selected"
+  },
+  "errorMessages_removingParameter": {
+    "message": "Failed to remove parameter"
+  },
+  "successMessages_whitelistImport": {
+    "message": "Whitelist imported successfully"
+  },
+  "successMessages_parameterAdded": {
+    "message": "$1 parameter(s) added successfully"
+  },
+  "confirmationMessages_importWhitelist": {
+    "message": "Import $1 domains to whitelist?"
+  },
+  "confirmationMessages_removeParameter": {
+    "message": "Remove parameter '$1' from domain '$2'?"
+  },
+  "navwhitelist_":{
+      "message": "Whitelist Management"
+    },
+  "rulesTitle": {
+    "message": "Custom DNR Rules Builder"
+  },
+  "urlInputPlaceholder": {
+    "message": "Paste URL here to analyze afher analyzing you can add rules"
+  },
+  "ruleDomainPlaceholder": {
+    "message": "Domain (e.g. example.com)"
+  },
+  "ruleParamPlaceholder": {
+    "message": "Parameter to remove (e.g., utm_source)"
+  },
+  "analyzeButton": {
+    "message": "Analyze"
+  },
+  "addCustomRule": {
+    "message": "Add Rule"
+  },
+  "searchRulesPlaceholder": {
+    "message": "Search rules..."
+  },
+  "searchWhitelistPlaceholder": {
+    "message": "Search whitelist..."
+  },
+  "addParameterButton": {
+    "message": "Add Parameter"
+  },
+  "editParameter": {
+    "message": "Edit parameter"
+  },
+  "removeParameter": {
+    "message": "Remove parameter"
+  },
+  "newParameterPlaceholder": {
+    "message": "Enter new parameter"
+  },
+  "addSelectedParams": {
+    "message": "Add Selected Parameters"
+  },
+  "statsTitle": {
+    "message": "Statistics"
+  },
+  "modifiedRequestsLabel": {
+    "message": "Number of requests where URL parameters were successfully removed"
+  },
+  "activeRulesLabel": {
+    "message": "Total number of parameters removed by this extension"
+  },
+  "resetStatsButton": {
+    "message": "Reset Statistics"
+  },
+  "welcomeTitle": {
+    "message": "Welcome to Linkumori - URL Cleaner"
+  },
+  "welcomeHeading": {
+    "message": "Welcome to Linkumori"
+  },
+  "welcomeDescription": {
+    "message": "Thank you for installing Linkumori, your personal URL privacy and tracking protection tool. Linkumori helps you maintain your online privacy by removing tracking parameters from URLs."
+  },
+  "feature1": {
+    "message": "Automatically remove tracking parameters from URLs"
+  },
+  "feature2": {
+    "message": "Protect your privacy across different websites"
+  },
+  "feature3": {
+    "message": "Easily customizable whitelist"
+  },
+  "feature4": {
+    "message": "Lightweight and non-intrusive"
+  },
+  "getStartedText": {
+    "message": "To get started, click the button below to open the extension settings."
+  },
+  "openSettings": {
+    "message": "Open Linkumori Settings"
+  },
+  "settingsButtonAriaLabel": {
+    "message": "Setting Tools"
+  },
+  "themeToggleAriaLabel": {
+    "message": "Toggle theme"
+  },
+  "aboutTitle": {
+    "message": "About"
+  },
+  "aboutTeam": {
+    "message": "Developed by Team Linkumori"
+  },
+  "aboutSourceGithub": {
+    "message": "GitHub Release"
+  },
+  "aboutSourceChrome": {
+    "message": "Chrome Web Store"
+  },
+  "aboutSourceUnknown": {
+    "message": "Unknown Source"
+  },
+  "aboutDetailsGithub": {
+    "message": "This version is distributed via GitHub. It may include the latest features and updates directly from the repository."
+  },
+  "aboutDetailsChrome": {
+    "message": "This version is distributed via the Chrome Web Store. It is the stable version recommended for most users."
+  },
+  "aboutDetailsUnknown": {
+    "message": "The source of this version could not be determined. Please check the extension settings or contact support for more information."
+  },
+  "version": {
+    "message": "Version $1"
+  },
+  "versionUnknown": {
+    "message": "Version Unknown"
+  },
+  "versionLabel": {
+    "message": "Version"
+  },
+  "officialRepo": {
+    "message": "Official Repository:"
+  },
+  "officialSite": {
+    "message": "Official Website:"
+  },
+  "githubRepoLink": {
+    "message": "https://github.com/Linkumori"
+  },
+  "officialWebsiteLink": {
+    "message": " https://linkumori.com/"
+  },
+  "removerule": {
+    "message": "Remove Rule"
+  },
+  "__MSG_extDescription__": {
+    "message": "Remove tracking parameters from URLs and protect your privacy"
+  }
+}

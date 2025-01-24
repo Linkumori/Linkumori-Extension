@@ -21,6 +21,17 @@ import { readPurifyUrlsSettings, setDefaultSettings } from '../common/utils.js';
 import { defaultSettings, SETTINGS_KEY, CANT_FIND_SETTINGS_MSG } from '../common/constants.js';
 import punycode from '../lib/punycode.js';
 
+// Add i18n helper function
+function translateElement(element) {
+    const messageKey = element.getAttribute('data-i18n');
+    if (messageKey) {
+        const translated = chrome.i18n.getMessage(messageKey);
+        if (translated) {
+            element.textContent = translated;
+        }
+    }
+}
+
 class PanelMenuController {
     constructor() {
         this.state = {
@@ -57,6 +68,7 @@ class PanelMenuController {
         this.importWhitelist = this.importWhitelist.bind(this);
         
         this.init();
+        this.initializeI18n();
     }
 
     
@@ -162,6 +174,11 @@ class PanelMenuController {
             });
             
             await this.updateAllDynamicButtons();
+
+            // Set placeholder text using i18n
+            if (this.domElements.domainInput) {
+                this.domElements.domainInput.placeholder = chrome.i18n.getMessage('whitelistDomainPlaceholder');
+            }
         }
 
         async loadInitialState() {
@@ -250,7 +267,6 @@ class PanelMenuController {
             }
         }
     
-       
         async importWhitelist() {
             try {
                 const fileContent = await new Promise((resolve, reject) => {
@@ -262,7 +278,7 @@ class PanelMenuController {
                         input.removeEventListener('change', handleChange);
                         const file = e.target.files[0];
                         if (!file) {
-                            reject(new Error('No file selected'));
+                            reject(new Error(chrome.i18n.getMessage('errorMessages_noFileSelected')));
                             return;
                         }
          
@@ -279,24 +295,70 @@ class PanelMenuController {
                 });
          
                 const importedWhitelist = JSON.parse(fileContent);
-         
-                // Merge imported whitelist with existing whitelist
                 const newWhitelist = [...new Set([...this.state.whitelist,...importedWhitelist])];
          
-                // Confirm before merging
                 if (await this.confirmImport(importedWhitelist.length)) {
                     await chrome.storage.local.set({ whitelist: newWhitelist });
-                    alert('Whitelist imported successfully!');
+                    alert(chrome.i18n.getMessage('successMessages_whitelistImport'));
                 }
             } catch (error) {
                 console.error('Failed to import whitelist:', error);
-                alert('Failed to import whitelist: ' + error.message);
+                alert(chrome.i18n.getMessage('errorMessages_whitelistImport', [error.message]));
             }
-         }
+        }
          
-         async confirmImport(count) {
-            return confirm(`This will add ${count} entries to your current whitelist. Continue?`);
-         }
+        async confirmImport(count) {
+            return confirm(chrome.i18n.getMessage('confirmationMessages_importWhitelist', [count]));
+        }
+    
+        renderWhitelist(searchTerm = '') {
+            if (!this.domElements.whitelistContainer) return;
+    
+            const container = this.domElements.whitelistContainer;
+            container.innerHTML = '';
+    
+            const filteredDomains = searchTerm
+                ? this.state.whitelist.filter(domain =>
+                    domain.toLowerCase().includes(searchTerm.toLowerCase())
+                )
+                : this.state.whitelist;
+    
+            if (filteredDomains.length === 0) {
+                const noResults = document.createElement('div');
+                noResults.className = 'no-results';
+                noResults.textContent = searchTerm
+                    ? chrome.i18n.getMessage('noDomainsFound', [searchTerm])
+                    : chrome.i18n.getMessage('noDomainsWhitelisted');
+                container.appendChild(noResults);
+                return;
+            }
+    
+            filteredDomains.forEach(domain => {
+                const item = document.createElement('div');
+                item.className = 'domain-item';
+    
+                const header = document.createElement('div');
+                header.className = 'domain-header';
+    
+                const text = document.createElement('span');
+                text.className = 'domain-text';
+                text.textContent = punycode.toASCII(domain);
+    
+                const controls = document.createElement('div');
+                controls.className = 'rule-controls';
+    
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'remove-rule-btn';
+                removeBtn.textContent = chrome.i18n.getMessage('removeButton');
+                removeBtn.onclick = () => this.handleWhitelistChange(domain, false);
+    
+                controls.appendChild(removeBtn);
+                header.appendChild(text);
+                header.appendChild(controls);
+                item.appendChild(header);
+                container.appendChild(item);
+            });
+        }
         
     async togglePurifyUrlsSettings() {
         try {
@@ -332,16 +394,16 @@ class PanelMenuController {
             } else {
                 this.domElements.historyApiToggle.classList.remove('active');
             }
-            this.domElements.historyApiLabel.textContent = 'History API Protection: Inactive (Extension Off)';
+            this.domElements.historyApiLabel.textContent = chrome.i18n.getMessage('historyProtectionInactive');
             return;
         }
         
         if (this.state.historyApiProtection) {
             this.domElements.historyApiToggle.classList.add('active');
-            this.domElements.historyApiLabel.textContent = 'History API Protection: On';
+            this.domElements.historyApiLabel.textContent = chrome.i18n.getMessage('historyProtectionOn');
         } else {
             this.domElements.historyApiToggle.classList.remove('active');
-            this.domElements.historyApiLabel.textContent = 'History API Protection: Off';
+            this.domElements.historyApiLabel.textContent = chrome.i18n.getMessage('historyProtectionOff');
         }
     }
 
@@ -368,7 +430,7 @@ class PanelMenuController {
     
     async updateAllDynamicButtons() {
         await this.updateDynamicWhitelistButton();
-        await this.updatedynamicurrentbutton();
+        await this.addCurrentDomain();
     }
     
     async getCurrentTabDomain() {
@@ -395,22 +457,23 @@ class PanelMenuController {
         }
     }
 
-    async updatedynamicurrentbutton() {
+    async addCurrentDomain() {
         const domain = await this.getCurrentTabDomain();
         if (!domain || !this.domElements.addCurrentButton) {
             if (this.domElements.addCurrentButton) {
-                this.domElements.addCurrentButton.style.display = 'none';
+                this.domElements.addCurrentButton.style.display = 'none'; 
             }
             return;
         }
         
         const isWhitelisted = this.state.whitelist.includes(domain);
         if (this.domElements.addCurrentButton) {
-            this.domElements.addCurrentButton.textContent = isWhitelisted ? 
-                `Remove ${punycode.toASCII(domain)} from Whitelist` : `Add ${punycode.toASCII(domain)} to Whitelist`;
+            const messageId = isWhitelisted ? 'removeDomainFromWhitelist' : 'addDomainToWhitelist';
+            const displayDomain = punycode.toUnicode(domain);
+            this.domElements.addCurrentButton.textContent = chrome.i18n.getMessage(messageId, [displayDomain]);
             this.domElements.addCurrentButton.style.display = 'block';
         }
-    }
+     }
     
     async handleAddDomain() {
         const domain = this.domElements.domainInput?.value.trim().toLowerCase();
@@ -419,7 +482,7 @@ class PanelMenuController {
         
         const domainRegex = /^[a-z0-9\u00A1-\uFFFF]+([\-\.]{1}[a-z0-9\u00A1-\uFFFF]+)*\.[a-z\u00A1-\uFFFF]{2,}$/;
         if (!domainRegex.test(domain)) {
-            alert('Please enter a valid domain (e.g., example.com)');
+            alert(chrome.i18n.getMessage('errorMessages_invalidDomain'));
             return;
         }
         
@@ -428,7 +491,7 @@ class PanelMenuController {
             if (!this.state.whitelist.includes(unicodeDomain)) {
                 await this.handleWhitelistChange(unicodeDomain, true);
             } else {
-                alert('Domain is already in the whitelist');
+                alert(chrome.i18n.getMessage('errorMessages_domainExists'));
             }
             
             if (this.domElements.domainInput) {
@@ -479,7 +542,7 @@ class PanelMenuController {
     async handleDynamicWhitelistToggle() {
         const domain = await this.getCurrentTabDomain();
         if (!domain) {
-            alert('Could not get domain from current tab');
+            alert(chrome.i18n.getMessage('errorMessages_getCurrentDomain'));
             return;
         }
 
@@ -492,14 +555,14 @@ class PanelMenuController {
     async handlecurrentbutton() {
         const domain = await this.getCurrentTabDomain();
         if (!domain) {
-            alert('Could not get domain from current tab');
+            alert(chrome.i18n.getMessage('errorMessages_getCurrentDomain'));
             return;
         }
 
         const unicodeDomain = punycode.toUnicode(domain);
         const isWhitelisted = this.state.whitelist.includes(unicodeDomain);
         await this.handleWhitelistChange(unicodeDomain, !isWhitelisted);
-        this.updatedynamicurrentbutton();
+        this.addCurrentDomain();
     }
     
     async updateDynamicWhitelistButton() {
@@ -513,8 +576,9 @@ class PanelMenuController {
         
         const isWhitelisted = this.state.whitelist.includes(domain);
         if (this.domElements.dynamicWhitelistButton) {
-            this.domElements.dynamicWhitelistButton.textContent = isWhitelisted ? 
-                `Remove ${punycode.toASCII(domain)} from Whitelist` : `Add ${punycode.toASCII(domain)} to Whitelist`;
+            const messageId = isWhitelisted ? 'removeDomainFromWhitelist' : 'addDomainToWhitelist';
+            const displayDomain = punycode.toASCII(domain); // Convert to ASCII for display
+            this.domElements.dynamicWhitelistButton.textContent = chrome.i18n.getMessage(messageId, [displayDomain]);
             this.domElements.dynamicWhitelistButton.style.display = 'block';
         }
     }
@@ -537,83 +601,88 @@ class PanelMenuController {
         
         if (this.state.isEnabled) {
             this.domElements.toggleSwitch.classList.add('active');
-            this.domElements.toggleLabel.textContent = 'Extension status:On with Network level protection';
+            this.domElements.toggleLabel.textContent = chrome.i18n.getMessage('statusOn');
         } else {
             this.domElements.toggleSwitch.classList.remove('active');
-            this.domElements.toggleLabel.textContent = 'Extension status:Off';
+            this.domElements.toggleLabel.textContent = chrome.i18n.getMessage('statusOff');
         }
     }
     updateBadgeOnOffToggleUI() {
-      
+        if (!this.domElements.badgeOnOffToggle || !this.domElements.badgeOnOffLabel) {
+            return;
+        }
+     
+        // Keep track of badge state
+        this.domElements.badgeOnOffToggle.classList.toggle('active', this.state.updateBadgeOnOff);
+     
+        const isExtensionEnabled = this.state.isEnabled;
+        const isFeatureActive = this.state.updateBadgeOnOff;
+        const isFeatureInactive = !isFeatureActive;
+     
+        if (isExtensionEnabled) {
+            this.domElements.badgeOnOffToggle.classList.remove('disabled');
+            this.domElements.badgeOnOffLabel.textContent = isFeatureActive ?
+                chrome.i18n.getMessage('badgeOn') :
+                chrome.i18n.getMessage('badgeOff');
+        } else {
+            this.domElements.badgeOnOffToggle.classList.add('disabled');
+            this.domElements.badgeOnOffLabel.textContent = isFeatureInactive ?
+                chrome.i18n.getMessage('badgeOff') :
+                chrome.i18n.getMessage('badgeInactive');
+        }
+     }
 
-    if (!this.domElements.badgeOnOffToggle || !this.domElements.badgeOnOffLabel) {
-        return;
-    }
-    
-    // Update toggle class based on state regardless of extension status
-    if (this.state.updateBadgeOnOff) {
-        this.domElements.badgeOnOffToggle.classList.add('active');
-    } else {
-        this.domElements.badgeOnOffToggle.classList.remove('active');
-    }
-
-    // Only update the text based on extension status
-    if (!this.state.isEnabled) {
-        this.domElements.badgeOnOffLabel.textContent = this.state.updateBadgeOnOff ? 
-            'Badge:(Inactive)' : 
-            'Badge:Off';
-    } else {
-        this.domElements.badgeOnOffLabel.textContent = this.state.updateBadgeOnOff ?
-            'Badge: On' :
-            'Badge: Off';
-    }
-}
     updateHistoryApiToggleUI() {
         if (!this.domElements.historyApiToggle || !this.domElements.historyApiLabel) {
             return;
         }
-        
-        // Update toggle class based on state regardless of extension status
-        if (this.state.historyApiProtection) {
-            this.domElements.historyApiToggle.classList.add('active');
+    
+        // Keep track of historyApiProtection state regardless of extension state
+        this.domElements.historyApiToggle.classList.toggle('active', this.state.historyApiProtection);
+    
+        // Update UI text based on combined states
+        const isExtensionEnabled = this.state.isEnabled;
+        const isFeatureActive = this.state.historyApiProtection;
+        const isFeatureInactive = !isFeatureActive;
+    
+        if (isExtensionEnabled) {
+            this.domElements.historyApiToggle.classList.remove('disabled');
+            this.domElements.historyApiLabel.textContent = isFeatureActive ? 
+                chrome.i18n.getMessage('historyProtectionOn') : 
+                chrome.i18n.getMessage('historyProtectionOff');
         } else {
-            this.domElements.historyApiToggle.classList.remove('active');
-        }
-
-        // Only update the text based on extension status
-        if (!this.state.isEnabled) {
-            this.domElements.historyApiLabel.textContent = this.state.historyApiProtection ? 
-                'History API Protection:(Inactive)' : 
-                'History API Protection: Off';
-        } else {
-            this.domElements.historyApiLabel.textContent = this.state.historyApiProtection ?
-                'History API Protection: On' : 
-                'History API Protection: Off';
+            this.domElements.historyApiToggle.classList.add('disabled');
+            this.domElements.historyApiLabel.textContent = isFeatureInactive ? 
+                chrome.i18n.getMessage('historyProtectionOff') : 
+                chrome.i18n.getMessage('historyProtectionInactive');
         }
     }
+
     updateHyperlinkAuditingToggleUI() {
         if (!this.domElements.hyperlinkAuditingToggle || !this.domElements.hyperlinkAuditingLabel) {
             return;
         }
-        
-        // Update toggle class based on state regardless of extension status
-        if (this.state.blockHyperlinkAuditing) {
-            this.domElements.hyperlinkAuditingToggle.classList.add('active');
+     
+        // Keep track of blockHyperlinkAuditing state regardless of extension state
+        this.domElements.hyperlinkAuditingToggle.classList.toggle('active', this.state.blockHyperlinkAuditing);
+     
+        // Update UI text based on combined states
+        const isExtensionEnabled = this.state.isEnabled; 
+        const isFeatureActive = this.state.blockHyperlinkAuditing;
+        const isFeatureInactive = !isFeatureActive;
+     
+        if (isExtensionEnabled) {
+            this.domElements.hyperlinkAuditingToggle.classList.remove('disabled');
+            this.domElements.hyperlinkAuditingLabel.textContent = isFeatureActive ?
+                chrome.i18n.getMessage('hyperlinkAuditingOn') :
+                chrome.i18n.getMessage('hyperlinkAuditingOff');
         } else {
-            this.domElements.hyperlinkAuditingToggle.classList.remove('active');
+            this.domElements.hyperlinkAuditingToggle.classList.add('disabled');
+            this.domElements.hyperlinkAuditingLabel.textContent = isFeatureInactive ?
+                chrome.i18n.getMessage('hyperlinkAuditingOff') :
+                chrome.i18n.getMessage('hyperlinkAuditingInactive');
         }
-
-        // Only update the text based on extension status
-        if (!this.state.isEnabled) {
-            this.domElements.hyperlinkAuditingLabel.textContent = this.state.blockHyperlinkAuditing ?
-                'Block Hyperlink Auditing: (Inactive)' :
-                'Block Hyperlink Auditing: Off ';
-        } else {
-            this.domElements.hyperlinkAuditingLabel.textContent = this.state.blockHyperlinkAuditing ?
-                'Block Hyperlink Auditing: On' :
-                'Block Hyperlink Auditing: Off';
-        }
-    }
+     }
     
     switchTab(tabId) {
         this.state.activeTab = tabId;
@@ -642,24 +711,27 @@ class PanelMenuController {
         if (this.state.whitelist.length === 0) {
             const emptyMessage = document.createElement('div');
             emptyMessage.className = 'empty-message';
-            emptyMessage.textContent = 'No domains in whitelist';
+            emptyMessage.textContent = chrome.i18n.getMessage('noDomainsWhitelisted');
             container.appendChild(emptyMessage);
             return;
         }
         
         this.state.whitelist.forEach(domain => {
+            if (!domain) return; // Skip invalid domains
+            
             const item = document.createElement('div');
             item.className = 'domain-item';
             
             const text = document.createElement('span');
             text.textContent = punycode.toASCII(domain);
             
-            const removeBtn = document.createElement('button');
-            removeBtn.textContent = 'Remove';
-            removeBtn.onclick = () => this.handleWhitelistChange(domain, false);
+            const removeButton = document.createElement('button');
+            removeButton.className = 'remove-rule-btn';
+            removeButton.textContent = chrome.i18n.getMessage('removeButton');
+            removeButton.onclick = () => this.handleWhitelistChange(domain, false);
             
             item.appendChild(text);
-            item.appendChild(removeBtn);
+            item.appendChild(removeButton);
             container.appendChild(item);
         });
     }
@@ -668,6 +740,11 @@ class PanelMenuController {
         this.state.historyApiProtection = !this.state.historyApiProtection;
         await chrome.storage.local.set({ historyApiProtection: this.state.historyApiProtection });
         this.updateUI();
+    }
+
+    initializeI18n() {
+        // Translate all elements with data-i18n attribute
+        document.querySelectorAll('[data-i18n]').forEach(translateElement);
     }
 }
 document.getElementById('repoLinkButton')?.addEventListener('click', () => {

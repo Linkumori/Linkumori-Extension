@@ -40,7 +40,8 @@ cat > "$BUILD_DIR/webstore/manifest.json" << EOL
     "service_worker": "background.js",
     "type": "module"
   },
-  
+    "default_locale": "en",
+
   "minimum_chrome_version": "121.0",
   
   "action": {
@@ -214,7 +215,8 @@ cat > "$BUILD_DIR/selfhosted/manifest.json" << EOL
     "service_worker": "background.js",
     "type": "module"
   },
-  
+    "default_locale": "en",
+
   "minimum_chrome_version": "121.0",
   
   "action": {

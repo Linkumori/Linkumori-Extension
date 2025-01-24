@@ -18,20 +18,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>..
 
 */
 
-document.getElementById('openSettings').addEventListener('click', () => {
-    chrome.runtime.sendMessage({ action: 'openPopup' });
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize i18n
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(element => {
+        const messageKey = element.getAttribute('data-i18n');
+        const translation = chrome.i18n.getMessage(messageKey);
+        if (translation) {
+            if (element.tagName === 'INPUT' && element.type === 'placeholder') {
+                element.placeholder = translation;
+            } else {
+                element.textContent = translation;
+            }
+        }
+    });
+
+    document.getElementById('openSettings').addEventListener('click', () => {
+        chrome.runtime.sendMessage({ action: 'openPopup' });
+    });
+
+    chrome.storage.local.get(['theme'], (result) => {
+        if (!result.theme) {
+            const initialTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            chrome.storage.local.set({ theme: initialTheme });
+            document.documentElement.setAttribute('data-theme', initialTheme);
+        } else {
+            document.documentElement.setAttribute('data-theme', result.theme);
+        }
+    });
 });
 
-
-chrome.storage.local.get(['theme'], (result) => {
-    if (!result.theme) {
-        const initialTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        chrome.storage.local.set({ theme: initialTheme });
-        document.documentElement.setAttribute('data-theme', initialTheme);
-    } else {
-        document.documentElement.setAttribute('data-theme', result.theme);
-    }
-});
 chrome.storage.onChanged.addListener((changes, namespace) => {
     if (namespace === 'local' && changes.theme) {
         document.documentElement.setAttribute('data-theme', changes.theme.newValue);

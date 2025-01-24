@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Linkumori (URLs Cleaner)",
-  "version": "111.0",
-  "description": "Clean tracking query parameters from URLs and prevent URL encoding",
+  "version": "112.0",
+"description": "__MSG_extDescription__",
 
   "icons": {
     "48": "icons/default/icon48.png",
@@ -13,6 +13,8 @@
     "service_worker": "background.js",
     "type": "module"
   },
+  "default_locale": "en",
+
   
   "minimum_chrome_version": "121.0",
   

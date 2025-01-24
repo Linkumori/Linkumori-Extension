@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */-->
 
-<!--/*For clarification in this file licenses embedded in this file are not copyright by Subham Mahesh but by the respective owner of the license*/--> 
+<!--/For clarification: The licenses embedded in panelMenu.html belong to their respective license holders, not Subham Mahesh/--> 
 
 <!DOCTYPE html>
 <html>
@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                          fill="var(--logo-accent)"/>         
             </svg>
             <div style="display: flex; flex-direction: column;">
-                <h1 style="color: var(--text-secondary); font-size: 16px; margin: 0;">Linkumori</h1>
+                <h1 style="color: var(--text-secondary); font-size: 16px; margin: 0;" data-i18n="popup">Linkumori</h1>
                 <span style="color: var(--text-secondary); font-size: 12px;">Version 1.0.0</span>
             </div>
         </div>
@@ -70,15 +70,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </header>
     
     <nav class="tab-container">
-        <button id="mainTab" class="tab active">Main</button>
-        <button id="whitelistTab" class="tab">Whitelist</button>
-        <button id="licenseTab" class="tab">License</button>
+        <button id="mainTab" class="tab active" data-i18n="navMain"></button>
+        <button id="whitelistTab" class="tab" data-i18n="navWhitelist"></button>
+        <button id="licenseTab" class="tab" data-i18n="navLicense"></button>
     </nav>
     
     <div id="mainContent" class="content">           
         <div class="toggle-container">
             <div id="toggleButton" class="toggle-button">
-                <span class="toggle-label"></span>
+                <span class="toggle-label" data-i18n="toggleExtensionStatus"></span>
                 <div class="toggle-switch">
                     <div class="toggle-slider"></div>
                 </div>
@@ -86,7 +86,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </div>
         <div class="toggle-container">
             <div id="newToggleButton" class="toggle-button">
-                <span class="toggle-label">History API Protection</span>
+                <span class="toggle-label" data-i18n="historyProtectionOff"></span>
                 <div class="toggle-switch">
                     <div class="toggle-slider"></div>
                 </div>
@@ -94,7 +94,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </div>
         <div class="toggle-container">
             <div id="blockHyperlinkAuditingToggle" class="toggle-button">
-                <span class="toggle-label">Block Hyperlink Auditing</span>
+                <span class="toggle-label" data-i18n="hyperlinkAuditingOff"></span>
                 <div class="toggle-switch">
                     <div class="toggle-slider"></div>
                 </div>
@@ -108,22 +108,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </div>
             </div>
         </div>
-        <button id="singledynamicwhitelistunwhitelistbutton" ></button>
+        <button 
+          id="singledynamicwhitelistunwhitelistbutton" 
+          data-i18n="toggleWhitelist">
+        </button>
 
     </div>
 
     <div id="whitelistContent" class="content">
-      <div class="domain-input">
+        <div class="domain-input">
 
-          <input type="text" id="domainInput" placeholder="Enter domain (e.g., example.com)">
-          <button id="addDomain">Add</button>
-      </div>
+            <input 
+              type="text" 
+              id="domainInput" 
+              data-i18n-placeholder="whitelistDomainPlaceholder"
+              placeholder="Enter domain to whitelist">
+            <button id="addDomain">Add</button>
+        </div>
       <div style="margin: 10px 0;">
           <div style="display: flex; gap: 10px; width: 100%;">
-              <button id="exportWhitelist" style="flex: 1;">Export Whitelist</button>
-              <button id="importWhitelist" style="flex: 1;">Import Whitelist</button>
-          </div>
-          <button id="addCurrentDomain" style="width: 100%; margin-top: 10px;">Add developer.chrome.com to Whitelist</button>
+            <button id="exportWhitelist" style="flex: 1;" data-i18n="exportWhitelist"></button>
+            <button id="importWhitelist" style="flex: 1;" data-i18n="importWhitelist"></button>          </div>
+          <button id="addCurrentDomain"  style="width: 100%; margin-top: 10px;" data-i18n="addCurrentDomain"></button>
       </div>
       <div id="whitelistContainer"></div>
   </div>
@@ -856,6 +862,7 @@ Public License instead of this License.  But first, please read
 <li>"/rules/rules8.json"</li>
 <li>"/rules/rules17.json"</li>
 <li>"/rules/rules16.json"</li>
+<li>/_locales/en/messages.json</li>
 <li>common/rules.js</li>
 <li>`panel/option.js</li>
 <li>panel/option.html</li>
@@ -3444,6 +3451,8 @@ Public License instead of this License.  But first, please read
 &lt;<a href="https://www.gnu.org/licenses/why-not-lgpl.html" rel="noopener">https://www.gnu.org/licenses/why-not-lgpl.html</a>&gt;.</p>
 
 </body></html>
+
+  
 <script type="module" src="panelMenu.js"></script>
 </body>
 </html>

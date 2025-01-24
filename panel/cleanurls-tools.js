@@ -24,6 +24,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const copyUrls = document.getElementById('copyUrls');
     const copyStatus = document.getElementById('copyStatus');
     
+    // Initialize i18n
+    function initI18n() {
+        // Translate elements with data-i18n attribute
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const message = chrome.i18n.getMessage(element.getAttribute('data-i18n'));
+            if (message) element.textContent = message;
+        });
+
+        // Translate placeholders
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+            const message = chrome.i18n.getMessage(element.getAttribute('data-i18n-placeholder'));
+            if (message) element.placeholder = message;
+        });
+
+        // Translate aria-labels
+        document.querySelectorAll('[data-i18n-aria]').forEach(element => {
+            const message = chrome.i18n.getMessage(element.getAttribute('data-i18n-aria'));
+            if (message) element.setAttribute('aria-label', message);
+        });
+    }
+
     function initTheme() {
         const getSystemTheme = () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         
@@ -100,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function showCopySuccess() {
-        copyStatus.textContent = 'Successfully copied cleaned URLs!';
+        copyStatus.textContent = chrome.i18n.getMessage('copySuccessMessage');
         copyStatus.style.color = 'var(--button-primary)';
         copyStatus.style.display = 'block';
         
@@ -121,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showCopyError() {
-        copyStatus.textContent = 'Failed to copy URLs';
+        copyStatus.textContent = chrome.i18n.getMessage('copyErrorMessage');
         copyStatus.style.color = 'var(--button-danger)';
         copyStatus.style.display = 'block';
         
@@ -140,13 +161,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     async function init() {
+        initI18n();
         initTheme();
         try {
             const manifest = await chrome.runtime.getManifest();
-            document.querySelector('.version').textContent = `Version ${manifest.version}`;
+            document.querySelector('.version').textContent = chrome.i18n.getMessage('version', [manifest.version]);
         } catch (error) {
             console.error('Failed to fetch version:', error);
-            document.querySelector('.version').textContent = 'Version Unknown';
+            document.querySelector('.version').textContent = chrome.i18n.getMessage('versionUnknown');
         }
     }
 
