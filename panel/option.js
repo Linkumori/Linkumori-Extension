@@ -330,18 +330,16 @@ class OptionsMenuController {
         }
     }
     async setupStats() {
-        // Update stats every 5 seconds
         setInterval(this.updateStats, 5000);
         this.updateStats();
-
-        // Add reset handler
+     
         document.getElementById('resetStats')?.addEventListener('click', async () => {
-            if (confirm('Are you sure you want to reset all statistics?')) {
+            if (confirm(chrome.i18n.getMessage('confirmResetStats'))) {
                 await chrome.runtime.sendMessage({action: 'resetStats'});
-                this.updateStats();
+                this.updateStats(); 
             }
         });
-    }
+     }
 
     // Add new method
     async updateStats() {
