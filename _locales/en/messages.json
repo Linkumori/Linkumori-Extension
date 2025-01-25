@@ -334,5 +334,8 @@
   },
   "__MSG_extDescription__": {
     "message": "Remove tracking parameters from URLs and protect your privacy"
-  }
+  },
+  "confirmResetStats": {
+        "message": "Are you sure you want to reset all statistics?"
+    }
 }

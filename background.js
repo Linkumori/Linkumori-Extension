@@ -140,7 +140,7 @@ chrome.runtime.onInstalled.addListener(async () => {
   const isFirstInstall = await firstInstalled(); 
   if (isFirstInstall) {
     setDefaultSettings();
-    chrome.storage.local.set({ updateHyperlinkAuditing: true, firstInstalled: true, historyApiProtection: true,updateBadgeOnOff: true });
+    chrome.storage.local.set({ updateHyperlinkAuditing: true, firstInstalled: true, historyApiProtection: true,updateBadgeOnOff: true, PreventGoogleandyandexscript: false });
     updateHyperlinkAuditing(true);
     chrome.alarms.create('wakeUpAlarm', { periodInMinutes: 1/60 }); 
     chrome.tabs.create({
@@ -503,7 +503,7 @@ chrome.storage.onChanged.addListener(async (changes, area) => {
 
 chrome.storage.onChanged.addListener(async (changes, area) => {
   if (area === 'local') {
-    if (changes.whitelist || changes[SETTINGS_KEY] || changes.PreventGoogleandyandexscript) {
+    if (changes.PreventGoogleandyandexscript) {
       const tabs = await chrome.tabs.query({});
       for (const tab of tabs) {
         if (tab.url && (isGoogleDomain(tab.url) || isYandexDomain(tab.url))) {
