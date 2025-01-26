@@ -161,8 +161,8 @@ The following code in the linkurmori source code files are completely under the 
 
 Copyright (c) 2024 Subham Mahesh
 
-For clarification, licenses embedded in the panelMenu.html file are not copyrighted by Subham Mahesh but by their respective owners.
-For clarification: The licenses embedded in option.html belong to their respective license holders, not Subham Mahesh.
+"The license text embedded in panelMenu.html and option.html was originally authored by its respective creators, such as the Free Software Foundation (FSF) or other organizations responsible for drafting such licenses.
+ Subham Mahesh is not the author of this license text, and it remains the property of its original authors."
 
 
 ### Mixed License (GPLv3 and MIT)

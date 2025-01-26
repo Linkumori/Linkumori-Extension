@@ -748,10 +748,10 @@ icons/dark/icon48.png
 icons/dark/icon96.png
 icons/dark/icon128.png
 
-Copyright: (c) 2024 Subham Mahesh
-For clarification: The licenses embedded in panelMenu.html belong to their respective license holders, not Subham Mahesh.
+Copyright information : (c) 2024 Subham Mahesh
 
-For clarification: The licenses embedded in option.html belong to their respective license holders, not Subham Mahesh.
+"The license text embedded in panelMenu.html and option.html was originally authored by its respective creators, such as the Free Software Foundation (FSF) or other organizations responsible for drafting such licenses.
+ Subham Mahesh is not the author of this license text, and it remains the property of its original authors."
 
 Full license texts for GPLv3 license here:
                     GNU GENERAL PUBLIC LICENSE
