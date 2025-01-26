@@ -1,0 +1,16 @@
+[
+    {
+      "id": 1,
+      "priority": 1,
+      "action": {
+        "type": "allow"
+      },
+      "condition": {
+        "requestDomains": ["doc.google.com"],
+        "resourceTypes": [
+          "xmlhttprequest"
+        ]
+      }
+    }
+  ]
+  

@@ -718,6 +718,7 @@ The following code in the linkurmori source code files are completely under the 
 "/rules/rules8.json",
 "/rules/rules16.json"
 "/rules/rules17.json",
+"rules/exception/rules18.json"
 "/_locales/en/messages.json"
 "lib/amazon-url-prevention.js"
 "/panel/first-install.html"
