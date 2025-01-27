@@ -1,0 +1,341 @@
+{
+  "extName": {
+    "message": "Linkumori 設定"
+  },
+  "extDescription": {
+    "message": "從網址中移除追蹤參數並保護您的隱私"
+  },
+  "cleanUrlsToolTitle": {
+    "message": "Linkumori 高級網址清潔工具"
+  },
+  "cleanUrlsToolHeader": {
+    "message": "Linkumori 網址清潔工具"
+  },
+  "popup": {
+    "message": "Linkumori"
+  },
+  "menuItemCopyCleanUrl": {
+    "message": "複製已清理的網址"
+  },
+  "statusOn": {
+    "message": "擴充功能狀態：已開啟，網路層級保護"
+  },
+  "statusOff": {
+    "message": "擴充功能狀態：已關閉"
+  },
+  "historyProtectionOn": {
+    "message": "歷史 API 保護已啟用"
+  },
+  "historyProtectionOff": {
+    "message": "歷史 API 保護已關閉"
+  },
+  "historyProtectionInactive": {
+    "message": "歷史 API 保護（擴充功能未啟用）"
+  },
+  "hyperlinkAuditingOn": {
+    "message": "超連結審核保護已啟用"
+  },
+  "hyperlinkAuditingOff": {
+    "message": "超連結審核保護已關閉"
+  },
+  "hyperlinkAuditingInactive": {
+    "message": "超連結審核保護（擴充功能未啟用）"
+  },
+  "preventRedirectOn": {
+    "message": "防止 Google 和 Yandex 服務在最終目的地之前將網址重定向到其伺服器：已開啟"
+  },
+  "preventRedirectOff": {
+    "message": "防止 Google 和 Yandex 服務在最終目的地之前將網址重定向到其伺服器：已關閉"
+  },
+  "preventRedirectInactive": {
+    "message": "防止 Google 和 Yandex 服務在最終目的地之前將網址重定向到其伺服器：（擴充功能未啟用）"
+  },
+  "badgeOn": {
+    "message": "徽章計數器已啟用"
+  },
+  "badgeOff": {
+    "message": "徽章計數器已關閉"
+  },
+  "badgeInactive": {
+    "message": "徽章計數器（擴充功能未啟用）"
+  },
+  "navMain": {
+    "message": "主頁"
+  },
+  "navWhitelist": {
+    "message": "白名單"
+  },
+  "navRules": {
+    "message": "自訂 DNR 規則"
+  },
+  "navStats": {
+    "message": "統計資料"
+  },
+  "navLicense": {
+    "message": "授權"
+  },
+  "navLegal": {
+    "message": "授權資訊"
+  },
+  "navAbout": {
+    "message": "關於"
+  },
+  "navSettings": {
+    "message": "擴充功能設定"
+  },
+  "settingsTitle": {
+    "message": "擴充功能設定"
+  },
+  "whitelistTitle": {
+    "message": "白名單管理"
+  },
+  "inputUrlsTitle": {
+    "message": "輸入網址"
+  },
+  "cleanedUrlsTitle": {
+    "message": "已清理的網址"
+  },
+  "inputUrlsPlaceholder": {
+    "message": "輸入要清理的網址（每行一個）"
+  },
+  "cleanedUrlsPlaceholder": {
+    "message": "已清理的網址將顯示在此處"
+  },
+  "cleanUrlsButton": {
+    "message": "清理網址"
+  },
+  "copyUrlsButton": {
+    "message": "複製結果"
+  },
+  "copySuccessMessage": {
+    "message": "網址已複製到剪貼簿"
+  },
+  "copyErrorMessage": {
+    "message": "複製網址失敗"
+  },
+  "whitelistDomainPlaceholder": {
+    "message": "輸入要加入白名單的網域（例如 example.com）"
+  },
+  "exportWhitelist": {
+    "message": "匯出白名單"
+  },
+  "importWhitelist": {
+    "message": "匯入白名單"
+  },
+  "addCurrentDomain": {
+    "message": "加入當前網域"
+  },
+  "addDomainToWhitelist": {
+    "message": "將 $1 加入白名單"
+  },
+  "removeDomainFromWhitelist": {
+    "message": "將 $1 從白名單中移除"
+  },
+  "addDomain": {
+    "message": "加入"
+  },
+  "removeButton": {
+    "message": "移除"
+  },
+  "removeparameter": {
+    "message": "移除參數"
+  },
+  "editButton": {
+    "message": "編輯"
+  },
+  "confirmButton": {
+    "message": "確認"
+  },
+  "cancelButton": {
+    "message": "取消"
+  },
+  "noDomainsWhitelisted": {
+    "message": "沒有網域被加入白名單"
+  },
+  "noDomainsFound": {
+    "message": "沒有找到與 '$1' 匹配的網域"
+  },
+  "noRulesDefined": {
+    "message": "沒有定義自訂規則"
+  },
+  "noRulesFound": {
+    "message": "沒有找到與 '$1' 匹配的規則"
+  },
+  "errorMessages_invalidDomain": {
+    "message": "請輸入有效的網域（例如 example.com）"
+  },
+  "errorMessages_domainExists": {
+    "message": "此網域已存在於白名單中"
+  },
+  "errorMessages_getCurrentDomain": {
+    "message": "無法取得當前網域"
+  },
+  "errorMessages_whitelistImport": {
+    "message": "匯入白名單失敗：$1"
+  },
+  "errorMessages_invalidUrl": {
+    "message": "請輸入有效的網址"
+  },
+  "errorMessages_noParamsFound": {
+    "message": "網址中未找到參數"
+  },
+  "errorMessages_noParamsSelected": {
+    "message": "未選擇參數"
+  },
+  "errorMessages_removingParameter": {
+    "message": "移除參數失敗"
+  },
+  "successMessages_whitelistImport": {
+    "message": "成功匯入白名單"
+  },
+  "successMessages_parameterAdded": {
+    "message": "成功新增 $1 個參數"
+  },
+  "confirmationMessages_importWhitelist": {
+    "message": "要將 $1 個網域匯入白名單嗎？"
+  },
+  "confirmationMessages_removeParameter": {
+    "message": "要從網域 '$2' 中移除參數 '$1' 嗎？"
+  },
+  "navwhitelist_": {
+    "message": "白名單管理"
+  },
+  "rulesTitle": {
+    "message": "自訂 DNR 規則建立器"
+  },
+  "urlInputPlaceholder": {
+    "message": "在此處貼上網址以進行分析，分析後您可以新增規則"
+  },
+  "ruleDomainPlaceholder": {
+    "message": "網域（例如 example.com）"
+  },
+  "ruleParamPlaceholder": {
+    "message": "要移除的參數（例如 utm_source）"
+  },
+  "analyzeButton": {
+    "message": "分析"
+  },
+  "addCustomRule": {
+    "message": "新增規則"
+  },
+  "searchRulesPlaceholder": {
+    "message": "搜尋規則..."
+  },
+  "searchWhitelistPlaceholder": {
+    "message": "搜尋白名單..."
+  },
+  "addParameterButton": {
+    "message": "新增參數"
+  },
+  "editParameter": {
+    "message": "編輯參數"
+  },
+  "removeParameter": {
+    "message": "移除參數"
+  },
+  "newParameterPlaceholder": {
+    "message": "輸入新參數"
+  },
+  "addSelectedParams": {
+    "message": "新增已選參數"
+  },
+  "statsTitle": {
+    "message": "統計資料"
+  },
+  "modifiedRequestsLabel": {
+    "message": "成功移除網址參數的請求數量"
+  },
+  "activeRulesLabel": {
+    "message": "此擴充功能移除的參數總數"
+  },
+  "resetStatsButton": {
+    "message": "重設統計資料"
+  },
+  "welcomeTitle": {
+    "message": "歡迎使用 Linkumori - 網址清潔器"
+  },
+  "welcomeHeading": {
+    "message": "歡迎使用 Linkumori"
+  },
+  "welcomeDescription": {
+    "message": "感謝您安裝 Linkumori，您的個人網址隱私和追蹤保護工具。Linkumori 透過從網址中移除追蹤參數來幫助您維持線上隱私。"
+  },
+  "feature1": {
+    "message": "自動從網址中移除追蹤參數"
+  },
+  "feature2": {
+    "message": "在不同網站上保護您的隱私"
+  },
+  "feature3": {
+    "message": "輕鬆自訂的白名單"
+  },
+  "feature4": {
+    "message": "不佔資源且不會煩擾用家"
+  },
+  "getStartedText": {
+    "message": "開始使用，請點擊以下按鈕開啟擴充功能設定。"
+  },
+  "openSettings": {
+    "message": "開啟 Linkumori 設定"
+  },
+  "settingsButtonAriaLabel": {
+    "message": "設定工具"
+  },
+  "themeToggleAriaLabel": {
+    "message": "切換主題"
+  },
+  "aboutTitle": {
+    "message": "關於"
+  },
+  "aboutTeam": {
+    "message": "由 Linkumori 團隊開發"
+  },
+  "aboutSourceGithub": {
+    "message": "GitHub 發行"
+  },
+  "aboutSourceChrome": {
+    "message": "Chrome 網路商店"
+  },
+  "aboutSourceUnknown": {
+    "message": "未知來源"
+  },
+  "aboutDetailsGithub": {
+    "message": "此版本透過 GitHub 發行。它可能包含來自存放庫的最新功能和更新。"
+  },
+  "aboutDetailsChrome": {
+    "message": "此版本透過 Chrome 網路商店發行。它是建議大多數使用者使用的穩定版本。"
+  },
+  "aboutDetailsUnknown": {
+    "message": "無法確定此版本的來源。請檢查擴充功能設定或聯繫支援以獲得更多資訊。"
+  },
+  "version": {
+    "message": "版本 $1"
+  },
+  "versionUnknown": {
+    "message": "未知版本"
+  },
+  "versionLabel": {
+    "message": "版本"
+  },
+  "officialRepo": {
+    "message": "官方存放庫："
+  },
+  "officialSite": {
+    "message": "官方網站："
+  },
+  "githubRepoLink": {
+    "message": "https://github.com/Linkumori"
+  },
+  "officialWebsiteLink": {
+    "message": " https://linkumori.com/"
+  },
+  "removerule": {
+    "message": "移除規則"
+  },
+  "__MSG_extDescription__": {
+    "message": "從網址中移除追蹤參數並保護您的隱私"
+  },
+  "confirmResetStats": {
+    "message": "您確定要重設所有統計資料嗎？"
+  }
+}
