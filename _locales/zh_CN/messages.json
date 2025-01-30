@@ -1,0 +1,341 @@
+{
+  "extName": {
+    "message": "Linkumori 设置"
+  },
+  "extDescription": {
+    "message": "从网址中移除追踪参数并保护您的隐私"
+  },
+  "cleanUrlsToolTitle": {
+    "message": "Linkumori 高级网址清洁工具"
+  },
+  "cleanUrlsToolHeader": {
+    "message": "Linkumori 网址清洁工具"
+  },
+  "popup": {
+    "message": "Linkumori"
+  },
+  "menuItemCopyCleanUrl": {
+    "message": "复制已清理的网址"
+  },
+  "statusOn": {
+    "message": "扩展功能状态：已开启，网络层级保护"
+  },
+  "statusOff": {
+    "message": "扩展功能状态：已关闭"
+  },
+  "historyProtectionOn": {
+    "message": "历史 API 保护已启用"
+  },
+  "historyProtectionOff": {
+    "message": "历史 API 保护已关闭"
+  },
+  "historyProtectionInactive": {
+    "message": "历史 API 保护（扩展功能未启用）"
+  },
+  "hyperlinkAuditingOn": {
+    "message": "超链接审核保护已启用"
+  },
+  "hyperlinkAuditingOff": {
+    "message": "超链接审核保护已关闭"
+  },
+  "hyperlinkAuditingInactive": {
+    "message": "超链接审核保护（扩展功能未启用）"
+  },
+  "preventRedirectOn": {
+    "message": "防止 Google 和 Yandex 服务在最终目的地之前将网址重定向到其服务器：已开启"
+  },
+  "preventRedirectOff": {
+    "message": "防止 Google 和 Yandex 服务在最终目的地之前将网址重定向到其服务器：已关闭"
+  },
+  "preventRedirectInactive": {
+    "message": "防止 Google 和 Yandex 服务在最终目的地之前将网址重定向到其服务器：（扩展功能未启用）"
+  },
+  "badgeOn": {
+    "message": "徽章计数器已启用"
+  },
+  "badgeOff": {
+    "message": "徽章计数器已关闭"
+  },
+  "badgeInactive": {
+    "message": "徽章计数器（扩展功能未启用）"
+  },
+  "navMain": {
+    "message": "主页"
+  },
+  "navWhitelist": {
+    "message": "白名单"
+  },
+  "navRules": {
+    "message": "自定义 DNR 规则"
+  },
+  "navStats": {
+    "message": "统计数据"
+  },
+  "navLicense": {
+    "message": "授权"
+  },
+  "navLegal": {
+    "message": "授权信息"
+  },
+  "navAbout": {
+    "message": "关于"
+  },
+  "navSettings": {
+    "message": "扩展功能设置"
+  },
+  "settingsTitle": {
+    "message": "扩展功能设置"
+  },
+  "whitelistTitle": {
+    "message": "白名单管理"
+  },
+  "inputUrlsTitle": {
+    "message": "输入网址"
+  },
+  "cleanedUrlsTitle": {
+    "message": "已清理的网址"
+  },
+  "inputUrlsPlaceholder": {
+    "message": "输入要清理的网址（每行一个）"
+  },
+  "cleanedUrlsPlaceholder": {
+    "message": "已清理的网址将显示在此处"
+  },
+  "cleanUrlsButton": {
+    "message": "清理网址"
+  },
+  "copyUrlsButton": {
+    "message": "复制结果"
+  },
+  "copySuccessMessage": {
+    "message": "网址已复制到剪贴板"
+  },
+  "copyErrorMessage": {
+    "message": "复制网址失败"
+  },
+  "whitelistDomainPlaceholder": {
+    "message": "输入要加入白名单的网域（例如 example.com）"
+  },
+  "exportWhitelist": {
+    "message": "导出白名单"
+  },
+  "importWhitelist": {
+    "message": "导入白名单"
+  },
+  "addCurrentDomain": {
+    "message": "加入当前网域"
+  },
+  "addDomainToWhitelist": {
+    "message": "将 $1 加入白名单"
+  },
+  "removeDomainFromWhitelist": {
+    "message": "将 $1 从白名单中移除"
+  },
+  "addDomain": {
+    "message": "加入"
+  },
+  "removeButton": {
+    "message": "移除"
+  },
+  "removeparameter": {
+    "message": "移除参数"
+  },
+  "editButton": {
+    "message": "编辑"
+  },
+  "confirmButton": {
+    "message": "确认"
+  },
+  "cancelButton": {
+    "message": "取消"
+  },
+  "noDomainsWhitelisted": {
+    "message": "没有网域被加入白名单"
+  },
+  "noDomainsFound": {
+    "message": "没有找到与 '$1' 匹配的网域"
+  },
+  "noRulesDefined": {
+    "message": "没有定义自定义规则"
+  },
+  "noRulesFound": {
+    "message": "没有找到与 '$1' 匹配的规则"
+  },
+  "errorMessages_invalidDomain": {
+    "message": "请输入有效的网域（例如 example.com）"
+  },
+  "errorMessages_domainExists": {
+    "message": "此网域已存在于白名单中"
+  },
+  "errorMessages_getCurrentDomain": {
+    "message": "无法获取当前网域"
+  },
+  "errorMessages_whitelistImport": {
+    "message": "导入白名单失败：$1"
+  },
+  "errorMessages_invalidUrl": {
+    "message": "请输入有效的网址"
+  },
+  "errorMessages_noParamsFound": {
+    "message": "网址中未找到参数"
+  },
+  "errorMessages_noParamsSelected": {
+    "message": "未选择参数"
+  },
+  "errorMessages_removingParameter": {
+    "message": "移除参数失败"
+  },
+  "successMessages_whitelistImport": {
+    "message": "成功导入白名单"
+  },
+  "successMessages_parameterAdded": {
+    "message": "成功新增 $1 个参数"
+  },
+  "confirmationMessages_importWhitelist": {
+    "message": "要将 $1 个网域导入白名单吗？"
+  },
+  "confirmationMessages_removeParameter": {
+    "message": "要从网域 '$2' 中移除参数 '$1' 吗？"
+  },
+  "navwhitelist_": {
+    "message": "白名单管理"
+  },
+  "rulesTitle": {
+    "message": "自定义 DNR 规则建立器"
+  },
+  "urlInputPlaceholder": {
+    "message": "在此处粘贴网址以进行分析，分析后您可以新增规则"
+  },
+  "ruleDomainPlaceholder": {
+    "message": "网域（例如 example.com）"
+  },
+  "ruleParamPlaceholder": {
+    "message": "要移除的参数（例如 utm_source）"
+  },
+  "analyzeButton": {
+    "message": "分析"
+  },
+  "addCustomRule": {
+    "message": "新增规则"
+  },
+  "searchRulesPlaceholder": {
+    "message": "搜索规则..."
+  },
+  "searchWhitelistPlaceholder": {
+    "message": "搜索白名单..."
+  },
+  "addParameterButton": {
+    "message": "新增参数"
+  },
+  "editParameter": {
+    "message": "编辑参数"
+  },
+  "removeParameter": {
+    "message": "移除参数"
+  },
+  "newParameterPlaceholder": {
+    "message": "输入新参数"
+  },
+  "addSelectedParams": {
+    "message": "新增已选参数"
+  },
+  "statsTitle": {
+    "message": "统计数据"
+  },
+  "modifiedRequestsLabel": {
+    "message": "成功移除网址参数的请求数量"
+  },
+  "activeRulesLabel": {
+    "message": "此扩展功能移除的参数总数"
+  },
+  "resetStatsButton": {
+    "message": "重设统计数据"
+  },
+  "welcomeTitle": {
+    "message": "欢迎使用 Linkumori - 网址清洁器"
+  },
+  "welcomeHeading": {
+    "message": "欢迎使用 Linkumori"
+  },
+  "welcomeDescription": {
+    "message": "感谢您安装 Linkumori，您的个人网址隐私和追踪保护工具。Linkumori 通过从网址中移除追踪参数来帮助您维持线上隐私。"
+  },
+  "feature1": {
+    "message": "自动从网址中移除追踪参数"
+  },
+  "feature2": {
+    "message": "在不同网站上保护您的隐私"
+  },
+  "feature3": {
+    "message": "轻松自定义的白名单"
+  },
+  "feature4": {
+    "message": "不占资源且不会烦扰用户"
+  },
+  "getStartedText": {
+    "message": "开始使用，请点击以下按钮开启扩展功能设置。"
+  },
+  "openSettings": {
+    "message": "开启 Linkumori 设置"
+  },
+  "settingsButtonAriaLabel": {
+    "message": "设置工具"
+  },
+  "themeToggleAriaLabel": {
+    "message": "切换主题"
+  },
+  "aboutTitle": {
+    "message": "关于"
+  },
+  "aboutTeam": {
+    "message": "由 Linkumori 团队开发"
+  },
+  "aboutSourceGithub": {
+    "message": "GitHub 发布"
+  },
+  "aboutSourceChrome": {
+    "message": "Chrome 网上应用店"
+  },
+  "aboutSourceUnknown": {
+    "message": "未知来源"
+  },
+  "aboutDetailsGithub": {
+    "message": "此版本通过 GitHub 发布。它可能包含来自仓库的最新功能和更新。"
+  },
+  "aboutDetailsChrome": {
+    "message": "此版本通过 Chrome 网上应用店发布。它是建议大多数用户使用的稳定版本。"
+  },
+  "aboutDetailsUnknown": {
+    "message": "无法确定此版本的来源。请检查扩展功能设置或联系支持以获得更多信息。"
+  },
+  "version": {
+    "message": "版本 $1"
+  },
+  "versionUnknown": {
+    "message": "未知版本"
+  },
+  "versionLabel": {
+    "message": "版本"
+  },
+  "officialRepo": {
+    "message": "官方仓库："
+  },
+  "officialSite": {
+    "message": "官方网站："
+  },
+  "githubRepoLink": {
+    "message": "https://github.com/Linkumori"
+  },
+  "officialWebsiteLink": {
+    "message": " https://linkumori.com/"
+  },
+  "removerule": {
+    "message": "移除规则"
+  },
+  "__MSG_extDescription__": {
+    "message": "从网址中移除追踪参数并保护您的隐私"
+  },
+  "confirmResetStats": {
+    "message": "您确定要重设所有统计数据吗？"
+  }
+}
