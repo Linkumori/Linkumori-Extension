@@ -130,6 +130,7 @@ The following code in the linkurmori source code files are completely under the 
 - `/rules/rules8.json`
 - `/rules/rules16.json`
 - `/rules/rules17.json`
+-`_locales/zh_CN/messages.json`
 - `rules/exception/rules18.json`
 - `/_locales/en/messages.json`
 - `lib/amazon-url-prevention.js`
@@ -277,3 +278,5 @@ Linkumori is provided "as is" without warranty of any kind. Use at your own risk
 
 For complete license texts and additional details, please see the LICENSE file in the project repository.
 By contributing to this project, you agree that all contributions are submitted under the terms of the GNU General Public License version 3 or any later version (GPL-3.0+).
+
+Please refer to the license to learn about the contributors, their licensing terms, and the specific files written by them.
