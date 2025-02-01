@@ -682,6 +682,15 @@
         "initiatorDomains": ["chatgpt.com"],
         "resourceTypes": ["main_frame", "sub_frame", "xmlhttprequest"]
       }
+    },
+    {
+      "id": 78,
+      "priority": 1,
+      "action": { "type": "allow" },
+      "condition": {
+        "regexFilter": "^https?:\\/\\/books\\.google\\.[a-z.]+",
+        "resourceTypes": ["main_frame", "sub_frame", "xmlhttprequest"]
+      }
     }
   ]
 
