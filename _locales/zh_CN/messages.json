@@ -337,5 +337,21 @@
   },
   "confirmResetStats": {
     "message": "确定要重置所有统计信息吗？"
-  }
+  },
+  "checking_updates": {
+    "message": "正在检查更新..."
+},
+"update_available": {
+    "message": "发现新版本！点击链接立即更新。"
+},
+"no_update": {
+    "message": "当前已是最新版本。"
+},
+"throttled": {
+    "message": "更新检查过于频繁，请稍后再试。"
+},
+"apply_update": {
+    "message": "立即更新"
+}
+
 }
