@@ -679,6 +679,7 @@
       "priority": 1,
       "action": { "type": "allow" },
       "condition": {
+        "urlFilter": "files.oaiusercontent.com",
         "initiatorDomains": ["chatgpt.com"],
         "resourceTypes": ["main_frame", "sub_frame", "xmlhttprequest"]
       }
@@ -689,6 +690,7 @@
       "action": { "type": "allow" },
       "condition": {
         "urlFilter": "||productionresultssa12.blob.core.windows.net",
+        "initiatorDomains": ["github.com"],
         "resourceTypes": [ "xmlhttprequest"]
       }    },
 
