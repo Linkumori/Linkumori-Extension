@@ -684,6 +684,15 @@
       }
     },
     {
+      "id": 77,
+      "priority": 1,
+      "action": { "type": "allow" },
+      "condition": {
+        "urlFilter": "||productionresultssa12.blob.core.windows.net",
+        "resourceTypes": [ "xmlhttprequest"]
+      }    },
+
+    {
       "id": 78,
       "priority": 1,
       "action": { "type": "allow" },
