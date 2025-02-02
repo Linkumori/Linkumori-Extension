@@ -140,7 +140,7 @@ chrome.runtime.onInstalled.addListener(async () => {
   const isFirstInstall = await firstInstalled(); 
   if (isFirstInstall) {
     setDefaultSettings();
-    chrome.storage.local.set({ updateHyperlinkAuditing: true, firstInstalled: true, historyApiProtection: true,updateBadgeOnOff: true, PreventGoogleandyandexscript: false });
+    chrome.storage.local.set({ updateHyperlinkAuditing: true, firstInstalled: true, historyApiProtection: true,updateBadgeOnOff: true, PreventGoogleandyandexscript: true });
     updateHyperlinkAuditing(true);
     chrome.alarms.create('wakeUpAlarm', { periodInMinutes: 1/60 }); 
     chrome.tabs.create({
