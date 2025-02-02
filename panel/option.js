@@ -64,6 +64,7 @@ class OptionsMenuController {
         this.setupNavigation();
         this.setupAboutSection();
         this.initializeI18n();
+        this.setupUpdateChecker();  // Add this line
     }
 
     initializeI18n() {
@@ -1329,6 +1330,32 @@ class OptionsMenuController {
         } catch (error) {
             console.error('Failed to setup about section:', error);
         }
+    }
+
+    setupUpdateChecker() {
+        const statusElement = document.getElementById("updateStatus");
+        const applyUpdateLink = document.getElementById("applyUpdate");
+
+        if (!statusElement || !applyUpdateLink) return;
+
+        // Automatically check for updates when the page loads
+        chrome.runtime.requestUpdateCheck((status, details) => {
+            if (status === "update_available") {
+                statusElement.textContent = chrome.i18n.getMessage("update_available");
+                applyUpdateLink.style.display = "inline";
+            } else if (status === "no_update") {
+                statusElement.textContent = chrome.i18n.getMessage("no_update");
+            } else if (status === "throttled") {
+                statusElement.textContent = chrome.i18n.getMessage("throttled");
+            }
+        });
+
+        // Apply update when the link is clicked
+        applyUpdateLink.addEventListener("click", (event) => {
+            event.preventDefault();
+            statusElement.textContent = chrome.i18n.getMessage("applying_update");
+            chrome.runtime.reload();
+        });
     }
 }
 

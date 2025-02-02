@@ -337,5 +337,21 @@
   },
   "confirmResetStats": {
     "message": "您確定要重設所有統計資料嗎？"
-  }
+  },
+  "checking_updates": {
+    "message": "正在檢查更新..."
+},
+"update_available": {
+    "message": "發現新版本！點擊連結立即更新。"
+},
+"no_update": {
+    "message": "目前已經是最新版本。"
+},
+"throttled": {
+    "message": "更新檢查過於頻繁，請稍後再試。"
+},
+"apply_update": {
+    "message": "立即更新"
+}
+
 }

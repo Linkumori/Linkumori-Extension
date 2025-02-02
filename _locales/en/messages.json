@@ -337,5 +337,20 @@
   },
   "confirmResetStats": {
         "message": "Are you sure you want to reset all statistics?"
+    },
+    "checking_updates": {
+      "message": "Checking for updates..."
+    },
+    "update_available": {
+      "message": "Update available! Click the link to apply."
+    },
+    "no_update": {
+      "message": "No updates available."
+    },
+    "throttled": {
+      "message": "Update check throttled. Try again later."
+    },
+    "apply_update": {
+      "message": "Apply Update"
     }
 }
