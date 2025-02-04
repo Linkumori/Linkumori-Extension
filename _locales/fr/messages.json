@@ -1,0 +1,356 @@
+{
+  "extName": {
+    "message": "Paramètres de Linkumori"
+  },
+  "extDescription": {
+    "message": "Supprimer les paramètres de suivi des URL et protéger votre vie privée"
+  },
+  "cleanUrlsToolTitle": {
+    "message": "Outil avancé de nettoyage d'URL de Linkumori"
+  },
+  "cleanUrlsToolHeader": {
+    "message": "Outil de nettoyage d'URL Linkumori"
+  },
+  "popup": {
+    "message": "Linkumori"
+  },
+  "menuItemCopyCleanUrl": {
+    "message": "Copier l'URL nettoyée"
+  },
+  "statusOn": {
+    "message": "Statut de l'extension : Activée avec protection au niveau réseau"
+  },
+  "statusOff": {
+    "message": "Statut de l'extension : Désactivée"
+  },
+  "historyProtectionOn": {
+    "message": "Protection de l'API Historique active"
+  },
+  "historyProtectionOff": {
+    "message": "Protection de l'API Historique désactivée"
+  },
+  "historyProtectionInactive": {
+    "message": "Protection de l'API Historique (Extension inactive)"
+  },
+  "hyperlinkAuditingOn": {
+    "message": "Protection de l'audit des hyperliens active"
+  },
+  "hyperlinkAuditingOff": {
+    "message": "Protection de l'audit des hyperliens désactivée"
+  },
+  "hyperlinkAuditingInactive": {
+    "message": "Protection de l'audit des hyperliens (Extension inactive)"
+  },
+  "preventRedirectOn": {
+    "message": "Empêcher les services Google et Yandex de rediriger les URL vers leurs serveurs avant la destination finale : Activé"
+  },
+  "preventRedirectOff": {
+    "message": "Empêcher Google et Yandex de rediriger les URL vers leurs serveurs avant la destination finale : Désactivé"
+  },
+  "preventRedirectInactive": {
+    "message": "Empêcher Google et Yandex de rediriger les URL (Extension inactive)"
+  },
+  "badgeOn": {
+    "message": "Compteur de badge actif"
+  },
+  "badgeOff": {
+    "message": "Compteur de badge désactivé"
+  },
+  "badgeInactive": {
+    "message": "Compteur de badge (Extension inactive)"
+  },
+  "navMain": {
+    "message": "Principal"
+  },
+  "navWhitelist": {
+    "message": "Liste blanche"
+  },
+  "navRules": {
+    "message": "Règles DNR personnalisées"
+  },
+  "navStats": {
+    "message": "Statistiques"
+  },
+  "navLicense": {
+    "message": "Licence"
+  },
+  "navLegal": {
+    "message": "Informations légales"
+  },
+  "navAbout": {
+    "message": "À propos"
+  },
+  "navSettings": {
+    "message": "Paramètres de l'extension"
+  },
+  "settingsTitle": {
+    "message": "Paramètres de l'extension"
+  },
+  "whitelistTitle": {
+    "message": "Gestion de la liste blanche"
+  },
+  "inputUrlsTitle": {
+    "message": "URLs en entrée"
+  },
+  "cleanedUrlsTitle": {
+    "message": "URLs nettoyées"
+  },
+  "inputUrlsPlaceholder": {
+    "message": "Entrez les URLs à nettoyer (une par ligne)"
+  },
+  "cleanedUrlsPlaceholder": {
+    "message": "Les URLs nettoyées apparaîtront ici"
+  },
+  "cleanUrlsButton": {
+    "message": "Nettoyer les URLs"
+  },
+  "copyUrlsButton": {
+    "message": "Copier les résultats"
+  },
+  "copySuccessMessage": {
+    "message": "URLs copiées dans le presse-papiers"
+  },
+  "copyErrorMessage": {
+    "message": "Échec de la copie des URLs"
+  },
+  "whitelistDomainPlaceholder": {
+    "message": "Entrez un domaine à ajouter à la liste blanche (ex. exemple.com)"
+  },
+  "exportWhitelist": {
+    "message": "Exporter la liste blanche"
+  },
+  "importWhitelist": {
+    "message": "Importer la liste blanche"
+  },
+  "addCurrentDomain": {
+    "message": "Ajouter le domaine actuel"
+  },
+  "addDomainToWhitelist": {
+    "message": "Ajouter $1 à la liste blanche"
+  },
+  "removeDomainFromWhitelist": {
+    "message": "Retirer $1 de la liste blanche"
+  },
+  "addDomain": {
+    "message": "Ajouter"
+  },
+  "removeButton": {
+    "message": "Retirer"
+  },
+  "removeparameter": {
+    "message": "Supprimer le paramètre"
+  },
+  "editButton": {
+    "message": "Modifier"
+  },
+  "confirmButton": {
+    "message": "Confirmer"
+  },
+  "cancelButton": {
+    "message": "Annuler"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Aucun domaine dans la liste blanche"
+  },
+  "noDomainsFound": {
+    "message": "Aucun domaine trouvé correspondant à '$1'"
+  },
+  "noRulesDefined": {
+    "message": "Aucune règle personnalisée définie"
+  },
+  "noRulesFound": {
+    "message": "Aucune règle trouvée correspondant à '$1'"
+  },
+  "errorMessages_invalidDomain": {
+    "message": "Veuillez entrer un domaine valide (ex. exemple.com)"
+  },
+  "errorMessages_domainExists": {
+    "message": "Ce domaine est déjà dans la liste blanche"
+  },
+  "errorMessages_getCurrentDomain": {
+    "message": "Impossible d'obtenir le domaine actuel"
+  },
+  "errorMessages_whitelistImport": {
+    "message": "Échec de l'importation de la liste blanche : $1"
+  },
+  "errorMessages_invalidUrl": {
+    "message": "Veuillez entrer une URL valide"
+  },
+  "errorMessages_noParamsFound": {
+    "message": "Aucun paramètre trouvé dans l'URL"
+  },
+  "errorMessages_noParamsSelected": {
+    "message": "Aucun paramètre sélectionné"
+  },
+  "errorMessages_removingParameter": {
+    "message": "Échec de la suppression du paramètre"
+  },
+  "successMessages_whitelistImport": {
+    "message": "Liste blanche importée avec succès"
+  },
+  "successMessages_parameterAdded": {
+    "message": "$1 paramètre(s) ajouté(s) avec succès"
+  },
+  "confirmationMessages_importWhitelist": {
+    "message": "Importer $1 domaines dans la liste blanche ?"
+  },
+  "confirmationMessages_removeParameter": {
+    "message": "Supprimer le paramètre '$1' du domaine '$2' ?"
+  },
+  "navwhitelist_": {
+    "message": "Gestion de la liste blanche"
+  },
+  "rulesTitle": {
+    "message": "Générateur de règles DNR personnalisées"
+  },
+  "urlInputPlaceholder": {
+    "message": "Collez l'URL ici pour l'analyser. Après analyse, vous pouvez ajouter des règles"
+  },
+  "ruleDomainPlaceholder": {
+    "message": "Domaine (ex. exemple.com)"
+  },
+  "ruleParamPlaceholder": {
+    "message": "Paramètre à supprimer (ex. utm_source)"
+  },
+  "analyzeButton": {
+    "message": "Analyser"
+  },
+  "addCustomRule": {
+    "message": "Ajouter une règle"
+  },
+  "searchRulesPlaceholder": {
+    "message": "Rechercher des règles..."
+  },
+  "searchWhitelistPlaceholder": {
+    "message": "Rechercher dans la liste blanche..."
+  },
+  "addParameterButton": {
+    "message": "Ajouter un paramètre"
+  },
+  "editParameter": {
+    "message": "Modifier le paramètre"
+  },
+  "removeParameter": {
+    "message": "Supprimer le paramètre"
+  },
+  "newParameterPlaceholder": {
+    "message": "Entrez un nouveau paramètre"
+  },
+  "addSelectedParams": {
+    "message": "Ajouter les paramètres sélectionnés"
+  },
+  "statsTitle": {
+    "message": "Statistiques"
+  },
+  "modifiedRequestsLabel": {
+    "message": "Requêtes modifiées avec suppression de paramètres"
+  },
+  "activeRulesLabel": {
+    "message": "Paramètres supprimés au total"
+  },
+  "resetStatsButton": {
+    "message": "Réinitialiser les statistiques"
+  },
+  "welcomeTitle": {
+    "message": "Bienvenue sur Linkumori - Nettoyeur d'URL"
+  },
+  "welcomeHeading": {
+    "message": "Bienvenue sur Linkumori"
+  },
+  "welcomeDescription": {
+    "message": "Merci d'avoir installé Linkumori, votre outil de protection de la vie privée en ligne. Il supprime les paramètres de suivi des URL pour préserver votre anonymat."
+  },
+  "feature1": {
+    "message": "Suppression automatique des paramètres de suivi"
+  },
+  "feature2": {
+    "message": "Protection de la vie privée sur tous les sites"
+  },
+  "feature3": {
+    "message": "Liste blanche personnalisable"
+  },
+  "feature4": {
+    "message": "Léger et discret"
+  },
+  "getStartedText": {
+    "message": "Cliquez ci-dessous pour configurer l'extension :"
+  },
+  "openSettings": {
+    "message": "Ouvrir les paramètres"
+  },
+  "settingsButtonAriaLabel": {
+    "message": "Outils de configuration"
+  },
+  "themeToggleAriaLabel": {
+    "message": "Changer le thème"
+  },
+  "aboutTitle": {
+    "message": "À propos"
+  },
+  "aboutTeam": {
+    "message": "Développé par l'équipe Linkumori"
+  },
+  "aboutSourceGithub": {
+    "message": "Version GitHub"
+  },
+  "aboutSourceChrome": {
+    "message": "Chrome Web Store"
+  },
+  "aboutSourceUnknown": {
+    "message": "Source inconnue"
+  },
+  "aboutDetailsGithub": {
+    "message": "Version GitHub avec les dernières fonctionnalités du dépôt."
+  },
+  "aboutDetailsChrome": {
+    "message": "Version stable du Chrome Web Store."
+  },
+  "aboutDetailsUnknown": {
+    "message": "Source indéterminée - contactez le support."
+  },
+  "version": {
+    "message": "Version $1"
+  },
+  "versionUnknown": {
+    "message": "Version inconnue"
+  },
+  "versionLabel": {
+    "message": "Version"
+  },
+  "officialRepo": {
+    "message": "Dépôt officiel :"
+  },
+  "officialSite": {
+    "message": "Site officiel :"
+  },
+  "githubRepoLink": {
+    "message": "https://github.com/Linkumori"
+  },
+  "officialWebsiteLink": {
+    "message": "https://linkumori.com/"
+  },
+  "removerule": {
+    "message": "Supprimer la règle"
+  },
+  "_MSG_extDescription_": {
+    "message": "Supprimer les paramètres de suivi des URL et protéger votre vie privée"
+  },
+  "confirmResetStats": {
+    "message": "Confirmez la réinitialisation des statistiques ?"
+  },
+  "checking_updates": {
+    "message": "Recherche de mises à jour..."
+  },
+  "update_available": {
+    "message": "Mise à jour disponible ! Cliquez pour l'installer."
+  },
+  "no_update": {
+    "message": "Aucune mise à jour disponible."
+  },
+  "throttled": {
+    "message": "Vérification temporairement bloquée. Réessayez plus tard."
+  },
+  "apply_update": {
+    "message": "Appliquer la mise à jour"
+  }
+}
