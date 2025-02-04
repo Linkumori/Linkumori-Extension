@@ -1,0 +1,356 @@
+{
+  "extName": {
+    "message": "リンクモリ設定"
+  },
+  "extDescription": {
+    "message": "URL からトラッキング パラメーターを削除し、プライバシーを守ります"
+  },
+  "cleanUrlsToolTitle": {
+    "message": "リンクモリ高度な URL クリーン ツール"
+  },
+  "cleanUrlsToolHeader": {
+    "message": "リンクモリ URL クリーン ツール"
+  },
+  "popup": {
+    "message": "リンクモリ"
+  },
+  "menuItemCopyCleanUrl": {
+    "message": "クリーンな URL をコピー"
+  },
+  "statusOn": {
+    "message": "拡張機能の状態: ネットワーク レベル保護付きオン"
+  },
+  "statusOff": {
+    "message": "拡張機能の状態: オフ"
+  },
+  "historyProtectionOn": {
+    "message": "履歴 API 保護がアクティブ"
+  },
+  "historyProtectionOff": {
+    "message": "履歴 API 保護が無効"
+  },
+  "historyProtectionInactive": {
+    "message": "履歴 API 保護 (拡張機能非アクティブ)"
+  },
+  "hyperlinkAuditingOn": {
+    "message": "ハイパーリンク監査保護がアクティブ"
+  },
+  "hyperlinkAuditingOff": {
+    "message": "ハイパーリンク監査保護が無効"
+  },
+  "hyperlinkAuditingInactive": {
+    "message": "ハイパーリンク監査保護 (拡張機能非アクティブ)"
+  },
+  "preventRedirectOn": {
+    "message": "Google と Yandex のサービスが最終目的地に至る前に URL をサーバーにリダイレクトすることを防ぐ: オン"
+  },
+  "preventRedirectOff": {
+    "message": "Google と Yandex のサービスが最終目的地に至る前に URL をサーバーにリダイレクトすることを防ぐ: オフ"
+  },
+  "preventRedirectInactive": {
+    "message": "Google と Yandex のサービスが最終目的地に至る前に URL をサーバーにリダイレクトすることを防ぐ: (拡張機能非アクティブ)"
+  },
+  "badgeOn": {
+    "message": "バッジ カウンターがアクティブ"
+  },
+  "badgeOff": {
+    "message": "バッジ カウンターが無効"
+  },
+  "badgeInactive": {
+    "message": "バッジ カウンター (拡張機能非アクティブ)"
+  },
+  "navMain": {
+    "message": "メイン"
+  },
+  "navWhitelist": {
+    "message": "ホワイトリスト"
+  },
+  "navRules": {
+    "message": "カスタム DNR ルール"
+  },
+  "navStats": {
+    "message": "統計"
+  },
+  "navLicense": {
+    "message": "ライセンス"
+  },
+  "navLegal": {
+    "message": "ライセンス情報"
+  },
+  "navAbout": {
+    "message": "約"
+  },
+  "navSettings": {
+    "message": "拡張機能設定"
+  },
+  "settingsTitle": {
+    "message": "拡張機能設定"
+  },
+  "whitelistTitle": {
+    "message": "ホワイトリスト管理"
+  },
+  "inputUrlsTitle": {
+    "message": "入力 URL"
+  },
+  "cleanedUrlsTitle": {
+    "message": "クリーンな URL"
+  },
+  "inputUrlsPlaceholder": {
+    "message": "クリーンする URL を入力 (1 行に 1 つ)"
+  },
+  "cleanedUrlsPlaceholder": {
+    "message": "クリーンな URL がここに表示されます"
+  },
+  "cleanUrlsButton": {
+    "message": "URL をクリーン"
+  },
+  "copyUrlsButton": {
+    "message": "結果をコピー"
+  },
+  "copySuccessMessage": {
+    "message": "URL をクリップボードにコピーしました"
+  },
+  "copyErrorMessage": {
+    "message": "URL のコピーに失敗しました"
+  },
+  "whitelistDomainPlaceholder": {
+    "message": "ホワイトリストに追加するドメインを入力 (例: example.com)"
+  },
+  "exportWhitelist": {
+    "message": "ホワイトリストをエクスポート"
+  },
+  "importWhitelist": {
+    "message": "ホワイトリストをインポート"
+  },
+  "addCurrentDomain": {
+    "message": "現在のドメインを追加"
+  },
+  "addDomainToWhitelist": {
+    "message": "$1 をホワイトリストに追加"
+  },
+  "removeDomainFromWhitelist": {
+    "message": "$1 をホワイトリストから削除"
+  },
+  "addDomain": {
+    "message": "追加"
+  },
+  "removeButton": {
+    "message": "削除"
+  },
+  "removeparameter": {
+    "message": "パラメーターを削除"
+  },
+  "editButton": {
+    "message": "編集"
+  },
+  "confirmButton": {
+    "message": "確認"
+  },
+  "cancelButton": {
+    "message": "キャンセル"
+  },
+  "noDomainsWhitelisted": {
+    "message": "ホワイトリストにドメインが設定されていません"
+  },
+  "noDomainsFound": {
+    "message": "$1 に一致するドメインが見つかりませんでした"
+  },
+  "noRulesDefined": {
+    "message": "カスタム ルールが定義されていません"
+  },
+  "noRulesFound": {
+    "message": "$1 に一致するルールが見つかりませんでした"
+  },
+  "errorMessages_invalidDomain": {
+    "message": "有効なドメインを入力してください (例: example.com)"
+  },
+  "errorMessages_domainExists": {
+    "message": "このドメインは既にホワイトリストに追加されています"
+  },
+  "errorMessages_getCurrentDomain": {
+    "message": "現在のドメインを取得できませんでした"
+  },
+  "errorMessages_whitelistImport": {
+    "message": "ホワイトリストのインポートに失敗しました: $1"
+  },
+  "errorMessages_invalidUrl": {
+    "message": "有効な URL を入力してください"
+  },
+  "errorMessages_noParamsFound": {
+    "message": "URL にパラメーターが見つかりませんでした"
+  },
+  "errorMessages_noParamsSelected": {
+    "message": "パラメーターが選択されていません"
+  },
+  "errorMessages_removingParameter": {
+    "message": "パラメーターの削除に失敗しました"
+  },
+  "successMessages_whitelistImport": {
+    "message": "ホワイトリストのインポートに成功しました"
+  },
+  "successMessages_parameterAdded": {
+    "message": "$1 パラメーターを正常に追加しました"
+  },
+  "confirmationMessages_importWhitelist": {
+    "message": "$1 ドメインをホワイトリストにインポートしますか？"
+  },
+  "confirmationMessages_removeParameter": {
+    "message": "ドメイン '$2' からパラメーター '$1' を削除しますか？"
+  },
+  "navwhitelist_": {
+    "message": "ホワイトリスト管理"
+  },
+  "rulesTitle": {
+    "message": "カスタム DNR ルール ビルダー"
+  },
+  "urlInputPlaceholder": {
+    "message": "分析するために URL をここに貼り付けてください。分析後、ルールを追加できます。"
+  },
+  "ruleDomainPlaceholder": {
+    "message": "ドメイン (例: example.com)"
+  },
+  "ruleParamPlaceholder": {
+    "message": "削除するパラメーター (例: utm_source)"
+  },
+  "analyzeButton": {
+    "message": "分析"
+  },
+  "addCustomRule": {
+    "message": "ルールを追加"
+  },
+  "searchRulesPlaceholder": {
+    "message": "ルールを検索..."
+  },
+  "searchWhitelistPlaceholder": {
+    "message": "ホワイトリストを検索..."
+  },
+  "addParameterButton": {
+    "message": "パラメーターを追加"
+  },
+  "editParameter": {
+    "message": "パラメーターを編集"
+  },
+  "removeParameter": {
+    "message": "パラメーターを削除"
+  },
+  "newParameterPlaceholder": {
+    "message": "新しいパラメーターを入力"
+  },
+  "addSelectedParams": {
+    "message": "選択したパラメーターを追加"
+  },
+  "statsTitle": {
+    "message": "統計"
+  },
+  "modifiedRequestsLabel": {
+    "message": "URL パラメーターが正常に削除されたリクエストの数"
+  },
+  "activeRulesLabel": {
+    "message": "この拡張機能によって削除されたパラメーターの合計数"
+  },
+  "resetStatsButton": {
+    "message": "統計をリセット"
+  },
+  "welcomeTitle": {
+    "message": "リンクモリ - URL クリーナーへようこそ"
+  },
+  "welcomeHeading": {
+    "message": "リンクモリへようこそ"
+  },
+  "welcomeDescription": {
+    "message": "リンクモリをインストールしていただき、ありがとうございます。リンクモリは、URL からトラッキング パラメーターを削除することで、オンラインプライバシーを保護するパーソナル URL プライバシーとトラッキング保護ツールです。"
+  },
+  "feature1": {
+    "message": "URL から自動的にトラッキング パラメーターを削除"
+  },
+  "feature2": {
+    "message": "異なるウェブサイトでプライバシーを保護"
+  },
+  "feature3": {
+    "message": "簡単にカスタマイズできるホワイトリスト"
+  },
+  "feature4": {
+    "message": "軽量で非干渉的"
+  },
+  "getStartedText": {
+    "message": "開始するには、以下のボタンをクリックして拡張機能の設定を開きます。"
+  },
+  "openSettings": {
+    "message": "リンクモリ設定を開く"
+  },
+  "settingsButtonAriaLabel": {
+    "message": "設定ツール"
+  },
+  "themeToggleAriaLabel": {
+    "message": "テーマを切り替えます"
+  },
+  "aboutTitle": {
+    "message": "約"
+  },
+  "aboutTeam": {
+    "message": "リンクモリ チームによって開発"
+  },
+  "aboutSourceGithub": {
+    "message": "GitHub リリース"
+  },
+  "aboutSourceChrome": {
+    "message": "Chrome ウェブ ストア"
+  },
+  "aboutSourceUnknown": {
+    "message": "不明なソース"
+  },
+  "aboutDetailsGithub": {
+    "message": "このバージョンは GitHub 経由で配布されます。リポジトリから直接最新の機能と更新が含まれる場合があります。"
+  },
+  "aboutDetailsChrome": {
+    "message": "このバージョンは Chrome ウェブ ストア経由で配布されます。ほとんどのユーザーに推奨される安定版です。"
+  },
+  "aboutDetailsUnknown": {
+    "message": "このバージョンのソースは特定できませんでした。拡張機能の設定を確認するか、サポートに問い合わせてください。"
+  },
+  "version": {
+    "message": "バージョン $1"
+  },
+  "versionUnknown": {
+    "message": "不明なバージョン"
+  },
+  "versionLabel": {
+    "message": "バージョン"
+  },
+  "officialRepo": {
+    "message": "公式リポジトリ:"
+  },
+  "officialSite": {
+    "message": "公式ウェブサイト:"
+  },
+  "githubRepoLink": {
+    "message": "https://github.com/Linkumori"
+  },
+  "officialWebsiteLink": {
+    "message": "https://linkumori.com/"
+  },
+  "removerule": {
+    "message": "ルールを削除"
+  },
+  "__MSG_extDescription__": {
+    "message": "URL からトラッキング パラメーターを削除し、プライバシーを守ります"
+  },
+  "confirmResetStats": {
+    "message": "すべての統計をリセットしてもよろしいですか？"
+  },
+  "checking_updates": {
+    "message": "更新を確認しています..."
+  },
+  "update_available": {
+    "message": "更新があります！リンクをクリックして適用してください。"
+  },
+  "no_update": {
+    "message": "更新はありません。"
+  },
+  "throttled": {
+    "message": "更新チェックがスロットルされました。後でもう一度お試しください。"
+  },
+  "apply_update": {
+    "message": "更新を適用"
+  }
+}
