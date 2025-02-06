@@ -1,0 +1,356 @@
+{
+  "extName": {
+    "message": "Linkumori-Einstellungen"
+  },
+  "extDescription": {
+    "message": "Entfernt Tracking-Parameter aus URLs und schützt Ihre Privatsphäre"
+  },
+  "cleanUrlsToolTitle": {
+    "message": "Linkumori-Erweiterte URL-Bereinigungstool"
+  },
+  "cleanUrlsToolHeader": {
+    "message": "Linkumori URL-Bereinigungstool"
+  },
+  "popup": {
+    "message": "Linkumori"
+  },
+  "menuItemCopyCleanUrl": {
+    "message": "Gereinigte URL kopieren"
+  },
+  "statusOn": {
+    "message": "Erweiterungsstatus: Aktiv mit Netzwerkebenen-Schutz"
+  },
+  "statusOff": {
+    "message": "Erweiterungsstatus: Inaktiv"
+  },
+  "historyProtectionOn": {
+    "message": "Geschichtsschutz API Aktiv"
+  },
+  "historyProtectionOff": {
+    "message": "Geschichtsschutz API Deaktiviert"
+  },
+  "historyProtectionInactive": {
+    "message": "Geschichtsschutz API (Erweiterung inaktiv)"
+  },
+  "hyperlinkAuditingOn": {
+    "message": "Hyperlink-Prüfschutz aktiv"
+  },
+  "hyperlinkAuditingOff": {
+    "message": "Hyperlink-Prüfschutz deaktiviert"
+  },
+  "hyperlinkAuditingInactive": {
+    "message": "Hyperlink-Prüfschutz (Erweiterung inaktiv)"
+  },
+  "preventRedirectOn": {
+    "message": "Verhindern, dass Google- und Yandex-Dienste URLs auf ihre Server umleiten, bevor das endgültige Ziel erreicht wird: Aktiviert"
+  },
+  "preventRedirectOff": {
+    "message": "Verhindern, dass Google- und Yandex-Dienste URLs auf ihre Server umleiten, bevor das endgültige Ziel erreicht wird: Deaktiviert"
+  },
+  "preventRedirectInactive": {
+    "message": "Verhindern, dass Google- und Yandex-Dienste URLs auf ihre Server umleiten, bevor das endgültige Ziel erreicht wird: (Erweiterung inaktiv)"
+  },
+  "badgeOn": {
+    "message": "Abzeichen-Zähler aktiv"
+  },
+  "badgeOff": {
+    "message": "Abzeichen-Zähler deaktiviert"
+  },
+  "badgeInactive": {
+    "message": "Abzeichen-Zähler (Erweiterung inaktiv)"
+  },
+  "navMain": {
+    "message": "Hauptmenü"
+  },
+  "navWhitelist": {
+    "message": "Whitelist"
+  },
+  "navRules": {
+    "message": "Benutzerdefinierte DNR-Regeln"
+  },
+  "navStats": {
+    "message": "Statistiken"
+  },
+  "navLicense": {
+    "message": "Lizenz"
+  },
+  "navLegal": {
+    "message": "Lizenzinformationen"
+  },
+  "navAbout": {
+    "message": "Über"
+  },
+  "navSettings": {
+    "message": "Erweiterungseinstellungen"
+  },
+  "settingsTitle": {
+    "message": "Erweiterungseinstellungen"
+  },
+  "whitelistTitle": {
+    "message": "Whitelist-Verwaltung"
+  },
+  "inputUrlsTitle": {
+    "message": "Eingabe-URLs"
+  },
+  "cleanedUrlsTitle": {
+    "message": "Gereinigte URLs"
+  },
+  "inputUrlsPlaceholder": {
+    "message": "Geben Sie URLs zum Bereinigen ein (eine pro Zeile)"
+  },
+  "cleanedUrlsPlaceholder": {
+    "message": "Gereinigte URLs werden hier angezeigt"
+  },
+  "cleanUrlsButton": {
+    "message": "URLs bereinigen"
+  },
+  "copyUrlsButton": {
+    "message": "Ergebnisse kopieren"
+  },
+  "copySuccessMessage": {
+    "message": "URLs in die Zwischenablage kopiert"
+  },
+  "copyErrorMessage": {
+    "message": "Fehler beim Kopieren der URLs"
+  },
+  "whitelistDomainPlaceholder": {
+    "message": "Geben Sie einen Domainnamen zur Whitelist ein (z. B. example.com)"
+  },
+  "exportWhitelist": {
+    "message": "Whitelist exportieren"
+  },
+  "importWhitelist": {
+    "message": "Whitelist importieren"
+  },
+  "addCurrentDomain": {
+    "message": "Aktuelle Domain hinzufügen"
+  },
+  "addDomainToWhitelist": {
+    "message": "$1 zur Whitelist hinzufügen"
+  },
+  "removeDomainFromWhitelist": {
+    "message": "$1 von der Whitelist entfernen"
+  },
+  "addDomain": {
+    "message": "Hinzufügen"
+  },
+  "removeButton": {
+    "message": "Entfernen"
+  },
+  "removeparameter": {
+    "message": "Parameter entfernen"
+  },
+  "editButton": {
+    "message": "Bearbeiten"
+  },
+  "confirmButton": {
+    "message": "Bestätigen"
+  },
+  "cancelButton": {
+    "message": "Abbrechen"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Keine Domains auf der Whitelist"
+  },
+  "noDomainsFound": {
+    "message": "Keine Domains gefunden, die mit '$1' übereinstimmen"
+  },
+  "noRulesDefined": {
+    "message": "Keine benutzerdefinierten Regeln definiert"
+  },
+  "noRulesFound": {
+    "message": "Keine Regeln gefunden, die mit '$1' übereinstimmen"
+  },
+  "errorMessages_invalidDomain": {
+    "message": "Bitte geben Sie eine gültige Domain ein (z. B. example.com)"
+  },
+  "errorMessages_domainExists": {
+    "message": "Diese Domain befindet sich bereits auf der Whitelist"
+  },
+  "errorMessages_getCurrentDomain": {
+    "message": "Aktuelle Domain konnte nicht abgerufen werden"
+  },
+  "errorMessages_whitelistImport": {
+    "message": "Fehler beim Importieren der Whitelist: $1"
+  },
+  "errorMessages_invalidUrl": {
+    "message": "Bitte geben Sie eine gültige URL ein"
+  },
+  "errorMessages_noParamsFound": {
+    "message": "Keine Parameter in der URL gefunden"
+  },
+  "errorMessages_noParamsSelected": {
+    "message": "Keine Parameter ausgewählt"
+  },
+  "errorMessages_removingParameter": {
+    "message": "Fehler beim Entfernen des Parameters"
+  },
+  "successMessages_whitelistImport": {
+    "message": "Whitelist erfolgreich importiert"
+  },
+  "successMessages_parameterAdded": {
+    "message": "$1 Parameter(e) erfolgreich hinzugefügt"
+  },
+  "confirmationMessages_importWhitelist": {
+    "message": "Möchten Sie $1 Domains zur Whitelist importieren?"
+  },
+  "confirmationMessages_removeParameter": {
+    "message": "Möchten Sie den Parameter '$1' von der Domain '$2' entfernen?"
+  },
+  "navwhitelist_": {
+    "message": "Whitelist-Verwaltung"
+  },
+  "rulesTitle": {
+    "message": "Benutzerdefinierter DNR-Regel-Builder"
+  },
+  "urlInputPlaceholder": {
+    "message": "Fügen Sie hier die URL ein, um sie nach der Analyse Regeln hinzuzufügen"
+  },
+  "ruleDomainPlaceholder": {
+    "message": "Domain (z. B. example.com)"
+  },
+  "ruleParamPlaceholder": {
+    "message": "Zu entfernender Parameter (z. B. utm_source)"
+  },
+  "analyzeButton": {
+    "message": "Analysieren"
+  },
+  "addCustomRule": {
+    "message": "Regel hinzufügen"
+  },
+  "searchRulesPlaceholder": {
+    "message": "Regeln suchen..."
+  },
+  "searchWhitelistPlaceholder": {
+    "message": "Whitelist durchsuchen..."
+  },
+  "addParameterButton": {
+    "message": "Parameter hinzufügen"
+  },
+  "editParameter": {
+    "message": "Parameter bearbeiten"
+  },
+  "removeParameter": {
+    "message": "Parameter entfernen"
+  },
+  "newParameterPlaceholder": {
+    "message": "Neuen Parameter eingeben"
+  },
+  "addSelectedParams": {
+    "message": "Ausgewählte Parameter hinzufügen"
+  },
+  "statsTitle": {
+    "message": "Statistiken"
+  },
+  "modifiedRequestsLabel": {
+    "message": "Anzahl der Anfragen, bei denen URL-Parameter erfolgreich entfernt wurden"
+  },
+  "activeRulesLabel": {
+    "message": "Gesamtzahl der von dieser Erweiterung entfernten Parameter"
+  },
+  "resetStatsButton": {
+    "message": "Statistiken zurücksetzen"
+  },
+  "welcomeTitle": {
+    "message": "Willkommen bei Linkumori - URL-Bereiniger"
+  },
+  "welcomeHeading": {
+    "message": "Willkommen bei Linkumori"
+  },
+  "welcomeDescription": {
+    "message": "Vielen Dank für die Installation von Linkumori, Ihrem persönlichen URL-Privatsphäre- und Tracking-Schutz-Tool. Linkumori hilft Ihnen, Ihre Online-Privatsphäre zu schützen, indem es Tracking-Parameter aus URLs entfernt."
+  },
+  "feature1": {
+    "message": "Tracking-Parameter aus URLs automatisch entfernen"
+  },
+  "feature2": {
+    "message": "Ihre Privatsphäre auf verschiedenen Websites schützen"
+  },
+  "feature3": {
+    "message": "Leicht anpassbare Whitelist"
+  },
+  "feature4": {
+    "message": "Leichtgewichtig und nicht aufdringlich"
+  },
+  "getStartedText": {
+    "message": "Um loszulegen, klicken Sie unten, um die Erweiterungseinstellungen zu öffnen."
+  },
+  "openSettings": {
+    "message": "Linkumori-Einstellungen öffnen"
+  },
+  "settingsButtonAriaLabel": {
+    "message": "Einstellungswerkzeuge"
+  },
+  "themeToggleAriaLabel": {
+    "message": "Thema umschalten"
+  },
+  "aboutTitle": {
+    "message": "Über"
+  },
+  "aboutTeam": {
+    "message": "Entwickelt von Team Linkumori"
+  },
+  "aboutSourceGithub": {
+    "message": "GitHub-Veröffentlichung"
+  },
+  "aboutSourceChrome": {
+    "message": "Chrome Web Store"
+  },
+  "aboutSourceUnknown": {
+    "message": "Unbekannte Quelle"
+  },
+  "aboutDetailsGithub": {
+    "message": "Diese Version wird über GitHub verteilt. Sie kann die neuesten Funktionen und Updates direkt aus dem Repository enthalten."
+  },
+  "aboutDetailsChrome": {
+    "message": "Diese Version wird über den Chrome Web Store verteilt. Es ist die stabile Version, die für die meisten Benutzer empfohlen wird."
+  },
+  "aboutDetailsUnknown": {
+    "message": "Die Quelle dieser Version konnte nicht bestimmt werden. Überprüfen Sie die Erweiterungseinstellungen oder wenden Sie sich an den Support für weitere Informationen."
+  },
+  "version": {
+    "message": "Version $1"
+  },
+  "versionUnknown": {
+    "message": "Unbekannte Version"
+  },
+  "versionLabel": {
+    "message": "Version"
+  },
+  "officialRepo": {
+    "message": "Offizielles Repository:"
+  },
+  "officialSite": {
+    "message": "Offizielle Website:"
+  },
+  "githubRepoLink": {
+    "message": "https://github.com/Linkumori"
+  },
+  "officialWebsiteLink": {
+    "message": "https://linkumori.com/"
+  },
+  "removerule": {
+    "message": "Regel entfernen"
+  },
+  "__MSG_extDescription__": {
+    "message": "Entfernt Tracking-Parameter aus URLs und schützt Ihre Privatsphäre"
+  },
+  "confirmResetStats": {
+    "message": "Möchten Sie wirklich alle Statistiken zurücksetzen?"
+  },
+  "checking_updates": {
+    "message": "Suche nach Updates..."
+  },
+  "update_available": {
+    "message": "Update verfügbar! Klicken Sie auf den Link, um es anzuwenden."
+  },
+  "no_update": {
+    "message": "Keine Updates verfügbar."
+  },
+  "throttled": {
+    "message": "Update-Check gedrosselt. Bitte versuchen Sie es später noch einmal."
+  },
+  "apply_update": {
+    "message": "Update anwenden"
+  }
+}
