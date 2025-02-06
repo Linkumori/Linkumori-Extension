@@ -97,6 +97,10 @@ Attribution
 Original tracking parameter filter lists: © AdGuard Software Ltd.
 Independent URL parameter cleaning rules and conversions: © Subham Mahesh 2024
 
+sixth modification on based on 4th modification file 10.08 A.M IST
+modification made by subham mahesh 
+in rules3.json 
+modification only added new parameter
 ## License Information
 This work is licensed under the GNU General Public License version 3 (GPLv3) only
 
