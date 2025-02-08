@@ -42,7 +42,7 @@
     "message": "Protection de l'audit des hyperliens (Extension inactive)"
   },
   "preventRedirectOn": {
-    "message": "Empêcher les services Google et Yandex de rediriger les URL vers leurs serveurs avant la destination finale : Activé"
+    "message": "Empêcher les services Google et Yandex de rediriger les URL vers leurs serveurs avant la destination finale : active"
   },
   "preventRedirectOff": {
     "message": "Empêcher Google et Yandex de rediriger les URL vers leurs serveurs avant la destination finale : Désactivé"

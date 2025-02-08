@@ -42,7 +42,7 @@
     "message": "超連結審核保護（擴充功能未啟用）"
   },
   "preventRedirectOn": {
-    "message": "防止 Google 和 Yandex 服務在最終目的地之前將網址重定向到其伺服器：已開啟"
+    "message": "防止 Google 和 Yandex 服務在最終目的地之前將網址重定向到其伺服器：已啟用"
   },
   "preventRedirectOff": {
     "message": "防止 Google 和 Yandex 服務在最終目的地之前將網址重定向到其伺服器：已關閉"
