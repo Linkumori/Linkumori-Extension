@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Linkumori (URLs Cleaner)",
-  "version": "124.0",
+  "version": "125.0",
 "description": "__MSG_extDescription__",
 
   "icons": {
