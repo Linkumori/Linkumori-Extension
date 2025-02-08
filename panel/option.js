@@ -1333,31 +1333,26 @@ class OptionsMenuController {
     }
 
     setupUpdateChecker() {
-        const statusElement = document.getElementById("updateStatus");
-        const applyUpdateLink = document.getElementById("applyUpdate");
-
-        if (!statusElement || !applyUpdateLink) return;
-
-        // Automatically check for updates when the page loads
-        chrome.runtime.requestUpdateCheck((status, details) => {
-            if (status === "update_available") {
-                statusElement.textContent = chrome.i18n.getMessage("update_available");
-                applyUpdateLink.style.display = "inline";
-            } else if (status === "no_update") {
-                statusElement.textContent = chrome.i18n.getMessage("no_update");
-            } else if (status === "throttled") {
-                statusElement.textContent = chrome.i18n.getMessage("throttled");
-            }
-        });
-
-        // Apply update when the link is clicked
-        applyUpdateLink.addEventListener("click", (event) => {
-            event.preventDefault();
-            statusElement.textContent = chrome.i18n.getMessage("applying_update");
-            chrome.runtime.reload();
+        const updateButton = document.getElementById('checkUpdateButton');
+        if (!updateButton) return;
+    
+        updateButton.addEventListener('click', () => {
+            chrome.runtime.requestUpdateCheck((status, details) => {
+                if (status === "update_available") {
+                    if (confirm(chrome.i18n.getMessage("update_available_confirm"))) {
+                        chrome.runtime.reload();
+                    }
+                } else if (status === "no_update") {
+                    alert(chrome.i18n.getMessage("no_update"));
+                } else if (status === "throttled") {
+                    alert(chrome.i18n.getMessage("throttled"));
+                }
+            });
         });
     }
 }
+
+
 
 // Theme handling
 document.addEventListener('DOMContentLoaded', () => {

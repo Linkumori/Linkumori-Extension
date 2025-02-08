@@ -338,19 +338,16 @@
   "confirmResetStats": {
     "message": "Confirmez la réinitialisation des statistiques ?"
   },
-  "checking_updates": {
-    "message": "Recherche de mises à jour..."
-  },
-  "update_available": {
-    "message": "Mise à jour disponible ! Cliquez pour l'installer."
+  "update_available_confirm": {
+    "message": "Une mise à jour est disponible. Voulez-vous l'appliquer maintenant ?"
   },
   "no_update": {
-    "message": "Aucune mise à jour disponible."
+    "message": "Aucune mise à jour disponible"
   },
   "throttled": {
-    "message": "Vérification temporairement bloquée. Réessayez plus tard."
+    "message": "Veuillez réessayer plus tard"
   },
-  "apply_update": {
-    "message": "Appliquer la mise à jour"
+  "checkupdate": {
+    "message": "Vérifier les mises à jour"
   }
 }
