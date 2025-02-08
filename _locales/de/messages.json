@@ -42,7 +42,7 @@
     "message": "Hyperlink-Prüfschutz (Erweiterung inaktiv)"
   },
   "preventRedirectOn": {
-    "message": "Verhindern, dass Google- und Yandex-Dienste URLs auf ihre Server umleiten, bevor das endgültige Ziel erreicht wird: Aktiviert"
+    "message": "Verhindern, dass Google- und Yandex-Dienste URLs auf ihre Server umleiten, bevor das endgültige Ziel erreicht wird: aktiv"
   },
   "preventRedirectOff": {
     "message": "Verhindern, dass Google- und Yandex-Dienste URLs auf ihre Server umleiten, bevor das endgültige Ziel erreicht wird: Deaktiviert"

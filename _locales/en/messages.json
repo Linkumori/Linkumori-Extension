@@ -42,7 +42,7 @@
     "message": "Hyperlink Auditing Protection (Extension Inactive)"
   },
   "preventRedirectOn": {
-    "message": "Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached:  On"
+    "message": "Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached:  Active"
   },
   "preventRedirectOff": {
     "message": "Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached:  Off"

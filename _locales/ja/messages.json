@@ -42,7 +42,7 @@
     "message": "ハイパーリンク監査保護 (拡張機能非アクティブ)"
   },
   "preventRedirectOn": {
-    "message": "Google と Yandex のサービスが最終目的地に至る前に URL をサーバーにリダイレクトすることを防ぐ: オン"
+    "message": "Google と Yandex のサービスが最終目的地に至る前に URL をサーバーにリダイレクトすることを防ぐ: アクティブ "
   },
   "preventRedirectOff": {
     "message": "Google と Yandex のサービスが最終目的地に至る前に URL をサーバーにリダイレクトすることを防ぐ: オフ"
