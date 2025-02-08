@@ -137,6 +137,9 @@ The following code in the linkurmori source code files are completely under the 
 - `/panel/first-install.html`
 - `/panel/first-install.js`
 - `common/rules.js`
+- `_locales/de/messages.json`
+- `_locales/fr/messages.json`
+- `_locales/ja/messages.json`
 - `panel/option.js`
 - `panel/cleanurls-tools.html`
 - `panel/cleanurls-tools.js`
