@@ -338,8 +338,11 @@
   "confirmResetStats": {
     "message": "すべての統計をリセットしてもよろしいですか？"
   },
-  "update_available_confirm": {
-    "message": "アップデートが利用可能です。今すぐ適用しますか？"
+  "checking_update": {
+    "message": "アップデートを確認中..."
+  },
+  "update_available": {
+    "message": "アップデートが利用可能です"
   },
   "no_update": {
     "message": "利用可能なアップデートはありません"
@@ -349,5 +352,15 @@
   },
   "checkupdate": {
     "message": "アップデートを確認"
+  },
+  "applying_update": {
+    "message": "アップデートを適用中..."
+  },
+  "apply_update": {
+    "message": "アップデートを適用"
+  },
+  "update_error": {
+    "message": "アップデートの確認中にエラーが発生しました"
   }
+
 }

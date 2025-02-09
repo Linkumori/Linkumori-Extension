@@ -338,8 +338,11 @@
   "confirmResetStats": {
     "message": "Confirmez la réinitialisation des statistiques ?"
   },
-  "update_available_confirm": {
-    "message": "Une mise à jour est disponible. Voulez-vous l'appliquer maintenant ?"
+  "checking_update": {
+    "message": "Recherche de mises à jour..."
+  },
+  "update_available": {
+    "message": "Une mise à jour est disponible"
   },
   "no_update": {
     "message": "Aucune mise à jour disponible"
@@ -349,5 +352,14 @@
   },
   "checkupdate": {
     "message": "Vérifier les mises à jour"
+  },
+  "applying_update": {
+    "message": "Application de la mise à jour..."
+  },
+  "apply_update": {
+    "message": "Appliquer la mise à jour"
+  },
+  "update_error": {
+    "message": "Erreur lors de la recherche de mises à jour"
   }
 }

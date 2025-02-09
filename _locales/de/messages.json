@@ -338,8 +338,11 @@
   "confirmResetStats": {
     "message": "Möchten Sie wirklich alle Statistiken zurücksetzen?"
   },
-  "update_available_confirm": {
-    "message": "Ein Update ist verfügbar. Möchten Sie es jetzt anwenden?"
+  "checking_update": {
+    "message": "Suche nach Updates..."
+  },
+  "update_available": {
+    "message": "Ein Update ist verfügbar"
   },
   "no_update": {
     "message": "Keine Updates verfügbar"
@@ -349,5 +352,14 @@
   },
   "checkupdate": {
     "message": "Nach Updates suchen"
+  },
+  "applying_update": {
+    "message": "Update wird installiert..."
+  },
+  "apply_update": {
+    "message": "Update installieren"
+  },
+  "update_error": {
+    "message": "Fehler bei der Suche nach Updates"
   }
 }

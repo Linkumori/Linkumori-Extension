@@ -338,8 +338,11 @@
   "confirmResetStats": {
     "message": "Are you sure you want to reset all statistics?"
   },
-  "update_available_confirm": {
-    "message": "An update is available. Would you like to apply it now?"
+  "checking_update": {
+    "message": "Checking for updates..."
+  },
+  "update_available": {
+    "message": "An update is available"
   },
   "no_update": {
     "message": "No updates available"
@@ -349,5 +352,14 @@
   },
   "checkupdate": {
     "message": "Check for updates"
+  },
+  "applying_update": {
+    "message": "Applying update..."
+  },
+  "apply_update": {
+    "message": "Apply update"
+  },
+  "update_error": {
+    "message": "Error checking for updates"
   }
 }

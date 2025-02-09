@@ -1332,27 +1332,50 @@ class OptionsMenuController {
         }
     }
 
+    
     setupUpdateChecker() {
         const updateButton = document.getElementById('checkUpdateButton');
-        if (!updateButton) return;
-    
+        const updateContainer = document.getElementById('updateContainer');
+        
+        if (!updateButton || !updateContainer) return;
+        
+        let updateAvailable = false;
+        
         updateButton.addEventListener('click', () => {
+            if (updateAvailable) {
+                updateButton.textContent = chrome.i18n.getMessage("applying_update");
+                updateContainer.classList.add('updating');
+                setTimeout(() => {
+                    chrome.runtime.reload();
+                }, 1000);
+                return;
+            }
+    
+            updateButton.textContent = chrome.i18n.getMessage("checking_update");
+            updateButton.disabled = true;
+            
             chrome.runtime.requestUpdateCheck((status, details) => {
+                updateButton.disabled = false;
+                
                 if (status === "update_available") {
-                    if (confirm(chrome.i18n.getMessage("update_available_confirm"))) {
-                        chrome.runtime.reload();
-                    }
-                } else if (status === "no_update") {
-                    alert(chrome.i18n.getMessage("no_update"));
-                } else if (status === "throttled") {
-                    alert(chrome.i18n.getMessage("throttled"));
+                    updateButton.textContent = chrome.i18n.getMessage("apply_update");
+                    updateContainer.classList.add('update-available');
+                    updateAvailable = true;
+                }
+                else if (status === "no_update") {
+                    updateButton.textContent = chrome.i18n.getMessage("no_update");
+                    updateContainer.classList.remove('update-available');
+                    updateAvailable = false;
+                }
+                else if (status === "throttled") {
+                    updateButton.textContent = chrome.i18n.getMessage("throttled");
+                    updateContainer.classList.remove('update-available');
+                    updateAvailable = false;
                 }
             });
         });
     }
 }
-
-
 
 // Theme handling
 document.addEventListener('DOMContentLoaded', () => {

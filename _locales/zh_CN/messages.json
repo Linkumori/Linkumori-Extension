@@ -338,17 +338,29 @@
   "confirmResetStats": {
     "message": "确定要重置所有统计信息吗？"
   },
-  "update_available_confirm": {
-    "message": "有可用更新。您想立即应用吗？"
+"checking_update": {
+    "message": "正在检查更新..."
+  },
+  "update_available": {
+    "message": "有可用更新"
   },
   "no_update": {
-    "message": "没有可用更新"
+    "message": "暂无可用更新"
   },
   "throttled": {
-    "message": "请稍后再试"
+    "message": "请稍后重试"
   },
   "checkupdate": {
     "message": "检查更新"
+  },
+  "applying_update": {
+    "message": "正在应用更新..."
+  },
+  "apply_update": {
+    "message": "应用更新"
+  },
+  "update_error": {
+    "message": "检查更新时出错"
   }
-
 }
+

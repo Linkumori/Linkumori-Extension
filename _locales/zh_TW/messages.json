@@ -338,17 +338,28 @@
   "confirmResetStats": {
     "message": "您確定要重設所有統計資料嗎？"
   },
-  "update_available_confirm": {
-    "message": "有可用的更新。您想立即應用嗎？"
+  "checking_update": {
+    "message": "正在檢查更新..."
+  },
+  "update_available": {
+    "message": "有可用更新"
   },
   "no_update": {
-    "message": "沒有可用的更新"
+    "message": "目前沒有可用更新"
   },
   "throttled": {
     "message": "請稍後再試"
   },
   "checkupdate": {
     "message": "檢查更新"
+  },
+  "applying_update": {
+    "message": "正在套用更新..."
+  },
+  "apply_update": {
+    "message": "套用更新"
+  },
+  "update_error": {
+    "message": "檢查更新時發生錯誤"
   }
-
 }
