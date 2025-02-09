@@ -1332,29 +1332,47 @@ class OptionsMenuController {
         }
     }
 
+    
     setupUpdateChecker() {
-        const statusElement = document.getElementById("updateStatus");
-        const applyUpdateLink = document.getElementById("applyUpdate");
-
-        if (!statusElement || !applyUpdateLink) return;
-
-        // Automatically check for updates when the page loads
-        chrome.runtime.requestUpdateCheck((status, details) => {
-            if (status === "update_available") {
-                statusElement.textContent = chrome.i18n.getMessage("update_available");
-                applyUpdateLink.style.display = "inline";
-            } else if (status === "no_update") {
-                statusElement.textContent = chrome.i18n.getMessage("no_update");
-            } else if (status === "throttled") {
-                statusElement.textContent = chrome.i18n.getMessage("throttled");
+        const updateButton = document.getElementById('checkUpdateButton');
+        const updateContainer = document.getElementById('updateContainer');
+        
+        if (!updateButton || !updateContainer) return;
+        
+        let updateAvailable = false;
+        
+        updateButton.addEventListener('click', () => {
+            if (updateAvailable) {
+                updateButton.textContent = chrome.i18n.getMessage("applying_update");
+                updateContainer.classList.add('updating');
+                setTimeout(() => {
+                    chrome.runtime.reload();
+                }, 1000);
+                return;
             }
-        });
-
-        // Apply update when the link is clicked
-        applyUpdateLink.addEventListener("click", (event) => {
-            event.preventDefault();
-            statusElement.textContent = chrome.i18n.getMessage("applying_update");
-            chrome.runtime.reload();
+    
+            updateButton.textContent = chrome.i18n.getMessage("checking_update");
+            updateButton.disabled = true;
+            
+            chrome.runtime.requestUpdateCheck((status, details) => {
+                updateButton.disabled = false;
+                
+                if (status === "update_available") {
+                    updateButton.textContent = chrome.i18n.getMessage("apply_update");
+                    updateContainer.classList.add('update-available');
+                    updateAvailable = true;
+                }
+                else if (status === "no_update") {
+                    updateButton.textContent = chrome.i18n.getMessage("no_update");
+                    updateContainer.classList.remove('update-available');
+                    updateAvailable = false;
+                }
+                else if (status === "throttled") {
+                    updateButton.textContent = chrome.i18n.getMessage("throttled");
+                    updateContainer.classList.remove('update-available');
+                    updateAvailable = false;
+                }
+            });
         });
     }
 }

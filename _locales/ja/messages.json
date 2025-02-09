@@ -338,19 +338,29 @@
   "confirmResetStats": {
     "message": "すべての統計をリセットしてもよろしいですか？"
   },
-  "checking_updates": {
-    "message": "更新を確認しています..."
+  "checking_update": {
+    "message": "アップデートを確認中..."
   },
   "update_available": {
-    "message": "更新があります！リンクをクリックして適用してください。"
+    "message": "アップデートが利用可能です"
   },
   "no_update": {
-    "message": "更新はありません。"
+    "message": "利用可能なアップデートはありません"
   },
   "throttled": {
-    "message": "更新チェックがスロットルされました。後でもう一度お試しください。"
+    "message": "後でもう一度お試しください"
+  },
+  "checkupdate": {
+    "message": "アップデートを確認"
+  },
+  "applying_update": {
+    "message": "アップデートを適用中..."
   },
   "apply_update": {
-    "message": "更新を適用"
+    "message": "アップデートを適用"
+  },
+  "update_error": {
+    "message": "アップデートの確認中にエラーが発生しました"
   }
+
 }

@@ -338,19 +338,28 @@
   "confirmResetStats": {
     "message": "Möchten Sie wirklich alle Statistiken zurücksetzen?"
   },
-  "checking_updates": {
+  "checking_update": {
     "message": "Suche nach Updates..."
   },
   "update_available": {
-    "message": "Update verfügbar! Klicken Sie auf den Link, um es anzuwenden."
+    "message": "Ein Update ist verfügbar"
   },
   "no_update": {
-    "message": "Keine Updates verfügbar."
+    "message": "Keine Updates verfügbar"
   },
   "throttled": {
-    "message": "Update-Check gedrosselt. Bitte versuchen Sie es später noch einmal."
+    "message": "Bitte versuchen Sie es später erneut"
+  },
+  "checkupdate": {
+    "message": "Nach Updates suchen"
+  },
+  "applying_update": {
+    "message": "Update wird installiert..."
   },
   "apply_update": {
-    "message": "Update anwenden"
+    "message": "Update installieren"
+  },
+  "update_error": {
+    "message": "Fehler bei der Suche nach Updates"
   }
 }
