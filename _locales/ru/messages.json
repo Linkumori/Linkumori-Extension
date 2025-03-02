@@ -1,0 +1,365 @@
+{
+  "extName": {
+    "message": "Настройки Linkumori"
+  },
+  "extDescription": {
+    "message": "Удаляет параметры отслеживания из URL-адресов и защищает вашу конфиденциальность"
+  },
+  "cleanUrlsToolTitle": {
+    "message": "Расширенный инструмент очистки URL-адресов Linkumori"
+  },
+  "cleanUrlsToolHeader": {
+    "message": "Инструмент очистки URL-адресов Linkumori"
+  },
+  "popup": {
+    "message": "Linkumori"
+  },
+  "menuItemCopyCleanUrl": {
+    "message": "Копировать очищенный URL"
+  },
+  "statusOn": {
+    "message": "Статус расширения: Включена защита на уровне сети"
+  },
+  "statusOff": {
+    "message": "Статус расширения: отключено"
+  },
+  "historyProtectionOn": {
+    "message": "Защита History API активна"
+  },
+  "historyProtectionOff": {
+    "message": "Защита History API отключена"
+  },
+  "historyProtectionInactive": {
+    "message": "Защита History API (Extension Inactive)"
+  },
+  "hyperlinkAuditingOn": {
+    "message": "Защита аудита гиперссылок Active"
+  },
+  "hyperlinkAuditingOff": {
+    "message": "Защита аудита гиперссылок Off"
+  },
+  "hyperlinkAuditingInactive": {
+    "message": "Защита аудита гиперссылок (Extension Inactive)"
+  },
+  "preventRedirectOn": {
+    "message": "Запретить службам Google и Яндекс перенаправлять URL-адреса на свои серверы до достижения конечного пункта назначения:  Active"
+  },
+  "preventRedirectOff": {
+    "message": "Запретить службам Google и Яндекс перенаправлять URL-адреса на свои серверы до достижения конечного пункта назначения:  Off"
+  },
+  "preventRedirectInactive": {
+    "message": "Запретить службам Google и Яндекс перенаправлять URL-адреса на свои серверы до достижения конечного пункта назначения:  (Extension Inactive)"
+  },
+  "badgeOn": {
+    "message": "Счётчик трекеров активен"
+  },
+  "badgeOff": {
+    "message": "Счётчик трекеров отключён"
+  },
+  "badgeInactive": {
+    "message": "Счётчик трекеров (расширение не активно)"
+  },
+  "navMain": {
+    "message": "Главная"
+  },
+  "navWhitelist": {
+    "message": "Whitelist"
+  },
+  "navRules": {
+    "message": "Свои DNR-правила"
+  },
+  "navStats": {
+    "message": "Статистика"
+  },
+  "navLicense": {
+    "message": "Лицензия"
+  },
+  "navLegal": {
+    "message": "Лицензионная информации"
+  },
+  "navAbout": {
+    "message": "О проекте"
+  },
+  "navSettings": {
+    "message": "Настройки"
+  },
+  "settingsTitle": {
+    "message": "Настройки"
+  },
+  "whitelistTitle": {
+    "message": "Управление белыми списками"
+  },
+  "inputUrlsTitle": {
+    "message": "Ввод URL-адресов"
+  },
+  "cleanedUrlsTitle": {
+    "message": "Очищенные URL-адреса"
+  },
+  "inputUrlsPlaceholder": {
+    "message": "Введите URL-адреса для очистки (по одному в строке)"
+  },
+  "cleanedUrlsPlaceholder": {
+    "message": "Очищенные URL-адреса будут отображаться здесь"
+  },
+  "cleanUrlsButton": {
+    "message": "Очистить URL-адреса"
+  },
+  "copyUrlsButton": {
+    "message": "Копировать результаты"
+  },
+  "copySuccessMessage": {
+    "message": "URL-адреса скопированы в буфер обмена"
+  },
+  "copyErrorMessage": {
+    "message": "Не удалось скопировать URL-адреса"
+  },
+  "whitelistDomainPlaceholder": {
+    "message": "Введите домен в белый список (например, example.com)"
+  },
+  "exportWhitelist": {
+    "message": "Экспортировать белый список"
+  },
+  "importWhitelist": {
+    "message": "Импортировать белый список"
+  },
+  "addCurrentDomain": {
+    "message": "Добавить текущий домен"
+  },
+  "addDomainToWhitelist": {
+    "message": "Добавить $1 в белый список"
+  },
+  "removeDomainFromWhitelist": {
+    "message": "Удалить $1 из белого списка"
+  },
+  "addDomain": {
+    "message": "Добавить"
+  },
+  "removeButton": {
+    "message": "Удалить"
+  },
+  "removeparameter": {
+    "message": "Удалить параметр"
+  },
+  "editButton": {
+    "message": "Редактировать"
+  },
+  "confirmButton": {
+    "message": "Подтвердить"
+  },
+  "cancelButton": {
+    "message": "Отмена"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Нет доменов в белом списке"
+  },
+  "noDomainsFound": {
+    "message": "Не найдено доменов, соответствующих '$1'"
+  },
+  "noRulesDefined": {
+    "message": "Не определены пользовательские правила"
+  },
+  "noRulesFound": {
+    "message": "Не найдено правил, соответствующих  '$1'"
+  },
+  "errorMessages_invalidDomain": {
+    "message": "Введите корректный домен (например, example.com)"
+  },
+  "errorMessages_domainExists": {
+    "message": "Этот домен уже есть в белом списке"
+  },
+  "errorMessages_getCurrentDomain": {
+    "message": "Не удалось получить текущий домен"
+  },
+  "errorMessages_whitelistImport": {
+    "message": "Не удалось импортировать белый список: $1"
+  },
+  "errorMessages_invalidUrl": {
+    "message": "Введите корректный URL"
+  },
+  "errorMessages_noParamsFound": {
+    "message": "Параметры в URL не найдены"
+  },
+  "errorMessages_noParamsSelected": {
+    "message": "Параметры не выбраны"
+  },
+  "errorMessages_removingParameter": {
+    "message": "Не удалось удалить параметр"
+  },
+  "successMessages_whitelistImport": {
+    "message": "Белый список успешно импортирован"
+  },
+  "successMessages_parameterДобавитьed": {
+    "message": "$1 параметр(ов) успешно добавлен"
+  },
+  "confirmationMessages_importWhitelist": {
+    "message": "Импортировать домены $1 в белый список?"
+  },
+  "confirmationMessages_removeParameter": {
+    "message": "Удалить параметр '$1' из домена '$2'?"
+  },
+  "navwhitelist_":{
+      "message": "Управление белым списком"
+    },
+  "rulesTitle": {
+    "message": "Конструктор пользовательских правил DNR"
+  },
+  "urlInputPlaceholder": {
+    "message": "Вставьте URL-адрес здесь для анализа. После анализа вы сможете добавлять правила."
+  },
+  "ruleDomainPlaceholder": {
+    "message": "Домен (например example.com)"
+  },
+  "ruleParamPlaceholder": {
+    "message": "Параметр для удаления (например utm_source)"
+  },
+  "analyzeButton": {
+    "message": "Анализировать"
+  },
+  "addCustomRule": {
+    "message": "Добавить правило"
+  },
+  "searchRulesPlaceholder": {
+    "message": "Поиск правил..."
+  },
+  "searchWhitelistPlaceholder": {
+    "message": "Поиск в белом списке..."
+  },
+  "addParameterButton": {
+    "message": "Добавить параметр"
+  },
+  "editParameter": {
+    "message": "Редактировать параметр"
+  },
+  "removeParameter": {
+    "message": "Удалить параметр"
+  },
+  "newParameterPlaceholder": {
+    "message": "Введите параметр"
+  },
+  "addSelectedParams": {
+    "message": "Добавить выбранные параметры"
+  },
+  "statsTitle": {
+    "message": "Статистика"
+  },
+  "modifiedRequestsLabel": {
+    "message": "Количество запросов, в которых параметры URL были успешно удалены"
+  },
+  "activeRulesLabel": {
+    "message": "Общее количество параметров, удаленных этим расширением"
+  },
+  "resetStatsButton": {
+    "message": "Сбросить статистику"
+  },
+  "welcomeTitle": {
+    "message": "Добро пожаловать в Linkumori - URL Cleaner"
+  },
+  "welcomeHeading": {
+    "message": "Добро пожаловать в Linkumori"
+  },
+  "welcomeDescription": {
+    "message": "Спасибо за установку Linkumori, вашего персонального инструмента защиты от отслеживания и конфиденциальности URL. Linkumori помогает вам сохранять конфиденциальность в Интернете, удаляя параметры отслеживания из URL-адресов."
+  },
+  "feature1": {
+    "message": "Автоматическое удаление параметров отслеживания из URL-адресов"
+  },
+  "feature2": {
+    "message": "Защитите свою конфиденциальность на разных веб-сайтах"
+  },
+  "feature3": {
+    "message": "Легко настраиваемый белый список"
+  },
+  "feature4": {
+    "message": "Легкий и ненавязчивый"
+  },
+  "getStartedText": {
+    "message": "Чтобы начать, нажмите кнопку ниже, чтобы открыть настройки расширения."
+  },
+  "openSettings": {
+    "message": "Открыть настройки Linkumori"
+  },
+  "settingsButtonAriaLabel": {
+    "message": "Настройки"
+  },
+  "themeToggleAriaLabel": {
+    "message": "Переключить тему"
+  },
+  "aboutTitle": {
+    "message": "О проекте"
+  },
+  "aboutTeam": {
+    "message": "Разработано командой Linkumori"
+  },
+  "aboutSourceGithub": {
+    "message": "GitHub Release"
+  },
+  "aboutSourceChrome": {
+    "message": "Chrome Web Store"
+  },
+  "aboutSourceUnknown": {
+    "message": "Неизвестный источник"
+  },
+  "aboutDetailsGithub": {
+    "message": "Эта версия распространяется через GitHub. Она может включать в себя последние функции и обновления непосредственно из репозитория."
+  },
+  "aboutDetailsChrome": {
+    "message": "Эта версия распространяется через Chrome Web Store. Это стабильная версия, рекомендуемая большинству пользователей."
+  },
+  "aboutDetailsUnknown": {
+    "message": "Источник этой версии определить не удалось. Проверьте настройки расширения или обратитесь в службу поддержки для получения дополнительной информации."
+  },
+  "version": {
+    "message": "Версия $1"
+  },
+  "versionUnknown": {
+    "message": "Версия неизвестна"
+  },
+  "versionLabel": {
+    "message": "Версия"
+  },
+  "officialRepo": {
+    "message": "Репозиторий проекта:"
+  },
+  "officialSite": {
+    "message": "Сайт проекта:"
+  },
+  "githubRepoLink": {
+    "message": "https://github.com/Linkumori"
+  },
+  "officialWebsiteLink": {
+    "message": " https://linkumori.com/"
+  },
+  "removerule": {
+    "message": "Удалить правило"
+  },
+  "__MSG_extDescription__": {
+    "message": "Удаляет параметры отслеживания из URL-адресов и защитить вашу конфиденциальность"
+  },
+  "confirmResetStats": {
+    "message": "Вы уверены, что хотите сбросить всю статистику?"
+  },
+  "checking_update": {
+    "message": "Проверка обновлений..."
+  },
+  "update_available": {
+    "message": "Доступно обновление"
+  },
+  "no_update": {
+    "message": "Нет доступных обновлений"
+  },
+  "throttled": {
+    "message": "Повторите попытку позже"
+  },
+  "checkupdate": {
+    "message": "Проверка обновлений"
+  },
+  "applying_update": {
+    "message": "Применение обновления..."
+  },
+  "apply_update": {
+    "message": "Применить обновление"
+  },
+  "update_error": {
+    "message": "Ошибка проверки наличия обновлений"
+  }
+}
