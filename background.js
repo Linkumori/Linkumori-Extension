@@ -1222,6 +1222,29 @@ let stats = {
   }
 };
 
+// Debounce function to prevent excessive storage writes
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+// Persistent storage update function
+const updateStorageWithStats = debounce(async () => {
+  try {
+    await chrome.storage.local.set({ stats });
+    console.log('Stats updated in local storage');
+  } catch (error) {
+    console.error('Error updating stats in local storage:', error);
+  }
+}, 500); // 500ms debounce to prevent rapid successive writes
+
 // Load stats from storage on startup
 async function loadStats() {
   try {
@@ -1236,10 +1259,12 @@ async function loadStats() {
   }
 }
 
+// Initialize stats load on extension install
 chrome.runtime.onInstalled.addListener(async () => {
   await loadStats();
 });
 
+// Initialize stats load on browser startup
 chrome.runtime.onStartup.addListener(async () => {
   await loadStats();
 });
@@ -1250,15 +1275,15 @@ const pendingRequests = new Map();
 chrome.webRequest.onBeforeRedirect.addListener(
   (details) => {
     // Handle internal redirects for main_frame, sub_frame, and xmlhttprequest
-    if ((details.type === 'main_frame' || 
-         details.type === 'sub_frame' || 
-         details.type === 'xmlhttprequest') && 
-        details.statusCode === 307 && 
+    if ((details.type === 'main_frame' ||
+         details.type === 'sub_frame' ||
+         details.type === 'xmlhttprequest') &&
+        details.statusCode === 307 &&
         details.redirectUrl) {
       handleInternalRedirect(details);
     }
   },
-  { 
+  {
     urls: ["<all_urls>"],
     types: ["main_frame", "sub_frame", "xmlhttprequest"]
   }
@@ -1271,11 +1296,11 @@ async function handleInternalRedirect(details) {
     
     const originalParams = new Set([...originalUrl.searchParams.keys()]);
     const redirectParams = new Set([...redirectUrl.searchParams.keys()]);
-
+    
     const removedParams = new Set(
       [...originalParams].filter(x => !redirectParams.has(x))
     );
-
+    
     if (removedParams.size > 0) {
       stats.summary.totalModified++;
       
@@ -1284,7 +1309,7 @@ async function handleInternalRedirect(details) {
         const existingEntry = stats.summary.ruleEffectiveness.find(
           entry => entry.param === param
         );
-
+        
         if (existingEntry) {
           existingEntry.count++;
           existingEntry.lastModified = Date.now();
@@ -1298,21 +1323,26 @@ async function handleInternalRedirect(details) {
           });
         }
       }
-
-      await chrome.storage.local.set({ stats });
+      
+      // Trigger debounced storage update
+      updateStorageWithStats();
     }
   } catch (error) {
     console.error('Error handling internal redirect:', error);
   }
 }
 
+// Message listener for stats-related actions
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'resetStats') {
     stats.summary = {
       totalModified: 0,
       ruleEffectiveness: []
     };
+    
+    // Immediately update storage and trigger debounced update
     chrome.storage.local.set({ stats }, () => {
+      updateStorageWithStats();
       sendResponse({ success: true });
     });
     return true;
@@ -1327,7 +1357,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
-// Persist stats periodically
+// Periodic backup of stats (additional safety net)
 setInterval(async () => {
-  await chrome.storage.local.set({ stats });
+  try {
+    await chrome.storage.local.set({ stats });
+  } catch (error) {
+    console.error('Error in periodic stats backup:', error);
+  }
 }, 60000);
