@@ -4,7 +4,7 @@
  * 
    SPDX-License-Identifier: GPL-3.0-or-later
 
-Copyright (C) 2024 Subham Mahesh
+Copyright (C) 2024-2025 Subham Mahesh
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -37,4 +37,7 @@ export const EXTENSION_NAME = "Linkumori";
 
 export const SETTINGS_KEY = "PurifyUrlsSettings";
 
-export const CANT_FIND_SETTINGS_MSG = "Can't find the Linkumori (URLs Purifier) Extension  settings. Setup new.";
+export const CANT_FIND_SETTINGS_MSG = "Can't find the Linkumori (URLs Purifier) Extension settings. Setup new.";
+
+// Add the STATS_KEY constant
+export const STATS_KEY = "stats";

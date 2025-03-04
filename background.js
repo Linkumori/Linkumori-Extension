@@ -3,7 +3,7 @@
  * ------------------------------------------------------------
    SPDX-License-Identifier: GPL-3.0-or-later
 
-Copyright (C) 2024 Subham Mahesh
+Copyright (C) 2024-2025 Subham Mahesh
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -180,6 +180,7 @@ chrome.runtime.onInstalled.addListener(async () => {
   updateExtensionIcon(currentTheme);
   updateAllDNRRules(settings.status);
 });
+
 
 
 
@@ -927,7 +928,6 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 
 
 
-
 const CUSTOM_RULE_ID_START = 40000;
 
 
@@ -1214,13 +1214,14 @@ chrome.webNavigation.onBeforeNavigate.addListener(
   }
 );
 
-// Stats management
 let stats = {
   summary: {
     totalModified: 0,
     ruleEffectiveness: []
   }
 };
+
+const STATS_KEY = 'stats';
 
 // Debounce function to prevent excessive storage writes
 function debounce(func, wait) {
@@ -1238,7 +1239,7 @@ function debounce(func, wait) {
 // Persistent storage update function
 const updateStorageWithStats = debounce(async () => {
   try {
-    await chrome.storage.local.set({ stats });
+    await chrome.storage.local.set({ [STATS_KEY]: stats });
     console.log('Stats updated in local storage');
   } catch (error) {
     console.error('Error updating stats in local storage:', error);
@@ -1248,11 +1249,11 @@ const updateStorageWithStats = debounce(async () => {
 // Load stats from storage on startup
 async function loadStats() {
   try {
-    const result = await chrome.storage.local.get('stats');
-    if (result.stats) {
-      stats = result.stats;
+    const result = await chrome.storage.local.get(STATS_KEY);
+    if (result[STATS_KEY]) {
+      stats = result[STATS_KEY];
     } else {
-      await chrome.storage.local.set({ stats });
+      await chrome.storage.local.set({ [STATS_KEY]: stats });
     }
   } catch (error) {
     console.error('Error loading stats:', error);
@@ -1335,13 +1336,17 @@ async function handleInternalRedirect(details) {
 // Message listener for stats-related actions
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'resetStats') {
-    stats.summary = {
-      totalModified: 0,
-      ruleEffectiveness: []
+    // Reset stats object
+    stats = {
+      summary: {
+        totalModified: 0,
+        ruleEffectiveness: []
+      }
     };
     
-    // Immediately update storage and trigger debounced update
-    chrome.storage.local.set({ stats }, () => {
+    // Update storage
+    chrome.storage.local.set({ [STATS_KEY]: stats }, () => {
+      // Trigger debounced update
       updateStorageWithStats();
       sendResponse({ success: true });
     });
@@ -1360,7 +1365,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 // Periodic backup of stats (additional safety net)
 setInterval(async () => {
   try {
-    await chrome.storage.local.set({ stats });
+    await chrome.storage.local.set({ [STATS_KEY]: stats });
   } catch (error) {
     console.error('Error in periodic stats backup:', error);
   }
