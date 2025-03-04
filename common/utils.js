@@ -52,8 +52,8 @@ export const resetStats = async () => {
     try {
         const newStats = {
             summary: {
-                totalModified: 0,
-                ruleEffectiveness: []
+                totalRedirect: 0,
+                totalParameter: 0
             }
         };
         await chrome.storage.local.set({ [STATS_KEY]: newStats });
