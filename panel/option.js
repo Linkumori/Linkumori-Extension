@@ -1,7 +1,7 @@
 /*
 SPDX-License-Identifier: GPL-3.0-or-later
 
-Copyright (C) 2024 Subham Mahesh
+Copyright (C) 2024-2025 Subham Mahesh
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>..
 */
 
 import { readPurifyUrlsSettings, setDefaultSettings } from '../common/utils.js';
-import { defaultSettings, SETTINGS_KEY, CANT_FIND_SETTINGS_MSG } from '../common/constants.js';
+import { defaultSettings, SETTINGS_KEY, CANT_FIND_SETTINGS_MSG, STATS_KEY } from '../common/constants.js';
 import punycode from '../lib/punycode.js';
 
 class OptionsMenuController {
@@ -31,7 +31,13 @@ class OptionsMenuController {
             whitelist: [],
             updateBadgeOnOff: false,
             PreventGoogleandyandexscript: false,
-            customRules: []
+            customRules: [],
+            stats: {
+                summary: {
+                    totalModified: 0,
+                    ruleEffectiveness: []
+                }
+            }
         };
 
         this.domElements = {
@@ -51,12 +57,15 @@ class OptionsMenuController {
             ruleDomainInput: null,
             ruleParamInput: null,
             PreventGoogleandyandexscriptToggle: null,
-            PreventGoogleandyandexscriptLabel: null
+            PreventGoogleandyandexscriptLabel: null,
+            modifiedRequests: null,
+            activeRules: null
         };
 
         this.exportWhitelist = this.exportWhitelist.bind(this);
         this.importWhitelist = this.importWhitelist.bind(this);
         this.setupURLExtractor();  // Already called here
+        this.updateStats = this.updateStats.bind(this);
         this.updateStats = this.updateStats.bind(this);
         this.setupStats();
 
@@ -136,7 +145,9 @@ class OptionsMenuController {
             badgeOnOffLabel: document.querySelector('#updateBadgeOnOff .toggle-label'),
             rulesContainer: document.getElementById('rulesContainer'),
             ruleDomainInput: document.getElementById('ruleDomainInput'),
-            ruleParamInput: document.getElementById('ruleParamInput')
+            ruleParamInput: document.getElementById('ruleParamInput'),
+            modifiedRequests: document.getElementById('modifiedRequests'),
+            activeRules: document.getElementById('activeRules')
         };
 
         this.setupEventListeners();
@@ -224,6 +235,12 @@ class OptionsMenuController {
                 updateBadgeOnOff = false,
                 customRules = [],
                 PreventGoogleandyandexscript = false,
+                stats = {
+                    summary: {
+                        totalModified: 0,
+                        ruleEffectiveness: []
+                    }
+                }
             } = await chrome.storage.local.get({
                 whitelist: [], 
                 enabled: false,
@@ -231,7 +248,13 @@ class OptionsMenuController {
                 updateHyperlinkAuditing: false,
                 updateBadgeOnOff: false,
                 customRules: [],
-                PreventGoogleandyandexscript: false
+                PreventGoogleandyandexscript: false,
+                [STATS_KEY]: {
+                    summary: {
+                        totalModified: 0,
+                        ruleEffectiveness: []
+                    }
+                }
             });
 
             this.state = {
@@ -243,6 +266,7 @@ class OptionsMenuController {
                 updateBadgeOnOff,
                 customRules,
                 PreventGoogleandyandexscript,
+                stats
             };
 
             this.updateUI();
@@ -286,6 +310,11 @@ class OptionsMenuController {
         if (Object.hasOwn(changes, 'PreventGoogleandyandexscript')) {
             this.state.PreventGoogleandyandexscript = changes.PreventGoogleandyandexscript.newValue;
             this.updatePreventGoogleandyandexscriptToggleUI();
+        }
+
+        if (Object.hasOwn(changes, STATS_KEY)) {
+            this.state.stats = changes[STATS_KEY].newValue;
+            this.updateStatsUI();
         }
     }
     async togglePurifyUrlsSettings() {
@@ -342,24 +371,52 @@ class OptionsMenuController {
         });
      }
 
+
+
     // Add new method
     async updateStats() {
         try {
-            const response = await chrome.runtime.sendMessage({action: 'getStats'});
-            if (response?.success) {
-                const stats = response.stats;
-                
-                document.getElementById('modifiedRequests').textContent = 
-                    stats.summary.totalModified.toLocaleString();
-                document.getElementById('activeRules').textContent = 
-                    stats.summary.ruleEffectiveness.length.toLocaleString();
+            const { [STATS_KEY]: stats } = await chrome.storage.local.get(STATS_KEY);
+            if (stats) {
+                this.state.stats = stats;
+                this.updateStatsUI();
             }
         } catch (error) {
             console.error('Failed to update stats:', error);
         }
     }
 
+    async resetStats() {
+        try {
+            // Send message to background script to reset stats
+            await chrome.runtime.sendMessage({ action: 'resetStats' });
+            
+            // Remove stats from local storage
+            await chrome.storage.local.remove(STATS_KEY);
+            
+            // Set default state
+            this.state.stats = {
+                summary: {
+                    totalModified: 0,
+                    ruleEffectiveness: []
+                }
+            };
+            
+            // Update UI
+            this.updateStatsUI();
+        } catch (error) {
+            console.error('Failed to reset stats:', error);
+        }
+    }
 
+    updateStatsUI() {
+        if (this.domElements.modifiedRequests && this.domElements.activeRules) {
+            this.domElements.modifiedRequests.textContent = 
+                this.state.stats.summary.totalModified.toLocaleString();
+            this.domElements.activeRules.textContent = 
+                this.state.stats.summary.ruleEffectiveness.length.toLocaleString();
+        }
+    }
    
     async toggleHyperlinkAuditing() {
         try {
@@ -389,6 +446,7 @@ class OptionsMenuController {
         this.updatePreventGoogleandyandexscriptToggleUI();
         this.renderWhitelist();
         this.renderCustomRules();
+        this.updateStatsUI();
     }
     updateToggleUI() {
         if (!this.domElements.toggleSwitch || !this.domElements.toggleLabel) {

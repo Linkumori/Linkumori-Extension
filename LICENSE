@@ -3825,7 +3825,9 @@ the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
 
-10) Some components of Linkumori are contributed by contributors, including PikachuEXE, who has provided content in the file _locales/zh_TW/messages.json. All contributions are subject to the terms of the GPL v3 or any later version.
+10) Some components of Linkumori are contributed by contributors, including PikachuEXE and Psychosynthesis, 
+who have provided content in the file _locales/zh_TW/messages.json and _locales/ru/messages.json. 
+All contributions are subject to the terms of the GPL v3 or any later version.
 
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
