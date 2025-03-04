@@ -188,7 +188,7 @@
   "successMessages_whitelistImport": {
     "message": "Белый список успешно импортирован"
   },
-  "successMessages_parameterДобавитьed": {
+  "successMessages_parameterAdded": {
     "message": "$1 параметр(ов) успешно добавлен"
   },
   "confirmationMessages_importWhitelist": {
