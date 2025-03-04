@@ -1214,10 +1214,11 @@ chrome.webNavigation.onBeforeNavigate.addListener(
   }
 );
 
-let stats = {
+        // Find existing rule effectiveness entry or create new one
+        let stats = {
   summary: {
-    totalModified: 0,
-    ruleEffectiveness: []
+    totalRedirect: 0,      // Count of every internal redirect handled
+    totalParameter: 0      // Total number of query parameters removed collectively
   }
 };
 
@@ -1260,27 +1261,23 @@ async function loadStats() {
   }
 }
 
-// Initialize stats load on extension install
+// Initialize stats load on extension install and browser startup
 chrome.runtime.onInstalled.addListener(async () => {
   await loadStats();
 });
-
-// Initialize stats load on browser startup
 chrome.runtime.onStartup.addListener(async () => {
   await loadStats();
 });
 
-const pendingRequests = new Map();
-
-// Track redirects from declarativeNetRequest for multiple request types
+// Listen for internal redirects
 chrome.webRequest.onBeforeRedirect.addListener(
   (details) => {
-    // Handle internal redirects for main_frame, sub_frame, and xmlhttprequest
+    // Process only main_frame, sub_frame, and xmlhttprequest types with 307 status code
     if ((details.type === 'main_frame' ||
          details.type === 'sub_frame' ||
          details.type === 'xmlhttprequest') &&
-        details.statusCode === 307 &&
-        details.redirectUrl) {
+         details.statusCode === 307 &&
+         details.redirectUrl) {
       handleInternalRedirect(details);
     }
   },
@@ -1292,61 +1289,46 @@ chrome.webRequest.onBeforeRedirect.addListener(
 
 async function handleInternalRedirect(details) {
   try {
+    // Increment totalRedirect for every internal redirect event
+    stats.summary.totalRedirect++;
+
     const originalUrl = new URL(details.url);
     const redirectUrl = new URL(details.redirectUrl);
     
+    // Create sets of query parameter keys from original and redirect URLs
     const originalParams = new Set([...originalUrl.searchParams.keys()]);
     const redirectParams = new Set([...redirectUrl.searchParams.keys()]);
     
+    // Find parameters that were removed during the redirect
     const removedParams = new Set(
-      [...originalParams].filter(x => !redirectParams.has(x))
+      [...originalParams].filter(param => !redirectParams.has(param))
     );
     
+    // Increment totalParameter by the number of parameters removed (if any)
     if (removedParams.size > 0) {
-      stats.summary.totalModified++;
-      
-      for (const param of removedParams) {
-        // Find existing rule effectiveness entry or create new one
-        const existingEntry = stats.summary.ruleEffectiveness.find(
-          entry => entry.param === param
-        );
-        
-        if (existingEntry) {
-          existingEntry.count++;
-          existingEntry.lastModified = Date.now();
-          existingEntry.types[details.type] = (existingEntry.types[details.type] || 0) + 1;
-        } else {
-          stats.summary.ruleEffectiveness.push({
-            param,
-            count: 1,
-            lastModified: Date.now(),
-            types: { [details.type]: 1 }
-          });
-        }
-      }
-      
-      // Trigger debounced storage update
-      updateStorageWithStats();
+      stats.summary.totalParameter += removedParams.size;
     }
+    
+    // Update the stored stats with debouncing
+    updateStorageWithStats();
   } catch (error) {
     console.error('Error handling internal redirect:', error);
   }
 }
 
-// Message listener for stats-related actions
+// Message listener for stats-related actions (reset and get stats)
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'resetStats') {
     // Reset stats object
     stats = {
       summary: {
-        totalModified: 0,
-        ruleEffectiveness: []
+        totalRedirect: 0,
+        totalParameter: 0
       }
     };
     
-    // Update storage
+    // Update storage and send response
     chrome.storage.local.set({ [STATS_KEY]: stats }, () => {
-      // Trigger debounced update
       updateStorageWithStats();
       sendResponse({ success: true });
     });
@@ -1362,7 +1344,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
-// Periodic backup of stats (additional safety net)
+// Periodic backup of stats every 60 seconds (additional safety net)
 setInterval(async () => {
   try {
     await chrome.storage.local.set({ [STATS_KEY]: stats });
