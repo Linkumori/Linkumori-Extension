@@ -34,8 +34,8 @@ class OptionsMenuController {
             customRules: [],
             stats: {
                 summary: {
-                    totalModified: 0,
-                    ruleEffectiveness: []
+                    totalRedirect: 0,
+                    totalParameter: 0
                 }
             }
         };
@@ -58,8 +58,8 @@ class OptionsMenuController {
             ruleParamInput: null,
             PreventGoogleandyandexscriptToggle: null,
             PreventGoogleandyandexscriptLabel: null,
-            modifiedRequests: null,
-            activeRules: null
+            totalRedirects: null,
+            totalParameters: null
         };
 
         this.exportWhitelist = this.exportWhitelist.bind(this);
@@ -146,8 +146,8 @@ class OptionsMenuController {
             rulesContainer: document.getElementById('rulesContainer'),
             ruleDomainInput: document.getElementById('ruleDomainInput'),
             ruleParamInput: document.getElementById('ruleParamInput'),
-            modifiedRequests: document.getElementById('modifiedRequests'),
-            activeRules: document.getElementById('activeRules')
+            totalRedirects: document.getElementById('totalRedirects'),
+            totalParameters: document.getElementById('totalParameters')
         };
 
         this.setupEventListeners();
@@ -237,8 +237,8 @@ class OptionsMenuController {
                 PreventGoogleandyandexscript = false,
                 stats = {
                     summary: {
-                        totalModified: 0,
-                        ruleEffectiveness: []
+                        totalRedirect: 0,
+                        totalParameter: 0
                     }
                 }
             } = await chrome.storage.local.get({
@@ -251,8 +251,8 @@ class OptionsMenuController {
                 PreventGoogleandyandexscript: false,
                 [STATS_KEY]: {
                     summary: {
-                        totalModified: 0,
-                        ruleEffectiveness: []
+                        totalRedirect: 0,
+                        totalParameter: 0
                     }
                 }
             });
@@ -397,8 +397,8 @@ class OptionsMenuController {
             // Set default state
             this.state.stats = {
                 summary: {
-                    totalModified: 0,
-                    ruleEffectiveness: []
+                    totalRedirect: 0,
+                    totalParameter: 0
                 }
             };
             
@@ -410,11 +410,15 @@ class OptionsMenuController {
     }
 
     updateStatsUI() {
-        if (this.domElements.modifiedRequests && this.domElements.activeRules) {
-            this.domElements.modifiedRequests.textContent = 
-                this.state.stats.summary.totalModified.toLocaleString();
-            this.domElements.activeRules.textContent = 
-                this.state.stats.summary.ruleEffectiveness.length.toLocaleString();
+        // Update new stats
+        if (this.domElements.totalRedirects) {
+            this.domElements.totalRedirects.textContent = 
+                (this.state.stats.summary.totalRedirect || 0).toLocaleString();
+        }
+        
+        if (this.domElements.totalParameters) {
+            this.domElements.totalParameters.textContent = 
+                (this.state.stats.summary.totalParameter || 0).toLocaleString();
         }
     }
    
@@ -1509,10 +1513,6 @@ document.getElementById('sun.svg')?.addEventListener('click', () => {
 document.getElementById('moon.svg')?.addEventListener('click', () => {
     window.open('https://github.com/feathericons/feather/blob/main/icons/moon.svg', '_blank');
 });
-
-
-
-
 
 // Initialize the controller
 const controller = new OptionsMenuController();
