@@ -1251,11 +1251,13 @@ const updateStorageWithStats = debounce(async () => {
 async function loadStats() {
   try {
     const result = await chrome.storage.local.get(STATS_KEY);
-    if (result[STATS_KEY]) {
+    if (result[STATS_KEY] && typeof result[STATS_KEY] === 'object') {
       stats = result[STATS_KEY];
     } else {
+      // Initialize stats in storage if not present
       await chrome.storage.local.set({ [STATS_KEY]: stats });
     }
+    console.log('Stats loaded successfully:', stats);
   } catch (error) {
     console.error('Error loading stats:', error);
   }
@@ -1263,11 +1265,17 @@ async function loadStats() {
 
 // Initialize stats load on extension install and browser startup
 chrome.runtime.onInstalled.addListener(async () => {
-  await loadStats();
+  await loadStats(); // Ensure stats are loaded on installation
 });
+
 chrome.runtime.onStartup.addListener(async () => {
-  await loadStats();
+  await loadStats(); // Ensure stats are loaded on browser startup
 });
+
+// Ensure stats are loaded during extension initialization
+(async () => {
+  await loadStats();
+})();
 
 // Listen for internal redirects
 chrome.webRequest.onBeforeRedirect.addListener(
