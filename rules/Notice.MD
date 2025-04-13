@@ -105,6 +105,10 @@ modification only added new parameter
 seventh on 8 april 2025 4.56pm ist delhi
 modified rules1.json,rules6.json,rules8.json
 by subham mahesh under gpl v3 only license
+
+eighth on 9 april 2025 7.35pm ist delhi
+modified rules15.json
+by subham mahesh under gpl v3 only license
 ## License Information
 This work is licensed under the GNU General Public License version 3 (GPLv3) only
 
