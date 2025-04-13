@@ -361,5 +361,14 @@
   },
   "update_error": {
     "message": "Ошибка проверки наличия обновлений"
-  }
+  },
+  
+    "chromeWebStore": {
+        "message": "Интернет-магазин Chrome:"
+    },
+    "chromeWebStoreLinkText": {
+        "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+    }
 }
+
+
