@@ -361,6 +361,15 @@
   },
   "update_error": {
     "message": "アップデートの確認中にエラーが発生しました"
-  }
-
+  },
+  
+    "chromeWebStore": {
+        "message": "Chrome ウェブストア："
+    },
+    "chromeWebStoreLinkText": {
+        "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+    }
 }
+
+
+

@@ -361,5 +361,14 @@
   },
   "update_error": {
     "message": "Fehler bei der Suche nach Updates"
+  },
+  
+    "chromeWebStore": {
+      "message": "Chrome Web Store:"
+    },
+    "chromeWebStoreLinkText": {
+      "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+    }
   }
-}
+  
+

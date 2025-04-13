@@ -361,5 +361,11 @@
   },
   "update_error": {
     "message": "Error checking for updates"
-  }
+  },
+    "chromeWebStore": {
+        "message": "Chrome Web Store:"
+    },
+    "chromeWebStoreLinkText": {
+        "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+    }
 }

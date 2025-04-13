@@ -361,5 +361,13 @@
   },
   "update_error": {
     "message": "檢查更新時發生錯誤"
-  }
+  },
+
+    "chromeWebStore": {
+        "message": "Chrome 線上應用程式商店："
+    },
+    "chromeWebStoreLinkText": {
+        "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+    }
 }
+
