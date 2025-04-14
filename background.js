@@ -880,49 +880,54 @@ function isYandexDomain(url) {
 }
 
 // Listen for tab updates
-chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  // Wait for settings from local storage
-  const settings = await new Promise((resolve) => {
-    chrome.storage.local.get(SETTINGS_KEY, (result) => {
-      resolve(result[SETTINGS_KEY]);
+function getStorageValue(key) {
+  return new Promise(resolve => {
+    chrome.storage.local.get(key, result => {
+      resolve(result[key]);
     });
   });
+}
 
-  // If settings are not found or status is off, return
-  if (!settings || !settings.status) {
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+  // Only process after the page fully loads and there is a URL
+  if (changeInfo.status !== 'complete' || !tab.url) return;
+
+  // Retrieve settings in parallel
+  const [settings, preventFlag, whitelist] = await Promise.all([
+    getStorageValue(SETTINGS_KEY),
+    getStorageValue('PreventGoogleandyandexscript'),
+    getStorageValue('whitelist'),
+  ]);
+
+  // If settings aren’t enabled or the PreventGoogleandyandexscript flag isn’t set, stop here.
+  if (!settings || !settings.status || !preventFlag) {
     return;
   }
-  const { PreventGoogleandyandexscript } = await chrome.storage.local.get('PreventGoogleandyandexscript');
-  if (!PreventGoogleandyandexscript) {
-    return; 
-  }
-  // Retrieve whitelist
-  const { whitelist } = await chrome.storage.local.get('whitelist');
 
-  // Check if the current tab's URL is in the whitelist
-  const isWhitelisted = whitelist.some(domain => tab.url.includes(domain));
-  if (isWhitelisted) {
-    return; // Exit if the domain is whitelisted
+  // Ensure whitelist is an array before proceeding
+  if (Array.isArray(whitelist) && whitelist.some(domain => tab.url.includes(domain))) {
+    return; // Stop if the current URL is whitelisted
   }
 
-  // If the page has loaded completely
-  if (changeInfo.status === 'complete' && tab.url) {
-    // Execute appropriate script for Google or Yandex domain
-    if (isGoogleDomain(tab.url)) {
-      chrome.scripting.executeScript({
-        target: { tabId: tabId },
-        files: ['./lib/google-fix.js']
-      });
-    }
-    if (isYandexDomain(tab.url)) {
-      chrome.scripting.executeScript({
-        target: { tabId: tabId },
-        files: ['./lib/yandex-fix.js']
-      });
-    }
+  // Execute fix scripts based on the domain of the tab URL
+  if (isGoogleDomain(tab.url)) {
+    // Use world 'MAIN' if your injected code requires access to the page’s actual DOM/global object.
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      files: ['./lib/google-fix.js'],
+      // Uncomment the following if you need your script to run in the page context:
+      // world: 'MAIN'
+    });
+  }
+
+  if (isYandexDomain(tab.url)) {
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      files: ['./lib/yandex-fix.js'],
+      // world: 'MAIN'  // Uncomment if necessary
+    });
   }
 });
-
 
 
 

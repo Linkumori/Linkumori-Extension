@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Linkumori (URLs Cleaner)",
-  "version": "135.0",
+  "version": "136.0",
 "description": "__MSG_extDescription__",
 
   "icons": {
@@ -23,7 +23,6 @@
     "default_title": "Linkumori",
     "default_popup": "panel/panelMenu.html"
   },
-  
   "permissions": [
     "storage",
     "tabs", 
