@@ -718,7 +718,16 @@
 "condition":{
   "initiatorDomains":"images.baidu.com",
   "resourceTypes":["main_frame","sub_frame","xmlhttprequest"]
-}}
+}},
+{
+  "id": 81,
+  "priority": 1,
+  "action": { "type": "allow" },
+  "condition": {
+    "urlFilter": "||edith.xiaohongshu.com/api/sns/web/v1/user/hover_card",
+    "resourceTypes": ["main_frame", "sub_frame", "xmlhttprequest"]
+  }
+}
 
   ]
 
