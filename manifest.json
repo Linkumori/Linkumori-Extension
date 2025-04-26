@@ -166,6 +166,11 @@
         "id": "ruleset_18",
         "enabled": true,
         "path": "rules/exception/rules18.json"
+      },
+      {
+        "id": "ruleset_19",
+        "enabled": true,
+        "path": "rules/redirect/rules19.json"
       }
     ]
   }

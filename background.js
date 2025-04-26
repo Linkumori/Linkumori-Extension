@@ -190,7 +190,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 
 
 async function updateRuleSet(enabled) {
-  const allRulesets = ['ruleset_1', 'ruleset_2', 'ruleset_3', 'ruleset_4', 'ruleset_5', 'ruleset_6', 'ruleset_7', 'ruleset_8', 'ruleset_9', 'ruleset_10', 'ruleset_11', 'ruleset_12', 'ruleset_13', 'ruleset_14', 'ruleset_15', 'ruleset_16', 'ruleset_17','ruleset_18'];
+  const allRulesets = ['ruleset_1', 'ruleset_2', 'ruleset_3', 'ruleset_4', 'ruleset_5', 'ruleset_6', 'ruleset_7', 'ruleset_8', 'ruleset_9', 'ruleset_10', 'ruleset_11', 'ruleset_12', 'ruleset_13', 'ruleset_14', 'ruleset_15', 'ruleset_16', 'ruleset_17','ruleset_18','ruleset_19','ruleset_20'];
 
   await chrome.declarativeNetRequest.updateEnabledRulesets({
     disableRulesetIds: enabled ? [] : allRulesets,

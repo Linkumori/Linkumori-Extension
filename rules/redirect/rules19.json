@@ -1,0 +1,185 @@
+[
+
+  {
+    "id": 5,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?:\\/\\/(?:[a-z0-9-]+\\.)*?googleadservices\\.com\\/.*?adurl=([^&]*)",
+      "resourceTypes": ["main_frame"]
+    }
+  },
+  {
+    "id": 6,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?:\\/\\/(?:[a-z0-9-]+\\.)*?amazon-adsystem(?:\\.[a-z]{2,}){1,}\\/x\\/c\\/.+?\\/([^&]+)",
+      "resourceTypes": ["main_frame"]
+    }
+  },
+  {
+    "id": 7,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?:\\/\\/out\\.reddit\\.com\\/.*?url=([^&]*)",
+      "resourceTypes": ["main_frame"]
+    }
+  },
+  {
+    "id": 8,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?:\\/\\/click\\.redditmail\\.com\\/.*?url=([^&]*)",
+      "resourceTypes": ["main_frame"]
+    }
+  },
+  {
+    "id": 9,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?:\\/\\/l[a-z]?\\.facebook\\.com/l\\.php\\?.*?u=(https?%3A%2F%2F[^&]*)",
+      "resourceTypes": ["main_frame"]
+    }
+  },
+  {
+    "id": 10,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?:\\/\\/(?:[a-z0-9-]+\\.)*?rover\\.ebay(?:\\.[a-z]{2,}){1,}\\/rover.*mpre=([^&]*)",
+      "resourceTypes": ["main_frame"]
+    }
+  },
+  {
+    "id": 11,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?:\\/\\/(?:[a-z0-9-]+\\.)*?links\\.govdelivery\\.com.*\\/track\\?.*(https?:\\/\\/.*)",
+      "resourceTypes": ["main_frame"]
+    }
+  },
+  {
+    "id": 12,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?:\\/\\/(?:[a-z0-9-]+\\.)*?steamcommunity\\.com\\/linkfilter\\/\\?url=([^&]*)",
+      "resourceTypes": ["main_frame"]
+    }
+  },
+  {
+    "id": 13,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?:\\/\\/vk\\.com\\/away\\.php\\?to=([^&]*)",
+      "resourceTypes": ["main_frame"]
+    }
+  },
+  {
+    "id": 14,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?:\\/\\/l\\.messenger\\.com\\/l\\.php\\?u=([^&]*)",
+      "resourceTypes": ["main_frame"]
+    }
+  },
+  {
+    "id": 15,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?:\\/\\/href\\.li\\/\\?(http.+)",
+      "resourceTypes": ["main_frame"]
+    }
+  },
+  {
+    "id": 16,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?:\\/\\/t\\.umblr\\.com\\/redirect\\?z=([^&]+)",
+      "resourceTypes": ["main_frame"]
+    }
+  },
+  {
+    "id": 17,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?:\\/\\/duckduckgo\\.com\\/l\\/.*?uddg=([^&]+)",
+      "resourceTypes": ["main_frame"]
+    }
+  }
+]
