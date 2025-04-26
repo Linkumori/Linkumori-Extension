@@ -1,18 +1,25 @@
-[{
-  "id": 33,
-  "priority": 1,
-  "action": {
-    "type": "redirect",
-    "redirect": {
-      "regexSubstitution": "\\1"
-    }
-  },
-  "condition": {
-    "regexFilter": "^(https?:\\/\\/test\\.clearurls\\.xyz\\/void\\/index\\.html)\\?url=.*",
-    "resourceTypes": [
-      "main_frame", "sub_frame", "stylesheet", "script", "image", "font", 
-      "object", "xmlhttprequest", "ping", "csp_report", "media", 
-      "websocket", "webtransport", "webbundle", "other"
-    ]
-  }
-}]
+[
+{"id":1,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^(https?:\\/\\/test\\.clearurls\\.xyz\\/void\\/index\\.html)\\?url=.*","resourceTypes":["main_frame","sub_frame","stylesheet","script","image","font","object","xmlhttprequest","ping","csp_report","media","websocket","webtransport","webbundle","other"]}},
+{"id":2,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?exactag\\.com.*url=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":3,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?disq\\.us\\/.*?url=([^&]*)%3A","resourceTypes":["main_frame"]}},
+{"id":4,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?anonym\\.to.*\\?([^&]*)","resourceTypes":["main_frame"]}},
+{"id":5,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?tradedoubler\\.com.*(?:url|_td_deeplink)=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":6,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?srvtrck\\.com.*url=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":7,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/mysku\\.ru.*r=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":8,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?admitad\\.com.*ulp=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":9,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/kevinroebert\\.gitlab\\.io\\/ClearUrls\\/void\\/index\\.html\\?url=([^&]*)","resourceTypes":["main_frame","sub_frame","stylesheet","script","image","font","object","xmlhttprequest","ping","csp_report","media","websocket","webtransport","webbundle","other"]}},
+{"id":10,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?gate\\.sc\\/.*?url=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":11,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?linksynergy\\.com\\/.*?murl=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":12,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?alabout\\.com.*url=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":13,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?idealo-partner\\.com.*trg=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":14,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?webgains\\.com.*wgtarget=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":15,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?getpocket\\.com.*url=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":16,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?tokopedia\\.com\\/promo.*r=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":17,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/app\\.adjust\\.com.*redirect=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":18,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?digidip\\.net.*url=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":19,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?dpbolvw\\.net.*url=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":20,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?mailpanion\\.com.*destination=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":21,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?signtr\\.website.*redirect=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":22,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?mailtrack\\.io.*url=([^&]*)","resourceTypes":["main_frame"]}},
+{"id":23,"priority":1,"action":{"type":"redirect","redirect":{"regexSubstitution":"\\1"}},"condition":{"regexFilter":"^https?:\\/\\/(?:[a-z0-9-]+\\.)*?effiliation\\.com.*url=([^&]*)","resourceTypes":["main_frame"]}}
+]
