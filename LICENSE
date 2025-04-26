@@ -720,6 +720,7 @@ The following code in the linkurmori source code files are completely under the 
 "/rules/rules17.json",
 "rules/exception/rules18.json",
 "rules/redirect/rules19.json",
+"rules/redirect/rules20.json",
 "/_locales/en/messages.json"
 "_locales/zh_CN/messages.json"
 "_locales/de/messages.json"
