@@ -632,7 +632,7 @@ async function updateDNRRule() {
       resolve(result.updateBadgeOnOff);    });
   });
 
-  
+  updateAllDNRRules(settings.status);
   updateDNRRules(settings.status);
   badge(badgesettings);
 }

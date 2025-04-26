@@ -171,6 +171,11 @@
         "id": "ruleset_19",
         "enabled": true,
         "path": "rules/redirect/rules19.json"
+      },
+      {
+        "id": "ruleset_20",
+        "enabled": true,
+        "path": "rules/redirect/rules20.json"
       }
     ]
   }

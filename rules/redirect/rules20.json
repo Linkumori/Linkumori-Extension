@@ -1,0 +1,18 @@
+[{
+  "id": 33,
+  "priority": 1,
+  "action": {
+    "type": "redirect",
+    "redirect": {
+      "regexSubstitution": "\\1"
+    }
+  },
+  "condition": {
+    "regexFilter": "^(https?:\\/\\/test\\.clearurls\\.xyz\\/void\\/index\\.html)\\?url=.*",
+    "resourceTypes": [
+      "main_frame", "sub_frame", "stylesheet", "script", "image", "font", 
+      "object", "xmlhttprequest", "ping", "csp_report", "media", 
+      "websocket", "webtransport", "webbundle", "other"
+    ]
+  }
+}]
