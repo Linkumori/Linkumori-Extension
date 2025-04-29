@@ -758,9 +758,9 @@ function htmlcanescape(str) {
   const decodeHtmlEntities = (s) => s
       .replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">")
-      .replace(/&amp;/g, "&")
       .replace(/&#39;/g, "'")
-      .replace(/&quot;/g, "\"");
+      .replace(/&quot;/g, "\"")
+      .replace(/&amp;/g, "&");
 
   const rawStr = decodeHtmlEntities(String(str));
   return rawStr
