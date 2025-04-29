@@ -755,10 +755,18 @@ function removeUrlParameters(url) {
 }
 
 function htmlcanescape(str) {
-  return String(str)
+  const decodeHtmlEntities = (s) => s
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&amp;/g, "&")
+      .replace(/&#39;/g, "'")
+      .replace(/&quot;/g, "\"");
+
+  const rawStr = decodeHtmlEntities(String(str));
+  return rawStr
+      .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
-      .replace(/&/g, "&amp;")
       .replace(/'/g, "&#39;")
       .replace(/"/g, "&quot;");
 }
