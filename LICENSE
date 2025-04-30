@@ -3089,6 +3089,7 @@ SOFTWARE.
  8) The following files from the Linkumori source code are licensed under the MIT license:
 
 lib/punycode.js
+lib/base64.js
 Full text of license
 
 Copyright Mathias Bynens <https://mathiasbynens.be/>

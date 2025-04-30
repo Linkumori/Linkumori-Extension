@@ -206,7 +206,9 @@ Original source:
 Copyright (c) 2013-2023 Cole Bemis
 ###  MIT License Library
 
-- `lib/punycode.js` 
+- `lib/punycode.js`
+- `lib/base64.js`
+
 
 Copyright Mathias Bynens
 
