@@ -40,37 +40,7 @@
     "http://*/*",
     "https://*/*"
   ],
-  "content_scripts": [
-    {
-      "matches": [
-        "*://*.amazon.com/*",
-        "*://*.amazon.co.uk/*",
-        "*://*.amazon.de/*",
-        "*://*.amazon.fr/*",
-        "*://*.amazon.ca/*",
-        "*://*.amazon.jp/*",
-        "*://*.amazon.in/*",
-        "*://*.amazon.com.au/*"
-      ],
-      "js": ["lib/amazon-url-prevention.js"],
-      "run_at": "document_start"
-    }
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": ["lib/amazon-url-prevention.js"],
-      "matches": [
-        "*://*.amazon.com/*",
-        "*://*.amazon.co.uk/*",
-        "*://*.amazon.de/*",
-        "*://*.amazon.fr/*",
-        "*://*.amazon.ca/*",
-        "*://*.amazon.jp/*",
-        "*://*.amazon.in/*",
-        "*://*.amazon.com.au/*"
-      ]
-    }
-  ],
+  
   "options_ui": {
     "page": "panel/option.html",
     "open_in_tab": true
@@ -172,10 +142,10 @@
         "enabled": true,
         "path": "rules/redirect/rules19.json"
       },
-      {
-        "id": "ruleset_20",
-        "enabled": true,
-        "path": "rules/redirect/rules20.json"
+        {
+          "id": "ruleset_20",
+          "enabled": true,
+          "path": "rules/redirect/rules20.json"
       }
     ]
   }
