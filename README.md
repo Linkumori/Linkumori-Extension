@@ -132,10 +132,10 @@ The following code in the linkurmori source code files are completely under the 
 - `/rules/rules17.json`
 - `rules/redirect/rules19.json`
 - `rules/redirect/rules20.json`
+- `rules/redirect/rules21.json`
 -`_locales/zh_CN/messages.json`
 - `rules/exception/rules18.json`
 - `/_locales/en/messages.json`
-- `lib/amazon-url-prevention.js`
 - `/panel/first-install.html`
 - `/panel/first-install.js`
 - `common/rules.js`
