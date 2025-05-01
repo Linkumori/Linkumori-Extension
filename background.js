@@ -1507,3 +1507,16 @@ setInterval(async () => {
   }
 }, 60000);
 
+// Listen for the restart message
+chrome.runtime.onMessage.addListener(
+  function(request) {
+    if (request.action === "restart") {
+      // Attempt to restart the device (will only work in ChromeOS kiosk mode)
+      try {
+        chrome.runtime.reload();
+      } catch (error) {
+      }
+      return true; // Keep the message channel open for the async response
+    }
+  }
+);

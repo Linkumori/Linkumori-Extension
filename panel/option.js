@@ -1416,6 +1416,9 @@ class OptionsMenuController {
                 setTimeout(() => {
                     chrome.runtime.reload();
                 }, 1000);
+                chrome.runtime.sendMessage({action: "restart"}, function(response) {
+                    // Handle response if needed
+                  });
                 return;
             }
     
