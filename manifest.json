@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Linkumori (URLs Cleaner)",
-  "version": "138.0",
+  "version": "145.0",
 "description": "__MSG_extDescription__",
 
   "icons": {
@@ -166,6 +166,16 @@
         "id": "ruleset_18",
         "enabled": true,
         "path": "rules/exception/rules18.json"
+      },
+      {
+        "id": "ruleset_19",
+        "enabled": true,
+        "path": "rules/redirect/rules19.json"
+      },
+      {
+        "id": "ruleset_20",
+        "enabled": true,
+        "path": "rules/redirect/rules20.json"
       }
     ]
   }

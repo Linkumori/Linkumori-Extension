@@ -33,8 +33,9 @@ import { readPurifyUrlsSettings, setDefaultSettings } from './common/utils.js';
 import { defaultSettings, SETTINGS_KEY, CANT_FIND_SETTINGS_MSG } from './common/constants.js';
 import { parameterRules,urlPatternRules  } from './common/rules.js';
 import punycode from './lib/punycode.js';
+import base64 from './lib/base64.js';
 
-
+// Use base64Module instead of base64
 
 
 let hasStarted = false;
@@ -190,7 +191,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 
 
 async function updateRuleSet(enabled) {
-  const allRulesets = ['ruleset_1', 'ruleset_2', 'ruleset_3', 'ruleset_4', 'ruleset_5', 'ruleset_6', 'ruleset_7', 'ruleset_8', 'ruleset_9', 'ruleset_10', 'ruleset_11', 'ruleset_12', 'ruleset_13', 'ruleset_14', 'ruleset_15', 'ruleset_16', 'ruleset_17','ruleset_18'];
+  const allRulesets = ['ruleset_1', 'ruleset_2', 'ruleset_3', 'ruleset_4', 'ruleset_5', 'ruleset_6', 'ruleset_7', 'ruleset_8', 'ruleset_9', 'ruleset_10', 'ruleset_11', 'ruleset_12', 'ruleset_13', 'ruleset_14', 'ruleset_15', 'ruleset_16', 'ruleset_17','ruleset_18','ruleset_19'];
 
   await chrome.declarativeNetRequest.updateEnabledRulesets({
     disableRulesetIds: enabled ? [] : allRulesets,
@@ -632,7 +633,7 @@ async function updateDNRRule() {
       resolve(result.updateBadgeOnOff);    });
   });
 
-  
+  updateAllDNRRules(settings.status);
   updateDNRRules(settings.status);
   badge(badgesettings);
 }
@@ -755,10 +756,18 @@ function removeUrlParameters(url) {
 }
 
 function htmlcanescape(str) {
-  return String(str)
+  const decodeHtmlEntities = (s) => s
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&#39;/g, "'")
+      .replace(/&quot;/g, "\"")
+      .replace(/&amp;/g, "&");
+
+  const rawStr = decodeHtmlEntities(String(str));
+  return rawStr
+      .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
-      .replace(/&/g, "&amp;")
       .replace(/'/g, "&#39;")
       .replace(/"/g, "&quot;");
 }
@@ -1141,51 +1150,183 @@ async function removeCustomRuleParam(domain, param) {
   }
 
   return updatedRules;
-}
-function extractRealUrl(url) {
+}function extractRealUrl(url) {
   try {
-      const parsedUrl = new URL(url);
-      
-      // Handle Google Ads URLs
-      if (parsedUrl.pathname === '/aclk') {
-          const adUrl = parsedUrl.searchParams.get('adurl');
-          if (adUrl) {
-              return decodeURIComponent(adUrl);
-          }
+    const parsedUrl = new URL(url);
+    
+    // Handle Google Ads URLs
+    if (parsedUrl.pathname === '/aclk') {
+      const adUrl = parsedUrl.searchParams.get('adurl');
+      if (adUrl) {
+        return decodeRedirectUrl(adUrl);
       }
+    }
 
-      // Handle Google AMP URLs
-      if (parsedUrl.pathname.startsWith('/amp/')) {
-          const ampMatch = parsedUrl.pathname.match(/\/amp\/?s?\/(https?.+)/i);
-          if (ampMatch) {
-              return decodeURIComponent(ampMatch[1]);
-          }
+    // Handle Google AMP URLs
+    if (parsedUrl.pathname.startsWith('/amp/')) {
+      const ampMatch = parsedUrl.pathname.match(/\/amp\/?s?\/(https?.+)/i);
+      if (ampMatch) {
+        return decodeRedirectUrl(ampMatch[1]);
       }
+    }
 
-      // Handle standard Google redirects
-      if (parsedUrl.pathname === '/url') {
-          const redirectUrl = parsedUrl.searchParams.get('url') || 
-                            parsedUrl.searchParams.get('q');
-          if (redirectUrl) {
-              let decodedUrl = redirectUrl;
-              // Handle multiple levels of encoding
-              while (decodedUrl.includes('%')) {
-                  const prevUrl = decodedUrl;
-                  try {
-                      decodedUrl = decodeURIComponent(decodedUrl);
-                      if (decodedUrl === prevUrl) break;
-                  } catch {
-                      break;
-                  }
-              }
-              return decodedUrl.split('&')[0];
-          }
+    // Handle standard Google redirects
+    if (parsedUrl.pathname === '/url') {
+      const redirectUrl = parsedUrl.searchParams.get('url') || 
+                        parsedUrl.searchParams.get('q');
+      if (redirectUrl) {
+        return decodeRedirectUrl(redirectUrl); 
       }
+    }
   } catch (error) {
-      console.error('Error extracting real URL:', error);
+    console.error('Error extracting real URL:', error);
   }
   return null;
 }
+
+/**
+ * Comprehensive URL decoder that handles multiple encoding formats
+ */
+function decodeRedirectUrl(encodedUrl) {
+  if (!encodedUrl) return null;
+  
+  // Step 1: Make a copy of the original URL in case all decoding attempts fail
+  let originalUrl = encodedUrl;
+  let decodedUrl = encodedUrl;
+  
+  // Step 2: First apply standard URL decoding (may need multiple passes)
+  try {
+    // Handle URL encoding (might be applied multiple times)
+    let prevUrl;
+    do {
+      prevUrl = decodedUrl;
+      if (decodedUrl.includes('%')) {
+        decodedUrl = decodeURIComponent(decodedUrl);
+      }
+    } while (decodedUrl !== prevUrl && decodedUrl.includes('%'));
+  } catch (error) {
+    console.warn("Error during URL decoding:", error);
+    decodedUrl = originalUrl; // Reset to original on error
+  }
+  
+  // Step 3: Check if the result might be base64 encoded
+  if (looksLikeBase64(decodedUrl)) {
+    try {
+      // Try to decode as base64
+      let base64DecodedUrl;
+      
+      try {
+        // Try native browser function first if available
+        if (typeof atob === 'function') {
+          base64DecodedUrl = atob(decodedUrl);
+        } else {
+          // Fallback to the imported library
+          base64DecodedUrl = base64.decode(decodedUrl);
+        }
+      } catch (e) {
+        // If atob fails, try the imported library
+        try {
+          base64DecodedUrl = base64.decode(decodedUrl);
+        } catch (libError) {
+          console.error("Base64 library decode error:", libError);
+        }
+      }
+      
+      // Verify the result looks like a valid URL
+      if (base64DecodedUrl && isValidUrl(base64DecodedUrl)) {
+        return base64DecodedUrl;
+      }
+    } catch (error) {
+      console.warn("Error during base64 decoding:", error);
+      // Continue with the URL-decoded version
+    }
+  }
+  
+  // Step 4: Final check and cleanup
+  
+  // If the decoded URL doesn't look like a valid URL, return to original
+  if (!isValidUrl(decodedUrl)) {
+    if (isValidUrl(originalUrl)) {
+      return originalUrl;
+    }
+    // If neither is valid, try with the split version (to remove tracking params)
+    const splitUrl = decodedUrl.split('&')[0];
+    if (isValidUrl(splitUrl)) {
+      return splitUrl;
+    }
+  }
+  
+  // Return the best decoded URL we have
+  return decodedUrl;
+}
+
+/**
+ * Improved helper function to check if a string looks like base64
+ */
+function looksLikeBase64(str) {
+  // Basic validation
+  if (!str || typeof str !== 'string' || str.length < 8) {
+    return false;
+  }
+  
+  // Check if it has only valid base64 characters
+  const base64Regex = /^[A-Za-z0-9+/]*={0,2}$/;
+  
+  // Common prefixes for base64-encoded URLs
+  const commonPrefixes = ['aHR0cDo', 'aHR0cHM'];
+  
+  // Check against our criteria
+  if (base64Regex.test(str)) {
+    // If it starts with a common HTTP/HTTPS prefix, it's very likely base64
+    if (commonPrefixes.some(prefix => str.startsWith(prefix))) {
+      return true;
+    }
+    
+    // Additional checks
+    if (str.length % 4 === 0 && !str.includes(' ') && !str.includes(',')) {
+      return true;
+    }
+  }
+  
+  return false;
+}
+
+/**
+ * Helper function to validate URLs
+ */
+function isValidUrl(str) {
+  try {
+    // Check if it looks like a URL
+    if (str && typeof str === 'string') {
+      // For base64-decoded URLs, they should start with http:// or https://
+      if (str.startsWith('http://') || str.startsWith('https://')) {
+        new URL(str); // This will throw if invalid
+        return true;
+      }
+      
+      // For other URLs (that might be relative), we can be more lenient
+      if (str.includes('.') && !str.includes(' ')) {
+        try {
+          new URL(str); // Try as-is first
+          return true;
+        } catch (e) {
+          // If that fails, try with an https:// prefix
+          try {
+            new URL('https://' + str);
+            return true;
+          } catch (e2) {
+            return false;
+          }
+        }
+      }
+    }
+    return false;
+  } catch (e) {
+    return false;
+  }
+}
+
+
 
 // Handle navigation events
 chrome.webNavigation.onBeforeNavigate.addListener(
@@ -1365,3 +1506,4 @@ setInterval(async () => {
     console.error('Error in periodic stats backup:', error);
   }
 }, 60000);
+

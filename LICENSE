@@ -718,7 +718,9 @@ The following code in the linkurmori source code files are completely under the 
 "/rules/rules8.json",
 "/rules/rules16.json"
 "/rules/rules17.json",
-"rules/exception/rules18.json"
+"rules/exception/rules18.json",
+"rules/redirect/rules19.json",
+"rules/redirect/rules20.json",
 "/_locales/en/messages.json"
 "_locales/zh_CN/messages.json"
 "_locales/de/messages.json"
@@ -3087,6 +3089,7 @@ SOFTWARE.
  8) The following files from the Linkumori source code are licensed under the MIT license:
 
 lib/punycode.js
+lib/base64.js
 Full text of license
 
 Copyright Mathias Bynens <https://mathiasbynens.be/>

@@ -130,6 +130,8 @@ The following code in the linkurmori source code files are completely under the 
 - `/rules/rules8.json`
 - `/rules/rules16.json`
 - `/rules/rules17.json`
+- `rules/redirect/rules19.json`
+- `rules/redirect/rules20.json`
 -`_locales/zh_CN/messages.json`
 - `rules/exception/rules18.json`
 - `/_locales/en/messages.json`
@@ -204,7 +206,9 @@ Original source:
 Copyright (c) 2013-2023 Cole Bemis
 ###  MIT License Library
 
-- `lib/punycode.js` 
+- `lib/punycode.js`
+- `lib/base64.js`
+
 
 Copyright Mathias Bynens
 

@@ -301,5 +301,8 @@
 {"id":300,"priority":1,"action":{"type":"redirect","redirect":{"transform":{"queryTransform":{"removeParams":["from"]}}}},"condition":{"resourceTypes":["main_frame","sub_frame","xmlhttprequest"],"requestDomains":["app.snyk.io"]}},
 {"id":301,"priority":1,"action":{"type":"redirect","redirect":{"transform":{"queryTransform":{"removeParams":["from"]}}}},"condition":{"resourceTypes":["main_frame","sub_frame","xmlhttprequest"],"requestDomains":["browserling.com"]}},
 {"id":302,"priority":1,"action":{"type":"redirect","redirect":{"transform":{"queryTransform":{"removeParams":["from"]}}}},"condition":{"resourceTypes":["main_frame","sub_frame","xmlhttprequest"],"requestDomains":["indiatimes.com"]}},
-{"id":303,"priority":1,"action":{"type":"redirect","redirect":{"transform":{"queryTransform":{"removeParams":["from"]}}}},"condition":{"resourceTypes":["main_frame","sub_frame","xmlhttprequest"],"requestDomains":["jetbrains.com"]}}
+{"id":303,"priority":1,"action":{"type":"redirect","redirect":{"transform":{"queryTransform":{"removeParams":["from"]}}}},"condition":{"resourceTypes":["main_frame","sub_frame","xmlhttprequest"],"requestDomains":["jetbrains.com"]}},
+{"id":304,"priority":1,"action":{"type":"redirect","redirect":{"transform":{"queryTransform":{"removeParams":["test"]}}}},"condition":{"resourceTypes":["main_frame","sub_frame","xmlhttprequest"],"requestDomains":["test.clearurls.xyz"]}},
+{"id":305,"priority":1,"action":{"type":"redirect","redirect":{"transform":{"queryTransform":{"removeParams":["test"]}}}},"condition":{"resourceTypes":["main_frame","sub_frame","xmlhttprequest"],"initiatorDomains":["test.clearurls.xy"]}}
+
 ]
