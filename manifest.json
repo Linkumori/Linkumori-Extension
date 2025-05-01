@@ -146,6 +146,11 @@
           "id": "ruleset_20",
           "enabled": true,
           "path": "rules/redirect/rules20.json"
+      },
+      {
+        "id": "ruleset_21",
+        "enabled": true,
+        "path": "rules/redirect/rules21.json"
       }
     ]
   }
