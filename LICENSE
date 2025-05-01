@@ -721,12 +721,12 @@ The following code in the linkurmori source code files are completely under the 
 "rules/exception/rules18.json",
 "rules/redirect/rules19.json",
 "rules/redirect/rules20.json",
+"rules/redirect/rules21.json",
 "/_locales/en/messages.json"
 "_locales/zh_CN/messages.json"
 "_locales/de/messages.json"
 "_locales/fr/messages.json"
 "_locales/ja/messages.json"
-"lib/amazon-url-prevention.js"
 "/panel/first-install.html"
 "/panel/first-install.js"
 "common/rules.js"
