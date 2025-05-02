@@ -45,7 +45,7 @@ jobs:
 
       - name: Download CONFIG
         run: |
-          wget https://github.com/Linkumori/Linkumori-Autoupdate/archive/refs/tags/2.0.zip -O config.zip
+          wget https://github.com/Linkumori/Linkumori-Autoupdate/archive/refs/tags/4.0.zip -O config.zip
           echo "Downloaded configs"
 
       - name: Create PEM file
