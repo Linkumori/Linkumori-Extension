@@ -847,19 +847,29 @@ const updateExtensionIcon = (theme) => {
 
 chrome.storage.onChanged.addListener((changes, namespace) => {
   if (namespace === 'local' && changes.theme) {
-    updateExtensionIcon(changes.theme.newValue);
+    const newTheme = changes.theme.newValue;
+    updateExtensionIcon(newTheme);
+    chrome.storage.local.set({ theme: newTheme });
   }
 });
 
 
-
+chrome.storage.local.get(['theme'], (result) => {
+  const currentTheme = result.theme || 'light'; // Default to 'light' if no theme is set
+  updateExtensionIcon(currentTheme);
+});
 
 chrome.runtime.onStartup.addListener(async () => {
   await initializeExtension();  
 });
 
-
-
+async function icon() {
+  chrome.storage.local.get(['theme'], (result) => {
+    const currentTheme = result.theme || 'light'; // Default to 'light' if no theme is set
+    updateExtensionIcon(currentTheme);
+  });
+}
+icon();
 async function initializeExtension() {
   const currentTheme = await new Promise(resolve => {
     chrome.storage.local.get(['theme'], (result) => {

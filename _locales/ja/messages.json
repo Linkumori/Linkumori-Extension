@@ -368,6 +368,9 @@
     },
     "chromeWebStoreLinkText": {
         "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+    },
+    "inputUrlsDescription": {
+      "message": "このツールを使用すると、URL を貼り付けて、リンクモリ クリーン URL ツールがクリーン URL ボタンをクリックした後に URL をクリーンします。一度に複数の URL を貼り付けることができますが、各 URL は別々の行にある必要があります。"
     }
 }
 

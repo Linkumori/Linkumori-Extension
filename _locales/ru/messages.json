@@ -368,7 +368,10 @@
     },
     "chromeWebStoreLinkText": {
         "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
-    }
-}
+    },
+    "inputUrlsDescription": {
+    "message": "С помощью этого инструмента вы можете вставить URL-адреса, и инструмент очистки URL-адресов Linkumori очистит их после нажатия кнопки очистки URL-адресов. Вы можете вставить несколько URL-адресов одновременно, но каждый URL-адрес должен быть на отдельной строке."
+  }}
+
 
 

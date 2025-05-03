@@ -368,6 +368,9 @@
     },
     "chromeWebStoreLinkText": {
         "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+    },  "inputUrlsDescription": {
+      "message": "Avec cet outil, vous pouvez coller des URLs et l'outil de nettoyage d'URLs de Linkumori nettoiera les URLs après un clic sur le bouton de nettoyage. Vous pouvez coller plusieurs URLs à la fois, mais chaque URL doit être sur une ligne distincte."
     }
-}
+  }
+
 

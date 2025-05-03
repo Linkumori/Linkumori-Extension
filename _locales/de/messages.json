@@ -368,7 +368,11 @@
     },
     "chromeWebStoreLinkText": {
       "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
-    }
+    },
+    
+"inputUrlsDescription": {
+  "message": "Mit diesem Tool können Sie URLs einfügen, und das Linkumori-URL-Bereinigungstool wird die URLs nach einem Klick auf die Schaltfläche 'URLs bereinigen' bereinigen. Sie können mehrere URLs gleichzeitig einfügen, aber jede URL muss in einer separaten Zeile stehen."
+}
   }
   
 

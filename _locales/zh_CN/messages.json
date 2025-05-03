@@ -367,7 +367,10 @@
         "message": "Chrome 网上应用店："
     },
     "chromeWebStoreLinkText": {
-        "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+      "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+    },
+    "inputUrlsDescription": {
+      "message": "使用此工具，您可以粘贴网址，点击清理网址按钮后，Linkumori 网址清理工具将清理这些网址。您可以一次粘贴多个网址，但每个网址必须单独占一行。"
     }
 }
 
