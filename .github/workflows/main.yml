@@ -87,8 +87,6 @@ jobs:
           rm -rf webstore_ext
 
       - name: Pack Self-hosted Extension
-        id: self_hosted
-        continue-on-error: true    # Allow continuing if this step fails
         run: |
           # Create self-hosted directory
           mkdir selfhosted_ext
@@ -100,25 +98,21 @@ jobs:
           rsync -av --exclude='*.pem' --exclude='.git*' --exclude='.github*' --exclude='*.sh' --exclude='*.crx' --exclude='*.zip' --exclude='manifest.json' --exclude='selfhosted_ext*' --exclude='_metadata*' --exclude='docs*'  . selfhosted_ext/
           
           # Pack extension with PEM file
-          if google-chrome --pack-extension="$(pwd)/selfhosted_ext" --pack-extension-key="$(pwd)/extension.pem"; then
-            mv selfhosted_ext.crx "Linkumori.crx"
-            
-            # Create updates.xml
-            cat > updates.xml << EOL
-            <?xml version='1.0' encoding='UTF-8'?>
-            <gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
-              <app appid="pffeeolamoojgccldanobijnpbjffipb">
-                <updatecheck 
-                  codebase='https://github.com/${{ github.repository }}/releases/download/${{ github.event.release.tag_name }}/Linkumori.crx' 
-                  version='${{ steps.manifest.outputs.version }}' />
-              </app>
-            </gupdate>
-            EOL
-            echo "self_hosted_success=true" >> $GITHUB_OUTPUT
-          else
-            echo "Failed to pack self-hosted extension"
-            echo "self_hosted_success=false" >> $GITHUB_OUTPUT
-          fi
+          google-chrome --pack-extension="$(pwd)/selfhosted_ext" --pack-extension-key="$(pwd)/extension.pem"
+          mv selfhosted_ext.crx "Linkumori.crx"
+          
+          # Create updates.xml
+           cat > updates.xml << EOL
+          <?xml version='1.0' encoding='UTF-8'?>
+          <gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
+            <app appid="pffeeolamoojgccldanobijnpbjffipb">
+              <updatecheck 
+                codebase='https://github.com/${{ github.repository }}/releases/download/${{ github.event.release.tag_name }}/Linkumori.crx' 
+                version='${{ steps.manifest.outputs.version }}' />
+            </app>
+          </gupdate>
+          EOL
+          
           
           # Clean up
           rm -rf selfhosted_ext
@@ -156,18 +150,8 @@ jobs:
             -d "grant_type=refresh_token" \
             "https://oauth2.googleapis.com/token")
           
-          # Check if the response contains an access token
-          if ! ACCESS_TOKEN=$(echo "$RESPONSE" | jq -r '.access_token'); then
-            echo "Failed to get access token. Response: $RESPONSE"
-            exit 1
-          fi
-
-          # Save the access token to GITHUB_OUTPUT using proper here-document syntax
-          {
-            echo "access_token<<EOF"
-            echo "$ACCESS_TOKEN"
-            echo "EOF"
-          } >> $GITHUB_OUTPUT
+          ACCESS_TOKEN=$(echo $RESPONSE | jq -r '.access_token')
+          echo "access_token=$ACCESS_TOKEN" >> $GITHUB_OUTPUT
 
       # Upload to Chrome Web Store
       - name: Upload to Chrome Web Store
@@ -179,7 +163,7 @@ jobs:
             -H "Authorization: Bearer ${{ steps.get-token.outputs.access_token }}" \
             -H "x-goog-api-version: 2" \
             -T Linkumori-webstore.zip \
-            "https://www.googleapis.com/upload/chromewebstore/v1.1/items/${{ secrets.EXTENSION_ID }}")
+            "https://www.googleapis.com/upload/chromewebstore/v1.1/items/${{ env.EXTENSION_ID }}")
           
           UPLOAD_STATUS=$(echo $UPLOAD_RESPONSE | jq -r '.uploadState')
           
@@ -189,7 +173,7 @@ jobs:
               -H "Authorization: Bearer ${{ steps.get-token.outputs.access_token }}" \
               -H "x-goog-api-version: 2" \
               -H "Content-Length: 0" \
-              "https://www.googleapis.com/chromewebstore/v1.1/items/${{ secrets.EXTENSION_ID }}/publish?publishTarget=default")
+              "https://www.googleapis.com/chromewebstore/v1.1/items/${{ env.EXTENSION_ID }}/publish?publishTarget=default")
             
             PUBLISH_STATUS=$(echo $PUBLISH_RESPONSE | jq -r '.status[0]')
             
@@ -209,8 +193,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            ${{ steps.self_hosted.outputs.self_hosted_success == 'true' && 'Linkumori.crx' || '' }}
-            ${{ steps.self_hosted.outputs.self_hosted_success == 'true' && 'updates.xml' || '' }}
+            Linkumori.crx
+            updates.xml
             config.zip
           body: |
             ${{ env.RELEASE_BODY }}
@@ -221,13 +205,25 @@ jobs:
             
             ## 📦 Download Options
             
-            1️⃣ Chrome Web Store (Recommended)
             ${{ steps.webstore_upload.outputs.webstore_success == 'true' && '✅ Successfully published to Chrome Web Store!' || '❌ Chrome Web Store upload failed' }}
-                <a href="https://chromewebstore.google.com/detail/linkumori-clean-urls/kcpfnbjlimolkcjllfooaipdpdjmjigg
-                 "><img height="58" src="https://i.imgur.com/K9Yh8G9.png" alt="Chrome Web Store"></a>
+            <a href="https://chromewebstore.google.com/detail/linkumori-clean-urls/kcpfnbjlimolkcjllfooaipdpdjmjigg"><img height="58" src="https://i.imgur.com/K9Yh8G9.png" alt="Chrome Web Store"></a>
+        
+            - ✨ Official release channel
+            - 🔄 Automatic updates
+            - ✅ Verified by Google
             
             ### 2️⃣ Self-hosted Version
-            ${{ steps.self_hosted.outputs.self_hosted_success == 'true' && '✅ Self-hosted version available' || '❌ Self-hosted version build failed' }}
+            - Download: `Linkumori.crx`
+            - Updates through GitHub releases
+            - Installation:
+              1. Go to chrome://extensions
+              2. Enable "Developer mode"
+              3. Drag & drop the .crx file
+            
+            ### 3️⃣ Developer Version
+            - Download: Source code (zip)
+            - Manual installation required
+            - For development and testing
             
             ## 📝 Changes
             ### Commit History
@@ -246,8 +242,10 @@ jobs:
             
             ## 🔧 Technical Details
             - Minimum browser version: 121.0
-            - Extension ID: ${{ env.EXTENSION_ID }}
-            - Auto-update enabled: Yes
+            - Extension IDs:
+              - Chrome Web Store (Official): `kcpfnbjlimolkcjllfooaipdpdjmjigg`
+              - Self-hosted (GitHub Release): `pffeeolamoojgccldanobijnpbjffipb`
+            - Auto-update enabled: Yes for both versions
             
             ## ⚠️ Important Notes
             1. If installing from source:
