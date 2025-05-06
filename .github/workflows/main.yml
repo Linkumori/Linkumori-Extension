@@ -156,8 +156,16 @@ jobs:
             -d "grant_type=refresh_token" \
             "https://oauth2.googleapis.com/token")
           
-          ACCESS_TOKEN=$(echo $RESPONSE | jq -r '.access_token')
-          echo "access_token=$ACCESS_TOKEN" >> $GITHUB_OUTPUT
+          # Check if the response contains an access token
+          if ! ACCESS_TOKEN=$(echo "$RESPONSE" | jq -r '.access_token'); then
+            echo "Failed to get access token. Response: $RESPONSE"
+            exit 1
+          fi
+
+          # Save the access token to GITHUB_OUTPUT
+          cat << 'EOL' >> $GITHUB_OUTPUT
+          access_token=${ACCESS_TOKEN}
+          EOL
 
       # Upload to Chrome Web Store
       - name: Upload to Chrome Web Store
