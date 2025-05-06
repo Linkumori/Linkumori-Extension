@@ -162,10 +162,12 @@ jobs:
             exit 1
           fi
 
-          # Save the access token to GITHUB_OUTPUT
-          cat << 'EOL' >> $GITHUB_OUTPUT
-          access_token=${ACCESS_TOKEN}
-          EOL
+          # Save the access token to GITHUB_OUTPUT using proper here-document syntax
+          {
+            echo "access_token<<EOF"
+            echo "$ACCESS_TOKEN"
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
 
       # Upload to Chrome Web Store
       - name: Upload to Chrome Web Store
