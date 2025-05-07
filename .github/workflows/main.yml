@@ -189,6 +189,20 @@ jobs:
             echo "webstore_success=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Generate File Hashes
+        id: generate_hashes
+        run: |
+          echo "Generating file hashes..."
+          
+          # Generate hashes for all release files
+          SHA256_CRX=$(sha256sum Linkumori.crx | awk '{print $1}')
+          SHA256_WEBSTORE=$(sha256sum Linkumori-webstore.zip | awk '{print $1}')
+          SHA256_CONFIG=$(sha256sum config.zip | awk '{print $1}')
+          
+          echo "crx_hash=$SHA256_CRX" >> $GITHUB_OUTPUT
+          echo "webstore_hash=$SHA256_WEBSTORE" >> $GITHUB_OUTPUT
+          echo "config_hash=$SHA256_CONFIG" >> $GITHUB_OUTPUT
+
       - name: Update Release
         uses: softprops/action-gh-release@v2
         with:
@@ -220,10 +234,12 @@ jobs:
               2. Enable "Developer mode"
               3. Drag & drop the .crx file
             
-            ### 3️⃣ Developer Version
-            - Download: Source code (zip)
-            - Manual installation required
-            - For development and testing
+            ## 🔒 File Hashes (SHA-256)
+            ```
+            Linkumori.crx:          ${{ steps.generate_hashes.outputs.crx_hash }}
+            Linkumori-webstore.zip: ${{ steps.generate_hashes.outputs.webstore_hash }}
+            config.zip:             ${{ steps.generate_hashes.outputs.config_hash }}
+            ```
             
             ## 📝 Changes
             ### Commit History
