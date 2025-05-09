@@ -368,6 +368,33 @@
     },
     "chromeWebStoreLinkText": {
         "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
-    }
+    },  "inputUrlsDescription": {
+      "message": "Avec cet outil, vous pouvez coller des URLs et l'outil de nettoyage d'URLs de Linkumori nettoiera les URLs après un clic sur le bouton de nettoyage. Vous pouvez coller plusieurs URLs à la fois, mais chaque URL doit être sur une ligne distincte."
+    },
+   "confirmRestoreExceptions": {
+  "message": "Êtes-vous sûr de vouloir activer toutes les règles de liste blanche intégrées ?"
+},
+"enableRule": {
+  "message": "Activer"
+},
+"disableRule": {
+  "message": "Désactiver"
+},
+"searchExceptionRulesPlaceholder": {
+  "message": "Rechercher des règles de liste blanche intégrées..."
+},
+"noExceptionRulesFound": {
+  "message": "Aucune règle de liste blanche intégrée correspondant à '$1' trouvée"
+},
+"noExceptionRulesDefined": {
+  "message": "Aucune règle de liste blanche intégrée définie"
+},
+"restoreExceptions": {
+  "message": "Restaurer les règles de liste blanche par défaut"
+},
+"exceptionRulesTitle": {
+  "message": "Règles de liste blanche intégrées de Linkumori"
 }
+  }
+
 

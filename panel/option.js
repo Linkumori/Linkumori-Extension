@@ -37,7 +37,9 @@ class OptionsMenuController {
                     totalRedirect: 0,
                     totalParameter: 0
                 }
-            }
+            },
+            disabledExceptionRules: [], // Initialize as empty array
+            exceptionRules: [] // Initialize as empty array
         };
 
         this.domElements = {
@@ -105,10 +107,12 @@ class OptionsMenuController {
             document.addEventListener('DOMContentLoaded', () => {
                 this.setupDOM();
                 this.setupVersion();
+                this.loadExceptionRules(); // Add this line
             });
         } else {
             this.setupDOM();
             this.setupVersion();
+            this.loadExceptionRules(); // Add this line
         }
 
         chrome.storage.onChanged.addListener(this.handleStorageChanges.bind(this));
@@ -215,6 +219,20 @@ class OptionsMenuController {
                 this.renderCustomRules(searchTerm);
             }, 300);
         });
+
+        // Add exception rules search
+        document.getElementById('searchExceptionRules')?.addEventListener('input', (e) => {
+            clearTimeout(this.searchTimeout);
+            this.searchTimeout = setTimeout(() => {
+                const searchTerm = e.target.value.trim();
+                this.renderExceptionRules(searchTerm);
+            }, 300);
+        });
+
+        // Add restore exceptions button handler
+        document.getElementById('restoreExceptions')?.addEventListener('click', () => {
+            this.restoreDefaultExceptions();
+        });
     }
 
     async loadInitialState() {
@@ -235,6 +253,7 @@ class OptionsMenuController {
                 updateBadgeOnOff = false,
                 customRules = [],
                 PreventGoogleandyandexscript = false,
+                disabledExceptionRules = [], // Load disabledExceptionRules here
                 stats = {
                     summary: {
                         totalRedirect: 0,
@@ -249,6 +268,7 @@ class OptionsMenuController {
                 updateBadgeOnOff: false,
                 customRules: [],
                 PreventGoogleandyandexscript: false,
+                disabledExceptionRules: [], // Default to empty array
                 [STATS_KEY]: {
                     summary: {
                         totalRedirect: 0,
@@ -266,6 +286,7 @@ class OptionsMenuController {
                 updateBadgeOnOff,
                 customRules,
                 PreventGoogleandyandexscript,
+                disabledExceptionRules, // Set the loaded value
                 stats
             };
 
@@ -315,6 +336,12 @@ class OptionsMenuController {
         if (Object.hasOwn(changes, STATS_KEY)) {
             this.state.stats = changes[STATS_KEY].newValue;
             this.updateStatsUI();
+        }
+
+        if (Object.hasOwn(changes, 'disabledExceptionRules')) {
+            // Ensure we never set undefined here
+            this.state.disabledExceptionRules = changes.disabledExceptionRules.newValue || [];
+            this.renderExceptionRules();
         }
     }
     async togglePurifyUrlsSettings() {
@@ -1270,6 +1297,171 @@ class OptionsMenuController {
         }
     }
 
+    // Add this after the class declaration but before the init() method
+
+    async loadExceptionRules() {
+        try {
+            // Load exception rules from JSON
+            const response = await fetch('../rules/exception/rules18.json');
+            const rules = await response.json();
+            this.state.exceptionRules = rules;
+
+            // Load disabled rules from storage
+            const { disabledExceptionRules = [] } = await chrome.storage.local.get('disabledExceptionRules');
+            this.state.disabledExceptionRules = disabledExceptionRules;
+
+            this.renderExceptionRules();
+        } catch (error) {
+            console.error('Failed to load exception rules:', error);
+        }
+    }
+
+    renderExceptionRules(searchTerm = '') {
+        const container = document.getElementById('exceptionRulesContainer');
+        if (!container) return;
+
+        container.innerHTML = '';
+
+        const filteredRules = searchTerm 
+            ? this.state.exceptionRules.filter(rule => 
+                JSON.stringify(rule).toLowerCase().includes(searchTerm.toLowerCase())
+            )
+            : this.state.exceptionRules;
+
+        // Make sure disabledExceptionRules is initialized
+        if (!this.state.disabledExceptionRules) {
+            this.state.disabledExceptionRules = [];
+        }
+
+        filteredRules.forEach(rule => {
+            // Fixed line - add null check and default to false if undefined
+            const isDisabled = this.state.disabledExceptionRules ? 
+                              this.state.disabledExceptionRules.includes(rule.id) : 
+                              false;
+            const ruleElement = this.createExceptionRuleElement(rule, isDisabled);
+            container.appendChild(ruleElement);
+        });
+    }
+
+    createExceptionRuleElement(rule, isDisabled) {
+        const ruleEl = document.createElement('div');
+        ruleEl.className = `exception-rule ${isDisabled ? 'disabled' : ''}`;
+
+        const header = document.createElement('div');
+        header.className = 'rule-header';
+
+        const ruleId = document.createElement('span');
+        ruleId.className = 'rule-id';
+        ruleId.textContent = `Rule ${rule.id}`;
+
+        const toggleButton = document.createElement('button');
+        toggleButton.className = `toggle-rule ${!isDisabled ? 'enabled' : ''}`;
+        toggleButton.textContent = isDisabled ? 
+            chrome.i18n.getMessage('enableRule') : 
+            chrome.i18n.getMessage('disableRule');
+        
+        toggleButton.onclick = () => this.toggleExceptionRule(rule.id);
+
+        header.appendChild(ruleId);
+        header.appendChild(toggleButton);
+
+        const details = document.createElement('div');
+        details.className = 'rule-details';
+
+        // Add rule details
+        const detailsContent = this.createRuleDetailsContent(rule);
+        details.appendChild(detailsContent);
+
+        ruleEl.appendChild(header);
+        ruleEl.appendChild(details);
+
+        return ruleEl;
+    }
+
+    createRuleDetailsContent(rule) {
+        const content = document.createElement('div');
+        content.className = 'rule-info';
+
+        // Add priority
+        const priority = document.createElement('div');
+        priority.className = 'detail-row';
+        priority.innerHTML = `<strong>Priority:</strong> ${rule.priority}`;
+        content.appendChild(priority);
+
+        // Add action type
+        const action = document.createElement('div');
+        action.className = 'detail-row';
+        action.innerHTML = `<strong>Action:</strong> ${rule.action.type}`;
+        content.appendChild(action);
+
+        // Add condition details
+        const condition = document.createElement('div');
+        condition.className = 'detail-row';
+        let conditionText = '<strong>Condition:</strong> ';
+        
+        if (rule.condition.urlFilter) {
+            conditionText += `URL Filter: ${rule.condition.urlFilter}`;
+        } else if (rule.condition.regexFilter) {
+            conditionText += `Regex Filter: ${rule.condition.regexFilter}`;
+        }
+        
+        if (rule.condition.resourceTypes) {
+            conditionText += `<br>Resource Types: ${rule.condition.resourceTypes.join(', ')}`;
+        }
+        
+        condition.innerHTML = conditionText;
+        content.appendChild(condition);
+
+        return content;
+    }
+
+    async toggleExceptionRule(ruleId) {
+        try {
+            // Ensure we're working with an array
+            const currentDisabled = Array.isArray(this.state.disabledExceptionRules) ? 
+                                  [...this.state.disabledExceptionRules] : 
+                                  [];
+            const index = currentDisabled.indexOf(ruleId);
+
+            if (index === -1) {
+                currentDisabled.push(ruleId);
+            } else {
+                currentDisabled.splice(index, 1);
+            }
+
+            await chrome.storage.local.set({ disabledExceptionRules: currentDisabled });
+            this.state.disabledExceptionRules = currentDisabled;
+
+            // Notify background script to update rules
+            await chrome.runtime.sendMessage({
+                action: 'updateExceptionRules',
+                disabledRules: currentDisabled
+            });
+
+            this.renderExceptionRules();
+        } catch (error) {
+            console.error('Failed to toggle exception rule:', error);
+        }
+    }
+
+    async restoreDefaultExceptions() {
+        if (confirm(chrome.i18n.getMessage('confirmRestoreExceptions'))) {
+            try {
+                await chrome.storage.local.remove('disabledExceptionRules');
+                this.state.disabledExceptionRules = [];
+                
+                await chrome.runtime.sendMessage({
+                    action: 'updateExceptionRules',
+                    disabledRules: []
+                });
+
+                this.renderExceptionRules();
+            } catch (error) {
+                console.error('Failed to restore default exceptions:', error);
+            }
+        }
+    }
+
     // Add these new helper methods
     getExpandedStates() {
         const states = new Map();
@@ -1296,6 +1488,19 @@ class OptionsMenuController {
                 }
             }
         });
+    }
+
+    async getCurrentTabDomain() {
+        try {
+            const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+            if (!tabs || !tabs[0] || !tabs[0].url) return null;
+            
+            const url = new URL(tabs[0].url);
+            return punycode.toUnicode(url.hostname);
+        } catch (error) {
+            console.error('Failed to get current tab domain:', error);
+            return null;
+        }
     }
 
     async updatedynamicurrentbutton() {
@@ -1416,6 +1621,9 @@ class OptionsMenuController {
                 setTimeout(() => {
                     chrome.runtime.reload();
                 }, 1000);
+                chrome.runtime.sendMessage({action: "restart"}, function(response) {
+                    // Handle response if needed
+                  });
                 return;
             }
     

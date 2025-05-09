@@ -30,12 +30,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>..
 
 // ===== Linkumori Engine Start =====//
 import { readPurifyUrlsSettings, setDefaultSettings } from './common/utils.js';
-import { defaultSettings, SETTINGS_KEY, CANT_FIND_SETTINGS_MSG } from './common/constants.js';
+import { defaultSettings, SETTINGS_KEY, CANT_FIND_SETTINGS_MSG,EXCEPTION_DISABLED_RULES_KEY,EXCEPTION_RULES_KEY } from './common/constants.js';
 import { parameterRules,urlPatternRules  } from './common/rules.js';
 import punycode from './lib/punycode.js';
 import base64 from './lib/base64.js';
 
 // Use base64Module instead of base64
+
+// Add these constants near the top with other constants
 
 
 let hasStarted = false;
@@ -189,9 +191,8 @@ chrome.runtime.onInstalled.addListener(async () => {
 
 
 
-
 async function updateRuleSet(enabled) {
-  const allRulesets = ['ruleset_1', 'ruleset_2', 'ruleset_3', 'ruleset_4', 'ruleset_5', 'ruleset_6', 'ruleset_7', 'ruleset_8', 'ruleset_9', 'ruleset_10', 'ruleset_11', 'ruleset_12', 'ruleset_13', 'ruleset_14', 'ruleset_15', 'ruleset_16', 'ruleset_17','ruleset_18','ruleset_19'];
+  const allRulesets = ['ruleset_1', 'ruleset_2', 'ruleset_3', 'ruleset_4', 'ruleset_5', 'ruleset_6', 'ruleset_7', 'ruleset_8', 'ruleset_9', 'ruleset_10', 'ruleset_11', 'ruleset_12', 'ruleset_13', 'ruleset_14', 'ruleset_15', 'ruleset_16', 'ruleset_17','exception','ruleset_19'];
 
   await chrome.declarativeNetRequest.updateEnabledRulesets({
     disableRulesetIds: enabled ? [] : allRulesets,
@@ -402,6 +403,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         }
         sendResponse({ success: true });
     });
+    return true;
+  }
+
+  if (message.action === 'toggleExceptionRule') {
+    toggleExceptionRule(message.ruleId, message.enabled)
+      .then(success => sendResponse({ success }))
+      .catch(error => sendResponse({ success: false, error: error.message }));
+    return true;
+  }
+  
+  if (message.action === 'updateAllExceptionRules') {
+    updateExceptionRuleStates()
+      .then(success => sendResponse({ success }))
+      .catch(error => sendResponse({ success: false, error: error.message }));
     return true;
   }
 
@@ -847,19 +862,29 @@ const updateExtensionIcon = (theme) => {
 
 chrome.storage.onChanged.addListener((changes, namespace) => {
   if (namespace === 'local' && changes.theme) {
-    updateExtensionIcon(changes.theme.newValue);
+    const newTheme = changes.theme.newValue;
+    updateExtensionIcon(newTheme);
+    chrome.storage.local.set({ theme: newTheme });
   }
 });
 
 
-
+chrome.storage.local.get(['theme'], (result) => {
+  const currentTheme = result.theme || 'light'; // Default to 'light' if no theme is set
+  updateExtensionIcon(currentTheme);
+});
 
 chrome.runtime.onStartup.addListener(async () => {
   await initializeExtension();  
 });
 
-
-
+async function icon() {
+  chrome.storage.local.get(['theme'], (result) => {
+    const currentTheme = result.theme || 'light'; // Default to 'light' if no theme is set
+    updateExtensionIcon(currentTheme);
+  });
+}
+icon();
 async function initializeExtension() {
   const currentTheme = await new Promise(resolve => {
     chrome.storage.local.get(['theme'], (result) => {
@@ -870,16 +895,15 @@ async function initializeExtension() {
   updateExtensionIcon(currentTheme);
 }
 
-chrome.runtime.onMessage.addListener((request) => {
-  if (request.action === 'openPopup') {
-    try {
-      chrome.action.openPopup();
-    } catch (error) {
-      console.error('Error opening popup:', error);
-    }
+// Add this code near the other message listeners:
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === 'openPopup') {
+    chrome.runtime.openOptionsPage();
+    sendResponse({ success: true });
+    return true;
   }
 });
-
 function isGoogleDomain(url) {
   return /^https?:\/\/([a-zA-Z0-9-]+\.)*google\.(com|ad|ae|com\.af|com\.ag|com\.ai|al|am|co\.ao|com\.ar|as|at|com\.au|az|ba|com\.bd|be|bf|bg|com\.bh|bi|bj|com\.bn|com\.bo|com\.br|bs|bt|co\.bw|by|com\.bz|ca|cd|cf|cg|ch|ci|co\.ck|cl|cm|cn|com\.co|co\.cr|com\.cu|cv|com\.cy|cz|de|dj|dk|dm|com\.do|dz|com\.ec|ee|com\.eg|es|com\.et|fi|com\.fj|fm|fr|ga|ge|gg|com\.gh|com\.gi|gl|gm|gp|gr|com\.gt|gy|com\.hk|hn|hr|ht|hu|co\.id|ie|co\.il|im|co\.in|iq|is|it|je|com\.jm|jo|co\.jp|co\.ke|com\.kh|ki|kg|co\.kr|com\.kw|kz|la|com\.lb|li|lk|co\.ls|lt|lu|lv|com\.ly|co\.ma|md|me|mg|mk|ml|com\.mm|mn|ms|com\.mt|mu|mv|mw|com\.mx|com\.my|co\.mz|com\.na|com\.nf|com\.ng|com\.ni|ne|nl|no|com\.np|nr|nu|co\.nz|com\.om|com\.pa|com\.pe|com\.pg|com\.ph|com\.pk|pl|pn|com\.pr|ps|pt|com\.py|com\.qa|ro|ru|rw|com\.sa|com\.sb|sc|se|com\.sg|sh|si|sk|com\.sl|sn|so|sm|sr|st|com\.sv|td|tg|co\.th|com\.tj|tk|tl|tm|tn|to|com\.tr|tt|com\.tw|co\.tz|com\.ua|co\.ug|co\.uk|com\.uy|co\.uz|com\.vc|co\.ve|vg|co\.vi|com\.vn|vu|ws|rs|co\.za|co\.zm|co\.zw|cat)\/.*/i.test(url);
 }
@@ -1507,3 +1531,147 @@ setInterval(async () => {
   }
 }, 60000);
 
+// Listen for the restart message
+chrome.runtime.onMessage.addListener(
+  function(request) {
+    if (request.action === "restart") {
+      // Attempt to restart the device (will only work in ChromeOS kiosk mode)
+      try {
+        chrome.runtime.reload();
+      } catch (error) {
+      }
+      return true; // Keep the message channel open for the async response
+    }
+  }
+);
+
+// Add the exception rule handling functions:
+async function toggleExceptionRule(ruleId, enabled) {
+  try {
+    // Check if main extension is enabled
+    const settings = await chrome.storage.local.get(SETTINGS_KEY);
+    const isMainEnabled = settings[SETTINGS_KEY]?.status || false;
+    
+    if (!isMainEnabled) {
+      console.log(`Main extension is disabled, not toggling rule #${ruleId}`);
+      return false;
+    }
+    
+    // Convert rule ID to number
+    const numericRuleId = parseInt(ruleId, 10);
+    if (isNaN(numericRuleId)) {
+      throw new Error(`Invalid rule ID: ${ruleId} is not a number`);
+    }
+    
+    // Get current disabled rules
+    const { [EXCEPTION_DISABLED_RULES_KEY]: disabledRules = [] } = 
+      await chrome.storage.local.get(EXCEPTION_DISABLED_RULES_KEY);
+    
+    // Update disabled rules list
+    let updatedDisabledRules;
+    if (enabled) {
+      updatedDisabledRules = disabledRules.filter(id => id !== numericRuleId);
+    } else {
+      updatedDisabledRules = disabledRules.includes(numericRuleId) 
+        ? disabledRules 
+        : [...disabledRules, numericRuleId];
+    }
+    
+    // Save updated disabled rules
+    await chrome.storage.local.set({ [EXCEPTION_DISABLED_RULES_KEY]: updatedDisabledRules });
+    
+    // Update ruleset
+    await updateRulesetWithExceptions(updatedDisabledRules);
+    
+    console.log(`Rule #${numericRuleId} ${enabled ? 'enabled' : 'disabled'} in exception ruleset`);
+    return true;
+  } catch (error) {
+    console.error(`Error toggling exception rule #${ruleId}:`, error);
+    throw error;
+  }
+}
+
+async function updateExceptionRuleStates() {
+  try {
+    const settings = await chrome.storage.local.get(SETTINGS_KEY);
+    const isMainEnabled = settings[SETTINGS_KEY]?.status || false;
+    
+    if (!isMainEnabled) {
+      return false;
+    }
+    
+    const { [EXCEPTION_RULES_KEY]: exceptionRules = [] } = 
+      await chrome.storage.local.get(EXCEPTION_RULES_KEY);
+    
+    const disabledRuleIds = exceptionRules
+      .filter(rule => rule.enabled === false)
+      .map(rule => parseInt(rule.id, 10))
+      .filter(id => !isNaN(id));
+    
+    await chrome.storage.local.set({ [EXCEPTION_DISABLED_RULES_KEY]: disabledRuleIds });
+    
+    await updateRulesetWithExceptions(disabledRuleIds);
+    
+    console.log('Exception rules updated, disabled rules:', disabledRuleIds);
+    return true;
+  } catch (error) {
+    console.error('Error updating exception rule states:', error);
+    return false;
+  }
+}
+
+async function updateRulesetWithExceptions(disabledRules) {
+  try {
+    const enabledRulesets = await chrome.declarativeNetRequest.getEnabledRulesets();
+    const isExceptionEnabled = enabledRulesets.includes('exception');
+
+    // First, update enabled rulesets
+    await chrome.declarativeNetRequest.updateEnabledRulesets({
+      disableRulesetIds: isExceptionEnabled ? ['exception'] : [],
+      enableRulesetIds: isExceptionEnabled ? [] : ['exception']
+    });
+
+    // Then, update rule states using updateStaticRules
+    if (disabledRules.length > 0) {
+      await chrome.declarativeNetRequest.updateStaticRules({
+        removeRuleIds: [], // Don't remove any rules
+        addRules: [], // Don't add any new rules
+        disableRuleIds: disabledRules
+      });
+    }
+
+    console.log('Exception ruleset updated with disabled rules:', disabledRules);
+  } catch (error) {
+    console.error('Error updating exception ruleset:', error);
+    throw error;
+  }
+}
+
+// Add to your existing message listener
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  // ... existing message handlers ...
+
+  if (message.action === 'toggleExceptionRule') {
+    toggleExceptionRule(message.ruleId, message.enabled)
+      .then(success => sendResponse({ success }))
+      .catch(error => sendResponse({ success: false, error: error.message }));
+    return true;
+  }
+  
+  if (message.action === 'updateExceptionRules') {
+    updateExceptionRuleStates()
+      .then(success => sendResponse({ success }))
+      .catch(error => sendResponse({ success: false, error: error.message }));
+    return true;
+  }
+
+  // ... rest of your message handlers ...
+});
+
+// Add to your onInstalled handler to initialize exception rules
+chrome.runtime.onInstalled.addListener(async () => {
+  // ... existing onInstalled code ...
+  
+  // Initialize exception rules
+  await updateExceptionRuleStates();
+});

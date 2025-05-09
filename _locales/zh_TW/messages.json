@@ -367,7 +367,33 @@
         "message": "Chrome 線上應用程式商店："
     },
     "chromeWebStoreLinkText": {
-        "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
-    }
+      "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+    },
+    "inputUrlsDescription": {
+      "message": "使用此工具，您可以貼上網址，然後點擊清理網址按鈕，Linkumori 網址清潔工具將清理這些網址。您可以一次貼上多個網址，但每個網址必須位於單獨的一行。"
+    },"confirmRestoreExceptions": {
+  "message": "您確定要啟用所有內建白名單規則嗎？"
+},
+"enableRule": {
+  "message": "啟用"
+},
+"disableRule": {
+  "message": "禁用"
+},
+"searchExceptionRulesPlaceholder": {
+  "message": "搜尋內建白名單規則..."
+},
+"noExceptionRulesFound": {
+  "message": "未找到符合 '$1' 的內建白名單規則"
+},
+"noExceptionRulesDefined": {
+  "message": "未定義內建白名單規則"
+},
+"restoreExceptions": {
+  "message": "還原預設內建白名單規則"
+},
+"exceptionRulesTitle": {
+  "message": "Linkumori 內建白名單規則"
+}
 }
 

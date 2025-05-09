@@ -1,3 +1,5 @@
+
+
 # SECURITY.md
 
 ## Security Policy
@@ -50,6 +52,17 @@ Linkumori implements several security-focused features:
 - No user browsing data is stored or transmitted outside the browser
 - The extension does not use remote configuration files that could introduce security risks
 
+## Extension ID Changes
+
+To enhance security and reduce confusion between the self-hosted and Web Store versions, we have implemented the following changes:
+
+- The previous self-hosted extension ID (kcpfnbjimoikcjiifooapdpdmjigd) has been retired
+- A new extension ID (pffeeolamnojgceidanobjnipbjffipb) is now used for the self-hosted version
+- Users on version 155 or later do not need to take any action
+- Users on earlier versions should uninstall their current version and install the latest from our GitHub repository
+- Enterprise users using Chrome must update their Windows registry policies to whitelist the new extension ID
+- The self-hosted version will continue to be maintained and supported
+
 ## Code Security
 
 ### Review Process
@@ -90,4 +103,4 @@ For security-related inquiries or to report vulnerabilities:
 
 ---
 
-This security policy was last updated on May 1, 2025.
+This security policy was last updated on May 7, 2025.

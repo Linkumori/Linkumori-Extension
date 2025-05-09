@@ -367,8 +367,34 @@
         "message": "Chrome 网上应用店："
     },
     "chromeWebStoreLinkText": {
-        "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
-    }
+      "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+    },
+    "inputUrlsDescription": {
+      "message": "使用此工具，您可以粘贴网址，点击清理网址按钮后，Linkumori 网址清理工具将清理这些网址。您可以一次粘贴多个网址，但每个网址必须单独占一行。"
+    },"confirmRestoreExceptions": {
+  "message": "您确定要启用所有内置白名单规则吗？"
+},
+"enableRule": {
+  "message": "启用"
+},
+"disableRule": {
+  "message": "禁用"
+},
+"searchExceptionRulesPlaceholder": {
+  "message": "搜索内置白名单规则..."
+},
+"noExceptionRulesFound": {
+  "message": "未找到匹配 '$1' 的内置白名单规则"
+},
+"noExceptionRulesDefined": {
+  "message": "未定义内置白名单规则"
+},
+"restoreExceptions": {
+  "message": "恢复默认内置白名单规则"
+},
+"exceptionRulesTitle": {
+  "message": "Linkumori 内置白名单规则"
+}
 }
 
 

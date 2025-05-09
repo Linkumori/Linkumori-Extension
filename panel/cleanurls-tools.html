@@ -1,5 +1,4 @@
 <!--
-
    SPDX-License-Identifier: GPL-3.0-or-later
 
 Copyright (C) 2024 Subham Mahesh
@@ -16,8 +15,6 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>..
-
-
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -121,6 +118,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>..
             padding-bottom: 8px;
         }
 
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
         .theme-toggle-btn {
             background: var(--bg-secondary);
             padding: 6px;
@@ -196,8 +200,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>..
             transition: background-color 0.2s;
         }
 
-        
-
         .copy-status {
             position: fixed;
             bottom: 20px;
@@ -261,6 +263,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>..
     <div class="container">
         <div class="section">
             <h2 class="section-title" data-i18n="inputUrlsTitle">Input URLs</h2>
+            <p class="section-description" data-i18n="inputUrlsDescription">With this tool you can paste in URLs and ClearURLs will clean the URLs after a click on the green button. You can paste in multiple URLs at once, but every URL must be on a separate line.</p>
             <textarea id="inputUrls" class="url-textarea" data-i18n-placeholder="inputUrlsPlaceholder"></textarea>
         </div>
 

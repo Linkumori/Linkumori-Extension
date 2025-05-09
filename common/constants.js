@@ -41,3 +41,6 @@ export const CANT_FIND_SETTINGS_MSG = "Can't find the Linkumori (URLs Purifier) 
 
 // Add the STATS_KEY constant
 export const STATS_KEY = "stats";
+
+export const EXCEPTION_DISABLED_RULES_KEY = 'exceptionDisabledRules';
+export const EXCEPTION_RULES_KEY = 'exceptionRules';

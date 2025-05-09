@@ -368,7 +368,90 @@
     },
     "chromeWebStoreLinkText": {
         "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
-    }
+    },
+    "inputUrlsDescription": {
+      "message": "このツールを使用すると、URL を貼り付けて、リンクモリ クリーン URL ツールがクリーン URL ボタンをクリックした後に URL をクリーンします。一度に複数の URL を貼り付けることができますが、各 URL は別々の行にある必要があります。"
+    },
+  "confirmRestoreExceptions": {
+    "message": "デフォルトの例外ルールを復元してもよろしいですか？"
+  },
+  "enableRule": {
+    "message": "有効化"
+  },
+  "disableRule": {
+    "message": "無効化"
+  },
+  "searchExceptionRulesPlaceholder": {
+    "message": "例外ルールを検索..."
+  },
+  "noExceptionRulesFound": {
+    "message": "'$1' に一致する例外ルールが見つかりませんでした"
+  },
+  "noExceptionRulesDefined": {
+    "message": "例外ルールが定義されていません"
+  },
+  "restoreExceptions": {
+    "message": "デフォルトの例外ルールを復元"
+  },
+  "exceptionRulesTitle": {
+    "message": "例外ルール"
+  },
+  "ruleLabel": {
+    "message": "ルール"
+  },
+  "priority": {
+    "message": "優先度"
+  },
+  "action": {
+    "message": "アクション"
+  },
+  "condition": {
+    "message": "条件"
+  },
+  "urlFilter": {
+    "message": "URL フィルター"
+  },
+  "regexFilter": {
+    "message": "正規表現フィルター"
+  },
+  "resourceTypes": {
+    "message": "リソースタイプ"
+  },
+  
+  "exceptionRuleClass": {
+    "message": "exception-rule"
+  },
+  "disabledClass": {
+    "message": "disabled"
+  },
+  "enabledClass": {
+    "message": "enabled"
+  },
+  "ruleHeaderClass": {
+    "message": "rule-header"
+  },
+  "ruleIdClass": {
+    "message": "rule-id"
+  },
+  "toggleRuleClass": {
+    "message": "toggle-rule"
+  },
+  "disabledRuleBtnClass": {
+    "message": "disabled-rule-btn"
+  },
+  "enabledRuleBtnClass": {
+    "message": "enabled-rule-btn"
+  },
+  "ruleDetailsClass": {
+    "message": "rule-details"
+  },
+  "ruleInfoClass": {
+    "message": "rule-info"
+  },
+  "detailRowClass": {
+    "message": "detail-row"
+  }
+
 }
 
 

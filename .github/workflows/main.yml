@@ -45,42 +45,18 @@ jobs:
 
       - name: Download CONFIG
         run: |
-          wget https://github.com/Linkumori/Linkumori-Autoupdate/archive/refs/tags/2.0.zip -O config.zip
+          wget https://github.com/Linkumori/Linkumori-Autoupdate/archive/refs/tags/5.0.zip -O config.zip
           echo "Downloaded configs"
 
-      - name: Create PEM file
+      - name: Decode PEM file
         run: |
-          cat > extension.pem << 'EOL'
-          -----BEGIN PRIVATE KEY-----
-          MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCp8Q+kavs7radl
-          cNbSkJFovhnAkg0v3CMKdoiVK26CvSEkuJXfLB3FOPlFkSPo1cj9Zwld2fW59V5/
-          Z6gQ28+pxf2o0N+1Pyi80JtbT5DME9gW1GiTqX41Jm/wYINMSBGqhpUhklwcZZSB
-          Fox+Fkxz7j4pm64f95HKa6ETMlrhZ5p1a6KhzMHnl83jdB/E61cSaWKo1ZjvWJO6
-          Ap075d5MscKS1pAsrd9EnN3FcxICokD1GpTmkoNsDyWcF8A+kKXotUb+Ix0TwirK
-          4IKV3IpJqpIVwdPPmcG1/87SgsOOkP/8EIAAsGfRjLc0/Bqhf+ej5sOEgEJqrhoj
-          uu81Svr3AgMBAAECggEAFfMNbX5mhftp5uTqJOGIm8S3QsjFF0IRlzpewxWMUn/n
-          Ff0ZWRfeSH48A/Y5HcuZstEUw/XGPTHUoL6yAGtuU6PqSAb3vfXdvHVye3ANaFka
-          dz28EXEPh1c4Qg3VJ4xva7Jc9KxuD+Thh21y0UjusFKR3iyTaDbrslSwcJr3uKvD
-          ZKMrjTWnFhevYGA82rLJGIbZsCATlDCEHsJlFXPZLcUlSV+amNJ0AdWWyBDsSp9P
-          ydE+DH304GgTZz9t/ukIpLHvtcsEYsnLCA90Xn8hdmvcL4FiFXltjEhRMM5+hXya
-          wyBcPxzeWS6vYZ1kOz/p+xBU6kVSCnGp+6XoOJiJcQKBgQDqyvp+4nCV/kgppeQz
-          1AT/EuoLgDpZ9COtRFtQnpmIqKzRdwG+85OnnRbAWmDj7GUWbAaGGYVWpmZb822w
-          rE9B04gucesfbgn4uMME37RRXuSoVtIxAqBsOrF/FBvDcnJCu5ai4Pws3uAKlfv6
-          rI2ZUP0y1pBVHpLGmUJcEJZaKwKBgQC5So2vBEx0yRGJqjAX95rC/+wmS9EbuskQ
-          LVDjfj2EL8tYv0J7CWg4Xx0Cu968PpNOl3u8cj2VV7nkHKw9tmANEhgN7i9qnCg+
-          HK+IikdvSbzSW06sSpRPcRZ1NifKva+36sCm9r2ut89Q7y65c+dcaGqA2qE5arjS
-          I+izcsA4ZQKBgEMR4oaWZrTiI3kKM2r+uMKog4Tvhzuk+wAG09Luy0r3bA6V4UDL
-          0bUCsboW1zCkmafTCfYKmkVLWVgQ7JeYUTerlm42CoU66MxM8yCUSq0n30ebLYXk
-          izD/fy6e7uNg8PTRI1G51S94JyW+/HD6E6TlNr7r/eTiy+jBZOxprJlrAoGAVkTI
-          3LCirEklWjQbujz1GE8xcs8f58o6bMa8f366Q35BLeu2lzRVCtH13tz7oid8TD4p
-          RR7nX0395aAX7Y+o/szq2CmKeBeGgQy4CVlgUwdA26vZYExE6wvbCe2R70oLsxSg
-          Z9w/ikZYRvVlisDU+mg/Fgk0wVfX/zbq1AncRyUCgYBNPr4TIfkENQ/wB5HglRFr
-          ihtBkEMJM0dP4Jl3cKnqq7Knrx52geP9UaCY602VCSJCLtT38yM+a+v840Nqt7oM
-          ZhgCiRMf/ZQcdD7wlrveGmQY7cNiaFIHq/kR/naEQiF90fJ9O2Lcd0apt4Tv1HPB
-          2kKLtm7EJ3+XwevH94MxsA==
-          -----END PRIVATE KEY-----
-          EOL
-          chmod 600 extension.pem
+          if [ -z "${{ secrets.CRX_PEM_BASE64 }}" ]; then
+            echo "::error::CRX_PEM_BASE64 secret is not set or accessible."
+            exit 1
+          fi
+          echo "${{ secrets.CRX_PEM_BASE64 }}" | base64 -d > extension.pem
+          echo "Decoded PEM file"
+          
       - name: Install Chrome
         run: |
           wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -129,7 +105,7 @@ jobs:
            cat > updates.xml << EOL
           <?xml version='1.0' encoding='UTF-8'?>
           <gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
-            <app appid="kcpfnbjlimolkcjllfooaipdpdjmjigg">
+            <app appid="pffeeolamoojgccldanobijnpbjffipb">
               <updatecheck 
                 codebase='https://github.com/${{ github.repository }}/releases/download/${{ github.event.release.tag_name }}/Linkumori.crx' 
                 version='${{ steps.manifest.outputs.version }}' />
@@ -179,37 +155,53 @@ jobs:
 
       # Upload to Chrome Web Store
       - name: Upload to Chrome Web Store
+        id: webstore_upload
+        continue-on-error: true    # Allow continuing if this step fails
         run: |
           # Upload the ZIP file
           UPLOAD_RESPONSE=$(curl -s -X PUT \
             -H "Authorization: Bearer ${{ steps.get-token.outputs.access_token }}" \
             -H "x-goog-api-version: 2" \
             -T Linkumori-webstore.zip \
-            "https://www.googleapis.com/upload/chromewebstore/v1.1/items/${{ secrets.EXTENSION_ID }}")
+            "https://www.googleapis.com/upload/chromewebstore/v1.1/items/${{ env.EXTENSION_ID }}")
           
-          # Check upload status
           UPLOAD_STATUS=$(echo $UPLOAD_RESPONSE | jq -r '.uploadState')
           
-          if [ "$UPLOAD_STATUS" != "SUCCESS" ]; then
+          if [ "$UPLOAD_STATUS" = "SUCCESS" ]; then
+            # Publish the extension
+            PUBLISH_RESPONSE=$(curl -s -X POST \
+              -H "Authorization: Bearer ${{ steps.get-token.outputs.access_token }}" \
+              -H "x-goog-api-version: 2" \
+              -H "Content-Length: 0" \
+              "https://www.googleapis.com/chromewebstore/v1.1/items/${{ env.EXTENSION_ID }}/publish?publishTarget=default")
+            
+            PUBLISH_STATUS=$(echo $PUBLISH_RESPONSE | jq -r '.status[0]')
+            
+            if [ "$PUBLISH_STATUS" = "OK" ]; then
+              echo "Extension successfully uploaded and published!"
+              echo "webstore_success=true" >> $GITHUB_OUTPUT
+            else
+              echo "Publishing failed with response: $PUBLISH_RESPONSE"
+              echo "webstore_success=false" >> $GITHUB_OUTPUT
+            fi
+          else
             echo "Upload failed with response: $UPLOAD_RESPONSE"
-            exit 1
+            echo "webstore_success=false" >> $GITHUB_OUTPUT
           fi
+
+      - name: Generate File Hashes
+        id: generate_hashes
+        run: |
+          echo "Generating file hashes..."
           
-          # Publish the extension
-          PUBLISH_RESPONSE=$(curl -s -X POST \
-            -H "Authorization: Bearer ${{ steps.get-token.outputs.access_token }}" \
-            -H "x-goog-api-version: 2" \
-            -H "Content-Length: 0" \
-            "https://www.googleapis.com/chromewebstore/v1.1/items/${{ secrets.EXTENSION_ID }}/publish?publishTarget=default")
+          # Generate hashes for all release files
+          SHA256_CRX=$(sha256sum Linkumori.crx | awk '{print $1}')
+          SHA256_WEBSTORE=$(sha256sum Linkumori-webstore.zip | awk '{print $1}')
+          SHA256_CONFIG=$(sha256sum config.zip | awk '{print $1}')
           
-          PUBLISH_STATUS=$(echo $PUBLISH_RESPONSE | jq -r '.status[0]')
-          
-          if [ "$PUBLISH_STATUS" != "OK" ]; then
-            echo "Publishing failed with response: $PUBLISH_RESPONSE"
-            exit 1
-          fi
-          
-          echo "Extension successfully uploaded and published!"
+          echo "crx_hash=$SHA256_CRX" >> $GITHUB_OUTPUT
+          echo "webstore_hash=$SHA256_WEBSTORE" >> $GITHUB_OUTPUT
+          echo "config_hash=$SHA256_CONFIG" >> $GITHUB_OUTPUT
 
       - name: Update Release
         uses: softprops/action-gh-release@v2
@@ -227,9 +219,9 @@ jobs:
             
             ## 📦 Download Options
             
-            1️⃣ Chrome Web Store (Recommended)
-                <a href="https://chromewebstore.google.com/detail/linkumori-clean-urls/kcpfnbjlimolkcjllfooaipdpdjmjigg
-                 "><img height="58" src="https://i.imgur.com/K9Yh8G9.png" alt="Chrome Web Store"></a>
+            ${{ steps.webstore_upload.outputs.webstore_success == 'true' && '✅ Successfully published to Chrome Web Store!' || '❌ Chrome Web Store upload failed' }}
+            <a href="https://chromewebstore.google.com/detail/linkumori-clean-urls/kcpfnbjlimolkcjllfooaipdpdjmjigg"><img height="58" src="https://i.imgur.com/K9Yh8G9.png" alt="Chrome Web Store"></a>
+        
             - ✨ Official release channel
             - 🔄 Automatic updates
             - ✅ Verified by Google
@@ -242,10 +234,12 @@ jobs:
               2. Enable "Developer mode"
               3. Drag & drop the .crx file
             
-            ### 3️⃣ Developer Version
-            - Download: Source code (zip)
-            - Manual installation required
-            - For development and testing
+            ## 🔒 File Hashes (SHA-256)
+            ```
+            Linkumori.crx:          ${{ steps.generate_hashes.outputs.crx_hash }}
+            Linkumori-webstore.zip: ${{ steps.generate_hashes.outputs.webstore_hash }}
+            config.zip:             ${{ steps.generate_hashes.outputs.config_hash }}
+            ```
             
             ## 📝 Changes
             ### Commit History
@@ -264,8 +258,10 @@ jobs:
             
             ## 🔧 Technical Details
             - Minimum browser version: 121.0
-            - Extension ID: ${{ env.EXTENSION_ID }}
-            - Auto-update enabled: Yes
+            - Extension IDs:
+              - Chrome Web Store (Official): `kcpfnbjlimolkcjllfooaipdpdjmjigg`
+              - Self-hosted (GitHub Release): `pffeeolamoojgccldanobijnpbjffipb`
+            - Auto-update enabled: Yes for both versions
             
             ## ⚠️ Important Notes
             1. If installing from source:

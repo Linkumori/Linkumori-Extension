@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Linkumori (URLs Cleaner)",
-  "version": "145.0",
+  "version": "158.0",
 "description": "__MSG_extDescription__",
 
   "icons": {
@@ -33,44 +33,15 @@
     "unlimitedStorage",
     "contextMenus",
     "webNavigation",
-    "webRequest"
+    "webRequest",
+    "declarativeNetRequestWithHostAccess"
   ],
   
   "host_permissions": [
     "http://*/*",
     "https://*/*"
   ],
-  "content_scripts": [
-    {
-      "matches": [
-        "*://*.amazon.com/*",
-        "*://*.amazon.co.uk/*",
-        "*://*.amazon.de/*",
-        "*://*.amazon.fr/*",
-        "*://*.amazon.ca/*",
-        "*://*.amazon.jp/*",
-        "*://*.amazon.in/*",
-        "*://*.amazon.com.au/*"
-      ],
-      "js": ["lib/amazon-url-prevention.js"],
-      "run_at": "document_start"
-    }
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": ["lib/amazon-url-prevention.js"],
-      "matches": [
-        "*://*.amazon.com/*",
-        "*://*.amazon.co.uk/*",
-        "*://*.amazon.de/*",
-        "*://*.amazon.fr/*",
-        "*://*.amazon.ca/*",
-        "*://*.amazon.jp/*",
-        "*://*.amazon.in/*",
-        "*://*.amazon.com.au/*"
-      ]
-    }
-  ],
+  
   "options_ui": {
     "page": "panel/option.html",
     "open_in_tab": true
@@ -163,7 +134,7 @@
         "path": "rules/rules17.json"
       },
       {
-        "id": "ruleset_18",
+        "id": "exception",
         "enabled": true,
         "path": "rules/exception/rules18.json"
       },
@@ -172,10 +143,15 @@
         "enabled": true,
         "path": "rules/redirect/rules19.json"
       },
+        {
+          "id": "ruleset_20",
+          "enabled": true,
+          "path": "rules/redirect/rules20.json"
+      },
       {
-        "id": "ruleset_20",
+        "id": "ruleset_21",
         "enabled": true,
-        "path": "rules/redirect/rules20.json"
+        "path": "rules/redirect/rules21.json"
       }
     ]
   }
