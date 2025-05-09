@@ -1389,6 +1389,56 @@ function isYandexDomain(url) {
   return /^https?:\/\/([a-zA-Z0-9-]+\.)*(yandex\.ru|yandex\.com|ya\.ru)\/.*/i.test(url);
 }
 
+// Listen for tab updates
+function getStorageValue(key) {
+  return new Promise(resolve => {
+    chrome.storage.local.get(key, result => {
+      resolve(result[key]);
+    });
+  });
+}
+
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+  // Only process after the page fully loads and there is a URL
+  if (changeInfo.status !== 'complete' || !tab.url) return;
+
+  // Retrieve settings in parallel
+  const [settings, preventFlag, whitelist] = await Promise.all([
+    getStorageValue(SETTINGS_KEY),
+    getStorageValue('PreventGoogleandyandexscript'),
+    getStorageValue('whitelist'),
+  ]);
+
+  // If settings aren’t enabled or the PreventGoogleandyandexscript flag isn’t set, stop here.
+  if (!settings || !settings.status || !preventFlag) {
+    return;
+  }
+
+  // Ensure whitelist is an array before proceeding
+  if (Array.isArray(whitelist) && whitelist.some(domain => tab.url.includes(domain))) {
+    return;  // If the current URL is whitelisted
+  }
+
+  // Execute fix scripts based on the domain of the tab URL
+  if (isGoogleDomain(tab.url)) {
+    // Use world 'MAIN' if your injected code requires access to the page’s actual DOM/global object.
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      files: ['./lib/google-fix.js'],
+      // Uncomment the following if you need your script to run in the page context:
+      // world: 'MAIN'
+    });
+  }
+
+  if (isYandexDomain(tab.url)) {
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      files: ['./lib/yandex-fix.js'],
+      // world: 'MAIN'  // Uncomment if necessary
+    });
+  }
+});
+
 // === STATS MANAGEMENT ===
 let stats = {
   summary: {
