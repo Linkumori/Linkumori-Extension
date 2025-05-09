@@ -1376,9 +1376,24 @@ async function updateDNRRule() {
 }
 
 async function initializeExtension() {
-  const currentTheme = await Storage.get('theme') || 'light';
-  updateExtensionIcon(currentTheme);
+  try {
+    const currentTheme = await Storage.get('theme') || 'light';
+    updateExtensionIcon(currentTheme);
+    let isPreventEnabled = await Storage.get('PreventGoogleandyandexscript');
+    
+    if (isPreventEnabled === undefined) {
+      isPreventEnabled = await getStorageValue('PreventGoogleandyandexscript');
+    }
+    
+    await updateNavigationListener(isPreventEnabled);
+    
+    // Always set up the tab update listener, but the logic inside will check settings
+    setupTabUpdateListener();
+  } catch (error) {
+    console.error('Error initializing extension:', error);
+  }
 }
+
 
 // === DOMAIN UTILITIES ===
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -1388,6 +1403,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 });
+// Domain checking functions
 function isGoogleDomain(url) {
   return /^https?:\/\/([a-zA-Z0-9-]+\.)*google\.(com|ad|ae|com\.af|com\.ag|com\.ai|al|am|co\.ao|com\.ar|as|at|com\.au|az|ba|com\.bd|be|bf|bg|com\.bh|bi|bj|com\.bn|com\.bo|com\.br|bs|bt|co\.bw|by|com\.bz|ca|cd|cf|cg|ch|ci|co\.ck|cl|cm|cn|com\.co|co\.cr|com\.cu|cv|com\.cy|cz|de|dj|dk|dm|com\.do|dz|com\.ec|ee|com\.eg|es|com\.et|fi|com\.fj|fm|fr|ga|ge|gg|com\.gh|com\.gi|gl|gm|gp|gr|com\.gt|gy|com\.hk|hn|hr|ht|hu|co\.id|ie|co\.il|im|co\.in|iq|is|it|je|com\.jm|jo|co\.jp|co\.ke|com\.kh|ki|kg|co\.kr|com\.kw|kz|la|com\.lb|li|lk|co\.ls|lt|lu|lv|com\.ly|co\.ma|md|me|mg|mk|ml|com\.mm|mn|ms|com\.mt|mu|mv|mw|com\.mx|com\.my|co\.mz|com\.na|com\.nf|com\.ng|com\.ni|ne|nl|no|com\.np|nr|nu|co\.nz|com\.om|com\.pa|com\.pe|com\.pg|com\.ph|com\.pk|pl|pn|com\.pr|ps|pt|com\.py|com\.qa|ro|ru|rw|com\.sa|com\.sb|sc|se|com\.sg|sh|si|sk|com\.sl|sn|so|sm|sr|st|com\.sv|td|tg|co\.th|com\.tj|tk|tl|tm|tn|to|com\.tr|tt|com\.tw|co\.tz|com\.ua|co\.ug|co\.uk|com\.uy|co\.uz|com\.vc|co\.ve|vg|co\.vi|com\.vn|vu|ws|rs|co\.za|co\.zm|co\.zw|cat)\/.*/i.test(url);
 }
@@ -1396,7 +1412,7 @@ function isYandexDomain(url) {
   return /^https?:\/\/([a-zA-Z0-9-]+\.)*(yandex\.ru|yandex\.com|ya\.ru)\/.*/i.test(url);
 }
 
-// Listen for tab updates
+// Utility function for storage access
 function getStorageValue(key) {
   return new Promise(resolve => {
     chrome.storage.local.get(key, result => {
@@ -1405,48 +1421,109 @@ function getStorageValue(key) {
   });
 }
 
-chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  // Only process after the page fully loads and there is a URL
-  if (changeInfo.status !== 'complete' || !tab.url) return;
+// Initialize extension and set up listeners
+let navigationListenerAdded = false;
 
-  // Retrieve settings in parallel
-  const [settings, preventFlag, whitelist] = await Promise.all([
-    getStorageValue(SETTINGS_KEY),
-    getStorageValue('PreventGoogleandyandexscript'),
-    getStorageValue('whitelist'),
-  ]);
 
-  // If settings aren’t enabled or the PreventGoogleandyandexscript flag isn’t set, stop here.
-  if (!settings || !settings.status || !preventFlag) {
-    return;
+// Add this new function to handle navigation listener updates
+async function updateNavigationListener(enabled) {
+  try {
+    if (enabled && !navigationListenerAdded) {
+      console.log('Adding navigation listener');
+      chrome.webNavigation.onBeforeNavigate.addListener(
+        EventHandlers.handleNavigation,
+        { url: [{ hostContains: 'google.' }] }
+      );
+      navigationListenerAdded = true;
+    } else if (!enabled && navigationListenerAdded) {
+      console.log('Removing navigation listener');
+      chrome.webNavigation.onBeforeNavigate.removeListener(
+        EventHandlers.handleNavigation
+      );
+      navigationListenerAdded = false;
+    }
+  } catch (error) {
+    console.error('Error updating navigation listener:', error);
   }
+}
 
-  // Ensure whitelist is an array before proceeding
-  if (Array.isArray(whitelist) && whitelist.some(domain => tab.url.includes(domain))) {
-    return; // Stop if the current URL is whitelisted
-  }
-   chrome.webNavigation.onBeforeNavigate.addListener(
-    EventHandlers.handleNavigation,
-    { url: [{ hostContains: 'google.' }] }
-  );
-
-  // Execute fix scripts based on the domain of the tab URL
-  if (isGoogleDomain(tab.url)) {
-    // Use world 'MAIN' if your injected code requires access to the page’s actual DOM/global object.
-    await chrome.scripting.executeScript({
-      target: { tabId },
-      files: ['./lib/google-fix.js'],
-      // Uncomment the following if you need your script to run in the page context:
-      // world: 'MAIN'
+// Modify the storage change listener
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  if (changes.PreventGoogleandyandexscript) {
+    const newValue = changes.PreventGoogleandyandexscript.newValue;
+    console.log('Prevention setting changed to:', newValue);
+    
+    // Update the navigation listener
+    updateNavigationListener(newValue);
+    
+    // Force reload affected tabs
+    chrome.tabs.query({}, (tabs) => {
+      tabs.forEach((tab) => {
+        if (tab.url && (isGoogleDomain(tab.url) || isYandexDomain(tab.url))) {
+          chrome.tabs.reload(tab.id);
+        }
+      });
     });
   }
+});
 
-  if (isYandexDomain(tab.url)) {
-    await chrome.scripting.executeScript({
-      target: { tabId },
-      files: ['./lib/yandex-fix.js'],
-      // world: 'MAIN'  // Uncomment if necessary
-    });
+// Modify setupTabUpdateListener to be more responsive
+function setupTabUpdateListener() {
+  chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+    if (changeInfo.status !== 'complete' || !tab.url) return;
+    
+    try {
+      const [settings, preventFlag, whitelist] = await Promise.all([
+        getStorageValue(SETTINGS_KEY),
+        Storage.get('PreventGoogleandyandexscript'),
+        getStorageValue('whitelist')
+      ]);
+      
+      // Exit if main settings or prevention is off
+      if (!settings?.status || preventFlag === false) {
+        console.log('Feature disabled, not executing scripts');
+        return;
+      }
+
+      if(preventFlag=== false){
+        return; 
+      }
+      
+      // Check whitelist
+      if (whitelist?.some(domain => tab.url.includes(domain))) {
+        console.log('URL is whitelisted, skipping scripts');
+        return;
+      }
+      
+      // Inject appropriate scripts based on domain
+      if (isGoogleDomain(tab.url) && preventFlag) {
+        console.log('Injecting Google fix script');
+        await chrome.scripting.executeScript({
+          target: { tabId },
+          files: ['./lib/google-fix.js']
+        });
+      }
+      
+      if (isYandexDomain(tab.url) && preventFlag) {
+        console.log('Injecting Yandex fix script');
+        await chrome.scripting.executeScript({
+          target: { tabId },
+          files: ['./lib/yandex-fix.js']
+        });
+      }
+    } catch (error) {
+      console.error('Error in tab update listener:', error);
+    }
+  });
+}
+
+// Start the initialization process
+
+// Listen for changes to the prevention flag and reinitialize if needed
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  if (changes.PreventGoogleandyandexscript) {
+    console.log('Prevention setting changed, reinitializing');
+    initializeExtension();
   }
 });
 
