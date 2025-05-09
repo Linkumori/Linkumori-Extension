@@ -830,6 +830,139 @@ blockquote {
     font-size: 13px;
 }
 
+.rules-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.category-title {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.restore-btn {
+  background: var(--button-primary);
+  color: var(--text-primary);
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.exception-rule {
+  background: var(--bg-secondary-toogle);
+  border-left: 3px solid var(--button-primary);
+}
+
+/* Add these styles to the existing <style> section */
+
+.exception-rule {
+    border-left: 3px solid var(--button-primary);
+    margin-bottom: 8px;
+}
+
+.rule-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.rule-type {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: 8px;
+}
+
+.rule-details {
+    padding: 8px 16px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    background: var(--bg-secondary-toogle);
+    border-top: 1px solid var(--border-color);
+    display: none;
+}
+
+.exception-rule:hover .rule-details {
+    display: block;
+}
+
+.enabled {
+    background: var(--button-primary);
+}
+
+/* Add to your existing CSS in option.html */
+
+.rule-category {
+    margin-bottom: 24px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.category-title {
+    color: var(--text-secondary);
+    font-size: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.rule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.rule-id {
+    font-weight: bold;
+    color: var(--text-secondary);
+}
+
+.detail-row {
+    margin: 4px 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.detail-row strong {
+    color: var(--text-primary);
+    margin-right: 8px;
+}
+
+.toggle-rule {
+    padding: 4px 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+.toggle-rule.enabled {
+    background: var(--button-primary);
+    color: var(--text-primary);
+}
+
+.toggle-rule:not(.enabled) {
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+}
+
+.exception-rule {
+    background: var(--bg-secondary-toogle);
+    border-left: 3px solid var(--button-primary);
+    margin-bottom: 8px;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.exception-rule:hover .rule-details {
+    display: block;
+}
     </style>
 </head>
 <body>
@@ -953,6 +1086,23 @@ blockquote {
                     <input type="text" id="searchDomain" data-i18n-placeholder="searchWhitelistPlaceholder">
                 </div>
                 <div id="whitelistContainer"></div>
+                <div class="rules-categories">
+                    <div class="manual-rules">
+                        <h3 class="category-title" data-i18n="manualRulesTitle">Manual Rules</h3>
+                        <div id="manualRulesContainer"></div>
+                    </div>
+                    
+                    <div class="exception-rules">
+                        <h3 class="category-title" data-i18n="exceptionRulesTitle">Exception Rules</h3>
+                        <button id="restoreExceptions" class="restore-btn" data-i18n="restoreExceptions">
+                          Restore Default Exceptions
+                        </button>
+                        <div class="filter-input">
+                            <input type="text" id="searchExceptionRules" data-i18n-placeholder="searchExceptionRulesPlaceholder">
+                        </div>
+                        <div id="exceptionRulesContainer"></div>
+                    </div>
+                </div>
             </div>
         </div>
 

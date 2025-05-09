@@ -372,6 +372,30 @@
     
 "inputUrlsDescription": {
   "message": "Mit diesem Tool können Sie URLs einfügen, und das Linkumori-URL-Bereinigungstool wird die URLs nach einem Klick auf die Schaltfläche 'URLs bereinigen' bereinigen. Sie können mehrere URLs gleichzeitig einfügen, aber jede URL muss in einer separaten Zeile stehen."
+},
+"confirmRestoreExceptions": {
+  "message": "Sind Sie sicher, dass Sie alle integrierten Whitelist-Regeln aktivieren möchten?"
+},
+"enableRule": {
+  "message": "Aktivieren"
+},
+"disableRule": {
+  "message": "Deaktivieren"
+},
+"searchExceptionRulesPlaceholder": {
+  "message": "Integrierte Whitelist-Regeln durchsuchen..."
+},
+"noExceptionRulesFound": {
+  "message": "Keine integrierten Whitelist-Regeln gefunden, die mit '$1' übereinstimmen"
+},
+"noExceptionRulesDefined": {
+  "message": "Keine integrierten Whitelist-Regeln definiert"
+},
+"restoreExceptions": {
+  "message": "Standard-Whitelist-Regeln wiederherstellen"
+},
+"exceptionRulesTitle": {
+  "message": "Integrierte Linkumori-Whitelist-Regeln"
 }
   }
   
