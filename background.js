@@ -30,12 +30,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>..
 
 // ===== Linkumori Engine Start =====//
 import { readPurifyUrlsSettings, setDefaultSettings } from './common/utils.js';
-import { defaultSettings, SETTINGS_KEY, CANT_FIND_SETTINGS_MSG } from './common/constants.js';
+import { defaultSettings, SETTINGS_KEY, CANT_FIND_SETTINGS_MSG,EXCEPTION_DISABLED_RULES_KEY,EXCEPTION_RULES_KEY } from './common/constants.js';
 import { parameterRules,urlPatternRules  } from './common/rules.js';
 import punycode from './lib/punycode.js';
 import base64 from './lib/base64.js';
 
 // Use base64Module instead of base64
+
+// Add these constants near the top with other constants
 
 
 let hasStarted = false;
@@ -189,9 +191,8 @@ chrome.runtime.onInstalled.addListener(async () => {
 
 
 
-
 async function updateRuleSet(enabled) {
-  const allRulesets = ['ruleset_1', 'ruleset_2', 'ruleset_3', 'ruleset_4', 'ruleset_5', 'ruleset_6', 'ruleset_7', 'ruleset_8', 'ruleset_9', 'ruleset_10', 'ruleset_11', 'ruleset_12', 'ruleset_13', 'ruleset_14', 'ruleset_15', 'ruleset_16', 'ruleset_17','ruleset_18','ruleset_19'];
+  const allRulesets = ['ruleset_1', 'ruleset_2', 'ruleset_3', 'ruleset_4', 'ruleset_5', 'ruleset_6', 'ruleset_7', 'ruleset_8', 'ruleset_9', 'ruleset_10', 'ruleset_11', 'ruleset_12', 'ruleset_13', 'ruleset_14', 'ruleset_15', 'ruleset_16', 'ruleset_17','exception','ruleset_19'];
 
   await chrome.declarativeNetRequest.updateEnabledRulesets({
     disableRulesetIds: enabled ? [] : allRulesets,
@@ -402,6 +403,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         }
         sendResponse({ success: true });
     });
+    return true;
+  }
+
+  if (message.action === 'toggleExceptionRule') {
+    toggleExceptionRule(message.ruleId, message.enabled)
+      .then(success => sendResponse({ success }))
+      .catch(error => sendResponse({ success: false, error: error.message }));
+    return true;
+  }
+  
+  if (message.action === 'updateAllExceptionRules') {
+    updateExceptionRuleStates()
+      .then(success => sendResponse({ success }))
+      .catch(error => sendResponse({ success: false, error: error.message }));
     return true;
   }
 
@@ -1529,3 +1544,134 @@ chrome.runtime.onMessage.addListener(
     }
   }
 );
+
+// Add the exception rule handling functions:
+async function toggleExceptionRule(ruleId, enabled) {
+  try {
+    // Check if main extension is enabled
+    const settings = await chrome.storage.local.get(SETTINGS_KEY);
+    const isMainEnabled = settings[SETTINGS_KEY]?.status || false;
+    
+    if (!isMainEnabled) {
+      console.log(`Main extension is disabled, not toggling rule #${ruleId}`);
+      return false;
+    }
+    
+    // Convert rule ID to number
+    const numericRuleId = parseInt(ruleId, 10);
+    if (isNaN(numericRuleId)) {
+      throw new Error(`Invalid rule ID: ${ruleId} is not a number`);
+    }
+    
+    // Get current disabled rules
+    const { [EXCEPTION_DISABLED_RULES_KEY]: disabledRules = [] } = 
+      await chrome.storage.local.get(EXCEPTION_DISABLED_RULES_KEY);
+    
+    // Update disabled rules list
+    let updatedDisabledRules;
+    if (enabled) {
+      updatedDisabledRules = disabledRules.filter(id => id !== numericRuleId);
+    } else {
+      updatedDisabledRules = disabledRules.includes(numericRuleId) 
+        ? disabledRules 
+        : [...disabledRules, numericRuleId];
+    }
+    
+    // Save updated disabled rules
+    await chrome.storage.local.set({ [EXCEPTION_DISABLED_RULES_KEY]: updatedDisabledRules });
+    
+    // Update ruleset
+    await updateRulesetWithExceptions(updatedDisabledRules);
+    
+    console.log(`Rule #${numericRuleId} ${enabled ? 'enabled' : 'disabled'} in exception ruleset`);
+    return true;
+  } catch (error) {
+    console.error(`Error toggling exception rule #${ruleId}:`, error);
+    throw error;
+  }
+}
+
+async function updateExceptionRuleStates() {
+  try {
+    const settings = await chrome.storage.local.get(SETTINGS_KEY);
+    const isMainEnabled = settings[SETTINGS_KEY]?.status || false;
+    
+    if (!isMainEnabled) {
+      return false;
+    }
+    
+    const { [EXCEPTION_RULES_KEY]: exceptionRules = [] } = 
+      await chrome.storage.local.get(EXCEPTION_RULES_KEY);
+    
+    const disabledRuleIds = exceptionRules
+      .filter(rule => rule.enabled === false)
+      .map(rule => parseInt(rule.id, 10))
+      .filter(id => !isNaN(id));
+    
+    await chrome.storage.local.set({ [EXCEPTION_DISABLED_RULES_KEY]: disabledRuleIds });
+    
+    await updateRulesetWithExceptions(disabledRuleIds);
+    
+    console.log('Exception rules updated, disabled rules:', disabledRuleIds);
+    return true;
+  } catch (error) {
+    console.error('Error updating exception rule states:', error);
+    return false;
+  }
+}
+
+async function updateRulesetWithExceptions(disabledRules) {
+  try {
+    const enabledRulesets = await chrome.declarativeNetRequest.getEnabledRulesets();
+    const isExceptionEnabled = enabledRulesets.includes('exception');
+
+    // First, update enabled rulesets
+    await chrome.declarativeNetRequest.updateEnabledRulesets({
+      disableRulesetIds: isExceptionEnabled ? ['exception'] : [],
+      enableRulesetIds: isExceptionEnabled ? [] : ['exception']
+    });
+
+    // Then, update rule states using updateStaticRules
+    if (disabledRules.length > 0) {
+      await chrome.declarativeNetRequest.updateStaticRules({
+        removeRuleIds: [], // Don't remove any rules
+        addRules: [], // Don't add any new rules
+        disableRuleIds: disabledRules
+      });
+    }
+
+    console.log('Exception ruleset updated with disabled rules:', disabledRules);
+  } catch (error) {
+    console.error('Error updating exception ruleset:', error);
+    throw error;
+  }
+}
+
+// Add to your existing message listener
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  // ... existing message handlers ...
+
+  if (message.action === 'toggleExceptionRule') {
+    toggleExceptionRule(message.ruleId, message.enabled)
+      .then(success => sendResponse({ success }))
+      .catch(error => sendResponse({ success: false, error: error.message }));
+    return true;
+  }
+  
+  if (message.action === 'updateExceptionRules') {
+    updateExceptionRuleStates()
+      .then(success => sendResponse({ success }))
+      .catch(error => sendResponse({ success: false, error: error.message }));
+    return true;
+  }
+
+  // ... rest of your message handlers ...
+});
+
+// Add to your onInstalled handler to initialize exception rules
+chrome.runtime.onInstalled.addListener(async () => {
+  // ... existing onInstalled code ...
+  
+  // Initialize exception rules
+  await updateExceptionRuleStates();
+});

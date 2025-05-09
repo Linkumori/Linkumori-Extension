@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Linkumori (URLs Cleaner)",
-  "version": "157.0",
+  "version": "158.0",
 "description": "__MSG_extDescription__",
 
   "icons": {
@@ -33,7 +33,8 @@
     "unlimitedStorage",
     "contextMenus",
     "webNavigation",
-    "webRequest"
+    "webRequest",
+    "declarativeNetRequestWithHostAccess"
   ],
   
   "host_permissions": [
@@ -133,7 +134,7 @@
         "path": "rules/rules17.json"
       },
       {
-        "id": "ruleset_18",
+        "id": "exception",
         "enabled": true,
         "path": "rules/exception/rules18.json"
       },

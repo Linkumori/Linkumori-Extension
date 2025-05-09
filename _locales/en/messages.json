@@ -369,5 +369,28 @@
     },
     "chromeWebStoreLinkText": {
         "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
-    }
+    },"confirmRestoreExceptions": {
+  "message": "Are you sure you want to enable all in build whitelist rules?"
+},
+"enableRule": {
+  "message": "Enable"
+},
+"disableRule": {
+  "message": "Disable"
+},
+"searchExceptionRulesPlaceholder": {
+  "message": "Search inbuild whitelist rules..."
+},
+"noExceptionRulesFound": {
+  "message": "No in build whitelist rules found matching '$1'"
+},
+"noExceptionRulesDefined": {
+  "message": "No in build whitelist rules defined"
+},
+"restoreExceptions": {
+  "message": "Restore Default in bulid whitelist Rules"
+},
+"exceptionRulesTitle": {
+  "message": "In build linkumori whitelist Rules"
+}
 }
