@@ -20,6 +20,11 @@ Linkumori (URLs Cleaner) is a powerful browser extension for Chromium-based brow
 - Operates seamlessly in the background 
 - Supports dark/light mode theme toggle
 - Advanced tools interface for additional functionality
+- Prevents Google from rewriting search results to include tracking elements
+- Prevents Yandex from rewriting search results to include tracking elements
+- Supports redirection to the destination without tracking services as middlemen
+- Adds an entry to the context menu so that links can be copied quickly and cleanly
+- Has a built-in tool to clean up multiple URLs at once
 
 ## How It Works
 
@@ -27,6 +32,8 @@ Linkumori (URLs Cleaner) is a powerful browser extension for Chromium-based brow
 2. **Dynamic DNR rules**: Allows for more flexible and up-to-date URL cleaning based on the latest tracking methods.
 3. **History API**: For URLs that can't be caught by DNR rules, Linkumori uses the History API to clean the URL without reloading the page.
 4. **Hyperlink Auditing Block**: Prevents websites from tracking your clicks on links that leave their site.
+5. **Search Engine Protection**: Specialized scripts that prevent Google and Yandex from injecting tracking into search results.
+6. **Direct Redirection**: Bypasses tracking redirects to send you directly to your destination.
 
 ## Installation 
 
@@ -53,10 +60,18 @@ Once installed, Linkumori works automatically in the background:
 3. Browse normally - Linkumori will clean URLs as you navigate, without any noticeable interruption to your browsing.
 4. Use the theme toggle to switch between dark and light modes.
 5. Access advanced tools through the dedicated button in the interface.
+6. Right-click on links to use the "Copy Clean Link" context menu option.
 
 ## Interface Guide
 
-### Main Tab
+Linkumori has two different interfaces: a popup interface (accessible by clicking the extension icon) and an options page (accessible via right-click on the extension icon > Options or through the extensions page).
+
+### Popup Interface
+The popup has three tabs:
+- **Main Tab**: Simple On/Off toggle switch, current extension status display, theme toggle button, History API Protection toggle, and Hyperlink Auditing Block toggle
+- **Whitelist Tab**: Quick access to add current domain to whitelist
+- **License Tab**: Basic license information
+
 ![Main Tab Interface](https://github.com/subham8907/Linkumori/blob/main/docs/images/main.png)
 - Simple On/Off toggle switch  
 - Current extension status display
@@ -66,19 +81,66 @@ Once installed, Linkumori works automatically in the background:
 - History API Protection toggle
 - Hyperlink Auditing Block toggle
 
-### Whitelist Management
+### Options Page Interface
+The options page provides more comprehensive settings with six tabs:
+
+- **Extension Settings**: Configure general extension behavior and preferences
+- **Custom DNR Rules**: Create and manage custom Declarative Net Request rules
+- **Whitelist Management**: Full whitelist control including:
+  - Domain input field with Add button
+  - Export/Import whitelist functionality
+  - Search through whitelisted domains
+  - Manage and disable built-in whitelist rules
+  - "Restore Default in build whitelist Rules" option
+- **Statistics**: View performance metrics and URL cleaning statistics
+- **License Information**: Complete license details and attributions
+- **About**: Extension information and credits
+
+#### Whitelist Management
 ![Whitelist Interface](https://github.com/subham8907/Linkumori/blob/main/docs/images/whitelist-active.png)
 - Domain input field with Add button
 - "Add Current Domain" button for quick whitelisting
 - List of whitelisted domains 
 - Quick remove options for each domain
+- Export/Import whitelist functionality
+- Search through whitelisted domains
+- View, manage, and disable built-in whitelist rules
 
-### License Information
+#### Built-in Whitelist Rules
+The options page allows you to:
+- View all built-in whitelist rules that come with the extension
+- Search through built-in rules using the search field
+- Individually disable specific rules without removing them
+- Restore all default built-in whitelist rules with a single click
+
+#### License Information
 ![License Tab](https://github.com/subham8907/Linkumori/blob/main/docs/images/license.png)
 - Complete license details
 - User rights and obligations
 - Scrollable interface for full license text
 - Links to external repositories and licenses
+
+## Additional Privacy Features
+
+Linkumori includes several specialized privacy features not commonly found in other URL cleaners:
+
+- **Search Engine Protection**:
+  - Prevents Google from rewriting search results to include tracking elements
+  - Prevents Yandex from rewriting search results to include tracking elements
+
+- **Direct Redirection**:
+  - Supports redirection to the destination without going through tracking services as middlemen
+  - Bypasses tracking redirects that collect your click data before sending you to the final destination
+
+- **Context Menu Integration**:
+  - Adds an entry to the browser's right-click context menu
+  - Allows you to quickly copy links in a clean format (without tracking parameters)
+  - Makes sharing clean URLs much easier
+
+- **Bulk URL Cleanup Tool**:
+  - Built-in tool to clean multiple URLs at once
+  - Paste a list of URLs and get the cleaned versions
+  - Saves time when working with multiple links from tracking-heavy sources
 
 ## Whitelisting System
 
@@ -268,10 +330,6 @@ Copyright: © 2024 Fonticons, Inc.
 The Linkumori extension includes the clipboard-helper.js file, sourced from the MDN Web Extensions repository and licensed under the Mozilla Public License 2.0 (MPL 2.0). Located in ./lib/clipboard-helper.js within the Linkumori source code, this file also distributed under the GNU General Public License version 3 (GPL v3) as a secondary license, since requirements are fulfilled under MPL 2.0 Section 3.3. This dual-licensing applies only to clipboard-helper.js and not to other parts of the Linkumori extension unless explicitly stated. Recipients must comply with the terms of their selected license.
 
 Original source: https://github.com/mdn/webextensionsexamples/blob/main/context-menu-copy-link-with-types/clipboard-helper.js
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Acknowledgments
 
