@@ -689,9 +689,9 @@
     "priority": 1,
     "action": { "type": "allow" },
     "condition": {
-      "urlFilter": "||productionresultssa12.blob.core.windows.net",
       "initiatorDomains": ["github.com"],
-      "resourceTypes": [ "xmlhttprequest"]
+      "urlFilter": "||productionresultssa18.blob.core.windows.net",
+      "resourceTypes": [ "main_frame","sub_frame","xmlhttprequest"]
     }    },
 
   {
