@@ -197,7 +197,7 @@
   "confirmationMessages_removeParameter": {
     "message": "确认要从域名 '$2' 中移除参数 '$1' 吗？"
   },
-  "navwhitelist_":{
+  "navwhitelist_": {
     "message": "白名单管理"
   },
   "rulesTitle": {
@@ -338,7 +338,7 @@
   "confirmResetStats": {
     "message": "确定要重置所有统计信息吗？"
   },
-"checking_update": {
+  "checking_update": {
     "message": "正在检查更新..."
   },
   "update_available": {
@@ -362,39 +362,93 @@
   "update_error": {
     "message": "检查更新时出错"
   },
-  
-    "chromeWebStore": {
-        "message": "Chrome 网上应用店："
-    },
-    "chromeWebStoreLinkText": {
-      "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
-    },
-    "inputUrlsDescription": {
-      "message": "使用此工具，您可以粘贴网址，点击清理网址按钮后，Linkumori 网址清理工具将清理这些网址。您可以一次粘贴多个网址，但每个网址必须单独占一行。"
-    },"confirmRestoreExceptions": {
-  "message": "您确定要启用所有内置白名单规则吗？"
-},
-"enableRule": {
-  "message": "启用"
-},
-"disableRule": {
-  "message": "禁用"
-},
-"searchExceptionRulesPlaceholder": {
-  "message": "搜索内置白名单规则..."
-},
-"noExceptionRulesFound": {
-  "message": "未找到匹配 '$1' 的内置白名单规则"
-},
-"noExceptionRulesDefined": {
-  "message": "未定义内置白名单规则"
-},
-"restoreExceptions": {
-  "message": "恢复默认内置白名单规则"
-},
-"exceptionRulesTitle": {
-  "message": "Linkumori 内置白名单规则"
-}
+  "chromeWebStore": {
+    "message": "Chrome 网上应用店："
+  },
+  "chromeWebStoreLinkText": {
+    "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+  },
+  "inputUrlsDescription": {
+    "message": "使用此工具，您可以粘贴网址，点击清理网址按钮后，Linkumori 网址清理工具将清理这些网址。您可以一次粘贴多个网址，但每个网址必须单独占一行。"
+  },
+  "confirmRestoreExceptions": {
+    "message": "您确定要启用所有内置白名单规则吗？"
+  },
+  "enableRule": {
+    "message": "启用"
+  },
+  "disableRule": {
+    "message": "禁用"
+  },
+  "searchExceptionRulesPlaceholder": {
+    "message": "搜索内置白名单规则..."
+  },
+  "noExceptionRulesFound": {
+    "message": "未找到匹配 '$1' 的内置白名单规则"
+  },
+  "noExceptionRulesDefined": {
+    "message": "未定义内置白名单规则"
+  },
+  "restoreExceptions": {
+    "message": "恢复默认内置白名单规则"
+  },
+  "exceptionRulesTitle": {
+    "message": "Linkumori 内置白名单规则"
+  },
+  "exportAllSettings": {
+    "message": "导出所有设置"
+  },
+  "importAllSettings": {
+    "message": "导入所有设置"
+  },
+  "successMessages_settingsExported": {
+    "message": "所有设置已成功导出"
+  },
+  "successMessages_settingsImported": {
+    "message": "所有设置已成功导入"
+  },
+  "errorMessages_settingsExport": {
+    "message": "导出设置失败"
+  },
+  "errorMessages_settingsImport": {
+    "message": "导入设置失败：$1"
+  },
+  "errorMessages_invalidSettingsFile": {
+    "message": "无效的设置文件格式"
+  },
+  "confirmationMessages_importSettings": {
+    "message": "这将覆盖您所有的当前设置。您确定要继续吗？"
+  },
+  "exportRules": {
+    "message": "导出规则"
+  },
+  "importRules": {
+    "message": "导入规则"
+  },
+  "successMessages_rulesExported": {
+    "message": "规则已成功导出"
+  },
+  "successMessages_rulesImported": {
+    "message": "规则已成功导入"
+  },
+  "errorMessages_rulesExport": {
+    "message": "导出规则失败"
+  },
+  "errorMessages_rulesImport": {
+    "message": "导入规则失败：$1"
+  },
+  "errorMessages_invalidRulesFile": {
+    "message": "无效的规则文件格式"
+  },
+  "confirmationMessages_importRules": {
+    "message": "这将覆盖您所有的自定义规则。您确定要继续吗？"
+  },
+  "successMessages_statsImported": {
+    "message": "统计数据已成功导入"
+  },
+  "errorMessages_statsImport": {
+    "message": "导入统计数据失败：$1"
+  }
 }
 
 

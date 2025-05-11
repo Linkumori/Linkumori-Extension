@@ -362,39 +362,93 @@
   "update_error": {
     "message": "Ошибка проверки наличия обновлений"
   },
-  
-    "chromeWebStore": {
-        "message": "Интернет-магазин Chrome:"
-    },
-    "chromeWebStoreLinkText": {
-        "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
-    },
-    "inputUrlsDescription": {
+  "chromeWebStore": {
+    "message": "Интернет-магазин Chrome:"
+  },
+  "chromeWebStoreLinkText": {
+    "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+  },
+  "inputUrlsDescription": {
     "message": "С помощью этого инструмента вы можете вставить URL-адреса, и инструмент очистки URL-адресов Linkumori очистит их после нажатия кнопки очистки URL-адресов. Вы можете вставить несколько URL-адресов одновременно, но каждый URL-адрес должен быть на отдельной строке."
-  },"confirmRestoreExceptions": {
-  "message": "Вы уверены, что хотите включить все встроенные правила белого списка?"
-},
-"enableRule": {
-  "message": "Включить"
-},
-"disableRule": {
-  "message": "Отключить"
-},
-"searchExceptionRulesPlaceholder": {
-  "message": "Поиск встроенных правил белого списка..."
-},
-"noExceptionRulesFound": {
-  "message": "Не найдено встроенных правил белого списка, соответствующих '$1'"
-},
-"noExceptionRulesDefined": {
-  "message": "Нет определенных встроенных правил белого списка"
-},
-"restoreExceptions": {
-  "message": "Восстановить стандартные встроенные правила белого списка"
-},
-"exceptionRulesTitle": {
-  "message": "Встроенные правила белого списка Linkumori"
-}
+  },
+  "confirmRestoreExceptions": {
+    "message": "Вы уверены, что хотите включить все встроенные правила белого списка?"
+  },
+  "enableRule": {
+    "message": "Включить"
+  },
+  "disableRule": {
+    "message": "Отключить"
+  },
+  "searchExceptionRulesPlaceholder": {
+    "message": "Поиск встроенных правил белого списка..."
+  },
+  "noExceptionRulesFound": {
+    "message": "Не найдено встроенных правил белого списка, соответствующих '$1'"
+  },
+  "noExceptionRulesDefined": {
+    "message": "Нет определенных встроенных правил белого списка"
+  },
+  "restoreExceptions": {
+    "message": "Восстановить стандартные встроенные правила белого списка"
+  },
+  "exceptionRulesTitle": {
+    "message": "Встроенные правила белого списка Linkumori"
+  },
+  "exportAllSettings": {
+    "message": "Экспорт всех настроек"
+  },
+  "importAllSettings": {
+    "message": "Импорт всех настроек"
+  },
+  "successMessages_settingsExported": {
+    "message": "Все настройки успешно экспортированы"
+  },
+  "successMessages_settingsImported": {
+    "message": "Все настройки успешно импортированы"
+  },
+  "errorMessages_settingsExport": {
+    "message": "Не удалось экспортировать настройки"
+  },
+  "errorMessages_settingsImport": {
+    "message": "Не удалось импортировать настройки: $1"
+  },
+  "errorMessages_invalidSettingsFile": {
+    "message": "Неверный формат файла настроек"
+  },
+  "confirmationMessages_importSettings": {
+    "message": "Это перезапишет все ваши текущие настройки. Вы уверены, что хотите продолжить?"
+  },
+  "exportRules": {
+    "message": "Экспорт правил"
+  },
+  "importRules": {
+    "message": "Импорт правил"
+  },
+  "successMessages_rulesExported": {
+    "message": "Правила успешно экспортированы"
+  },
+  "successMessages_rulesImported": {
+    "message": "Правила успешно импортированы"
+  },
+  "errorMessages_rulesExport": {
+    "message": "Не удалось экспортировать правила"
+  },
+  "errorMessages_rulesImport": {
+    "message": "Не удалось импортировать правила: $1"
+  },
+  "errorMessages_invalidRulesFile": {
+    "message": "Неверный формат файла правил"
+  },
+  "confirmationMessages_importRules": {
+    "message": "Это перезапишет все ваши текущие пользовательские правила. Вы уверены, что хотите продолжить?"
+  },
+  "successMessages_statsImported": {
+    "message": "Статистика успешно импортирована"
+  },
+  "errorMessages_statsImport": {
+    "message": "Не удалось импортировать статистику: $1"
+  }
 }
 
 

@@ -362,16 +362,15 @@
   "update_error": {
     "message": "アップデートの確認中にエラーが発生しました"
   },
-  
-    "chromeWebStore": {
-        "message": "Chrome ウェブストア："
-    },
-    "chromeWebStoreLinkText": {
-        "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
-    },
-    "inputUrlsDescription": {
-      "message": "このツールを使用すると、URL を貼り付けて、リンクモリ クリーン URL ツールがクリーン URL ボタンをクリックした後に URL をクリーンします。一度に複数の URL を貼り付けることができますが、各 URL は別々の行にある必要があります。"
-    },
+  "chromeWebStore": {
+    "message": "Chrome ウェブストア："
+  },
+  "chromeWebStoreLinkText": {
+    "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+  },
+  "inputUrlsDescription": {
+    "message": "このツールを使用すると、URL を貼り付けて、リンクモリ クリーン URL ツールがクリーン URL ボタンをクリックした後に URL をクリーンします。一度に複数の URL を貼り付けることができますが、各 URL は別々の行にある必要があります。"
+  },
   "confirmRestoreExceptions": {
     "message": "デフォルトの例外ルールを復元してもよろしいですか？"
   },
@@ -417,7 +416,6 @@
   "resourceTypes": {
     "message": "リソースタイプ"
   },
-  
   "exceptionRuleClass": {
     "message": "exception-rule"
   },
@@ -450,8 +448,61 @@
   },
   "detailRowClass": {
     "message": "detail-row"
+  },
+  "exportAllSettings": {
+    "message": "すべての設定をエクスポート"
+  },
+  "importAllSettings": {
+    "message": "すべての設定をインポート"
+  },
+  "successMessages_settingsExported": {
+    "message": "すべての設定が正常にエクスポートされました"
+  },
+  "successMessages_settingsImported": {
+    "message": "すべての設定が正常にインポートされました"
+  },
+  "errorMessages_settingsExport": {
+    "message": "設定のエクスポートに失敗しました"
+  },
+  "errorMessages_settingsImport": {
+    "message": "設定のインポートに失敗しました：$1"
+  },
+  "errorMessages_invalidSettingsFile": {
+    "message": "無効な設定ファイル形式です"
+  },
+  "confirmationMessages_importSettings": {
+    "message": "これにより現在のすべての設定が上書きされます。続行してもよろしいですか？"
+  },
+  "exportRules": {
+    "message": "ルールをエクスポート"
+  },
+  "importRules": {
+    "message": "ルールをインポート"
+  },
+  "successMessages_rulesExported": {
+    "message": "ルールが正常にエクスポートされました"
+  },
+  "successMessages_rulesImported": {
+    "message": "ルールが正常にインポートされました"
+  },
+  "errorMessages_rulesExport": {
+    "message": "ルールのエクスポートに失敗しました"
+  },
+  "errorMessages_rulesImport": {
+    "message": "ルールのインポートに失敗しました：$1"
+  },
+  "errorMessages_invalidRulesFile": {
+    "message": "無効なルールファイル形式です"
+  },
+  "confirmationMessages_importRules": {
+    "message": "これにより現在のすべてのカスタムルールが上書きされます。続行してもよろしいですか？"
+  },
+  "successMessages_statsImported": {
+    "message": "統計が正常にインポートされました"
+  },
+  "errorMessages_statsImport": {
+    "message": "統計のインポートに失敗しました：$1"
   }
-
 }
 
 

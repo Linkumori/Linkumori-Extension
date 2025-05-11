@@ -362,41 +362,93 @@
   "update_error": {
     "message": "Fehler bei der Suche nach Updates"
   },
-  
-    "chromeWebStore": {
-      "message": "Chrome Web Store:"
-    },
-    "chromeWebStoreLinkText": {
-      "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
-    },
-    
-"inputUrlsDescription": {
-  "message": "Mit diesem Tool können Sie URLs einfügen, und das Linkumori-URL-Bereinigungstool wird die URLs nach einem Klick auf die Schaltfläche 'URLs bereinigen' bereinigen. Sie können mehrere URLs gleichzeitig einfügen, aber jede URL muss in einer separaten Zeile stehen."
-},
-"confirmRestoreExceptions": {
-  "message": "Sind Sie sicher, dass Sie alle integrierten Whitelist-Regeln aktivieren möchten?"
-},
-"enableRule": {
-  "message": "Aktivieren"
-},
-"disableRule": {
-  "message": "Deaktivieren"
-},
-"searchExceptionRulesPlaceholder": {
-  "message": "Integrierte Whitelist-Regeln durchsuchen..."
-},
-"noExceptionRulesFound": {
-  "message": "Keine integrierten Whitelist-Regeln gefunden, die mit '$1' übereinstimmen"
-},
-"noExceptionRulesDefined": {
-  "message": "Keine integrierten Whitelist-Regeln definiert"
-},
-"restoreExceptions": {
-  "message": "Standard-Whitelist-Regeln wiederherstellen"
-},
-"exceptionRulesTitle": {
-  "message": "Integrierte Linkumori-Whitelist-Regeln"
-}
+  "chromeWebStore": {
+    "message": "Chrome Web Store:"
+  },
+  "chromeWebStoreLinkText": {
+    "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+  },
+  "inputUrlsDescription": {
+    "message": "Mit diesem Tool können Sie URLs einfügen, und das Linkumori-URL-Bereinigungstool wird die URLs nach einem Klick auf die Schaltfläche 'URLs bereinigen' bereinigen. Sie können mehrere URLs gleichzeitig einfügen, aber jede URL muss in einer separaten Zeile stehen."
+  },
+  "confirmRestoreExceptions": {
+    "message": "Sind Sie sicher, dass Sie alle integrierten Whitelist-Regeln aktivieren möchten?"
+  },
+  "enableRule": {
+    "message": "Aktivieren"
+  },
+  "disableRule": {
+    "message": "Deaktivieren"
+  },
+  "searchExceptionRulesPlaceholder": {
+    "message": "Integrierte Whitelist-Regeln durchsuchen..."
+  },
+  "noExceptionRulesFound": {
+    "message": "Keine integrierten Whitelist-Regeln gefunden, die mit '$1' übereinstimmen"
+  },
+  "noExceptionRulesDefined": {
+    "message": "Keine integrierten Whitelist-Regeln definiert"
+  },
+  "restoreExceptions": {
+    "message": "Standard-Whitelist-Regeln wiederherstellen"
+  },
+  "exceptionRulesTitle": {
+    "message": "Integrierte Linkumori-Whitelist-Regeln"
+  },
+  "exportAllSettings": {
+    "message": "Alle Einstellungen exportieren"
+  },
+  "importAllSettings": {
+    "message": "Alle Einstellungen importieren"
+  },
+  "successMessages_settingsExported": {
+    "message": "Alle Einstellungen wurden erfolgreich exportiert"
+  },
+  "successMessages_settingsImported": {
+    "message": "Alle Einstellungen wurden erfolgreich importiert"
+  },
+  "errorMessages_settingsExport": {
+    "message": "Fehler beim Exportieren der Einstellungen"
+  },
+  "errorMessages_settingsImport": {
+    "message": "Fehler beim Importieren der Einstellungen: $1"
+  },
+  "errorMessages_invalidSettingsFile": {
+    "message": "Ungültiges Einstellungsdateiformat"
+  },
+  "confirmationMessages_importSettings": {
+    "message": "Dies überschreibt alle Ihre aktuellen Einstellungen. Möchten Sie fortfahren?"
+  },
+  "exportRules": {
+    "message": "Regeln exportieren"
+  },
+  "importRules": {
+    "message": "Regeln importieren"
+  },
+  "successMessages_rulesExported": {
+    "message": "Regeln wurden erfolgreich exportiert"
+  },
+  "successMessages_rulesImported": {
+    "message": "Regeln wurden erfolgreich importiert"
+  },
+  "errorMessages_rulesExport": {
+    "message": "Fehler beim Exportieren der Regeln"
+  },
+  "errorMessages_rulesImport": {
+    "message": "Fehler beim Importieren der Regeln: $1"
+  },
+  "errorMessages_invalidRulesFile": {
+    "message": "Ungültiges Regeldateiformat"
+  },
+  "confirmationMessages_importRules": {
+    "message": "Dies überschreibt alle Ihre aktuellen benutzerdefinierten Regeln. Möchten Sie fortfahren?"
+  },
+  "successMessages_statsImported": {
+    "message": "Statistiken wurden erfolgreich importiert"
+  },
+  "errorMessages_statsImport": {
+    "message": "Fehler beim Importieren der Statistiken: $1"
   }
-  
+}
+
 

@@ -362,39 +362,93 @@
   "update_error": {
     "message": "Erreur lors de la recherche de mises à jour"
   },
-  
-    "chromeWebStore": {
-        "message": "Chrome Web Store :"
-    },
-    "chromeWebStoreLinkText": {
-        "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
-    },  "inputUrlsDescription": {
-      "message": "Avec cet outil, vous pouvez coller des URLs et l'outil de nettoyage d'URLs de Linkumori nettoiera les URLs après un clic sur le bouton de nettoyage. Vous pouvez coller plusieurs URLs à la fois, mais chaque URL doit être sur une ligne distincte."
-    },
-   "confirmRestoreExceptions": {
-  "message": "Êtes-vous sûr de vouloir activer toutes les règles de liste blanche intégrées ?"
-},
-"enableRule": {
-  "message": "Activer"
-},
-"disableRule": {
-  "message": "Désactiver"
-},
-"searchExceptionRulesPlaceholder": {
-  "message": "Rechercher des règles de liste blanche intégrées..."
-},
-"noExceptionRulesFound": {
-  "message": "Aucune règle de liste blanche intégrée correspondant à '$1' trouvée"
-},
-"noExceptionRulesDefined": {
-  "message": "Aucune règle de liste blanche intégrée définie"
-},
-"restoreExceptions": {
-  "message": "Restaurer les règles de liste blanche par défaut"
-},
-"exceptionRulesTitle": {
-  "message": "Règles de liste blanche intégrées de Linkumori"
-}
+  "chromeWebStore": {
+    "message": "Chrome Web Store :"
+  },
+  "chromeWebStoreLinkText": {
+    "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+  },
+  "inputUrlsDescription": {
+    "message": "Avec cet outil, vous pouvez coller des URLs et l'outil de nettoyage d'URLs de Linkumori nettoiera les URLs après un clic sur le bouton de nettoyage. Vous pouvez coller plusieurs URLs à la fois, mais chaque URL doit être sur une ligne distincte."
+  },
+  "confirmRestoreExceptions": {
+    "message": "Êtes-vous sûr de vouloir activer toutes les règles de liste blanche intégrées ?"
+  },
+  "enableRule": {
+    "message": "Activer"
+  },
+  "disableRule": {
+    "message": "Désactiver"
+  },
+  "searchExceptionRulesPlaceholder": {
+    "message": "Rechercher des règles de liste blanche intégrées..."
+  },
+  "noExceptionRulesFound": {
+    "message": "Aucune règle de liste blanche intégrée correspondant à '$1' trouvée"
+  },
+  "noExceptionRulesDefined": {
+    "message": "Aucune règle de liste blanche intégrée définie"
+  },
+  "restoreExceptions": {
+    "message": "Restaurer les règles de liste blanche par défaut"
+  },
+  "exceptionRulesTitle": {
+    "message": "Règles de liste blanche intégrées de Linkumori"
+  },
+  "exportAllSettings": {
+    "message": "Exporter tous les paramètres"
+  },
+  "importAllSettings": {
+    "message": "Importer tous les paramètres"
+  },
+  "successMessages_settingsExported": {
+    "message": "Tous les paramètres ont été exportés avec succès"
+  },
+  "successMessages_settingsImported": {
+    "message": "Tous les paramètres ont été importés avec succès"
+  },
+  "errorMessages_settingsExport": {
+    "message": "Échec de l'exportation des paramètres"
+  },
+  "errorMessages_settingsImport": {
+    "message": "Échec de l'importation des paramètres : $1"
+  },
+  "errorMessages_invalidSettingsFile": {
+    "message": "Format de fichier de paramètres invalide"
+  },
+  "confirmationMessages_importSettings": {
+    "message": "Cela écrasera tous vos paramètres actuels. Êtes-vous sûr de vouloir continuer ?"
+  },
+  "exportRules": {
+    "message": "Exporter les règles"
+  },
+  "importRules": {
+    "message": "Importer les règles"
+  },
+  "successMessages_rulesExported": {
+    "message": "Les règles ont été exportées avec succès"
+  },
+  "successMessages_rulesImported": {
+    "message": "Les règles ont été importées avec succès"
+  },
+  "errorMessages_rulesExport": {
+    "message": "Échec de l'exportation des règles"
+  },
+  "errorMessages_rulesImport": {
+    "message": "Échec de l'importation des règles : $1"
+  },
+  "errorMessages_invalidRulesFile": {
+    "message": "Format de fichier de règles invalide"
+  },
+  "confirmationMessages_importRules": {
+    "message": "Cela écrasera toutes vos règles personnalisées actuelles. Êtes-vous sûr de vouloir continuer ?"
+  },
+  "successMessages_statsImported": {
+    "message": "Les statistiques ont été importées avec succès"
+  },
+  "errorMessages_statsImport": {
+    "message": "Échec de l'importation des statistiques : $1"
   }
+}
 
 
