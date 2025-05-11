@@ -248,7 +248,8 @@ const RuleManager = {
         
         // Create parameter removal rules
         const parameterRules = [];
-        let ruleId = this.RULE_ID_RANGES.CUSTOM_START;
+        // Track used rule IDs to ensure uniqueness
+        const usedRuleIds = new Set();
         
         const customRules = await Storage.get('customRules') || [];
         console.log("Custom rules before filtering:", customRules.length);
@@ -265,8 +266,17 @@ const RuleManager = {
         console.log("Custom rules after filtering out whitelisted domains:", filteredRules.length);
 
         // Now create rules for the remaining domains
+        let ruleId = this.RULE_ID_RANGES.CUSTOM_START;
+        
         filteredRules.forEach(rule => {
           const params = rule.params || [rule.param];
+          
+          // Find next available unique rule ID
+          while (usedRuleIds.has(ruleId)) {
+            ruleId++;
+          }
+          usedRuleIds.add(ruleId);
+
           parameterRules.push({
             id: ruleId++,
             priority: 2,

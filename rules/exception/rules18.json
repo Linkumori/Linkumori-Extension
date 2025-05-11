@@ -690,7 +690,7 @@
     "action": { "type": "allow" },
     "condition": {
       "initiatorDomains": ["github.com"],
-      "urlFilter": "||productionresultssa18.blob.core.windows.net",
+      "urlFilter": "||windows.net",
       "resourceTypes": [ "main_frame","sub_frame","xmlhttprequest"]
     }    },
 

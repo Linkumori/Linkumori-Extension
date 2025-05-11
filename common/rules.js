@@ -2338,7 +2338,7 @@ export const parameterRules = [
         domain: "instagram.com",
         removeParams: [
             "helpref", "ig_rid", "igsh", "igshid",
-            "short_redirect"
+            "short_redirect","e"
         ]
     },
     {
