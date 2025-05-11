@@ -1058,15 +1058,46 @@ const EventHandlers = {
           }
           break;
           
-        default:
-          console.log('Unknown message action:', message.action);
+        case 'syncAllSettings':
+          try {
+            const settings = message.settings;
+            
+            // Update all relevant features
+            await updateHyperlinkAuditing(settings.blockHyperlinkAuditing);
+            await badge(settings.updateBadgeOnOff);
+            
+            // Update navigation listener for Google/Yandex prevention
+            await updateNavigationListener(settings.PreventGoogleandyandexscript);
+            
+            // Update rules in correct order
+            await RuleManager.updateRuleSet(settings.enabled);
+            await RuleManager.updateDNRRules(settings.enabled); // Whitelist first
+            await RuleManager.updateAllDNRRules(settings.enabled); // Custom rules second
+            await RuleManager.updateExceptionRuleStates(); // Update exception rules
+            
+            // Reload affected tabs if needed
+            if (settings.PreventGoogleandyandexscript) {
+              const tabs = await chrome.tabs.query({});
+              for (const tab of tabs) {
+                if (tab.url && (isGoogleDomain(tab.url) || isYandexDomain(tab.url))) {
+                  chrome.tabs.reload(tab.id);
+                }
+              }
+            }
+            
+            sendResponse({ success: true });
+          } catch (error) {
+            console.error('Error syncing settings:', error);
+            sendResponse({ success: false, error: error.message });
+          }
           break;
-      }
-      
-      return true;
-    }
-  }
-};
+
+      } // Close switch statement
+      return true; // Keep message channel open for async response
+    } // Close if (message.action)
+    return false; // No handler found
+  } // Close handleMessages function
+}; // Close EventHandlers object
 
 // === ENGINE STARTUP AND INITIALIZATION ===
 let hasStarted = false;

@@ -37,11 +37,10 @@ class PanelMenuController {
         this.state = {
             isEnabled: false,
             historyApiProtection: false,
-            blockHyperlinkAuditing: false,
+            blockHyperlinkAuditing: false, // Keep consistent with storage
             whitelist: [],
             activeTab: 'mainTab',
             updateBadgeOnOff: false
-
         };
         
         this.domElements = {
@@ -196,13 +195,13 @@ class PanelMenuController {
                     whitelist = [], 
                     enabled = false,
                     historyApiProtection = false,
-                    updateHyperlinkAuditing = false,
+                    blockHyperlinkAuditing = false,
                     updateBadgeOnOff = false
                 } = await chrome.storage.local.get({
                     whitelist: [], 
                     enabled: false,
                     historyApiProtection: false,
-                    updateHyperlinkAuditing: false,
+                    blockHyperlinkAuditing: false,
                     updateBadgeOnOff: false
                 });
                 
@@ -210,7 +209,7 @@ class PanelMenuController {
                     ...this.state,
                     isEnabled: settings[SETTINGS_KEY].status,
                     historyApiProtection,
-                    blockHyperlinkAuditing: updateHyperlinkAuditing,
+                    blockHyperlinkAuditing,
                     whitelist,
                     updateBadgeOnOff
                 };
@@ -237,7 +236,7 @@ class PanelMenuController {
                 this.updateBadgeOnOffToggleUI();
             }
     
-            if (Object.hasOwn(changes, 'blockHyperlinkAuditing')) {
+            if (Object.hasOwn(changes, 'blockHyperlinkAuditing')) { // Keep consistent property name
                 this.state.blockHyperlinkAuditing = changes.blockHyperlinkAuditing.newValue;
                 this.updateHyperlinkAuditingToggleUI();
             }
@@ -409,11 +408,10 @@ class PanelMenuController {
 
     async toggleHyperlinkAuditing() {
         try {
-            const { blockHyperlinkAuditing = false } = await chrome.storage.local.get('blockHyperlinkAuditing');
-            const newStatus = !blockHyperlinkAuditing;
+            const newStatus = !this.state.blockHyperlinkAuditing;
             
             await chrome.storage.local.set({
-                blockHyperlinkAuditing: newStatus
+                blockHyperlinkAuditing: newStatus // Keep consistent with storage
             });
             
             this.state.blockHyperlinkAuditing = newStatus;
@@ -663,10 +661,9 @@ class PanelMenuController {
             return;
         }
      
-        // Keep track of blockHyperlinkAuditing state regardless of extension state
+        // Keep track of blockHyperlinkAuditing state
         this.domElements.hyperlinkAuditingToggle.classList.toggle('active', this.state.blockHyperlinkAuditing);
      
-        // Update UI text based on combined states
         const isExtensionEnabled = this.state.isEnabled; 
         const isFeatureActive = this.state.blockHyperlinkAuditing;
         const isFeatureInactive = !isFeatureActive;

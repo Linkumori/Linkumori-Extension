@@ -392,5 +392,57 @@
 },
 "exceptionRulesTitle": {
   "message": "In build linkumori whitelist Rules"
-}
+},"exportAllSettings": {
+    "message": "Export All Settings"
+  },
+  "importAllSettings": {
+    "message": "Import All Settings"
+  },
+  "successMessages_settingsExported": {
+    "message": "All settings have been exported successfully"
+  },
+  "successMessages_settingsImported": {
+    "message": "All settings have been imported successfully"
+  },
+  "errorMessages_settingsExport": {
+    "message": "Failed to export settings"
+  },
+  "errorMessages_settingsImport": {
+    "message": "Failed to import settings: $1"
+  },
+  "errorMessages_invalidSettingsFile": {
+    "message": "Invalid settings file format"
+  },
+  "confirmationMessages_importSettings": {
+    "message": "This will override all your current settings. Are you sure you want to continue?"
+  },"exportRules": {
+    "message": "Export Rules"
+  },
+  "importRules": {
+    "message": "Import Rules"
+  },
+  "successMessages_rulesExported": {
+    "message": "Rules have been exported successfully"
+  },
+  "successMessages_rulesImported": {
+    "message": "Rules have been imported successfully"
+  },
+  "errorMessages_rulesExport": {
+    "message": "Failed to export rules"
+  },
+  "errorMessages_rulesImport": {
+    "message": "Failed to import rules: $1"
+  },
+  "errorMessages_invalidRulesFile": {
+    "message": "Invalid rules file format"
+  },
+  "confirmationMessages_importRules": {
+    "message": "This will override all your current custom rules. Are you sure you want to continue?"
+  },
+  "successMessages_statsImported": {
+    "message": "Statistics have been imported successfully"
+  },
+  "errorMessages_statsImport": {
+    "message": "Failed to import statistics: $1"
+  }
 }

@@ -929,7 +929,7 @@ blockquote {
 }
 
 .detail-row strong {
-    color: var(--text-primary);
+    color:  var(--text-secondary);
     margin-right: 8px;
 }
 
@@ -948,7 +948,7 @@ blockquote {
 }
 
 .toggle-rule:not(.enabled) {
-    color: var(--text-secondary);
+    color: var(--text-primary);
 }
 
 .exception-rule {
@@ -961,6 +961,56 @@ blockquote {
 
 .exception-rule:hover .rule-details {
     display: block;
+}
+.settings-backup-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 16px;
+    background: var(--bg-secondary-toogle);
+    border-radius: 4px;
+}
+
+.backup-btn {
+    flex: 1;
+    padding: 10px 16px;
+    background: var(--button-primary);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.backup-btn:hover {
+    filter: brightness(110%);
+}
+
+/* Add in the style section */
+.section-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.section-title-container .section-title {
+    margin: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.rules-backup-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.rules-backup-controls .backup-btn {
+    padding: 6px 12px;
+    font-size: 13px;
 }
     </style>
 </head>
@@ -1042,13 +1092,23 @@ blockquote {
                         <div class="toggle-switch"></div>
                     </div>
                 </div>
+                <div class="settings-backup-controls">
+                    <button id="exportAllSettings" class="backup-btn" data-i18n="exportAllSettings">Export All Settings</button>
+                    <button id="importAllSettings" class="backup-btn" data-i18n="importAllSettings">Import All Settings</button>
+                </div>
             </div>
         </div>
 
         <!-- Rules Section -->
         <div id="rulesSection" class="section-content">
             <div class="section">
-                <h2 class="section-title" data-i18n="rulesTitle">Custom DNR Rules Builder</h2>
+                <div class="section-title-container">
+                    <h2 class="section-title" data-i18n="rulesTitle">Custom DNR Rules Builder</h2>
+                    <div class="rules-backup-controls">
+                        <button id="exportRules" class="backup-btn" data-i18n="exportRules">Export Rules</button>
+                        <button id="importRules" class="backup-btn" data-i18n="importRules">Import Rules</button>
+                    </div>
+                </div>
                 <div class="url-input">
                     <input type="text" id="urlInput" data-i18n-placeholder="urlInputPlaceholder">
                     <button id="getParameters" data-i18n="analyzeButton">Analyze</button>
@@ -1125,7 +1185,7 @@ blockquote {
         </div>
 
         <!-- License Section -->
-        <div id="licenseSection" class="section-content">
+         <div id="licenseSection" class="section-content">
 
             <div class="section">
                 <h2>Open Source License Compliance Notice</h2>

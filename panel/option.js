@@ -76,7 +76,12 @@ class OptionsMenuController {
         this.setupAboutSection();
         this.initializeI18n();
         this.setupUpdateChecker();  // Add this line
+
+        // Add stats sync interval reference
     }
+
+    // Add new method for stats synchronization
+    
 
     initializeI18n() {
         // Initialize text content
@@ -233,6 +238,15 @@ class OptionsMenuController {
         document.getElementById('restoreExceptions')?.addEventListener('click', () => {
             this.restoreDefaultExceptions();
         });
+
+        document.getElementById('exportAllSettings')?.addEventListener('click', () => this.exportAllSettings());
+        document.getElementById('importAllSettings')?.addEventListener('click', () => this.importAllSettings());
+
+        document.getElementById('exportRules')?.addEventListener('click', () => this.exportRules());
+        document.getElementById('importRules')?.addEventListener('click', () => this.importRules());
+
+        // Add stats update message listener
+        
     }
 
     async loadInitialState() {
@@ -403,13 +417,34 @@ class OptionsMenuController {
     // Add new method
     async updateStats() {
         try {
-            const { [STATS_KEY]: stats } = await chrome.storage.local.get(STATS_KEY);
-            if (stats) {
-                this.state.stats = stats;
+            // Get stats from background script
+            const response = await chrome.runtime.sendMessage({ action: 'getStats' });
+            if (response && response.success) {
+                this.state.stats = response.stats;
+                this.updateStatsUI();
+            }
+
+            // Also check storage for backup
+            const { [STATS_KEY]: storageStats } = await chrome.storage.local.get(STATS_KEY);
+            if (storageStats && 
+                (storageStats.summary.totalRedirect > this.state.stats.summary.totalRedirect ||
+                 storageStats.summary.totalParameter > this.state.stats.summary.totalParameter)) {
+                this.state.stats = storageStats;
                 this.updateStatsUI();
             }
         } catch (error) {
             console.error('Failed to update stats:', error);
+            
+            // Fallback to storage if background script fails
+            try {
+                const { [STATS_KEY]: storageStats } = await chrome.storage.local.get(STATS_KEY);
+                if (storageStats) {
+                    this.state.stats = storageStats;
+                    this.updateStatsUI();
+                }
+            } catch (storageError) {
+                console.error('Failed to get stats from storage:', storageError);
+            }
         }
     }
 
@@ -1651,6 +1686,227 @@ class OptionsMenuController {
             });
         });
     }
+
+    async exportAllSettings() {
+        try {
+            // Get all settings from storage
+            const settings = await chrome.storage.local.get(null);
+            
+            // Create a formatted settings object
+            const exportData = {
+                version: chrome.runtime.getManifest().version,
+                exportDate: new Date().toISOString(),
+                settings: {
+                    enabled: this.state.isEnabled,
+                    historyApiProtection: this.state.historyApiProtection,
+                    blockHyperlinkAuditing: this.state.blockHyperlinkAuditing,
+                    updateBadgeOnOff: this.state.updateBadgeOnOff,
+                    PreventGoogleandyandexscript: this.state.PreventGoogleandyandexscript,
+                    whitelist: this.state.whitelist,
+                    customRules: this.state.customRules,
+                    disabledExceptionRules: this.state.disabledExceptionRules,
+                 
+                }
+            };
+
+            // Create and download the JSON file
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+                type: 'application/json'
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `linkumori-settings-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert(chrome.i18n.getMessage('successMessages_settingsExported'));
+        } catch (error) {
+            console.error('Failed to export settings:', error);
+            alert(chrome.i18n.getMessage('errorMessages_settingsExport'));
+        }
+    }
+
+    async importAllSettings() {
+        try {
+            const fileContent = await new Promise((resolve, reject) => {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.json';
+
+                input.onchange = async (e) => {
+                    const file = e.target.files[0];
+                    if (!file) {
+                        reject(new Error(chrome.i18n.getMessage('errorMessages_noFileSelected')));
+                        return;
+                    }
+
+                    try {
+                        const text = await file.text();
+                        resolve(text);
+                    } catch (err) {
+                        reject(err);
+                    }
+                };
+
+                input.click();
+            });
+
+            const importedData = JSON.parse(fileContent);
+
+            // Validate the imported data
+            if (!importedData.settings) {
+                throw new Error(chrome.i18n.getMessage('errorMessages_invalidSettingsFile'));
+            }
+
+            // Confirm import
+            if (!confirm(chrome.i18n.getMessage('confirmationMessages_importSettings'))) {
+                return;
+            }
+
+            // Update storage with imported settings
+            await chrome.storage.local.set({
+                [SETTINGS_KEY]: { status: importedData.settings.enabled },
+                historyApiProtection: importedData.settings.historyApiProtection,
+                blockHyperlinkAuditing: importedData.settings.blockHyperlinkAuditing,
+                updateBadgeOnOff: importedData.settings.updateBadgeOnOff,
+                PreventGoogleandyandexscript: importedData.settings.PreventGoogleandyandexscript,
+                whitelist: importedData.settings.whitelist,
+                customRules: importedData.settings.customRules,
+                disabledExceptionRules: importedData.settings.disabledExceptionRules,
+            });
+
+            // Update state
+            this.state = {
+                ...this.state,
+                isEnabled: importedData.settings.enabled,
+                historyApiProtection: importedData.settings.historyApiProtection,
+                blockHyperlinkAuditing: importedData.settings.blockHyperlinkAuditing,
+                updateBadgeOnOff: importedData.settings.updateBadgeOnOff,
+                PreventGoogleandyandexscript: importedData.settings.PreventGoogleandyandexscript,
+                whitelist: importedData.settings.whitelist,
+                customRules: importedData.settings.customRules,
+                disabledExceptionRules: importedData.settings.disabledExceptionRules,
+            };
+
+            // Update UI
+            this.updateUI();
+
+            // Notify background script to sync all settings and stats
+            await Promise.all([
+                chrome.runtime.sendMessage({
+                    action: 'syncAllSettings',
+                    settings: {
+                        enabled: importedData.settings.enabled,
+                        historyApiProtection: importedData.settings.historyApiProtection,
+                        blockHyperlinkAuditing: importedData.settings.blockHyperlinkAuditing,
+                        updateBadgeOnOff: importedData.settings.updateBadgeOnOff,
+                        PreventGoogleandyandexscript: importedData.settings.PreventGoogleandyandexscript,
+                        whitelist: importedData.settings.whitelist,
+                        customRules: importedData.settings.customRules,
+                        disabledExceptionRules: importedData.settings.disabledExceptionRules
+                    }
+                }),
+            ]);
+
+            alert(chrome.i18n.getMessage('successMessages_settingsImported'));
+        } catch (error) {
+            console.error('Failed to import settings:', error);
+            alert(chrome.i18n.getMessage('errorMessages_settingsImport', [error.message]));
+        }
+    }
+
+    async exportRules() {
+        try {
+            const exportData = {
+                version: chrome.runtime.getManifest().version,
+                exportDate: new Date().toISOString(),
+                rules: {
+                    customRules: this.state.customRules
+                }
+            };
+
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+                type: 'application/json'
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `linkumori-rules-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert(chrome.i18n.getMessage('successMessages_rulesExported'));
+        } catch (error) {
+            console.error('Failed to export rules:', error);
+            alert(chrome.i18n.getMessage('errorMessages_rulesExport'));
+        }
+    }
+
+    async importRules() {
+        try {
+            const fileContent = await new Promise((resolve, reject) => {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.json';
+
+                input.onchange = async (e) => {
+                    const file = e.target.files[0];
+                    if (!file) {
+                        reject(new Error(chrome.i18n.getMessage('errorMessages_noFileSelected')));
+                        return;
+                    }
+
+                    try {
+                        const text = await file.text();
+                        resolve(text);
+                    } catch (err) {
+                        reject(err);
+                    }
+                };
+
+                input.click();
+            });
+
+            const importedData = JSON.parse(fileContent);
+
+            // Validate the imported data
+            if (!importedData.rules || !importedData.rules.customRules) {
+                throw new Error(chrome.i18n.getMessage('errorMessages_invalidRulesFile'));
+            }
+
+            // Confirm import
+            if (!confirm(chrome.i18n.getMessage('confirmationMessages_importRules'))) {
+                return;
+            }
+
+            // Update storage with imported rules
+            await chrome.storage.local.set({
+                customRules: importedData.rules.customRules
+            });
+
+            // Update state
+            this.state.customRules = importedData.rules.customRules;
+
+            // Update UI
+            this.renderCustomRules();
+
+            // Notify background script to update rules
+            await chrome.runtime.sendMessage({
+                action: 'updateCustomRules',
+                rules: importedData.rules.customRules
+            });
+
+            alert(chrome.i18n.getMessage('successMessages_rulesImported'));
+        } catch (error) {
+            console.error('Failed to import rules:', error);
+            alert(chrome.i18n.getMessage('errorMessages_rulesImport', [error.message]));
+        }
+    }
 }
 
 // Theme handling
@@ -1730,3 +1986,5 @@ document.getElementById('moon.svg')?.addEventListener('click', () => {
 
 // Initialize the controller
 const controller = new OptionsMenuController();
+
+// Add cleanup on window unload
