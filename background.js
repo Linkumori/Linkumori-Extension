@@ -268,34 +268,41 @@ const RuleManager = {
         // Now create rules for the remaining domains
         let ruleId = this.RULE_ID_RANGES.CUSTOM_START;
         
-        filteredRules.forEach(rule => {
-          const params = rule.params || [rule.param];
-          
-          // Find next available unique rule ID
-          while (usedRuleIds.has(ruleId)) {
-            ruleId++;
-          }
-          usedRuleIds.add(ruleId);
+        // Filter rules before creating DNR rules, but don't modify storage
+filteredRules.forEach(rule => {
+  // Ensure we have an array of params
+  const params = rule.params || [rule.param];
+  
+  // Find next available unique rule ID
+  while (usedRuleIds.has(ruleId)) {
+    ruleId++;
+  }
+  usedRuleIds.add(ruleId);
 
-          parameterRules.push({
-            id: ruleId++,
-            priority: 2,
-            action: {
-              type: "redirect",
-              redirect: {
-                transform: {
-                  queryTransform: {
-                    removeParams: params
-                  }
-                }
-              }
-            },
-            condition: {
-              requestDomains: [rule.domain],
-              resourceTypes: ["main_frame", "sub_frame", "xmlhttprequest"]
+  // Only create rules for non-whitelisted domains
+  if (!isDomainWhitelisted(rule.domain, whitelist)) {
+    parameterRules.push({
+      id: ruleId++,
+      priority: 2, // Lower priority than whitelist rules
+      action: {
+        type: "redirect",
+        redirect: {
+          transform: {
+            queryTransform: {
+              removeParams: params
             }
-          });
-        });
+          }
+        }
+      },
+      condition: {
+        requestDomains: [rule.domain],
+        resourceTypes: ["main_frame", "sub_frame", "xmlhttprequest"]
+      }
+    });
+  } else {
+    console.log(`Skipping rule creation for whitelisted domain: ${rule.domain}`);
+  }
+});
         
         await chrome.declarativeNetRequest.updateDynamicRules({
           removeRuleIds: customRuleIds, // Only remove custom rules, not whitelist rules
