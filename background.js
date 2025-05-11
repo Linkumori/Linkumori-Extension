@@ -273,16 +273,18 @@ filteredRules.forEach(rule => {
   // Ensure we have an array of params
   const params = rule.params || [rule.param];
   
-  // Find next available unique rule ID
+  // Generate unique rule ID - increment until we find unused ID
   while (usedRuleIds.has(ruleId)) {
     ruleId++;
   }
-  usedRuleIds.add(ruleId);
-
+  
   // Only create rules for non-whitelisted domains
   if (!isDomainWhitelisted(rule.domain, whitelist)) {
+    const newRuleId = ruleId;
+    usedRuleIds.add(newRuleId); // Track the ID before using it
+    
     parameterRules.push({
-      id: ruleId++,
+      id: newRuleId,
       priority: 2, // Lower priority than whitelist rules
       action: {
         type: "redirect",
@@ -299,6 +301,9 @@ filteredRules.forEach(rule => {
         resourceTypes: ["main_frame", "sub_frame", "xmlhttprequest"]
       }
     });
+    
+    // Increment ruleId for next iteration
+    ruleId++;
   } else {
     console.log(`Skipping rule creation for whitelisted domain: ${rule.domain}`);
   }
