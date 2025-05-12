@@ -5,7 +5,7 @@
 
 Copyright (C) 2024-2025 Subham Mahesh
 
-This program is free software: you can redistribute it and/or modify
+This program is free software: free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
@@ -748,6 +748,9 @@ const EventHandlers = {
 
   async handleStorageChanges(changes, area) {
     if (area === 'local') {
+      // Get disabled rules state early
+      const disabledRules = await Storage.get(EXCEPTION_DISABLED_RULES_KEY) || [];
+
       // Handle settings changes
       if (changes[SETTINGS_KEY]) {
         const newStatus = changes[SETTINGS_KEY].newValue?.status;
@@ -761,45 +764,28 @@ const EventHandlers = {
 
         // If main extension is being enabled
         if (newStatus) {
-          // Check if hyperlink auditing was already enabled
-          const hyperlinkEnabled = await Storage.get('updateHyperlinkAuditing');
-          
-          if (hyperlinkEnabled) {
-            // Enable rule 2 if both are now true
-            await chrome.declarativeNetRequest.updateStaticRules({
-              rulesetId: "ruleset_8",
-              enableRuleIds: [2]
-            });
-          }
-        } else {
-          // Main extension disabled, ensure rule is disabled
-          await chrome.declarativeNetRequest.updateStaticRules({
-            rulesetId: "ruleset_8",
-            disableRuleIds: [2]
-          });
+          // Re-apply disabled exception rules after enabling main settings
+          await RuleManager.updateRulesetWithExceptions(disabledRules);
         }
       }
 
       // Handle whitelist changes
       if (changes.whitelist) {
-        console.log('Whitelist changed - updating whitelist rules first');
         const settings = await Storage.get(SETTINGS_KEY);
-        // First update whitelist rules
+        // Update rules in order
         await RuleManager.updateDNRRules(settings?.status);
-        
-        // Then update custom rules (which will now respect the new whitelist)
-        console.log('Updating custom rules to respect new whitelist');
         await RuleManager.updateAllDNRRules(settings?.status);
-        
+        // Re-apply disabled exception rules
+        await RuleManager.updateRulesetWithExceptions(disabledRules);
         badge(await Storage.get('updateBadgeOnOff'));
       }
       
       // Handle custom rules changes
-      if (changes.customRules && !changes.whitelist) { // Skip if whitelist also changed, already handled above
-        console.log('Custom rules changed - updating custom rules');
+      if (changes.customRules && !changes.whitelist) {
         const settings = await Storage.get(SETTINGS_KEY);
-        // Just update custom rules, not whitelist
         await RuleManager.updateAllDNRRules(settings?.status);
+        // Re-apply disabled exception rules
+        await RuleManager.updateRulesetWithExceptions(disabledRules);
       }
 
       // Handle badge state changes
@@ -839,14 +825,16 @@ const EventHandlers = {
           RuleManager.updateRuleSet(defaultSettings.status);
           RuleManager.updateDNRRules(defaultSettings.status);
           RuleManager.updateAllDNRRules(defaultSettings.status);
-                  RuleManager.updateExceptionRuleStates(); // Update exception rules
+          RuleManager.updateExceptionRuleStates(); // Update exception rules
+
 
         } else {
           sendResponse(settings);
           RuleManager.updateRuleSet(settings[SETTINGS_KEY].status);
           RuleManager.updateDNRRules(settings[SETTINGS_KEY].status);
           RuleManager.updateAllDNRRules(settings[SETTINGS_KEY].status);
-        RuleManager.updateExceptionRuleStates(); // Update exception rules
+              RuleManager.updateExceptionRuleStates(); // Update exception rules
+
 
         }
       });
