@@ -638,6 +638,7 @@ const EventHandlers = {
       Storage.get('updateBadgeOnOff'),
       Storage.get(SETTINGS_KEY),
       Storage.get('theme')
+
     ]);
 
     // Update in correct order: whitelist THEN custom rules
@@ -647,6 +648,8 @@ const EventHandlers = {
     badge(badgesettings);
     updateHyperlinkAuditing(updatesettings);
     updateExtensionIcon(currentTheme);
+    RuleManager.updateExceptionRuleStates(); // Update exception rules
+
   },
 
   async handleExtensionStartup() {
@@ -836,11 +839,15 @@ const EventHandlers = {
           RuleManager.updateRuleSet(defaultSettings.status);
           RuleManager.updateDNRRules(defaultSettings.status);
           RuleManager.updateAllDNRRules(defaultSettings.status);
+                  RuleManager.updateExceptionRuleStates(); // Update exception rules
+
         } else {
           sendResponse(settings);
           RuleManager.updateRuleSet(settings[SETTINGS_KEY].status);
           RuleManager.updateDNRRules(settings[SETTINGS_KEY].status);
           RuleManager.updateAllDNRRules(settings[SETTINGS_KEY].status);
+        RuleManager.updateExceptionRuleStates(); // Update exception rules
+
         }
       });
       return true;

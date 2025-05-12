@@ -37,10 +37,11 @@ class PanelMenuController {
         this.state = {
             isEnabled: false,
             historyApiProtection: false,
-            blockHyperlinkAuditing: false, // Keep consistent with storage
+            blockHyperlinkAuditing: false,
             whitelist: [],
             activeTab: 'mainTab',
             updateBadgeOnOff: false
+
         };
         
         this.domElements = {
@@ -195,13 +196,13 @@ class PanelMenuController {
                     whitelist = [], 
                     enabled = false,
                     historyApiProtection = false,
-                    blockHyperlinkAuditing = false,
+                    updateHyperlinkAuditing = false,
                     updateBadgeOnOff = false
                 } = await chrome.storage.local.get({
                     whitelist: [], 
                     enabled: false,
                     historyApiProtection: false,
-                    blockHyperlinkAuditing: false,
+                    updateHyperlinkAuditing: false,
                     updateBadgeOnOff: false
                 });
                 
@@ -209,7 +210,7 @@ class PanelMenuController {
                     ...this.state,
                     isEnabled: settings[SETTINGS_KEY].status,
                     historyApiProtection,
-                    blockHyperlinkAuditing,
+                    blockHyperlinkAuditing: updateHyperlinkAuditing,
                     whitelist,
                     updateBadgeOnOff
                 };
@@ -236,7 +237,7 @@ class PanelMenuController {
                 this.updateBadgeOnOffToggleUI();
             }
     
-            if (Object.hasOwn(changes, 'blockHyperlinkAuditing')) { // Keep consistent property name
+            if (Object.hasOwn(changes, 'blockHyperlinkAuditing')) {
                 this.state.blockHyperlinkAuditing = changes.blockHyperlinkAuditing.newValue;
                 this.updateHyperlinkAuditingToggleUI();
             }
@@ -310,54 +311,54 @@ class PanelMenuController {
             return confirm(chrome.i18n.getMessage('confirmationMessages_importWhitelist', [count]));
         }
     
-        renderWhitelist(searchTerm = '') {
-            if (!this.domElements.whitelistContainer) return;
-    
-            const container = this.domElements.whitelistContainer;
-            container.innerHTML = '';
-    
-            const filteredDomains = searchTerm
-                ? this.state.whitelist.filter(domain =>
-                    domain.toLowerCase().includes(searchTerm.toLowerCase())
-                )
-                : this.state.whitelist;
-    
-            if (filteredDomains.length === 0) {
-                const noResults = document.createElement('div');
-                noResults.className = 'no-results';
-                noResults.textContent = searchTerm
-                    ? chrome.i18n.getMessage('noDomainsFound', [searchTerm])
-                    : chrome.i18n.getMessage('noDomainsWhitelisted');
-                container.appendChild(noResults);
-                return;
-            }
-    
-            filteredDomains.forEach(domain => {
-                const item = document.createElement('div');
-                item.className = 'domain-item';
-    
-                const header = document.createElement('div');
-                header.className = 'domain-header';
-    
-                const text = document.createElement('span');
-                text.className = 'domain-text';
-                text.textContent = punycode.toASCII(domain);
-    
-                const controls = document.createElement('div');
-                controls.className = 'rule-controls';
-    
-                const removeBtn = document.createElement('button');
-                removeBtn.className = 'remove-rule-btn';
-                removeBtn.textContent = chrome.i18n.getMessage('removeButton');
-                removeBtn.onclick = () => this.handleWhitelistChange(domain, false);
-    
-                controls.appendChild(removeBtn);
-                header.appendChild(text);
-                header.appendChild(controls);
-                item.appendChild(header);
-                container.appendChild(item);
-            });
-        }
+       renderWhitelist(searchTerm = '') {
+    if (!this.domElements.whitelistContainer) return;
+
+    const container = this.domElements.whitelistContainer;
+    container.innerHTML = '';
+
+    const filteredDomains = searchTerm
+        ? this.state.whitelist.filter(domain =>
+            domain.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        : this.state.whitelist;
+
+    if (filteredDomains.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.className = 'no-results';
+        noResults.textContent = searchTerm
+            ? chrome.i18n.getMessage('noDomainsFound', [searchTerm])
+            : chrome.i18n.getMessage('noDomainsWhitelisted');
+        container.appendChild(noResults);
+        return;
+    }
+
+    filteredDomains.forEach(domain => {
+        const item = document.createElement('div');
+        item.className = 'domain-item';
+
+        // Create text element directly in the domain-item
+        const text = document.createElement('span');
+        text.className = 'domain-text';
+        const asciiDomain = punycode.toASCII(domain);
+        const unicodeDomain = punycode.toUnicode(domain);
+        
+        // Show both versions if they differ
+        text.textContent = asciiDomain !== unicodeDomain ? 
+            `${unicodeDomain} (${asciiDomain})` : domain;
+
+        // Create button directly in the domain-item
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'remove-rule-btn';
+        removeBtn.textContent = chrome.i18n.getMessage('removeButton');
+        removeBtn.onclick = () => this.handleWhitelistChange(domain, false);
+
+        // Add text and button directly to the item
+        item.appendChild(text);
+        item.appendChild(removeBtn);
+        container.appendChild(item);
+    });
+}
         
     async togglePurifyUrlsSettings() {
         try {
@@ -408,10 +409,11 @@ class PanelMenuController {
 
     async toggleHyperlinkAuditing() {
         try {
-            const newStatus = !this.state.blockHyperlinkAuditing;
+            const { blockHyperlinkAuditing = false } = await chrome.storage.local.get('blockHyperlinkAuditing');
+            const newStatus = !blockHyperlinkAuditing;
             
             await chrome.storage.local.set({
-                blockHyperlinkAuditing: newStatus // Keep consistent with storage
+                blockHyperlinkAuditing: newStatus
             });
             
             this.state.blockHyperlinkAuditing = newStatus;
@@ -467,8 +469,13 @@ class PanelMenuController {
         const isWhitelisted = this.state.whitelist.includes(domain);
         if (this.domElements.addCurrentButton) {
             const messageId = isWhitelisted ? 'removeDomainFromWhitelist' : 'addDomainToWhitelist';
-            const displayDomain = punycode.toUnicode(domain);
-            this.domElements.addCurrentButton.textContent = chrome.i18n.getMessage(messageId, [displayDomain]);
+            const asciiDomain = punycode.toASCII(domain);
+            const unicodeDomain = punycode.toUnicode(domain);
+            const displayDomain = asciiDomain !== unicodeDomain ? 
+                `${unicodeDomain} (${asciiDomain})` : domain;
+                
+            this.domElements.addCurrentButton.textContent = 
+                chrome.i18n.getMessage(messageId, [displayDomain]);
             this.domElements.addCurrentButton.style.display = 'block';
         }
      }
@@ -485,9 +492,13 @@ class PanelMenuController {
         }
         
         try {
-            const unicodeDomain = punycode.toUnicode(domain);
-            if (!this.state.whitelist.includes(unicodeDomain)) {
-                await this.handleWhitelistChange(unicodeDomain, true);
+            const asciiDomain = punycode.toASCII(domain);
+            const exists = this.state.whitelist.some(d => 
+                punycode.toASCII(d) === asciiDomain
+            );
+
+            if (!exists) {
+                await this.handleWhitelistChange(asciiDomain, true);
             } else {
                 alert(chrome.i18n.getMessage('errorMessages_domainExists'));
             }
@@ -502,12 +513,15 @@ class PanelMenuController {
 
     async handleWhitelistChange(domain, shouldAdd) {
         try {
-            const unicodeDomain = punycode.toUnicode(domain);
+            const asciiDomain = punycode.toASCII(domain);
             let newWhitelist;
+            
             if (shouldAdd) {
-                newWhitelist = [...this.state.whitelist, unicodeDomain];
+                newWhitelist = [...this.state.whitelist, asciiDomain];
             } else {
-                newWhitelist = this.state.whitelist.filter(d => d !== unicodeDomain);
+                newWhitelist = this.state.whitelist.filter(d => 
+                    punycode.toASCII(d) !== asciiDomain
+                );
             }
             
             await chrome.storage.local.set({ whitelist: newWhitelist });
@@ -544,9 +558,11 @@ class PanelMenuController {
             return;
         }
 
-        const unicodeDomain = punycode.toUnicode(domain);
-        const isWhitelisted = this.state.whitelist.includes(unicodeDomain);
-        await this.handleWhitelistChange(unicodeDomain, !isWhitelisted);
+        const asciiDomain = punycode.toASCII(domain);
+        const isWhitelisted = this.state.whitelist.some(d => 
+            punycode.toASCII(d) === asciiDomain
+        );
+        await this.handleWhitelistChange(asciiDomain, !isWhitelisted);
         this.updateDynamicWhitelistButton();
     }
 
@@ -557,9 +573,11 @@ class PanelMenuController {
             return;
         }
 
-        const unicodeDomain = punycode.toUnicode(domain);
-        const isWhitelisted = this.state.whitelist.includes(unicodeDomain);
-        await this.handleWhitelistChange(unicodeDomain, !isWhitelisted);
+        const asciiDomain = punycode.toASCII(domain);
+        const isWhitelisted = this.state.whitelist.some(d => 
+            punycode.toASCII(d) === asciiDomain
+        );
+        await this.handleWhitelistChange(asciiDomain, !isWhitelisted);
         this.addCurrentDomain();
     }
     
@@ -572,11 +590,19 @@ class PanelMenuController {
             return;
         }
         
-        const isWhitelisted = this.state.whitelist.includes(domain);
+        const asciiDomain = punycode.toASCII(domain);
+        const isWhitelisted = this.state.whitelist.some(d => 
+            punycode.toASCII(d) === asciiDomain
+        );
+
         if (this.domElements.dynamicWhitelistButton) {
             const messageId = isWhitelisted ? 'removeDomainFromWhitelist' : 'addDomainToWhitelist';
-            const displayDomain = punycode.toASCII(domain); // Convert to ASCII for display
-            this.domElements.dynamicWhitelistButton.textContent = chrome.i18n.getMessage(messageId, [displayDomain]);
+            const unicodeDomain = punycode.toUnicode(domain);
+            const displayDomain = asciiDomain !== unicodeDomain ? 
+                `${unicodeDomain} (${asciiDomain})` : domain;
+            
+            this.domElements.dynamicWhitelistButton.textContent = 
+                chrome.i18n.getMessage(messageId, [displayDomain]);
             this.domElements.dynamicWhitelistButton.style.display = 'block';
         }
     }
@@ -661,9 +687,10 @@ class PanelMenuController {
             return;
         }
      
-        // Keep track of blockHyperlinkAuditing state
+        // Keep track of blockHyperlinkAuditing state regardless of extension state
         this.domElements.hyperlinkAuditingToggle.classList.toggle('active', this.state.blockHyperlinkAuditing);
      
+        // Update UI text based on combined states
         const isExtensionEnabled = this.state.isEnabled; 
         const isFeatureActive = this.state.blockHyperlinkAuditing;
         const isFeatureInactive = !isFeatureActive;
@@ -696,40 +723,6 @@ class PanelMenuController {
             if (tab) {
                 tab.classList.toggle('active', key === tabId);
             }
-        });
-    }
-    
-    renderWhitelist() {
-        if (!this.domElements.whitelistContainer) return;
-        
-        const container = this.domElements.whitelistContainer;
-        container.innerHTML = '';
-        
-        if (this.state.whitelist.length === 0) {
-            const emptyMessage = document.createElement('div');
-            emptyMessage.className = 'empty-message';
-            emptyMessage.textContent = chrome.i18n.getMessage('noDomainsWhitelisted');
-            container.appendChild(emptyMessage);
-            return;
-        }
-        
-        this.state.whitelist.forEach(domain => {
-            if (!domain) return; // Skip invalid domains
-            
-            const item = document.createElement('div');
-            item.className = 'domain-item';
-            
-            const text = document.createElement('span');
-            text.textContent = punycode.toASCII(domain);
-            
-            const removeButton = document.createElement('button');
-            removeButton.className = 'remove-rule-btn';
-            removeButton.textContent = chrome.i18n.getMessage('removeButton');
-            removeButton.onclick = () => this.handleWhitelistChange(domain, false);
-            
-            item.appendChild(text);
-            item.appendChild(removeButton);
-            container.appendChild(item);
         });
     }
 

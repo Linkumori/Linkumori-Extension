@@ -325,8 +325,8 @@ body {
 
 .domain-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: flex-start;
     padding: 8px 12px;
     background: var(--bg-secondary);
     border-radius: 4px;
@@ -335,6 +335,30 @@ body {
     color: var(--text-secondary);
     box-shadow: 0 1px 2px var(--shadow-color);
     animation: fadeIn 0.2s ease-out;
+    gap: 12px; /* Consistent spacing between button and text */
+}
+
+/* Specific styles for the remove button */
+.domain-item .remove-rule-btn {
+    font-family: "Liberation Serif";
+    font-size: 12px;
+    background: var(--button-danger);
+    padding: 4px 8px;
+    min-width: 60px;
+    white-space: nowrap;
+    border-radius: 4px;
+    color: var(--text-primary);
+    cursor: pointer;
+    flex-shrink: 0; /* Prevents button from shrinking */
+}
+
+/* Specific styles for the domain text */
+.domain-text {
+    flex: 1;
+    word-break: break-all;
+    line-height: 1.4; /* Improves text readability */
+    display: flex;
+    align-items: center; /* Vertically centers the text */
 }
 
 @keyframes fadeIn {
@@ -363,17 +387,6 @@ button {
 
 button:hover {
     background: var(--button-hover);
-}
-
-.domain-item button {
-    background: var(--button-danger);
-    font-family: "Liberation Serif";
-    padding: 4px 8px;
-    font-size: 12px;
-}
-
-.domain-item button:hover {
-    background: var(--button-danger-hover);
 }
 
 #licenseContent {
@@ -420,4 +433,21 @@ button:focus {
 /* Add smooth transitions for theme changes */
 body * {
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.no-results {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 16px;
+    font-size: 13px;
+}
+
+.domain-item button {
+    font-family: "Liberation Serif";
+    font-size: 12px;
+    background: var(--button-danger);
+    padding: 4px 8px;
+    min-width: 60px; /* Ensures consistent button width */
+    white-space: nowrap; /* Prevents button text from wrapping */
+    margin-right: 8px;  /* Add some spacing between button and text */
 }

@@ -630,46 +630,54 @@ class OptionsMenuController {
         }
      }
 
-    async handleAddDomain() {
-        const domain = this.domElements.domainInput?.value.trim().toLowerCase();
-        
-        if (!domain) return;
-        
-        const domainRegex = /^[a-z0-9\u00A1-\uFFFF]+([\-\.]{1}[a-z0-9\u00A1-\uFFFF]+)*\.[a-z\u00A1-\uFFFF]{2,}$/;
-        if (!domainRegex.test(domain)) {
-            alert(chrome.i18n.getMessage('errorMessages_invalidDomain'));
-            return;
-        }
-        
+   async handleAddDomain() {
+           const domain = this.domElements.domainInput?.value.trim().toLowerCase();
+           
+           if (!domain) return;
+           
+           const domainRegex = /^[a-z0-9\u00A1-\uFFFF]+([\-\.]{1}[a-z0-9\u00A1-\uFFFF]+)*\.[a-z\u00A1-\uFFFF]{2,}$/;
+           if (!domainRegex.test(domain)) {
+               alert(chrome.i18n.getMessage('errorMessages_invalidDomain'));
+               return;
+           }
+           
+           try {
+               const asciiDomain = punycode.toASCII(domain);
+               const exists = this.state.whitelist.some(d => 
+                   punycode.toASCII(d) === asciiDomain
+               );
+   
+               if (!exists) {
+                   await this.handleWhitelistChange(asciiDomain, true);
+               } else {
+                   alert(chrome.i18n.getMessage('errorMessages_domainExists'));
+               }
+               
+               if (this.domElements.domainInput) {
+                   this.domElements.domainInput.value = '';
+               }
+           } catch (error) {
+               console.error('Failed to add domain:', error);
+           }
+       }
+   
+     async handleWhitelistChange(domain, shouldAdd) {
         try {
-            const unicodeDomain = punycode.toUnicode(domain);
-            if (!this.state.whitelist.includes(unicodeDomain)) {
-                await this.handleWhitelistChange(unicodeDomain, true);
-            } else {
-                alert(chrome.i18n.getMessage('errorMessages_domainExists'));
-            }
-            
-            if (this.domElements.domainInput) {
-                this.domElements.domainInput.value = '';
-            }
-        } catch (error) {
-            console.error('Failed to add domain:', error);
-        }
-    }
-
-    async handleWhitelistChange(domain, shouldAdd) {
-        try {
-            const unicodeDomain = punycode.toUnicode(domain);
+            const asciiDomain = punycode.toASCII(domain);
             let newWhitelist;
+            
             if (shouldAdd) {
-                newWhitelist = [...this.state.whitelist, unicodeDomain];
+                newWhitelist = [...this.state.whitelist, asciiDomain];
             } else {
-                newWhitelist = this.state.whitelist.filter(d => d !== unicodeDomain);
+                newWhitelist = this.state.whitelist.filter(d => 
+                    punycode.toASCII(d) !== asciiDomain
+                );
             }
             
             await chrome.storage.local.set({ whitelist: newWhitelist });
             this.state.whitelist = newWhitelist;
             this.renderWhitelist();
+            await this.updateAllDynamicButtons();
         } catch (error) {
             console.error('Failed to update whitelist:', error);
         }
@@ -885,7 +893,12 @@ class OptionsMenuController {
 
             const text = document.createElement('span');
             text.className = 'domain-text';
-            text.textContent = punycode.toASCII(domain);
+            const asciiDomain = punycode.toASCII(domain);
+                   const unicodeDomain = punycode.toUnicode(domain);
+                   
+                   // Show both versions if they differ
+                   text.textContent = asciiDomain !== unicodeDomain ? 
+                       `${unicodeDomain} (${asciiDomain})` : domain;
 
             const controls = document.createElement('div');
             controls.className = 'rule-controls';
