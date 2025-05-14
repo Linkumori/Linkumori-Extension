@@ -431,7 +431,6 @@ filteredRules.forEach(rule => {
   
   // Helper functions
   createAllowRule(domain, ruleId) {
-    const punycodeDomain = punycode.toASCII(domain);
     return [{
       id: ruleId,
       priority: 1,
@@ -439,7 +438,7 @@ filteredRules.forEach(rule => {
         type: "allow"
       },
       condition: {
-        requestDomains: [punycodeDomain],
+        requestDomains: [domain],
         resourceTypes: [
           "main_frame",
           "sub_frame",
@@ -455,7 +454,7 @@ filteredRules.forEach(rule => {
         type: "allow"
       },
       condition: {
-        initiatorDomains: [punycodeDomain],
+        initiatorDomains: [domain],
         resourceTypes: [
           "main_frame",
           "sub_frame",
