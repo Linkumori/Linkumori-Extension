@@ -690,7 +690,6 @@
     "action": { "type": "allow" },
     "condition": {
       "initiatorDomains": ["github.com"],
-      "urlFilter": "||windows.net",
       "resourceTypes": [ "main_frame","sub_frame","xmlhttprequest"]
     }    },
 
