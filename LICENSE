@@ -721,7 +721,6 @@ The following code in the linkurmori source code files are completely under the 
 "rules/exception/rules18.json",
 "rules/redirect/rules19.json",
 "rules/redirect/rules20.json",
-"rules/redirect/rules21.json",
 "/_locales/en/messages.json"
 "_locales/zh_CN/messages.json"
 "_locales/de/messages.json"
@@ -2638,20 +2637,28 @@ Exhibit B - "Incompatible With Secondary Licenses" Notice
 
 
 
-This project uses the two Screwdriver Wrench icons and two cog icons from fontawesome.com, which is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+6) Icon Attribution
 
-Source: (fontawesome.com)
-Copyright: © 2024 Fonticons, Inc.
-Location four icons in Linkumori source:
-"/panel/advanced-tools-dark.svg"
-"/panel/advanced-tools-light.svg"
-"/panel/cog-light.svg"
-"/panel/cog-dark.svg"
+This project uses the Screwdriver Wrench and cog icons from fontawesome.com, which are licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
 
-View Original Source of advanced-tools-dark.svg: https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23ffffff&sc=%23FFD43B%2F
-View Original Source of Sourceadvanced-tools-light.svg: https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23334155&sc=%23FFD43B%2F
-View Original Source of cog-dark.svg https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23ffffff&sc=%23ffffff
-View Original Source of cog-light.svg https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23334155&sc=%23334155
+Source: fontawesome.com  
+Copyright: © 2024 Fonticons, Inc.  
+The following icons are used in the Linkumori source code:  
+"/panel/advanced-tools-dark.svg"  
+"/panel/advanced-tools-light.svg"  
+"/panel/cog-light.svg"  
+"/panel/cog-dark.svg"  
+
+Please note that some icons from fontawesome.com are Copyright © 2025 Fonticons, Inc. and are also licensed under CC BY 4.0:  
+"/panel/bug-light.svg"  
+"/panel/bug-dark.svg"  
+
+View original source of advanced-tools-dark.svg: https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23ffffff&sc=%23FFD43B%2F  
+View original source of advanced-tools-light.svg: https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23334155&sc=%23FFD43B%2F  
+View original source of cog-dark.svg: https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23ffffff&sc=%23ffffff  
+View original source of cog-light.svg: https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23334155&sc=%23334155  
+View original source of bug-light.svg: https://fontawesome.com/icons/bug?f=classic&s=solid&pc=%23334155&sc=%23334155  
+View original source of bug-dark.svg: https://fontawesome.com/icons/bug?f=classic&s=solid&pc=%23ffffff&sc=%23ffffff  
 full text license:
 Attribution 4.0 International
 

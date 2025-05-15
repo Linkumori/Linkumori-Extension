@@ -451,3 +451,38 @@ body * {
     white-space: nowrap; /* Prevents button text from wrapping */
     margin-right: 8px;  /* Add some spacing between button and text */
 }
+/* Add this after the .advanced-tools-btn styles */
+.report-btn {
+    background: var(--bg-primary-theme);
+    padding: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+    margin-right: 4px;
+}
+
+.report-btn:hover {
+    background: var(--bg-primary-theme);
+}
+
+.report-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--bg-primary-theme);
+}
+
+/* Add this with the other icon visibility rules */
+.report-btn .light-icon,
+.report-btn .dark-icon {
+    display: none;
+}
+
+:root[data-theme="light"] .report-btn .light-icon {
+    display: block;
+}
+
+:root:not([data-theme="light"]) .report-btn .dark-icon {
+    display: block;
+}

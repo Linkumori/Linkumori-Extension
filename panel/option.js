@@ -661,27 +661,29 @@ class OptionsMenuController {
            }
        }
    
-     async handleWhitelistChange(domain, shouldAdd) {
-        try {
-            const asciiDomain = punycode.toASCII(domain);
-            let newWhitelist;
-            
-            if (shouldAdd) {
-                newWhitelist = [...this.state.whitelist, asciiDomain];
-            } else {
-                newWhitelist = this.state.whitelist.filter(d => 
-                    punycode.toASCII(d) !== asciiDomain
-                );
-            }
-            
-            await chrome.storage.local.set({ whitelist: newWhitelist });
-            this.state.whitelist = newWhitelist;
-            this.renderWhitelist();
-            await this.updateAllDynamicButtons();
-        } catch (error) {
-            console.error('Failed to update whitelist:', error);
+     // Remove reference to updateAllDynamicButtons in handleWhitelistChange method
+async handleWhitelistChange(domain, shouldAdd) {
+    try {
+        const asciiDomain = punycode.toASCII(domain);
+        let newWhitelist;
+        
+        if (shouldAdd) {
+            newWhitelist = [...this.state.whitelist, asciiDomain];
+        } else {
+            newWhitelist = this.state.whitelist.filter(d => 
+                punycode.toASCII(d) !== asciiDomain
+            );
         }
+        
+        await chrome.storage.local.set({ whitelist: newWhitelist });
+        this.state.whitelist = newWhitelist;
+        this.renderWhitelist();
+        // Remove this line:
+        // await this.updateAllDynamicButtons();
+    } catch (error) {
+        console.error('Failed to update whitelist:', error);
     }
+}
     async setupURLExtractor() {
         const urlInput = document.getElementById('urlInput');
         const getParamsButton = document.getElementById('getParameters');
@@ -1996,7 +1998,12 @@ document.getElementById('sun.svg')?.addEventListener('click', () => {
 document.getElementById('moon.svg')?.addEventListener('click', () => {
     window.open('https://github.com/feathericons/feather/blob/main/icons/moon.svg', '_blank');
 });
-
+document.getElementById('bug-light.svg')?.addEventListener('click', () => {
+    window.open('https://fontawesome.com/icons/bug?f=classic&s=solid&pc=%23334155&sc=%23334155');
+});
+document.getElementById('bug-dark.svg')?.addEventListener('click', () => {
+    window.open('https://fontawesome.com/icons/bug?f=classic&s=solid&pc=%23ffffff&sc=%23ffffff');
+});
 // Initialize the controller
 const controller = new OptionsMenuController();
 

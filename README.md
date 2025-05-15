@@ -194,7 +194,6 @@ The following code in the linkurmori source code files are completely under the 
 - `/rules/rules17.json`
 - `rules/redirect/rules19.json`
 - `rules/redirect/rules20.json`
-- `rules/redirect/rules21.json`
 -`_locales/zh_CN/messages.json`
 - `rules/exception/rules18.json`
 - `/_locales/en/messages.json`
@@ -309,21 +308,27 @@ Copyright:
 
 ### Font Awesome Icons
 
-This project uses two Screwdriver Wrench icons and two cog icons from Font Awesome, licensed under CC BY 4.0.
+This project uses the Screwdriver Wrench and cog icons from [fontawesome.com](https://fontawesome.com), which are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
-Icon locations in source:
+**Copyright:** © 2024 Fonticons, Inc.
+
+The following icons are used in the Linkumori source code:
 - `/panel/advanced-tools-dark.svg`
 - `/panel/advanced-tools-light.svg`
 - `/panel/cog-light.svg`
 - `/panel/cog-dark.svg`
 
-Original sources:
-- Advanced tools (dark): https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23ffffff&sc=%23FFD43B%2F
-- Advanced tools (light): https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23334155&sc=%23FFD43B%2F
-- Cog (dark): https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23ffffff&sc=%23ffffff
-- Cog (light): https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23334155&sc=%23334155
+Additionally, the following icons from Font Awesome are also used and are licensed under CC BY 4.0:
+- `/panel/bug-light.svg`
+- `/panel/bug-dark.svg`
 
-Copyright: © 2024 Fonticons, Inc.
+**Original sources for these icons:**
+- [advanced-tools-dark.svg](https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23ffffff&sc=%23FFD43B%2F)
+- [advanced-tools-light.svg](https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23334155&sc=%23FFD43B%2F)
+- [cog-dark.svg](https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23ffffff&sc=%23ffffff)
+- [cog-light.svg](https://fontawesome.com/v5/icons/cog?f=classic&s=solid&sz=lg&pc=%23334155&sc=%23334155)
+- [bug-light.svg](https://fontawesome.com/icons/bug?f=classic&s=solid&pc=%23334155&sc=%23334155)
+- [bug-dark.svg](https://fontawesome.com/icons/bug?f=classic&s=solid&pc=%23ffffff&sc=%23ffffff)
 
 ### Mozilla Public License 2.0
 

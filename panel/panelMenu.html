@@ -55,19 +55,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </div>
         </div>
         <div class="header-buttons">
-            <button id="advancedTools" class="advanced-tools-btn" aria-label="Advanced Tools">
-              <img src="advanced-tools-light.svg" width="16" height="16" alt="Advanced Tools Light" class="light-icon" />
-              <img src="advanced-tools-dark.svg" width="16" height="16" alt="Advanced Tools Dark" class="dark-icon" />
-            </button>
-            <button id="settings" class="setting-tools-btn" aria-label="Setting Tools">
-              <img src="cog-light.svg"  width="18" height="18" class="setting-light-icon"  alt="Settings-light">
-              <img src="cog-dark.svg"  width="18" height="18" class="setting-dark-icon"  alt="Settings-dark">
-            </button>
-            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
-              <img src="sun.svg" alt="sun icon" width="16" height="16" class="sun-icon">
-              <img src="moon.svg" alt="moon icon" width="16" height="16" class="moon-icon">
-            </button>
-        </div>
+    <button id="reportButton" class="report-btn" aria-label="Report Issue">
+        <img src="bug-light.svg" width="16" height="16" alt="Report Bug Light" class="light-icon" />
+        <img src="bug-dark.svg" width="16" height="16" alt="Report Bug Dark" class="dark-icon" />
+    </button>
+    <button id="advancedTools" class="advanced-tools-btn" aria-label="Advanced Tools">
+        <img src="advanced-tools-light.svg" width="16" height="16" alt="Advanced Tools Light" class="light-icon" />
+        <img src="advanced-tools-dark.svg" width="16" height="16" alt="Advanced Tools Dark" class="dark-icon" />
+    </button>
+    <button id="settings" class="setting-tools-btn" aria-label="Setting Tools">
+        <img src="cog-light.svg"  width="18" height="18" class="setting-light-icon"  alt="Settings-light">
+        <img src="cog-dark.svg"  width="18" height="18" class="setting-dark-icon"  alt="Settings-dark">
+    </button>
+    <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
+        <img src="sun.svg" alt="sun icon" width="16" height="16" class="sun-icon">
+        <img src="moon.svg" alt="moon icon" width="16" height="16" class="moon-icon">
+    </button>
+</div>
     </header>
     
     <nav class="tab-container">
@@ -866,7 +870,6 @@ Public License instead of this License.  But first, please read
 <li>rules/exception/rules18.json</li>
 <li>"rules/redirect/rules19.json"</li>
 <li>"rules/redirect/rules20.json"</li>
-<li>"rules/redirect/rules21.json"</li>
 <li>/_locales/en/messages.json</li>
 <li>common/rules.js</li>
 <li>"_locales/zh_CN/messages.json"</li>
@@ -2524,22 +2527,26 @@ Public License instead of this License.  But first, please read
 <hr>
 
 <p style="color: var(--text-secondary); margin: 20px 0 12px 0;">6) Icon Attribution</p>
-<p style="color: var(--text-secondary);">This project uses the  Screwdriver Wrench icons and  cog icons from fontawesome.com, which is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).</p>
+<p style="color: var(--text-secondary);">This project uses the Screwdriver Wrench and cog icons from fontawesome.com, which are licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).</p>
 <ul style="color: var(--text-secondary); margin-bottom: 12px; padding-left: 20px;">
-<li>Source: (fontawesome.com)</li>
+<li>Source: fontawesome.com</li>
 <li>Copyright: © 2024 Fonticons, Inc.</li>
-<li>Location four icons in Linkumori source:</li>
+<li>The following icons are used in the Linkumori source code:</li>
 <li>"/panel/advanced-tools-dark.svg"</li>
 <li>"/panel/advanced-tools-light.svg"</li>
 <li>"/panel/cog-light.svg"</li>
 <li>"/panel/cog-dark.svg"</li>
-
+<li>Please note that some icons from fontawesome.com are Copyright © 2025 Fonticons, Inc. and are also licensed under CC BY 4.0:</li>
+<li>"/panel/bug-light.svg"</li>
+<li>"/panel/bug-dark.svg"</li>
 </ul>
 
 <button id="fontAwesomeIconButton" class="domain-item button" style="width: calc(100% - 24px); margin: -8px auto 12px auto; display: block; background: var(--button-primary); color: var(--text-primary); font-family: 'Liberation Serif';">View Original Source of advanced-tools-dark.svg</button>
 <button id="fontAwesomeIconButton1" class="domain-item button" style="width: calc(100% - 24px); margin: -8px auto 12px auto; display: block; background: var(--button-primary); color: var(--text-primary); font-family: 'Liberation Serif';">View Original Source of Sourceadvanced-tools-light.svg</button>
 <button id="cog-light.svg" class="domain-item button" style="width: calc(100% - 24px); margin: -8px auto 12px auto; display: block; background: var(--button-primary); color: var(--text-primary); font-family: 'Liberation Serif';">View Original Source of cog-light.svg</button>
 <button id="cog-dark.svg" class="domain-item button" style="width: calc(100% - 24px); margin: -8px auto 12px auto; display: block; background: var(--button-primary); color: var(--text-primary); font-family: 'Liberation Serif';">View Original Source of cog-dark.svg</button>
+<button id="bug-light.svg" class="domain-item button" style="width: calc(100% - 24px); margin: -8px auto 12px auto; display: block; background: var(--button-primary); color: var(--text-primary); font-family: 'Liberation Serif';">View Original Source of bug-light.svg</button> 
+<button id="bug-dark.svg" class="domain-item button" style="width: calc(100% - 24px); margin: -8px auto 12px auto; display: block; background: var(--button-primary); color: var(--text-primary); font-family: 'Liberation Serif';">View Original Source of bug-dark.svg</button>
 <li>Full text of license</li>
 
 <h1>Attribution 4.0 International</h1>
@@ -4155,7 +4162,7 @@ may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 &lt;<a href="https://www.gnu.org/licenses/why-not-lgpl.html" rel="noopener">https://www.gnu.org/licenses/why-not-lgpl.html</a>&gt;.</p>
-  
+ 
 <script type="module" src="panelMenu.js"></script>
 </body>
 </html>

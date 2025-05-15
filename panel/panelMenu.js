@@ -249,23 +249,26 @@ class PanelMenuController {
             }
         }
         async exportWhitelist() {
-            try {
-                const blob = new Blob([JSON.stringify(this.state.whitelist, null, 2)], { 
-                    type: 'application/json' 
-                });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'linkumori-whitelist.json';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            } catch (error) {
-                console.error('Failed to export whitelist:', error);
-                alert('Failed to export whitelist: ' + error.message);
+             chrome.storage.local.get(['whitelist'], function(result) {
+        const whitelist = result.whitelist || [];
+        const blob = new Blob([JSON.stringify(whitelist, null, 2)], {type: 'application/json'});
+        
+        // Use Chrome's downloads API instead of DOM manipulation
+        chrome.downloads.download({
+            url: URL.createObjectURL(blob),
+            filename: 'linkumori-whitelist.json',
+            saveAs: true
+        }, function(downloadId) {
+            if (chrome.runtime.lastError) {
+                console.error('Download failed:', chrome.runtime.lastError);
+                alert('Export failed: ' + chrome.runtime.lastError.message);
             }
-        }
+            
+            // Clean up the blob URL after a delay
+            setTimeout(() => URL.revokeObjectURL(blob), 1000);
+        });
+    });
+}
     
         async importWhitelist() {
             try {
@@ -767,6 +770,12 @@ document.getElementById('sun.svg')?.addEventListener('click', () => {
 document.getElementById('moon.svg')?.addEventListener('click', () => {
     window.open('https://github.com/feathericons/feather/blob/main/icons/moon.svg', '_blank');
 });
+document.getElementById('bug-light.svg')?.addEventListener('click', () => {
+    window.open('https://fontawesome.com/icons/bug?f=classic&s=solid&pc=%23334155&sc=%23334155');
+});
+document.getElementById('bug-dark.svg')?.addEventListener('click', () => {
+    window.open('https://fontawesome.com/icons/bug?f=classic&s=solid&pc=%23ffffff&sc=%23ffffff');
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('themeToggle');
@@ -824,3 +833,30 @@ if (settingsBtn) {
 
 // Initialize the controller
 const controller = new PanelMenuController();
+
+// Add this with the other button handlers
+const reportBtn = document.getElementById('reportButton');
+if (reportBtn) {
+    reportBtn.addEventListener('click', async () => {
+        try {
+            // Get current tab URL for the report
+            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            const reportURL = new URL(chrome.runtime.getURL('panel/report.html'));
+            
+            if (tab?.url) {
+                reportURL.searchParams.set('url', tab.url);
+            }
+            
+            // Open report page in a new tab
+            chrome.tabs.create({
+                url: reportURL.toString()
+            });
+        } catch (error) {
+            console.error('Error opening report page:', error);
+        }
+    });
+}
+
+   
+
+

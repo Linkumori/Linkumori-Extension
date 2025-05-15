@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <title>Linkumori — Report Issue</title>
+    <style>
+        /* Base styles from original CSS - color scheme, etc. */
+        @font-face {
+            font-family: 'Liberation Serif';
+            src: url('../liberation-fonts/LiberationSerif-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            /* Primary Background Colors */
+            --bg-primary: #0f172a;      /* Darker slate blue for main background */
+            --bg-secondary: #1e293b;    /* Slightly lighter blue for header */
+            --bg-tertiary: #334155;     /* Even lighter blue for active states */
+            --bg-tertiary-license:#334155;
+            --bg-primary-theme:#1e293b; 
+            /* Interactive Elements */
+            --button-primary: #2563eb;  /* Bright blue for primary buttons */
+            --button-hover: #3b82f6;    /* Lighter blue for hover states */
+            --button-danger: #dc2626;   /* Red for delete/danger actions */
+            --button-danger-hover: #ef4444;
+            --logo-bg: #ffffff;          /* White in dark mode */
+            --logo-accent: #2563eb; 
+            /* Text Colors */
+            --text-primary: #f8fafc;     /* Almost white for primary text */
+            --text-primary-domain: #f8fafc;    
+            --text-secondary: #cbd5e1;  /* Slightly dimmed for secondary text */
+            --text-muted: #94a3b8;      /* More muted for less important text */
+
+            /* Border and Shadow Colors */
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.25);
+
+            /* Input and Interactive Element Colors */
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --input-border: rgba(255, 255, 255, 0.1);
+            --input-focus: #3b82f6;
+            --button-primary-toogle:rgba(255, 255, 255, 0.2);
+        }
+
+        /* Light theme */
+        :root[data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f1f5f9;
+            --bg-tertiary: #2563eb;
+            --bg-primary-theme:#f1f5f9;
+            --bg-tertiary-license:#818892;
+            --text-primary: #ffffff;
+            --text-secondary: #334155;
+            --text-primary-domain:#334155;
+            --text-muted: #64748b;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --input-bg: rgba(0, 0, 0, 0.05);
+            --input-border: rgba(0, 0, 0, 0.1);
+            --button-primary: #2563eb;
+            --button-hover: #1e40af;      /* Slightly lighter navy blue */
+            --button-danger: #dc2626;
+            --button-danger-hover: #ef4444;
+            --input-focus: #1e3a8a;
+            --logo-bg: #2563eb;          /* Navy blue background in light mode */
+            --logo-accent: #f1f5f9;
+            --button-primary-toogle: #71a7ff;
+        }
+
+        /* Basic layout styles */
+        body {
+            max-width: 700px;
+            margin: 0 auto;
+            font-family: "Liberation Serif";
+            background: var(--bg-primary);
+            transition: background-color 0.2s;
+            color: var(--text-secondary);
+            padding: 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .header {
+            background: var(--bg-secondary);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 3px var(--shadow-color);
+            position: relative;
+            justify-content: space-between;
+            border-radius: 0 0 6px 6px;
+            margin-bottom: 16px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            width: 24px;
+            height: 24px;
+        }
+
+        .header h1 {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        section {
+            padding: 16px;
+            max-width: 100%;
+        }
+
+        /* Theme Toggle Styles */
+        .theme-toggle-btn {
+            background: var(--bg-primary-theme);
+            padding: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .sun-icon, .moon-icon {
+            display: none;
+            width: 16px;
+            height: 16px;
+        }
+
+        :root[data-theme="light"] .sun-icon { display: block; }
+        :root[data-theme="light"] .moon-icon { display: none; }
+        :root:not([data-theme="light"]) .sun-icon { display: none; }
+        :root:not([data-theme="light"]) .moon-icon { display: block; }
+
+        /* Professional Form Redesign - New CSS */
+        /* Base Form Element Styling */
+        select, input[type="text"], textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--input-border);
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: "Liberation Serif";
+            background: var(--input-bg);
+            color: var(--text-primary-domain);
+            transition: all 0.2s ease;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            box-sizing: border-box; /* Ensures padding doesn't add to width */
+        }
+
+        /* Select Dropdown Styling */
+        select {
+            appearance: none; /* Remove default styling */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+            cursor: pointer;
+        }
+
+        /* Textarea specific styling */
+        textarea {
+            resize: vertical;
+            min-height: 80px; /* Reduced height */
+            max-height: 200px;
+            padding: 10px;
+            font-family: "Liberation Serif";
+            margin-top: 5px;
+            overflow-y: auto; /* Added scrolling for overflow content */
+        }
+
+        /* Focus States */
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--input-focus);
+            box-shadow: 0 0 0 1px var(--input-focus);
+        }
+
+        /* Disabled Input Styling */
+        input[type="text"]:disabled {
+            background-color: var(--input-bg);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            opacity: 0.75;
+            border-color: var(--input-border);
+        }
+
+        /* Button Styling */
+        button {
+            padding: 7px 12px;
+            background: var(--button-primary);
+            color: var(--text-primary);
+            border: none;
+            font-family: "Liberation Serif";
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background: var(--button-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Checkbox styling */
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            padding: 2px;
+        }
+
+        .checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkbox svg {
+            width: 16px;
+            height: 16px;
+            border: 1px solid var(--input-border);
+            border-radius: 3px;
+            transition: all 0.2s;
+            background: var(--input-bg);
+        }
+
+        .checkbox input:checked ~ svg {
+            background: var(--button-primary);
+            border-color: var(--button-primary);
+        }
+
+        .checkbox svg path {
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            display: none;
+        }
+
+        .checkbox input:checked ~ svg path {
+            display: block;
+        }
+
+        /* Label styling */
+        label {
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        /* Support Entry Container */
+        .supportEntry {
+            margin-bottom: 16px;
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            padding: 16px;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+
+        /* URL-related containers */
+        .url-input-container,
+        .nsfw-container {
+            margin-bottom: 12px;
+        }
+
+        /* Field groups for better organization */
+        .field-group {
+            margin-bottom: 14px;
+        }
+
+        .field-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Elegant section headers */
+        h2 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        /* Configuration section styling */
+        details {
+            margin-top: 8px;
+        }
+
+        details summary {
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 8px 0;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        details pre {
+            background: var(--bg-primary);
+            padding: 12px;
+            border-radius: 4px;
+            color: var(--text-secondary);
+            overflow-x: auto;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            margin-top: 8px;
+        }
+
+        /* Error message styling */
+        .error {
+            color: var(--button-danger);
+            padding: 10px;
+            border-radius: 4px;
+            background: rgba(220, 38, 38, 0.1);
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        /* Ensuring proper vertical alignment */
+        p {
+            margin: 0 0 10px 0;
+        }
+
+        /* Subtle horizontal rule */
+        hr {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 12px 0;
+        }
+
+        /* URL Dropdown Specific Styling */
+        .url-select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--input-border);
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: "Liberation Serif";
+            background: var(--input-bg);
+            color: var(--text-primary-domain);
+            transition: all 0.2s ease;
+            margin-bottom: 10px;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+            cursor: pointer;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .url-select:focus {
+            outline: none;
+            border-color: var(--input-focus);
+            box-shadow: 0 0 0 1px var(--input-focus);
+        }
+
+        #customUrlInput {
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        /* Consent message styling */
+        .consent-container {
+            margin: 15px 0;
+        }
+
+        .consent-text {
+            display: inline-block;
+            font-size: 12px;
+            line-height: 1.4;
+            margin-left: 5px;
+            margin-top: 1px;
+            vertical-align: top;
+        }
+
+        .consent-text a {
+            color: var(--button-primary);
+            text-decoration: none;
+        }
+
+        .consent-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Media queries for responsive design */
+        @media (max-width: 600px) {
+            section {
+                padding: 12px;
+            }
+            
+            .supportEntry {
+                padding: 14px;
+            }
+            
+            body {
+                font-size: 13px;
+            }
+        }
+     </style>
+</head>
+
+<body>
+    <section>
+        <header class="header">
+            <div class="header-content">
+                <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">             
+                    <circle cx="50" cy="50" r="45" fill="var(--logo-bg)"/>             
+                    <path d="M35 50 Q35 35, 50 35 L65 35 Q80 35, 80 50 Q80 65, 65 65 L60 65" 
+                          fill="none" 
+                          stroke="var(--logo-accent)" 
+                          stroke-width="8" 
+                          stroke-linecap="round"/>             
+                    <path d="M65 50 Q65 65, 50 65 L35 65 Q20 65, 20 50 Q20 35, 35 35 L40 35" 
+                          fill="none" 
+                          stroke="var(--logo-accent)" 
+                          stroke-width="8" 
+                          stroke-linecap="round"/>             
+                    <polygon points="75,20 78,28 86,31 78,34 75,42 72,34 64,31 72,28" 
+                             fill="var(--logo-accent)"/>         
+                </svg>
+                <h1>Linkumori — Report Issue</h1>
+            </div>
+            <div class="header-buttons">
+                <button class="theme-toggle-btn" id="themeToggle" title="Toggle theme">
+                    <img src="sun.svg" alt="sun icon" width="16" height="16" class="sun-icon">
+                    <img src="moon.svg" alt="moon icon" width="16" height="16" class="moon-icon">
+                </button>
+            </div>
+        </header>
+
+        <h2>Report Issues or Suggest Improvements</h2>
+        <p>Found an issue with URL cleaning or have a suggestion? Help us improve Linkumori by submitting a report.</p>
+        
+        <div class="supportEntry">
+            <p>Before reporting, check if your issue has already been reported:</p>
+            <button type="button" id="findExistingButton">Find Existing Issues</button>
+        </div>
+        
+        <div class="supportEntry">
+            <div class="field-group">
+                <label for="issueTypeSelect">Issue type:</label>
+                <select name="type" id="issueTypeSelect">
+                    <option value="[unknown]" selected disabled>Select issue type...</option>
+                    <option value="tracking-not-removed">Tracking parameter not removed</option>
+                    <option value="url-broken">URL broken after cleaning</option>
+                    <option value="false-positive">False positive (unnecessary cleaning)</option>
+                    <option value="performance">Performance issue</option>
+                    <option value="ui-issue">UI/Display issue</option>
+                    <option value="feature-request">Feature request</option>
+                    <option value="rule-suggestion">Rule suggestion</option>
+                </select>
+            </div>
+            
+            <!-- URL input container with dropdown -->
+            <div class="url-input-container field-group">
+                <label for="urlSelect">URL where the issue occurs:</label>
+                <select id="urlSelect" name="urlSelect" class="url-select">
+                    <!-- Options will be populated dynamically -->
+                </select>
+                
+                <div id="customUrlContainer" style="display: none; margin-top: 10px;">
+                    <input type="text" 
+                           id="customUrlInput" 
+                           name="customUrlInput" 
+                           placeholder="https://example.com">
+                </div>
+            </div>
+            
+            <!-- NSFW container -->
+            <div class="nsfw-container field-group">
+                <label class="checkbox-wrapper">
+                    <span class="input checkbox">
+                        <input id="isNSFW" type="checkbox">
+                        <svg viewBox="0 0 24 24"><path d="M1.73,12.91 8.1,19.28 22.79,4.59"/></svg>
+                    </span>
+                    <span>Page contains adult content (NSFW)</span>
+                </label>
+            </div>
+            
+            <div class="field-group">
+                <label for="additionalInfo">Additional Information:</label>
+                <textarea 
+                    id="additionalInfo" 
+                    name="additionalInfo" 
+                    rows="4" 
+                    placeholder="Please provide any additional details or comments about the issue..."></textarea>
+            </div>
+            
+            <!-- Consent checkbox -->
+            <div class="consent-container">
+                <label class="checkbox-wrapper">
+                    <span class="input checkbox">
+                        <input id="consentCheckbox" type="checkbox">
+                        <svg viewBox="0 0 24 24"><path d="M1.73,12.91 8.1,19.28 22.79,4.59"/></svg>
+                    </span>
+                    <span class="consent-text">
+                        I understand that clicking "Report on GitHub" will redirect me to GitHub with pre-filled information. No data is sent to GitHub until I submit the issue there. See <a href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement" target="_blank">GitHub's Privacy Statement</a>.
+                    </span>
+                </label>
+            </div>
+            
+            <button type="button" id="reportIssueButton" class="preferred">Report on GitHub</button>
+        </div>
+        
+        <div class="supportEntry" style="font-size: smaller;">
+            <details>
+                <summary>Configuration Information</summary>
+                <pre id="configData" style="user-select: all;"></pre>
+            </details>
+        </div>
+    </section>
+
+    <script src="report.js" type="module"></script>
+</body>
+</html>
