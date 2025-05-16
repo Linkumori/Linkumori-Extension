@@ -154,23 +154,34 @@ function getSelectedUrl() {
 // Update the updateURLSelectVisibility function
 function updateURLSelectVisibility() {
     const issueType = getIssueType();
-    const validTypes = [
+    const urlRelatedTypes = [
         'tracking-not-removed',
         'url-broken',
         'false-positive'
     ];
     
+    const nonUrlTypes = [
+        'performance',
+        'ui-issue',
+        'feature-request',
+        'rule-suggestion'
+    ];
+    
     const urlContainer = document.querySelector('.url-input-container');
     const nsfwContainer = document.querySelector('.nsfw-container');
     
-    if (validTypes.includes(issueType)) {
-        // For URL-related issue types, show URL options
+    if (urlRelatedTypes.includes(issueType)) {
+        // For URL-related issue types, show URL options and NSFW checkbox
         urlContainer.style.display = 'block';
         nsfwContainer.style.display = 'block';
-    } else {
-        // For other issue types, hide URL-related fields
+    } else if (nonUrlTypes.includes(issueType)) {
+        // For non-URL related issues, hide both URL input and NSFW checkbox
         urlContainer.style.display = 'none';
         nsfwContainer.style.display = 'none';
+        // Reset NSFW checkbox when switching to non-URL issues
+        if (document.getElementById('isNSFW')) {
+            document.getElementById('isNSFW').checked = false;
+        }
     }
 }
 
@@ -468,13 +479,12 @@ async function reportIssue() {
             '',
             additionalInfo ? `## Additional Comments\n${additionalInfo}` : '',
             '',
-            '## Configuration Information',
-            $('#configData').textContent,
+            '## Consent',
+            `- [x] ${chrome.i18n.getMessage('consentMessage')}`,
             '',
             '## Current Settings',
             'The following settings were active when this issue occurred:',
             await getConfigData(),
-            '```'
         );
         
         const body = bodyParts.filter(Boolean).join('\n');
