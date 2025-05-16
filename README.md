@@ -194,11 +194,11 @@ The following code in the linkurmori source code files are completely under the 
 - `/rules/rules17.json`
 - `rules/redirect/rules19.json`
 - `rules/redirect/rules20.json`
--`_locales/zh_CN/messages.json`
+- `_locales/zh_CN/messages.json`
 - `rules/exception/rules18.json`
-- `/_locales/en/messages.json`
-- `/panel/first-install.html`
-- `/panel/first-install.js`
+- `_locales/en/messages.json`
+- `panel/first-install.html`
+- `panel/first-install.js`
 - `common/rules.js`
 - `_locales/de/messages.json`
 - `_locales/fr/messages.json`
@@ -206,11 +206,11 @@ The following code in the linkurmori source code files are completely under the 
 - `panel/option.js`
 - `panel/cleanurls-tools.html`
 - `panel/cleanurls-tools.js`
-- `/panel/panelMenu.html`
-- `/panel/panelMenu.js`
+- `panel/panelMenu.html`
+- `panel/panelMenu.js`
 - `lib/Anti-history-api.js`
-- `/panel/style.css`
-- `/Linkumori-Artifact/Artifact.json`
+- `panel/style.css`
+- `Linkumori-Artifact/Artifact.json`
 - `icons/default/icon48.png`
 - `icons/default/icon96.png`
 - `icons/default/icon128.png`
@@ -226,6 +226,8 @@ The following code in the linkurmori source code files are completely under the 
 - `icons/dark/icon48.png`
 - `icons/dark/icon96.png`
 - `icons/dark/icon128.png`
+- `panel/report.html`
+- `panel/report.js`
 
 Copyright (c) 2024 Subham Mahesh
 
