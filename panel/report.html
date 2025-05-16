@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark" />
-    <title data-i18n="reportIssueTitle">Linkumori — Report Issue</title>
+    <title data-i18n="reportIssueTitle"></title>
     <style>
         /* Base styles from original CSS - color scheme, etc. */
         @font-face {
@@ -456,7 +456,7 @@
                     <polygon points="75,20 78,28 86,31 78,34 75,42 72,34 64,31 72,28" 
                              fill="var(--logo-accent)"/>         
                 </svg>
-                <h1 data-i18n="reportIssueTitle">Linkumori — Report Issue</h1>
+                <h1 data-i18n="reportIssueTitle"></h1>
             </div>
             <div class="header-buttons">
                 <button class="theme-toggle-btn" id="themeToggle" title="Toggle theme">
@@ -466,32 +466,32 @@
             </div>
         </header>
 
-        <h2 data-i18n="reportIssueHeader">Report Issues or Suggest Improvements</h2>
-        <p data-i18n="reportIssueDescription">Found an issue with URL cleaning or have a suggestion? Help us improve Linkumori by submitting a report.</p>
+        <h2 data-i18n="reportIssueHeader"></h2>
+        <p data-i18n="reportIssueDescription"></p>
         
         <div class="supportEntry">
-            <p data-i18n="beforeReporting">Before reporting, check if your issue has already been reported:</p>
-            <button type="button" id="findExistingButton" data-i18n="findExistingButton">Find Existing Issues</button>
+            <p data-i18n="beforeReporting"></p>
+            <button type="button" id="findExistingButton" data-i18n="findExistingButton"></button>
         </div>
         
         <div class="supportEntry">
             <div class="field-group">
-                <label for="issueTypeSelect" data-i18n="issueTypeLabel">Issue type:</label>
+                <label for="issueTypeSelect" data-i18n="issueTypeLabel"></label>
                 <select name="type" id="issueTypeSelect">
-                    <option value="[unknown]" selected disabled data-i18n="issueTypeSelect">Select issue type...</option>
-                    <option value="tracking-not-removed" data-i18n="issueTypeTrackingNotRemoved">Tracking parameter not removed</option>
-                    <option value="url-broken" data-i18n="issueTypeUrlBroken">URL broken after cleaning</option>
-                    <option value="false-positive" data-i18n="issueTypeFalsePositive">False positive (unnecessary cleaning)</option>
-                    <option value="performance" data-i18n="issueTypePerformance">Performance issue</option>
-                    <option value="ui-issue" data-i18n="issueTypeUi">UI/Display issue</option>
-                    <option value="feature-request" data-i18n="issueTypeFeatureRequest">Feature request</option>
-                    <option value="rule-suggestion" data-i18n="issueTypeRuleSuggestion">Rule suggestion</option>
+                    <option value="[unknown]" selected disabled data-i18n="issueTypeSelect"></option>
+                    <option value="tracking-not-removed" data-i18n="issueTypeTrackingNotRemoved"></option>
+                    <option value="url-broken" data-i18n="issueTypeUrlBroken"></option>
+                    <option value="false-positive" data-i18n="issueTypeFalsePositive"></option>
+                    <option value="performance" data-i18n="issueTypePerformance"></option>
+                    <option value="ui-issue" data-i18n="issueTypeUi"></option>
+                    <option value="feature-request" data-i18n="issueTypeFeatureRequest"></option>
+                    <option value="rule-suggestion" data-i18n="issueTypeRuleSuggestion"></option>
                 </select>
             </div>
             
             <!-- URL input container with dropdown -->
             <div class="url-input-container field-group">
-                <label for="urlSelect">URL where the issue occurs:</label>
+                <label for="urlSelect" data-i18n="urlLabel"></label>
                 <select id="urlSelect" name="urlSelect" class="url-select">
                     <!-- Options will be populated dynamically -->
                 </select>
@@ -500,7 +500,7 @@
                     <input type="text" 
                            id="customUrlInput" 
                            name="customUrlInput" 
-                           placeholder="https://example.com">
+                           data-i18n-placeholder="customUrlPlaceholder">
                 </div>
             </div>
             
@@ -511,17 +511,17 @@
                         <input id="isNSFW" type="checkbox">
                         <svg viewBox="0 0 24 24"><path d="M1.73,12.91 8.1,19.28 22.79,4.59"/></svg>
                     </span>
-                    <span>Page contains adult content (NSFW)</span>
+                    <span data-i18n="nsfwLabel"></span>
                 </label>
             </div>
             
             <div class="field-group">
-                <label for="additionalInfo">Additional Information:</label>
+                <label for="additionalInfo" data-i18n="additionalInfoLabel"></label>
                 <textarea 
                     id="additionalInfo" 
                     name="additionalInfo" 
                     rows="4" 
-                    placeholder="Please provide any additional details or comments about the issue..."></textarea>
+                    data-i18n-placeholder="additionalInfoPlaceholder"></textarea>
             </div>
             
             <!-- Consent checkbox -->
@@ -531,18 +531,16 @@
                         <input id="consentCheckbox" type="checkbox">
                         <svg viewBox="0 0 24 24"><path d="M1.73,12.91 8.1,19.28 22.79,4.59"/></svg>
                     </span>
-                    <span class="consent-text">
-                        I understand that clicking "Report on GitHub" will redirect me to GitHub with pre-filled information that I have entered on this page, as well as additional information collected by the extension. Please review the Configuration Information section, which may include details such as your browser information and extension settings. By submitting the issue, I agree to GitHub's privacy policies. See <a href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement" target="_blank">GitHub's Privacy Statement</a>.
-                    </span>
+                    <span class="consent-text" data-i18n="consentMessage"></span>
                 </label>
             </div>
             
-            <button type="button" id="reportIssueButton" class="preferred">Report on GitHub</button>
+            <button type="button" id="reportIssueButton" class="preferred" data-i18n="reportOnGitHub"></button>
         </div>
         
         <div class="supportEntry" style="font-size: smaller;">
             <details>
-                <summary>Configuration Information</summary>
+                <summary data-i18n="configInformation"></summary>
                 <pre id="configData" style="user-select: all;"></pre>
             </details>
         </div>
