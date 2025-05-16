@@ -522,6 +522,14 @@
   },
   "configInformation": {
     "message": "Информация о конфигурации"
+  },
+  "findExistingConsentMessage": {
+    "message": "Я понимаю, что нажатие \"Найти существующие проблемы\" перенаправит меня на GitHub с параметрами поиска, включающими доменное имя и детали проблемы, которые я ввел. URL может быть виден в истории поиска GitHub. Продолжая, я соглашаюсь с политикой конфиденциальности GitHub в отношении параметров URL. См. $link$.",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>Политику конфиденциальности поиска GitHub</a>"
+      }
+    }
   }
 }
 

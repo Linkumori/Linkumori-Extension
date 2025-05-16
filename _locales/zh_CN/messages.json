@@ -522,6 +522,14 @@
   },
   "configInformation": {
     "message": "配置信息"
+  },
+  "findExistingConsentMessage": {
+    "message": "我了解点击\"查找现有问题\"将使用我输入的域名和问题详细信息重定向到 GitHub。此 URL 可能会出现在 GitHub 的搜索历史记录中。继续即表示我同意 GitHub 关于 URL 参数的隐私政策。请参阅 $link$。",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub 搜索隐私政策</a>"
+      }
+    }
   }
 }
 

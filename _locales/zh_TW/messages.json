@@ -448,6 +448,14 @@
   },
   "errorMessages_statsImport": {
     "message": "匯入統計資料失敗：$1"
+  },
+  "findExistingConsentMessage": {
+    "message": "我了解點擊「尋找現有問題」將使用我輸入的網域名稱和問題詳細資訊重新導向到 GitHub。此 URL 可能會出現在 GitHub 的搜尋歷史記錄中。繼續即表示我同意 GitHub 關於 URL 參數的隱私政策。請參閱 $link$。",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub 搜尋隱私政策</a>"
+      }
+    }
   }
 }
 

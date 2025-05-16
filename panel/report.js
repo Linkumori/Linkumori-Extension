@@ -490,6 +490,12 @@ async function reportIssue() {
 
 // Enhanced findExistingIssues function
 function findExistingIssues() {
+    // Check if the user has provided consent
+    if (!$('#findExistingConsentCheckbox').checked) {
+        alert('Please confirm that you understand how your data will be used by checking the consent box.');
+        return;
+    }
+
     const issueType = getIssueType();
     let searchQuery = [];
     
@@ -649,14 +655,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     element.textContent = translated;
                 }
             }
-        }
 
-        // Handle placeholders in translations
-        if (messageKey && messageKey === 'consentMessage') {
-            const message = chrome.i18n.getMessage(messageKey, {
-                link: "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub's Privacy Statement</a>"
-            });
-            element.innerHTML = message;
+            // Handle placeholders in translations for both consent messages
+            if (messageKey === 'consentMessage' || messageKey === 'findExistingConsentMessage') {
+                const message = chrome.i18n.getMessage(messageKey, {
+                    link: messageKey === 'consentMessage' 
+                        ? "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub's Privacy Statement</a>"
+                        : "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub's Search Privacy Policy</a>"
+                });
+                element.innerHTML = message;
+            }
         }
     }
 

@@ -576,6 +576,14 @@
   },
   "configInformation": {
     "message": "設定情報"
+  },
+  "findExistingConsentMessage": {
+    "message": "「既存の問題を検索」をクリックすると、入力したドメイン名と問題の詳細を含む検索パラメータを使用して GitHub にリダイレクトされることを理解しています。この URL は GitHub の検索履歴に表示される可能性があります。続行することで、URL パラメータに関する GitHub のプライバシーポリシーに同意したことになります。$link$ をご覧ください。",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub の検索プライバシーポリシー</a>"
+      }
+    }
   }
 }
 

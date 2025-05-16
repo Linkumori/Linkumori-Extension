@@ -522,5 +522,13 @@
   },
   "configInformation": {
     "message": "Configuration Information"
+  },
+  "findExistingConsentMessage": {
+    "message": "I understand that clicking \"Find Existing Issues\" will redirect me to GitHub with search parameters that include the domain name and issue details I've entered. The URL may be visible in GitHub's search history. By proceeding, I agree to GitHub's privacy policies regarding URL parameters. See $link$.",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub's Search Privacy Policy</a>"
+      }
+    }
   }
 }
