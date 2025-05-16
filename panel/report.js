@@ -359,6 +359,16 @@ function getBrowserInfo() {
     return browserString;
 }
 
+// Add this helper function to get hostname from URL
+function getHostnameFromUrl(url) {
+    try {
+        return new URL(url).hostname.replace(/^(m\.|mobile\.|www\.)/, '');
+    } catch (e) {
+        console.error('Error parsing URL:', e);
+        return 'unknown-domain';
+    }
+}
+
 // Enhanced reportIssue function to handle both URL and non-URL related issues properly
 async function reportIssue() {
     // Check if the user has provided consent
@@ -399,31 +409,37 @@ async function reportIssue() {
         // Get additional comments
         const additionalInfo = $('#additionalInfo').value.trim();
         
-        // Determine title based on issue type
+        // Determine title based on issue type and URL source
         let title;
         
-        // For URL-specific issues, include domain in title
         if (isUrlRelatedIssue) {
-            // Determine hostname for title
-            let hostname = "unknown-domain";
-            if (finalUrl) {
-                try {
-                    hostname = new URL(finalUrl).hostname.replace(/^(m|mobile|www)\./, '');
-                } catch (e) {
-                    console.error('Error parsing URL:', e);
-                }
+            let hostname;
+            const urlSelect = $('#urlSelect');
+            
+            if (urlSelect.value === 'custom') {
+                const customUrl = $('#customUrlInput').value.trim();
+                hostname = getHostnameFromUrl(customUrl);
+            } else if (reportedPage) {
+                hostname = urlSelect.value === 'domain' ? 
+                    getHostnameFromUrl(reportedPage.baseUrl) : 
+                    getHostnameFromUrl(reportedPage.originalUrl);
+            } else {
+                hostname = 'unknown-domain';
             }
-            title = `${reportedPage?.hostname || hostname}: ${issueType}`;
+            
+            title = `${hostname}: ${issueType}`;
         } else {
-            // For general issues, just use the issue type with proper capitalization
-            title = issueType.charAt(0).toUpperCase() + issueType.slice(1);
+            // For non-URL issues, capitalize first letter
+            title = issueType.split('-')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
         }
-        
+
         // Add NSFW tag if needed
-        if ($('#isNSFW') && $('#isNSFW').checked) {
+        if ($('#isNSFW')?.checked) {
             title = `[nsfw] ${title}`;
         }
-        
+
         githubURL.searchParams.set('title', title);
         
         // Build GitHub issue body - only include URL sections for URL-related issues
@@ -472,32 +488,73 @@ async function reportIssue() {
 
 /******************************************************************************/
 
-// Find existing issues for the same domain
+// Enhanced findExistingIssues function
 function findExistingIssues() {
-    let hostname;
+    const issueType = getIssueType();
+    let searchQuery = [];
     
-    // Try to get hostname from reportedPage or from URL input
-    if (reportedPage) {
-        hostname = reportedPage.hostname;
-    } else {
-        // For custom URL case, try to get it from the custom input
-        const customUrlValue = $('#customUrlInput').value.trim();
-        if (customUrlValue) {
-            try {
-                hostname = new URL(customUrlValue).hostname.replace(/^(m|mobile|www)\./, '');
-            } catch (e) {
-                alert('Please enter a valid URL to search for related issues.');
-                return;
+    // Get URL and hostname based on current selection
+    let finalUrl = '';
+    let hostname = '';
+    const urlSelect = $('#urlSelect');
+    
+    // Get URL based on selection
+    if (urlSelect.value === 'custom') {
+        finalUrl = $('#customUrlInput').value.trim();
+        if (finalUrl && validateUrl(finalUrl)) {
+            hostname = getHostnameFromUrl(finalUrl);
+        }
+    } else if (reportedPage) {
+        finalUrl = urlSelect.value === 'domain' ? reportedPage.baseUrl : reportedPage.originalUrl;
+        hostname = getHostnameFromUrl(finalUrl);
+    }
+
+    // Build search query with hostname if available
+    if (hostname && hostname !== 'unknown-domain') {
+        // Add the exact hostname for precise matching
+        searchQuery.push(hostname);
+        
+        // If it's a subdomain, also add the main domain
+        const domainParts = hostname.split('.');
+        if (domainParts.length > 2) {
+            const mainDomain = domainParts.slice(-2).join('.');
+            if (mainDomain !== hostname) {
+                searchQuery.push(mainDomain);
             }
-        } else {
-            alert('No URL information available. Please provide a URL first.');
-            return;
         }
     }
-    
+
+    // Add issue type if valid
+    if (issueType && issueType !== '[unknown]') {
+        searchQuery.push(issueType);
+    }
+
+    // Add NSFW tag if checked
+    if ($('#isNSFW')?.checked) {
+        searchQuery.push('nsfw');
+    }
+
     try {
         const url = new URL('https://github.com/Linkumori/Linkumori-Extension/issues');
-        url.searchParams.set('q', `is:issue sort:updated-desc "${hostname}" in:title`);
+        let queryString = 'is:issue';
+        
+        if (searchQuery.length > 0) {
+            // Add hostname with exact match quotes
+            queryString += ` "${searchQuery[0]}"`;
+            
+            // Add remaining terms
+            const remainingTerms = searchQuery.slice(1)
+                .filter(Boolean)
+                .map(term => term.includes('.') ? `"${term}"` : term)
+                .join(' ');
+                
+            if (remainingTerms) {
+                queryString += ' ' + remainingTerms;
+            }
+        }
+        
+        queryString += ' sort:updated-desc';
+        url.searchParams.set('q', queryString);
         openURL(url.href);
     } catch (error) {
         console.error('Error finding existing issues:', error);
