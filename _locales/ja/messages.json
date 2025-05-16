@@ -502,6 +502,80 @@
   },
   "errorMessages_statsImport": {
     "message": "統計のインポートに失敗しました：$1"
+  },
+  "reportIssueTitle": {
+    "message": "問題を報告"
+  },
+  "reportIssueHeader": {
+    "message": "問題の報告や改善の提案"
+  },
+  "reportIssueDescription": {
+    "message": "URL クリーニングに問題が見つかったり、提案がありますか？レポートを送信して Linkumori の改善にご協力ください。"
+  },
+  "findExistingButton": {
+    "message": "既存の問題を検索"
+  },
+  "beforeReporting": {
+    "message": "報告する前に、同じ問題が既に報告されていないか確認してください："
+  },
+  "issueTypeLabel": {
+    "message": "問題のタイプ："
+  },
+  "issueTypeSelect": {
+    "message": "問題のタイプを選択..."
+  },
+  "issueTypeTrackingNotRemoved": {
+    "message": "トラッキングパラメータが削除されていない"
+  },
+  "issueTypeUrlBroken": {
+    "message": "クリーニング後の URL が機能しない"
+  },
+  "issueTypeFalsePositive": {
+    "message": "誤検出（不要なクリーニング）"
+  },
+  "issueTypePerformance": {
+    "message": "パフォーマンスの問題"
+  },
+  "issueTypeUi": {
+    "message": "UI/表示の問題"
+  },
+  "issueTypeFeatureRequest": {
+    "message": "機能リクエスト"
+  },
+  "issueTypeRuleSuggestion": {
+    "message": "ルールの提案"
+  },
+  "urlLabel": {
+    "message": "問題が発生する URL："
+  },
+  "customUrlPlaceholder": {
+    "message": "https://example.com"
+  },
+  "enterCustomUrl": {
+    "message": "カスタム URL を入力"
+  },
+  "nsfwLabel": {
+    "message": "ページに成人向けコンテンツが含まれています (NSFW)"
+  },
+  "additionalInfoLabel": {
+    "message": "追加情報："
+  },
+  "additionalInfoPlaceholder": {
+    "message": "問題に関する追加の詳細やコメントを入力してください..."
+  },
+  "consentMessage": {
+    "message": "「GitHub で報告」をクリックすると、このページで入力した情報と拡張機能が収集した追加情報が GitHub に転送されることを理解しています。ブラウザ情報や拡張機能の設定などの詳細が含まれる可能性がある設定情報セクションをご確認ください。問題を送信することで、GitHub のプライバシーポリシーに同意したことになります。$link$ をご覧ください。",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub のプライバシーに関する声明</a>"
+      }
+    }
+  },
+  "reportOnGitHub": {
+    "message": "GitHub で報告"
+  },
+  "configInformation": {
+    "message": "設定情報"
   }
 }
 

@@ -448,6 +448,80 @@
   },
   "errorMessages_statsImport": {
     "message": "Fehler beim Importieren der Statistiken: $1"
+  },
+  "reportIssueTitle": {
+    "message": "Problem melden"
+  },
+  "reportIssueHeader": {
+    "message": "Probleme melden oder Verbesserungen vorschlagen"
+  },
+  "reportIssueDescription": {
+    "message": "Haben Sie ein Problem mit der URL-Bereinigung gefunden oder haben Sie einen Vorschlag? Helfen Sie uns, Linkumori durch einen Bericht zu verbessern."
+  },
+  "findExistingButton": {
+    "message": "Bestehende Probleme finden"
+  },
+  "beforeReporting": {
+    "message": "Überprüfen Sie vor dem Melden, ob Ihr Problem bereits gemeldet wurde:"
+  },
+  "issueTypeLabel": {
+    "message": "Problemtyp:"
+  },
+  "issueTypeSelect": {
+    "message": "Problemtyp auswählen..."
+  },
+  "issueTypeTrackingNotRemoved": {
+    "message": "Tracking-Parameter nicht entfernt"
+  },
+  "issueTypeUrlBroken": {
+    "message": "URL nach Bereinigung defekt"
+  },
+  "issueTypeFalsePositive": {
+    "message": "Falsch-Positiv (unnötige Bereinigung)"
+  },
+  "issueTypePerformance": {
+    "message": "Leistungsproblem"
+  },
+  "issueTypeUi": {
+    "message": "UI/Anzeigeproblem"
+  },
+  "issueTypeFeatureRequest": {
+    "message": "Funktionsanfrage"
+  },
+  "issueTypeRuleSuggestion": {
+    "message": "Regelvorschlag"
+  },
+  "urlLabel": {
+    "message": "URL, bei der das Problem auftritt:"
+  },
+  "customUrlPlaceholder": {
+    "message": "https://example.com"
+  },
+  "enterCustomUrl": {
+    "message": "Benutzerdefinierte URL eingeben"
+  },
+  "nsfwLabel": {
+    "message": "Seite enthält Erwachseneninhalte (NSFW)"
+  },
+  "additionalInfoLabel": {
+    "message": "Zusätzliche Informationen:"
+  },
+  "additionalInfoPlaceholder": {
+    "message": "Bitte geben Sie weitere Details oder Kommentare zum Problem an..."
+  },
+  "consentMessage": {
+    "message": "Ich verstehe, dass durch Klicken auf \"Auf GitHub melden\" meine eingegebenen Informationen und zusätzliche von der Erweiterung gesammelte Informationen an GitHub weitergeleitet werden. Bitte überprüfen Sie den Konfigurationsinformationsbereich, der Details wie Ihre Browserinformationen und Erweiterungseinstellungen enthalten kann. Mit dem Absenden stimme ich den GitHub-Datenschutzrichtlinien zu. Siehe $link$.",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub-Datenschutzerklärung</a>"
+      }
+    }
+  },
+  "reportOnGitHub": {
+    "message": "Auf GitHub melden"
+  },
+  "configInformation": {
+    "message": "Konfigurationsinformationen"
   }
 }
 

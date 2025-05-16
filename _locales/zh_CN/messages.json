@@ -448,6 +448,80 @@
   },
   "errorMessages_statsImport": {
     "message": "导入统计数据失败：$1"
+  },
+  "reportIssueTitle": {
+    "message": "报告问题"
+  },
+  "reportIssueHeader": {
+    "message": "报告问题或建议改进"
+  },
+  "reportIssueDescription": {
+    "message": "发现 URL 清理问题或有建议？帮助我们通过提交报告来改进 Linkumori。"
+  },
+  "findExistingButton": {
+    "message": "查找现有问题"
+  },
+  "beforeReporting": {
+    "message": "在报告之前，请检查您的问题是否已被报告："
+  },
+  "issueTypeLabel": {
+    "message": "问题类型："
+  },
+  "issueTypeSelect": {
+    "message": "选择问题类型..."
+  },
+  "issueTypeTrackingNotRemoved": {
+    "message": "跟踪参数未被移除"
+  },
+  "issueTypeUrlBroken": {
+    "message": "URL 清理后损坏"
+  },
+  "issueTypeFalsePositive": {
+    "message": "误报（不必要的清理）"
+  },
+  "issueTypePerformance": {
+    "message": "性能问题"
+  },
+  "issueTypeUi": {
+    "message": "界面/显示问题"
+  },
+  "issueTypeFeatureRequest": {
+    "message": "功能请求"
+  },
+  "issueTypeRuleSuggestion": {
+    "message": "规则建议"
+  },
+  "urlLabel": {
+    "message": "发生问题的 URL："
+  },
+  "customUrlPlaceholder": {
+    "message": "https://example.com"
+  },
+  "enterCustomUrl": {
+    "message": "输入自定义 URL"
+  },
+  "nsfwLabel": {
+    "message": "页面包含成人内容 (NSFW)"
+  },
+  "additionalInfoLabel": {
+    "message": "附加信息："
+  },
+  "additionalInfoPlaceholder": {
+    "message": "请提供关于此问题的任何其他详细信息或评论..."
+  },
+  "consentMessage": {
+    "message": "我了解点击\"在 GitHub 上报告\"将使用我在此页面上输入的信息以及扩展程序收集的附加信息重定向到 GitHub。请查看配置信息部分，其中可能包括您的浏览器信息和扩展程序设置等详细信息。提交问题即表示我同意 GitHub 的隐私政策。请参阅 $link$。",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub 隐私声明</a>"
+      }
+    }
+  },
+  "reportOnGitHub": {
+    "message": "在 GitHub 上报告"
+  },
+  "configInformation": {
+    "message": "配置信息"
   }
 }
 

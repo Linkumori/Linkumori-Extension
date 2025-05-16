@@ -448,6 +448,80 @@
   },
   "errorMessages_statsImport": {
     "message": "Не удалось импортировать статистику: $1"
+  },
+  "reportIssueTitle": {
+    "message": "Сообщить о проблеме"
+  },
+  "reportIssueHeader": {
+    "message": "Сообщить о проблемах или предложить улучшения"
+  },
+  "reportIssueDescription": {
+    "message": "Нашли проблему с очисткой URL или есть предложение? Помогите нам улучшить Linkumori, отправив отчет."
+  },
+  "findExistingButton": {
+    "message": "Найти существующие проблемы"
+  },
+  "beforeReporting": {
+    "message": "Прежде чем сообщать, проверьте, не сообщалось ли уже о вашей проблеме:"
+  },
+  "issueTypeLabel": {
+    "message": "Тип проблемы:"
+  },
+  "issueTypeSelect": {
+    "message": "Выберите тип проблемы..."
+  },
+  "issueTypeTrackingNotRemoved": {
+    "message": "Параметр отслеживания не удален"
+  },
+  "issueTypeUrlBroken": {
+    "message": "URL не работает после очистки"
+  },
+  "issueTypeFalsePositive": {
+    "message": "Ложное срабатывание (ненужная очистка)"
+  },
+  "issueTypePerformance": {
+    "message": "Проблема с производительностью"
+  },
+  "issueTypeUi": {
+    "message": "Проблема с интерфейсом/отображением"
+  },
+  "issueTypeFeatureRequest": {
+    "message": "Запрос функции"
+  },
+  "issueTypeRuleSuggestion": {
+    "message": "Предложение правила"
+  },
+  "urlLabel": {
+    "message": "URL, где возникает проблема:"
+  },
+  "customUrlPlaceholder": {
+    "message": "https://example.com"
+  },
+  "enterCustomUrl": {
+    "message": "Введите пользовательский URL"
+  },
+  "nsfwLabel": {
+    "message": "Страница содержит контент для взрослых (NSFW)"
+  },
+  "additionalInfoLabel": {
+    "message": "Дополнительная информация:"
+  },
+  "additionalInfoPlaceholder": {
+    "message": "Пожалуйста, предоставьте дополнительные детали или комментарии о проблеме..."
+  },
+  "consentMessage": {
+    "message": "Я понимаю, что нажатие \"Сообщить на GitHub\" перенаправит меня на GitHub с предварительно заполненной информацией, которую я ввел на этой странице, а также дополнительной информацией, собранной расширением. Пожалуйста, просмотрите раздел Информация о конфигурации, который может включать такие детали, как информация о вашем браузере и настройки расширения. Отправляя проблему, я соглашаюсь с политикой конфиденциальности GitHub. См. $link$.",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>Заявление о конфиденциальности GitHub</a>"
+      }
+    }
+  },
+  "reportOnGitHub": {
+    "message": "Сообщить на GitHub"
+  },
+  "configInformation": {
+    "message": "Информация о конфигурации"
   }
 }
 

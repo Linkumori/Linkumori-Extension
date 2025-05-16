@@ -577,6 +577,49 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Add translation helper function
+    function translateElement(element) {
+        const messageKey = element.getAttribute('data-i18n');
+        if (messageKey) {
+            const translated = chrome.i18n.getMessage(messageKey);
+            if (translated) {
+                if (element.tagName === 'INPUT' && element.type === 'text') {
+                    element.placeholder = translated;
+                } else if (element.tagName === 'TEXTAREA') {
+                    element.placeholder = translated;
+                } else {
+                    element.textContent = translated;
+                }
+            }
+        }
+
+        // Handle placeholders in translations
+        if (messageKey && messageKey === 'consentMessage') {
+            const message = chrome.i18n.getMessage(messageKey, {
+                link: "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub's Privacy Statement</a>"
+            });
+            element.innerHTML = message;
+        }
+    }
+
+    // Initialize translations
+    function initTranslations() {
+        // Translate all elements with data-i18n attribute
+        document.querySelectorAll('[data-i18n]').forEach(translateElement);
+        
+        // Special handling for dynamic elements
+        const urlSelect = $('#urlSelect');
+        if (urlSelect) {
+            const customOption = urlSelect.querySelector('option[value="custom"]');
+            if (customOption) {
+                customOption.textContent = chrome.i18n.getMessage('enterCustomUrl');
+            }
+        }
+    }
+
+    // Initialize translations
+    initTranslations();
 });
     
     // Setup NSFW checkbox

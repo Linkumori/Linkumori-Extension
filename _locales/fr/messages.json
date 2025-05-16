@@ -448,6 +448,80 @@
   },
   "errorMessages_statsImport": {
     "message": "Échec de l'importation des statistiques : $1"
+  },
+  "reportIssueTitle": {
+    "message": "Signaler un problème"
+  },
+  "reportIssueHeader": {
+    "message": "Signaler des problèmes ou suggérer des améliorations"
+  },
+  "reportIssueDescription": {
+    "message": "Un problème avec le nettoyage des URL ou une suggestion ? Aidez-nous à améliorer Linkumori en soumettant un rapport."
+  },
+  "findExistingButton": {
+    "message": "Rechercher les problèmes existants"
+  },
+  "beforeReporting": {
+    "message": "Avant de signaler, vérifiez si votre problème a déjà été signalé :"
+  },
+  "issueTypeLabel": {
+    "message": "Type de problème :"
+  },
+  "issueTypeSelect": {
+    "message": "Sélectionnez le type de problème..."
+  },
+  "issueTypeTrackingNotRemoved": {
+    "message": "Paramètre de suivi non supprimé"
+  },
+  "issueTypeUrlBroken": {
+    "message": "URL cassée après nettoyage"
+  },
+  "issueTypeFalsePositive": {
+    "message": "Faux positif (nettoyage inutile)"
+  },
+  "issueTypePerformance": {
+    "message": "Problème de performance"
+  },
+  "issueTypeUi": {
+    "message": "Problème d'interface/affichage"
+  },
+  "issueTypeFeatureRequest": {
+    "message": "Demande de fonctionnalité"
+  },
+  "issueTypeRuleSuggestion": {
+    "message": "Suggestion de règle"
+  },
+  "urlLabel": {
+    "message": "URL où le problème se produit :"
+  },
+  "customUrlPlaceholder": {
+    "message": "https://exemple.com"
+  },
+  "enterCustomUrl": {
+    "message": "Saisir une URL personnalisée"
+  },
+  "nsfwLabel": {
+    "message": "La page contient du contenu pour adultes (NSFW)"
+  },
+  "additionalInfoLabel": {
+    "message": "Informations supplémentaires :"
+  },
+  "additionalInfoPlaceholder": {
+    "message": "Veuillez fournir des détails ou commentaires supplémentaires sur le problème..."
+  },
+  "consentMessage": {
+    "message": "Je comprends qu'en cliquant sur \"Signaler sur GitHub\", je serai redirigé vers GitHub avec les informations pré-remplies que j'ai saisies sur cette page, ainsi que des informations supplémentaires collectées par l'extension. Veuillez examiner la section Informations de configuration, qui peut inclure des détails tels que vos informations de navigateur et les paramètres de l'extension. En soumettant le problème, j'accepte les politiques de confidentialité de GitHub. Voir $link$.",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>la déclaration de confidentialité de GitHub</a>"
+      }
+    }
+  },
+  "reportOnGitHub": {
+    "message": "Signaler sur GitHub"
+  },
+  "configInformation": {
+    "message": "Informations de configuration"
   }
 }
 

@@ -7,9 +7,10 @@
   },
   "cleanUrlsToolTitle": {
     "message": "Linkumori Advanced URL Cleaning Tool"
-  },"inputUrlsDescription": {
-  "message": "With this tool you can paste in URLs and Linkumori Clean URLs Tool will clean the URLs after a click on the clean URLs button. You can paste in multiple URLs at once, but every URL must be on a separate line."
-},
+  },
+  "inputUrlsDescription": {
+    "message": "With this tool you can paste in URLs and Linkumori Clean URLs Tool will clean the URLs after a click on the clean URLs button. You can paste in multiple URLs at once, but every URL must be on a separate line."
+  },
   "cleanUrlsToolHeader": {
     "message": "Linkumori Clean URLs Tool"
   },
@@ -199,9 +200,9 @@
   "confirmationMessages_removeParameter": {
     "message": "Remove parameter '$1' from domain '$2'?"
   },
-  "navwhitelist_":{
-      "message": "Whitelist Management"
-    },
+  "navwhitelist_": {
+    "message": "Whitelist Management"
+  },
   "rulesTitle": {
     "message": "Custom DNR Rules Builder"
   },
@@ -364,35 +365,37 @@
   "update_error": {
     "message": "Error checking for updates"
   },
-    "chromeWebStore": {
-        "message": "Chrome Web Store:"
-    },
-    "chromeWebStoreLinkText": {
-        "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
-    },"confirmRestoreExceptions": {
-  "message": "Are you sure you want to enable all in build whitelist rules?"
-},
-"enableRule": {
-  "message": "Enable"
-},
-"disableRule": {
-  "message": "Disable"
-},
-"searchExceptionRulesPlaceholder": {
-  "message": "Search inbuild whitelist rules..."
-},
-"noExceptionRulesFound": {
-  "message": "No in build whitelist rules found matching '$1'"
-},
-"noExceptionRulesDefined": {
-  "message": "No in build whitelist rules defined"
-},
-"restoreExceptions": {
-  "message": "Restore Default in bulid whitelist Rules"
-},
-"exceptionRulesTitle": {
-  "message": "In build linkumori whitelist Rules"
-},"exportAllSettings": {
+  "chromeWebStore": {
+    "message": "Chrome Web Store:"
+  },
+  "chromeWebStoreLinkText": {
+    "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+  },
+  "confirmRestoreExceptions": {
+    "message": "Are you sure you want to enable all in build whitelist rules?"
+  },
+  "enableRule": {
+    "message": "Enable"
+  },
+  "disableRule": {
+    "message": "Disable"
+  },
+  "searchExceptionRulesPlaceholder": {
+    "message": "Search inbuild whitelist rules..."
+  },
+  "noExceptionRulesFound": {
+    "message": "No in build whitelist rules found matching '$1'"
+  },
+  "noExceptionRulesDefined": {
+    "message": "No in build whitelist rules defined"
+  },
+  "restoreExceptions": {
+    "message": "Restore Default in bulid whitelist Rules"
+  },
+  "exceptionRulesTitle": {
+    "message": "In build linkumori whitelist Rules"
+  },
+  "exportAllSettings": {
     "message": "Export All Settings"
   },
   "importAllSettings": {
@@ -415,7 +418,8 @@
   },
   "confirmationMessages_importSettings": {
     "message": "This will override all your current settings. Are you sure you want to continue?"
-  },"exportRules": {
+  },
+  "exportRules": {
     "message": "Export Rules"
   },
   "importRules": {
@@ -444,5 +448,79 @@
   },
   "errorMessages_statsImport": {
     "message": "Failed to import statistics: $1"
+  },
+  "reportIssueTitle": {
+    "message": "Report Issue"
+  },
+  "reportIssueHeader": {
+    "message": "Report Issues or Suggest Improvements"
+  },
+  "reportIssueDescription": {
+    "message": "Found an issue with URL cleaning or have a suggestion? Help us improve Linkumori by submitting a report."
+  },
+  "findExistingButton": {
+    "message": "Find Existing Issues"
+  },
+  "beforeReporting": {
+    "message": "Before reporting, check if your issue has already been reported:"
+  },
+  "issueTypeLabel": {
+    "message": "Issue type:"
+  },
+  "issueTypeSelect": {
+    "message": "Select issue type..."
+  },
+  "issueTypeTrackingNotRemoved": {
+    "message": "Tracking parameter not removed"
+  },
+  "issueTypeUrlBroken": {
+    "message": "URL broken after cleaning"
+  },
+  "issueTypeFalsePositive": {
+    "message": "False positive (unnecessary cleaning)"
+  },
+  "issueTypePerformance": {
+    "message": "Performance issue"
+  },
+  "issueTypeUi": {
+    "message": "UI/Display issue"
+  },
+  "issueTypeFeatureRequest": {
+    "message": "Feature request"
+  },
+  "issueTypeRuleSuggestion": {
+    "message": "Rule suggestion"
+  },
+  "urlLabel": {
+    "message": "URL where the issue occurs:"
+  },
+  "customUrlPlaceholder": {
+    "message": "https://example.com"
+  },
+  "enterCustomUrl": {
+    "message": "Enter custom URL"
+  },
+  "nsfwLabel": {
+    "message": "Page contains adult content (NSFW)"
+  },
+  "additionalInfoLabel": {
+    "message": "Additional Information:"
+  },
+  "additionalInfoPlaceholder": {
+    "message": "Please provide any additional details or comments about the issue..."
+  },
+  "consentMessage": {
+    "message": "I understand that clicking \"Report on GitHub\" will redirect me to GitHub with pre-filled information that I have entered on this page, as well as additional information collected by the extension. Please review the Configuration Information section, which may include details such as your browser information and extension settings. By submitting the issue, I agree to GitHub's privacy policies. See $link$.",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub's Privacy Statement</a>"
+      }
+    }
+  },
+  "reportOnGitHub": {
+    "message": "Report on GitHub"
+  },
+  "configInformation": {
+    "message": "Configuration Information"
   }
 }
