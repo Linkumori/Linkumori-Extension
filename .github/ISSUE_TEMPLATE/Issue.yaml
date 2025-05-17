@@ -1,0 +1,63 @@
+name: Bug Report
+about: Report an issue with the Linkumori extension
+title: "[BUG] "
+labels: bug, needs-triage
+assignees: ""
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Issue Details
+        Please review the pre-filled information below that was collected from the extension.
+
+  - type: input
+    id: issue_type
+    attributes:
+      label: Issue Type
+      description: Type of issue (pre-filled by extension)
+      placeholder: "tracking-not-removed"
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: URL
+      description: The URL where the issue occurs (pre-filled by extension)
+      placeholder: "https://example.com"
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional Information
+      description: Please provide any additional details about the issue
+      placeholder: "Describe your issue in detail..."
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Consent Confirmation
+        **All checkboxes below must be checked to submit this issue.**
+
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Mandatory Consent
+      description: You must check all boxes to confirm your consent
+      options:
+        - label: I understand that by submitting this issue, I am sharing the information above with the Linkumori project maintainers
+          required: true
+        - label: I affirm that I previously gave consent through the Linkumori extension reporting page
+          required: true
+        - label: I understand that this submission constitutes my second confirmation of consent to share this information
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Technical Information
+        The following technical information was automatically collected by the extension.
