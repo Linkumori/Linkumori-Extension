@@ -5,8 +5,8 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: Information about extension like settings and preference etc and browser information and version 
-      description: "Please provide details about your browser, extension version, and settings"
+      label: Extension and Browser Information
+      description: "Please provide details about your browser, the Linkumori extension version, and any relevant settings or preferences."
       placeholder: "Example: Chrome 123.0.4567.89, Linkumori v1.2.3, Dark mode enabled"
     validations:
       required: false
@@ -15,8 +15,8 @@ body:
     attributes:
       value: |
         ## Consent Confirmation
-        **All checkboxes below must have been previously acknowledged.**
+        **By submitting this issue, you confirm the following:**
         
-        - [x] I understand that by submitting this issue, I am sharing the information above with the Linkumori project maintainers  
-        - [x] I affirm that I previously gave consent through the Linkumori extension reporting page  
-        - [x] I understand that this submission constitutes my second confirmation of consent to share this information
+        - [x] I understand that by submitting this issue, I am sharing the above information with the Linkumori project maintainers.  
+        - [x] I confirm that I previously gave consent through the Linkumori extension reporting page.  
+        - [x] I understand that this submission serves as a second confirmation of my consent to share this information.
