@@ -1,39 +1,59 @@
-name: Bug Report
-description: Report an issue with the Linkumori extension
-title: "[BUG] "
-labels: ["bug", "needs-triage"]
+name: Issue Report
+description: Report a bug or suggest an enhancement for Linkumori
+title: "[ISSUE] "
+labels: ["needs-triage"]
 assignees: []
 body:
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: Issue Type
+      description: Is this a bug report or feature request?
+      options:
+        - Bug Report
+        - Enhancement Request
+    validations:
+      required: true
+
   - type: markdown
     attributes:
       value: |
         ## Issue Details
-        Please review the pre-filled information below that was collected from the extension.
-
-  - type: input
-    id: issue_type
-    attributes:
-      label: Issue Type
-      description: Type of issue (pre-filled by extension)
-      placeholder: "tracking-not-removed"
-    validations:
-      required: true
+        Please provide information about your bug or enhancement suggestion.
 
   - type: input
     id: url
     attributes:
-      label: URL
-      description: The URL where the issue occurs (pre-filled by extension)
+      label: URL (for bug reports)
+      description: The URL where the issue occurs (if applicable)
       placeholder: "https://example.com"
     validations:
       required: false
 
   - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the bug you've encountered or the enhancement you're suggesting
+      placeholder: "When I try to... / I would like to see..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior (for bugs) / Use Case (for enhancements)
+      description: What did you expect to happen, or how would this enhancement benefit users?
+      placeholder: "I expected... / This would be useful when..."
+    validations:
+      required: true
+
+  - type: textarea
     id: additional_info
     attributes:
       label: Additional Information
-      description: Please provide any additional details about the issue
-      placeholder: "Describe your issue in detail..."
+      description: Any other context, screenshots, or information that might be helpful
+      placeholder: "Other details..."
     validations:
       required: false
 
@@ -59,5 +79,5 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## Technical Information
-        The following technical information was automatically collected by the extension.
+        ## Technical Information (for bug reports)
+        If you're reporting a bug, the following technical information may have been automatically collected by the extension.
