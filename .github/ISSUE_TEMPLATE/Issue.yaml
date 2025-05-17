@@ -3,12 +3,12 @@ description: Report a bug or suggest an enhancement for Linkumori
 title: "[ISSUE] "
 labels: ["needs-triage"]
 body:
-  - type: description
+  - type: textarea
     id: description
     attributes:
       label: Information about extension like settings and preference etc and browser information and version 
-      description: ""
-      placeholder: ""
+      description: "Please provide details about your browser, extension version, and settings"
+      placeholder: "Example: Chrome 123.0.4567.89, Linkumori v1.2.3, Dark mode enabled"
     validations:
       required: false
  
