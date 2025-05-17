@@ -509,11 +509,14 @@
   "additionalInfoPlaceholder": {
     "message": "Veuillez fournir des détails ou commentaires supplémentaires sur le problème..."
   },
-  "consentMessage": {
-    "message": "Je comprends qu'en cliquant sur \"Signaler sur GitHub\", je serai redirigé vers GitHub avec les informations pré-remplies que j'ai saisies sur cette page, ainsi que des informations supplémentaires collectées par l'extension. Veuillez examiner la section Informations de configuration, qui peut inclure des détails tels que vos informations de navigateur et les paramètres de l'extension. En soumettant le problème, j'accepte les politiques de confidentialité de GitHub. Voir $link$.",
+   "consentMessage": {
+    "message": "Je comprends qu'en cliquant sur \"Signaler sur GitHub\", je serai redirigé vers GitHub avec les informations pré-remplies que j'ai saisies sur cette page, ainsi que les données supplémentaires affichées dans la section Informations de configuration. J'ai examiné la section Informations de configuration, qui comprend des détails tels que mes informations de navigateur (nom et version), les paramètres de l'extension, les domaines en liste blanche, les règles personnalisées (nom de domaine et paramètre), les ID de règles désactivées, ainsi que le nom et la version de l'extension. Je comprends que la création d'un problème nécessite un compte GitHub et qu'une fois redirigé vers GitHub, je serai soumis aux politiques de confidentialité de GitHub comme décrit dans $privacy_link$. En soumettant le problème sur GitHub, j'accepte les politiques de confidentialité de GitHub comme décrit dans $privacy_link$. Je reconnais qu'après avoir été redirigé avec ces informations pré-remplies, je conserve le choix de soumettre ou d'annuler la création du problème sur le dépôt hébergé sur $repo_link$. Je reconnais en outre que même si j'annule la création du problème, GitHub peut toujours collecter des données conformément à leur politique de confidentialité, car j'aurai déjà accédé à leur plateforme.",
     "placeholders": {
-      "link": {
-        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>la déclaration de confidentialité de GitHub</a>"
+      "privacy_link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>Déclaration de confidentialité de GitHub</a>"
+      },
+      "repo_link": {
+        "content": "<a href='https://github.com/Linkumori/Linkumori-Extension' target='_blank'>https://github.com/Linkumori/Linkumori-Extension</a>"
       }
     }
   },
@@ -524,10 +527,10 @@
     "message": "Informations de configuration"
   },
   "findExistingConsentMessage": {
-    "message": "Je comprends qu'en cliquant sur \"Rechercher les problèmes existants\", je serai redirigé vers GitHub avec des paramètres de recherche incluant le nom de domaine et les détails du problème que j'ai saisis. L'URL peut être visible dans l'historique de recherche GitHub. En continuant, j'accepte les politiques de confidentialité de GitHub concernant les paramètres d'URL. Voir $link$.",
+    "message": "Je comprends qu'en cliquant sur \"Rechercher des problèmes existants\", je serai redirigé vers GitHub avec des paramètres de recherche incluant le nom de domaine et les détails du problème que j'ai saisis. L'URL peut être visible dans l'historique de recherche GitHub. En continuant, j'accepte les politiques de confidentialité de GitHub concernant les paramètres d'URL. Voir $link$.",
     "placeholders": {
       "link": {
-        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>la politique de confidentialité de recherche GitHub</a>"
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>Politique de confidentialité de recherche GitHub</a>"
       }
     }
   }

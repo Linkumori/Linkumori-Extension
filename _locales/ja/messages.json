@@ -564,10 +564,13 @@
     "message": "問題に関する追加の詳細やコメントを入力してください..."
   },
   "consentMessage": {
-    "message": "「GitHub で報告」をクリックすると、このページで入力した情報と拡張機能が収集した追加情報が GitHub に転送されることを理解しています。ブラウザ情報や拡張機能の設定などの詳細が含まれる可能性がある設定情報セクションをご確認ください。問題を送信することで、GitHub のプライバシーポリシーに同意したことになります。$link$ をご覧ください。",
+    "message": "「GitHub で報告」をクリックすると、このページで入力した情報と設定情報セクションに表示される追加データと共に GitHub にリダイレクトされることを理解しています。ブラウザ情報（ブラウザ名とバージョン）、拡張機能の設定、ホワイトリストに登録されたドメイン、カスタムルール（ドメイン名とパラメータ）、無効化されたルール ID、拡張機能の名前とバージョンなどの詳細を含む設定情報セクションを確認しました。問題を作成するには GitHub アカウントが必要であり、GitHub にリダイレクトされた後は、$privacy_link$ に記載されている GitHub のプライバシーポリシーに従うことを理解しています。GitHub で問題を送信することにより、$privacy_link$ に記載されている GitHub のプライバシーポリシーに同意します。この事前入力された情報でリダイレクトされた後も、$repo_link$ でホストされているリポジトリでの問題の作成を送信またはキャンセルする選択権を保持することを認識しています。さらに、問題作成をキャンセルした場合でも、すでにプラットフォームにアクセスしているため、GitHub がプライバシーポリシーに従ってデータを収集する可能性があることを認識しています。",
     "placeholders": {
-      "link": {
+      "privacy_link": {
         "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub のプライバシーに関する声明</a>"
+      },
+      "repo_link": {
+        "content": "<a href='https://github.com/Linkumori/Linkumori-Extension' target='_blank'>https://github.com/Linkumori/Linkumori-Extension</a>"
       }
     }
   },
@@ -578,7 +581,7 @@
     "message": "設定情報"
   },
   "findExistingConsentMessage": {
-    "message": "「既存の問題を検索」をクリックすると、入力したドメイン名と問題の詳細を含む検索パラメータを使用して GitHub にリダイレクトされることを理解しています。この URL は GitHub の検索履歴に表示される可能性があります。続行することで、URL パラメータに関する GitHub のプライバシーポリシーに同意したことになります。$link$ をご覧ください。",
+    "message": "「既存の問題を検索」をクリックすると、入力したドメイン名と問題の詳細を含む検索パラメータを使用して GitHub にリダイレクトされることを理解しています。この URL は GitHub の検索履歴に表示される可能性があります。続行することで、URL パラメータに関する GitHub のプライバシーポリシーに同意します。$link$ をご覧ください。",
     "placeholders": {
       "link": {
         "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub の検索プライバシーポリシー</a>"
@@ -586,6 +589,4 @@
     }
   }
 }
-
-
 

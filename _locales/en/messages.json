@@ -510,7 +510,7 @@
     "message": "Please provide any additional details or comments about the issue..."
   },
 "consentMessage": {
-  "message": "I understand that clicking \"Report on GitHub\" will redirect me to GitHub with pre-filled information that I have entered on this page, additional data that displayed  Configuration Information section on this page I have reviewed the Configuration Information section, which includes details such as my browser information and extension settings. I understand that creating an issue requires a GitHub account, and if I have created or already or i will create account after being redirected to github through this extentsion or report page have a GitHub account, I am governed by GitHub's privacy policies as outlined in $privacy_link$. By submitting the issue, I agree to GitHub's privacy policies as outlined in $privacy_link$. I acknowledge that after being redirected with this pre-filled information, I retain the choice to either submit or cancel the creation of an issue on the repository hosted at: $repo_link$. I further acknowledge that even if I cancel the issue creation, GitHub may still collect data according to their privacy policy, as I will have already been redirected to their platform.",
+  "message": "I understand that clicking \"Report on GitHub\" will redirect me to GitHub with pre-filled information that I have entered on this page, along with additional data shown in the Configuration Information section. I have reviewed the Configuration Information section, which includes details such as my browser information (browser name and version), extension settings, whitelisted domains, custom rules (domain name and parameter), disabled rule IDs, and the extension name and version. I understand that creating an issue requires a GitHub account, and that once I am redirected to GitHub, I will be governed by GitHub’s privacy policies as outlined in $privacy_link$. By submitting the issue on github, I agree to GitHub’s privacy policies as outlined in $privacy_link$. I acknowledge that after being redirected with this pre-filled information, I retain the choice to either submit or cancel the creation of the issue on the repository hosted at $repo_link$. I further acknowledge that even if I cancel the issue creation, GitHub may still collect data in accordance with their privacy policy, as I will have already accessed their platform.",
   "placeholders": {
     "privacy_link": {
       "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub's Privacy Statement</a>"
@@ -520,6 +520,7 @@
     }
   }
 },
+
   "reportOnGitHub": {
     "message": "Report on GitHub"
   },

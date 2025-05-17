@@ -509,11 +509,14 @@
   "additionalInfoPlaceholder": {
     "message": "请提供关于此问题的任何其他详细信息或评论..."
   },
-  "consentMessage": {
-    "message": "我了解点击\"在 GitHub 上报告\"将使用我在此页面上输入的信息以及扩展程序收集的附加信息重定向到 GitHub。请查看配置信息部分，其中可能包括您的浏览器信息和扩展程序设置等详细信息。提交问题即表示我同意 GitHub 的隐私政策。请参阅 $link$。",
+   "consentMessage": {
+    "message": "我理解点击\"在 GitHub 上报告\"将使我重定向到 GitHub，其中包含我在此页面上输入的预填信息，以及配置信息部分显示的其他数据。我已查看配置信息部分，其中包括我的浏览器信息（浏览器名称和版本）、扩展设置、白名单域名、自定义规则（域名和参数）、禁用规则 ID 以及扩展名称和版本等详细信息。我理解创建问题需要 GitHub 帐户，一旦重定向到 GitHub，我将受 $privacy_link$ 中概述的 GitHub 隐私政策约束。通过在 GitHub 上提交问题，我同意 $privacy_link$ 中概述的 GitHub 隐私政策。我确认在使用这些预填信息重定向后，我仍可以选择提交或取消在 $repo_link$ 托管的存储库上创建问题。我进一步确认，即使我取消创建问题，GitHub 仍可能根据其隐私政策收集数据，因为我已经访问了他们的平台。",
     "placeholders": {
-      "link": {
+      "privacy_link": {
         "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub 隐私声明</a>"
+      },
+      "repo_link": {
+        "content": "<a href='https://github.com/Linkumori/Linkumori-Extension' target='_blank'>https://github.com/Linkumori/Linkumori-Extension</a>"
       }
     }
   },
@@ -524,7 +527,7 @@
     "message": "配置信息"
   },
   "findExistingConsentMessage": {
-    "message": "我了解点击\"查找现有问题\"将使用我输入的域名和问题详细信息重定向到 GitHub。此 URL 可能会出现在 GitHub 的搜索历史记录中。继续即表示我同意 GitHub 关于 URL 参数的隐私政策。请参阅 $link$。",
+    "message": "我理解点击\"查找现有问题\"将使我重定向到 GitHub，其中包含我输入的域名和问题详细信息的搜索参数。该 URL 可能会在 GitHub 的搜索历史记录中可见。继续操作即表示我同意 GitHub 关于 URL 参数的隐私政策。请参阅 $link$。",
     "placeholders": {
       "link": {
         "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub 搜索隐私政策</a>"
@@ -532,5 +535,3 @@
     }
   }
 }
-
-
