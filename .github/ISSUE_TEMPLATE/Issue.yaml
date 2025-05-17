@@ -10,24 +10,13 @@ body:
       placeholder: "Example: Chrome 123.0.4567.89, Linkumori v1.2.3, Dark mode enabled"
     validations:
       required: false
- 
+
   - type: markdown
     attributes:
       value: |
         ## Consent Confirmation
-        **All checkboxes below must be checked to submit this issue.**
-  
-  - type: checkboxes
-    id: consent
-    attributes:
-      label: Mandatory Consent
-      description: You must check all boxes to confirm your consent
-      options:
-        - label: I understand that by submitting this issue, I am sharing the information above with the Linkumori project maintainers
-          required: true
-        - label: I affirm that I previously gave consent through the Linkumori extension reporting page
-          required: true
-        - label: I understand that this submission constitutes my second confirmation of consent to share this information
-          required: true
-  
- 
+        **All checkboxes below must have been previously acknowledged.**
+        
+        - [x] I understand that by submitting this issue, I am sharing the information above with the Linkumori project maintainers  
+        - [x] I affirm that I previously gave consent through the Linkumori extension reporting page  
+        - [x] I understand that this submission constitutes my second confirmation of consent to share this information
