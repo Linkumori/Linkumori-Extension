@@ -3,15 +3,6 @@ description: Report a bug or suggest an enhancement for Linkumori
 title: "[ISSUE] "
 labels: ["needs-triage"]
 assignees: []
-body:
-  - type: input
-    id: issue_type
-    attributes:
-      label: Issue Type
-      description: Is this a bug report or feature request?
-    validations:
-      required: true
-
   - type: markdown
     attributes:
       value: |
@@ -29,7 +20,7 @@ body:
       description: What did you expect to happen, or how would this enhancement benefit users?
       placeholder: "I expected... / This would be useful when..."
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: additional_info
