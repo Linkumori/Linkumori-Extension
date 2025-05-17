@@ -277,11 +277,6 @@ async function getConfigData() {
 
 /******************************************************************************/
 
-// Send a message to the background script
-
-
-/******************************************************************************/
-
 // Open a URL
 function openURL(url) {
     try {
@@ -380,11 +375,14 @@ function getHostnameFromUrl(url) {
     }
 }
 
-// Enhanced reportIssue function to handle both URL and non-URL related issues properly
+// Updated reportIssue function to use the new YAML template
 async function reportIssue() {
-    // Check if the user has provided consent
-    if (!$('#consentCheckbox').checked) {
-        alert('Please confirm that you understand how your data will be used by checking the consent box.');
+    // Check if the user has provided all required consent
+    const consentCheckboxes = document.querySelectorAll('.consent-checkbox');
+    const allConsentsChecked = Array.from(consentCheckboxes).every(checkbox => checkbox.checked);
+    
+    if (!allConsentsChecked) {
+        alert('Please check all consent checkboxes to proceed.');
         return;
     }
 
@@ -394,9 +392,11 @@ async function reportIssue() {
         return;
     }
     
-    const githubURL = new URL('https://github.com/Linkumori/Linkumori-Extension/issues/new');
-    
     try {
+        // Base GitHub URL using the template
+        const githubURL = new URL('https://github.com/Linkumori/Linkumori-Extension/issues/new');
+        githubURL.searchParams.set('template', 'Issue.yaml');
+        
         // Define which issue types are URL-related
         const urlRelatedTypes = ['tracking-not-removed', 'url-broken', 'false-positive'];
         const isUrlRelatedIssue = urlRelatedTypes.includes(issueType);
@@ -417,10 +417,14 @@ async function reportIssue() {
             }
         }
 
-        // Get additional comments
+        // Get additional comments and format description for the issue template
         const additionalInfo = $('#additionalInfo').value.trim();
         
-        // Determine title based on issue type and URL source
+        // Prepare information about extension, browser, and settings
+        const browserInfo = getBrowserInfo();
+        const configData = await getConfigData();
+        
+        // Create a proper title for the issue
         let title;
         
         if (isUrlRelatedIssue) {
@@ -450,45 +454,36 @@ async function reportIssue() {
         if ($('#isNSFW')?.checked) {
             title = `[nsfw] ${title}`;
         }
-
+        
+        // Set the title parameter
         githubURL.searchParams.set('title', title);
+        githubURL.searchParams.set('labels', 'needs-triage');
         
-        // Build GitHub issue body - only include URL sections for URL-related issues
-        const bodyParts = [
-            `## Issue Type\n${issueType}`,
-            '',
-        ];
+        // Format description text for the template
+        let descriptionText = `Browser: ${browserInfo}\n`;
+        descriptionText += `Issue Type: ${issueType}\n`;
         
-        // Only add URL information for URL-related issues
-        if (isUrlRelatedIssue) {
-            if (finalUrl) {
-                bodyParts.push(`## URL\n\`${finalUrl}\``);
-                bodyParts.push('');
-            }
+        if (isUrlRelatedIssue && finalUrl) {
+            descriptionText += `URL: ${finalUrl}\n`;
             
             if (reportedPage?.cleanedUrl) {
-                bodyParts.push(`## Cleaned URL\n\`${reportedPage.cleanedUrl}\``);
-                bodyParts.push('');
+                descriptionText += `Cleaned URL: ${reportedPage.cleanedUrl}\n`;
             }
         }
         
-        // Add the rest of the information
-        bodyParts.push(
-            '## Browser Information',
-            `\`${getBrowserInfo()}\``,
-            '',
-            additionalInfo ? `## Additional Comments\n${additionalInfo}` : '',
-            '',
-            '## Consent',
-            `- [x] ${chrome.i18n.getMessage('consentMessage')}`,
-            '',
-            '## Current Settings',
-            'The following settings were active when this issue occurred:',
-            await getConfigData(),
-        );
+        if ($('#isNSFW')?.checked) {
+            descriptionText += `Content Warning: This issue contains NSFW content.\n`;
+        }
         
-        const body = bodyParts.filter(Boolean).join('\n');
-        githubURL.searchParams.set('body', body);
+        if (additionalInfo) {
+            descriptionText += `\nAdditional Comments:\n${additionalInfo}\n`;
+        }
+        
+        descriptionText += `\nCurrent Settings:\n${configData}`;
+        
+        // Set the description parameter for the template
+        githubURL.searchParams.set('description', descriptionText);
+        
         openURL(githubURL.href);
     } catch (error) {
         console.error('Error creating GitHub issue:', error);
@@ -592,6 +587,49 @@ function validateUrl(url) {
 
 /******************************************************************************/
 
+// Add function to create consent checkbox sections based on new YAML template requirements
+function createConsentCheckboxes() {
+    const consentContainer = $('#consentContainer');
+    if (!consentContainer) return;
+    
+    // Clear existing checkboxes
+    consentContainer.innerHTML = '';
+    
+    // Create heading
+    const heading = createElement('h3', {}, 'Mandatory Consent');
+    consentContainer.appendChild(heading);
+    
+    // Create consent note
+    const note = createElement('p', {}, 'All checkboxes below must be checked to submit this issue.');
+    consentContainer.appendChild(note);
+    
+    // Create the consent checkboxes
+    const consentOptions = [
+        'I understand that by submitting this issue, I am sharing the information above with the Linkumori project maintainers',
+        'I affirm that I previously gave consent through the Linkumori extension reporting page',
+        'I understand that this submission constitutes my second confirmation of consent to share this information'
+    ];
+    
+    consentOptions.forEach((text, index) => {
+        const checkboxId = `consent-${index + 1}`;
+        const container = createElement('div', { class: 'checkbox-container' });
+        
+        const label = createElement('label', { for: checkboxId });
+        const checkbox = createElement('input', { 
+            type: 'checkbox', 
+            id: checkboxId, 
+            class: 'consent-checkbox' 
+        });
+        
+        const span = createElement('span', {}, text);
+        
+        label.appendChild(checkbox);
+        label.appendChild(span);
+        container.appendChild(label);
+        consentContainer.appendChild(container);
+    });
+}
+
 // Enhanced initialization for the report page
 async function initReportPage() {
     try {
@@ -601,6 +639,9 @@ async function initReportPage() {
         
         // Populate the URL dropdown with actual URLs
         populateUrlDropdown();
+        
+        // Create consent checkboxes based on the new YAML template
+        createConsentCheckboxes();
         
         // Add event listener for issue type selection
         $('#issueTypeSelect').addEventListener('change', updateURLSelectVisibility);
@@ -691,11 +732,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 customOption.textContent = chrome.i18n.getMessage('enterCustomUrl');
             }
         }
+        
+        // Translate consent checkboxes
+        document.querySelectorAll('.consent-checkbox').forEach((checkbox, index) => {
+            const messageKey = `consent${index + 1}`;
+            const label = checkbox.nextElementSibling;
+            if (label && chrome.i18n.getMessage(messageKey)) {
+                label.textContent = chrome.i18n.getMessage(messageKey);
+            }
+        });
     }
 
     // Initialize translations
     initTranslations();
-});
     
     // Setup NSFW checkbox
     const nsfwCheckbox = document.getElementById('isNSFW');
@@ -712,3 +761,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize the report page after DOM is ready
     initReportPage();
+});
