@@ -2,35 +2,22 @@ name: Issue Report
 description: Report a bug or suggest an enhancement for Linkumori
 title: "[ISSUE] "
 labels: ["needs-triage"]
-
-  
-
-
-
+body:
   - type: description
     id: description
     attributes:
-      label: Information about extension
-      description: What did you expect to happen, or how would this enhancement benefit users?
-      placeholder: "I expected... / This would be useful when..."
+      label: Information about extension like settings and preference etc and browser information and version 
+      description: ""
+      placeholder: ""
     validations:
       required: false
-
-  - type: textarea
-    id: additional_info
-    attributes:
-      label: Additional Information
-      description: Any other context, screenshots, or information that might be helpful
-      placeholder: "Other details..."
-    validations:
-      required: false
-
+ 
   - type: markdown
     attributes:
       value: |
         ## Consent Confirmation
         **All checkboxes below must be checked to submit this issue.**
-
+  
   - type: checkboxes
     id: consent
     attributes:
@@ -43,7 +30,7 @@ labels: ["needs-triage"]
           required: true
         - label: I understand that this submission constitutes my second confirmation of consent to share this information
           required: true
-
+  
   - type: markdown
     attributes:
       value: |
