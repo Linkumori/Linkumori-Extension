@@ -7,8 +7,8 @@ labels: ["needs-triage"]
 
 
 
-  - type: textarea
-    id: expected
+  - type: description
+    id: description
     attributes:
       label: Information about extension
       description: What did you expect to happen, or how would this enhancement benefit users?
