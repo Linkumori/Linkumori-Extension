@@ -31,8 +31,4 @@ body:
         - label: I understand that this submission constitutes my second confirmation of consent to share this information
           required: true
   
-  - type: markdown
-    attributes:
-      value: |
-        ## Technical Information (for bug reports)
-        If you're reporting a bug, the following technical information may have been automatically collected by the extension.
+ 
