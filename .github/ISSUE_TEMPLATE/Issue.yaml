@@ -1,6 +1,6 @@
 name: Issue Report
 description: Report a bug or suggest an enhancement for Linkumori
-title: "[ISSUE] "
+title: ""
 labels: ["needs-triage"]
 body:
   - type: textarea
