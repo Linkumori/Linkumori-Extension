@@ -377,18 +377,16 @@ function getHostnameFromUrl(url) {
 
 // Updated reportIssue function to use the new YAML template
 async function reportIssue() {
-    // Check if the user has provided all required consent
-    const consentCheckboxes = document.querySelectorAll('.consent-checkbox');
-    const allConsentsChecked = Array.from(consentCheckboxes).every(checkbox => checkbox.checked);
-    
-    if (!allConsentsChecked) {
-        alert('Please check all consent checkboxes to proceed.');
+    // Check if consent checkbox is checked
+    const consentCheckbox = $('#consentCheckbox');
+    if (!consentCheckbox?.checked) {
+        alert(chrome.i18n.getMessage('Please check the consent checkbox to proceed.'));
         return;
     }
 
     const issueType = getIssueType();
     if (issueType === '[unknown]') {
-        alert('Please select an issue type.');
+        alert(chrome.i18n.getMessage('Please select an issue type.'));
         return;
     }
     
