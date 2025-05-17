@@ -1,8 +1,8 @@
 name: Bug Report
-about: Report an issue with the Linkumori extension
+description: Report an issue with the Linkumori extension
 title: "[BUG] "
-labels: bug, needs-triage
-assignees: ""
+labels: ["bug", "needs-triage"]
+assignees: []
 body:
   - type: markdown
     attributes:
