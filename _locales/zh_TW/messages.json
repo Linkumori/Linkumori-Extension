@@ -448,7 +448,8 @@
   },
   "errorMessages_statsImport": {
     "message": "匯入統計資料失敗：$1"
-  }, "reportIssueTitle": {
+  },
+  "reportIssueTitle": {
     "message": "回報問題"
   },
   "reportIssueHeader": {
@@ -509,10 +510,10 @@
     "message": "請提供關於此問題的任何其他詳細資訊或評論..."
   },
   "consentMessage": {
-    "message": "我理解點擊「在 GitHub 上回報」將使我重新導向至 GitHub，其中包含我在此頁面上輸入的預填資訊，以及設定資訊部分顯示的其他資料。我已檢閱設定資訊部分，其中包括我的瀏覽器資訊（瀏覽器名稱和版本）、擴充功能設定、白名單網域、自訂規則（網域名稱和參數）、停用規則 ID 以及擴充功能名稱和版本等詳細資訊。我理解建立問題需要 GitHub 帳戶，一旦重新導向至 GitHub，我將受 $privacy_link$ 中概述的 GitHub 隱私權政策約束。透過在 GitHub 上提交問題，我同意 $privacy_link$ 中概述的 GitHub 隱私權政策。我確認在使用這些預填資訊重新導向後，我仍可以選擇提交或取消在 $repo_link$ 託管的儲存庫上建立問題。我進一步確認，即使我取消建立問題，GitHub 仍可能根據其隱私權政策收集資料，因為我已經訪問了他們的平台。",
+    "message": "我了解點擊「在 GitHub 上報告」將使我重定向到 GitHub，其中包含我在此頁面上輸入的預填信息，以及配置信息部分顯示的其他數據。我已查看配置信息部分，其中包括我的瀏覽器信息（瀏覽器名稱和版本）、擴展設置、白名單域名、自定義規則（域名和參數）、禁用規則 ID 以及擴展名稱和版本等詳細信息。我了解創建問題需要 GitHub 帳戶，一旦重定向到 GitHub，我將受 $privacy_link$ 中概述的 GitHub 隱私政策約束。通過在 GitHub 上提交問題，我同意 $privacy_link$ 中概述的 GitHub 隱私政策。我確認在使用這些預填信息重定向後，我仍可以選擇提交或取消在 $repo_link$ 托管的儲存庫上創建問題。我進一步確認，即使我取消創建問題，GitHub 仍可能根據其隱私政策收集數據，因為我已經訪問了他們的平台。",
     "placeholders": {
       "privacy_link": {
-        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub 隱私權聲明</a>"
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub 隱私聲明</a>"
       },
       "repo_link": {
         "content": "<a href='https://github.com/Linkumori/Linkumori-Extension' target='_blank'>https://github.com/Linkumori/Linkumori-Extension</a>"
@@ -526,7 +527,39 @@
     "message": "設定資訊"
   },
   "findExistingConsentMessage": {
-    "message": "我理解點擊「尋找現有問題」將使我重新導向至 GitHub，其中包含我輸入的網域名稱和問題詳細資訊的搜尋參數。該 URL 可能會在 GitHub 的搜尋歷史記錄中可見。繼續操作即表示我同意 GitHub 關於 URL 參數的隱私權政策。請參閱 $link$。",
+    "message": "我了解點擊「查找現有問題」將使我重定向到 GitHub，其中包含我輸入的域名和問題詳細信息的搜索參數。該 URL 可能會在 GitHub 的搜索歷史記錄中可見。繼續操作即表示我同意 GitHub 關於 URL 參數的隱私政策。請參閱 $link$。",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub 搜索隱私政策</a>"
+      }
+    }
+  },
+  "urlPreviewTitle": {
+    "message": "URL 預覽"
+  },
+  "urlPreviewWarning": {
+    "message": "請審查將要開啟的 URL。此 URL 包含您輸入的資訊，並會將您重新導向至 GitHub。"
+  },
+  "urlPreviewEncodedUrl": {
+    "message": "將開啟的 URL（技術格式）："
+  },
+  "urlPreviewShowDecoded": {
+    "message": "顯示可讀格式（解碼的 URL）"
+  },
+  "urlPreviewCopy": {
+    "message": "複製 URL"
+  },
+  "urlPreviewCopied": {
+    "message": "已複製！"
+  },
+  "urlPreviewCancelButton": {
+    "message": "取消"
+  },
+  "urlPreviewProceedButton": {
+    "message": "開啟 GitHub"
+  },
+  "urlPreviewSecurityNotice": {
+    "message": "此 URL 將重新導向至 GitHub。重新導向後，您的資料將受 $link$ 規範。",
     "placeholders": {
       "link": {
         "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub 搜尋隱私權政策</a>"

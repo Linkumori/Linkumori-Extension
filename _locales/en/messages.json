@@ -509,30 +509,103 @@
   "additionalInfoPlaceholder": {
     "message": "Please provide any additional details or comments about the issue..."
   },
-"consentMessage": {
-  "message": "I understand that clicking \"Report on GitHub\" will redirect me to GitHub with pre-filled information that I have entered on this page, along with additional data shown in the Configuration Information section. I have reviewed the Configuration Information section, which includes details such as my browser information (browser name and version), extension settings, whitelisted domains, custom rules (domain name and parameter), disabled rule IDs, and the extension name and version. I understand that creating an issue requires a GitHub account, and that once I am redirected to GitHub, I will be governed by GitHub’s privacy policies as outlined in $privacy_link$. By submitting the issue on github, I agree to GitHub’s privacy policies as outlined in $privacy_link$. I acknowledge that after being redirected with this pre-filled information, I retain the choice to either submit or cancel the creation of the issue on the repository hosted at $repo_link$. I further acknowledge that even if I cancel the issue creation, GitHub may still collect data in accordance with their privacy policy, as I will have already accessed their platform.",
-  "placeholders": {
-    "privacy_link": {
-      "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub's Privacy Statement</a>"
-    },
-    "repo_link": {
-      "content": "<a href='https://github.com/Linkumori/Linkumori-Extension' target='_blank'>https://github.com/Linkumori/Linkumori-Extension</a>"
+  
+  "consentMessage": {
+    "message": "I understand that clicking \"Report on GitHub\" will construct a GitHub URL containing the information I've entered and the configuration data shown below, then redirect me to that URL. No data is transmitted directly by this extension. The extension will show me the complete URL before opening it, and I can review exactly what information will be included. Once redirected to GitHub, I will have full control to either submit the pre-filled issue form or cancel without submitting anything. I understand that accessing GitHub subjects me to $privacy_link$. Creating an issue requires a GitHub account, and once you choose to proceed and are redirected to GitHub, your activity is governed by $privacy_statement$ and $terms_service$. After being redirected with pre-filled information, you retain full control and can choose whether to submit or cancel the issue creation on our repository at $repo_link$. Even if you cancel the issue creation, GitHub may still collect data according to their privacy policy due to your interaction with their platform. If you proceed with submitting the issue, the information you submit, including any additional comments, will become publicly accessible. This is because the repository is public, and any reported issue will be visible to anyone using GitHub or related services.",
+    "placeholders": {
+      "privacy_link": {
+        "content": "<a href='https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub's Privacy Statement</a>"
+      },
+      "privacy_statement": {
+        "content": "<a href='https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub's privacy statement</a>"
+      },
+      "terms_service": {
+        "content": "<a href='https://docs.github.com/en/site-policy/github-terms/github-terms-of-service' target='_blank'>terms of service</a>"
+      },
+      "repo_link": {
+        "content": "<a href='https://github.com/Linkumori/Linkumori-Extension' target='_blank'>https://github.com/Linkumori/Linkumori-Extension</a>"
+      }
     }
-  }
-},
-
+  },
   "reportOnGitHub": {
     "message": "Report on GitHub"
   },
   "configInformation": {
     "message": "Configuration Information"
   },
-  "findExistingConsentMessage": {
-    "message": "I understand that clicking \"Find Existing Issues\" will redirect me to GitHub with search parameters that include the domain name and issue details I've entered. The URL may be visible in GitHub's search history. By proceeding, I agree to GitHub's privacy policies regarding URL parameters. See $link$.",
+ "findExistingConsentMessage": {
+    "message": "I understand that clicking \"Find Existing Issues\" will construct a GitHub search URL using the domain name and issue details I have entered, and then redirect me to that URL. No data is transmitted directly by this extension. The extension will show me the complete search URL before opening it, so I can review which search terms will be used. Once redirected to GitHub, I will be subject to $link$ and $terms_service$. I understand that this search will not create any issues or submit any data to GitHub; it is only for finding existing issues related to the problem I am experiencing. If I proceed with the search, I can review the results and choose whether to create a new issue based on the findings.",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub's Search Privacy Policy</a>"
+      },
+      "terms_service": {
+        "content": "<a href='https://docs.github.com/en/site-policy/github-terms/github-terms-of-service' target='_blank'>terms of service</a>"
+      }
+    }
+},
+    "urlPreviewTitle": {
+    "message": "URL Preview",
+    "description": "Title for URL preview dialog"
+  },
+  "urlPreviewWarning": {
+    "message": "Please review the URL that will be opened. This URL contains the information you entered and will redirect you to GitHub.",
+    "description": "Warning about URL contents and redirection"
+  },
+  "urlPreviewEncodedUrl": {
+    "message": "URL to be opened (technical format):",
+    "description": "Label for encoded URL display"
+  },
+  "urlPreviewShowDecoded": {
+    "message": "Show readable format (decoded URL)",
+    "description": "Label for decoded URL toggle button"
+  },
+  "urlPreviewCopy": {
+    "message": "Copy URL",
+    "description": "Label for copy URL button"
+  },
+  "urlPreviewCopied": {
+    "message": "Copied!",
+    "description": "Confirmation message after copying URL"
+  },
+  "urlPreviewCancelButton": {
+    "message": "Cancel",
+    "description": "Label for cancel button in URL preview"
+  },
+  "urlPreviewProceedButton": {
+    "message": "Open GitHub",
+    "description": "Label for proceed button in URL preview"
+  },
+
+
+  "consentRequired": {
+    "message": "Please check the consent checkbox to proceed.",
+    "description": "Error message when consent is not given"
+  },
+  "issueTypeRequired": {
+    "message": "Please select an issue type.",
+    "description": "Error message when issue type is not selected"
+  },
+  "urlRequired": {
+    "message": "Please provide a URL.",
+    "description": "Error message when URL is missing"
+  },
+  "urlInvalid": {
+    "message": "Please enter a valid URL.",
+    "description": "Error message when URL is invalid"
+  },
+  "errorFindingIssues": {
+    "message": "Error finding existing issues: ",
+    "description": "Error message prefix when searching for existing issues fails"
+  },
+  "urlPreviewSecurityNotice": {
+    "message": "This URL will redirect you to GitHub.  Your data will be subject to  $link$. once redirected.",
     "placeholders": {
       "link": {
         "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub's Search Privacy Policy</a>"
       }
     }
-  }
 }
+}
+
+

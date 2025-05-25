@@ -420,7 +420,22 @@
             text-decoration: underline;
         }
 
-        /* Media queries for responsive design */
+        /* URL Preview Modal Styling */
+        .url-preview-modal {
+            font-family: "Liberation Serif";
+        }
+
+        .url-preview-modal button:focus {
+            outline: 2px solid var(--button-primary);
+            outline-offset: 2px;
+        }
+
+        .url-preview-modal [style*="user-select: all"]:focus {
+            outline: 2px solid var(--input-focus);
+            outline-offset: 2px;
+        }
+
+        /* Mobile responsiveness for URL preview modal */
         @media (max-width: 600px) {
             section {
                 padding: 12px;
@@ -432,6 +447,56 @@
             
             body {
                 font-size: 13px;
+            }
+
+            /* Modal adjustments for mobile */
+            .url-preview-modal {
+                margin: 10px !important;
+                padding: 16px !important;
+                max-height: 90vh !important;
+            }
+            
+            /* Button container for mobile */
+            .url-preview-modal [style*="display: flex"]:last-child {
+                flex-direction: column !important;
+                gap: 8px !important;
+            }
+            
+            .url-preview-modal [style*="display: flex"]:last-child button {
+                width: 100% !important;
+                padding: 10px 16px !important;
+            }
+            
+            /* URL display adjustments */
+            .url-preview-modal [style*="font-family: monospace"] {
+                font-size: 11px !important;
+                max-height: 150px !important;
+            }
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            .url-preview-modal button {
+                transition: none !important;
+            }
+            
+            .url-preview-modal button:hover {
+                transform: none !important;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .url-preview-modal > div {
+                border: 2px solid var(--text-secondary) !important;
+            }
+            
+            .url-preview-modal [style*="font-family: monospace"] {
+                border: 2px solid var(--border-color) !important;
+            }
+            
+            .url-preview-modal [style*="rgba(59, 130, 246"] {
+                border: 2px solid var(--button-primary) !important;
             }
         }
      </style>

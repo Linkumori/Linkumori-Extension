@@ -19,7 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /******************************************************************************/
 import { readPurifyUrlsSettings, setDefaultSettings } from '../common/utils.js';
-import { defaultSettings, SETTINGS_KEY, CANT_FIND_SETTINGS_MSG, STATS_KEY } from '../common/constants.js';
+import { SETTINGS_KEY, CANT_FIND_SETTINGS_MSG} from '../common/constants.js';
+ 
+/******************************************************************************/
+
 // DOM Helper Functions
 function $(selector) {
     return document.querySelector(selector);
@@ -102,7 +105,7 @@ function populateUrlDropdown() {
     // Add the custom URL option
     const customOption = createElement('option');
     customOption.value = 'custom';
-    customOption.textContent = 'Enter custom URL';
+    customOption.textContent = chrome.i18n.getMessage('enterCustomUrl') || 'Enter custom URL';
     urlSelect.appendChild(customOption);
 }
 
@@ -265,7 +268,7 @@ async function getConfigData() {
             whitelistedDomains: storage.whitelist || [],
             customRules: storage.customRules || [],
             disabledExceptionRules: storage.disabledExceptionRules || [],
-            browser: getBrowserInfo()  // Use getBrowserInfo instead of navigator.userAgent
+            Browser: getBrowserInfo()  // Use getBrowserInfo instead of navigator.userAgent
         };
         
         return renderData(config);
@@ -375,18 +378,373 @@ function getHostnameFromUrl(url) {
     }
 }
 
-// Updated reportIssue function to use the new YAML template
+/******************************************************************************/
+
+// Helper function to safely decode URL components
+function safeDecodeUrl(url) {
+    try {
+        const parsedUrl = new URL(url);
+        
+        // Start building the decoded URL manually
+        let decodedUrl = `${parsedUrl.protocol}//${parsedUrl.host}`;
+        
+        // Decode pathname
+        try {
+            decodedUrl += decodeURIComponent(parsedUrl.pathname);
+        } catch (e) {
+            decodedUrl += parsedUrl.pathname; // Keep original if decoding fails
+        }
+        
+        // Decode search parameters manually (don't use URLSearchParams.toString())
+        if (parsedUrl.search) {
+            const searchParams = [];
+            for (const [key, value] of parsedUrl.searchParams) {
+                try {
+                    const decodedKey = decodeURIComponent(key);
+                    const decodedValue = decodeURIComponent(value);
+                    searchParams.push(`${decodedKey}=${decodedValue}`);
+                } catch (e) {
+                    // If decoding fails, keep original
+                    searchParams.push(`${key}=${value}`);
+                }
+            }
+            
+            if (searchParams.length > 0) {
+                decodedUrl += '?' + searchParams.join('&');
+            }
+        }
+        
+        // Add hash if present
+        if (parsedUrl.hash) {
+            try {
+                decodedUrl += decodeURIComponent(parsedUrl.hash);
+            } catch (e) {
+                decodedUrl += parsedUrl.hash; // Keep original if decoding fails
+            }
+        }
+        
+        return decodedUrl;
+    } catch (error) {
+        console.warn('Error decoding URL:', error);
+        // Fallback to simple decodeURIComponent for the entire URL
+        try {
+            return decodeURIComponent(url);
+        } catch (fallbackError) {
+            console.warn('Fallback decoding also failed:', fallbackError);
+            // Return original URL if all decoding attempts fail
+            return url;
+        }
+    }
+}
+
+/******************************************************************************/
+
+// Updated URL Preview Modal with decoded URL display
+function showUrlPreview(url) {
+    return new Promise((resolve) => {
+        // Create modal overlay
+        const overlay = createElement('div', {
+            class: 'url-preview-modal',
+            style: `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                box-sizing: border-box;
+            `
+        });
+
+        // Create modal content
+        const modal = createElement('div', {
+            style: `
+                background: var(--bg-secondary);
+                border-radius: 8px;
+                padding: 24px;
+                max-width: 700px;
+                width: 100%;
+                max-height: 85vh;
+                overflow-y: auto;
+                box-shadow: 0 10px 25px var(--shadow-color);
+                color: var(--text-secondary);
+                border: 1px solid var(--border-color);
+            `
+        });
+
+        // Create header with i18n
+        const header = createElement('h3', {
+            style: 'margin-top: 0; margin-bottom: 16px; color: var(--text-secondary); font-size: 18px;'
+        });
+
+        // Create warning text with i18n
+        const warning = createElement('p', {
+            style: 'margin-bottom: 16px; font-size: 14px; line-height: 1.5; color: var(--text-secondary);'
+        });
+
+        // Create URL display section
+        const urlSection = createElement('div', {
+            style: 'margin-bottom: 16px;'
+        });
+
+        // Encoded URL display label (main display - always visible)
+        const encodedUrlLabel = createElement('label', {
+            style: 'display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-secondary);'
+        });
+
+        // Encoded URL display (main display - always visible)
+        const encodedUrlDisplay = createElement('div', {
+            style: `
+                background: var(--bg-primary);
+                border: 1px solid var(--border-color);
+                border-radius: 4px;
+                padding: 12px;
+                font-family: monospace;
+                font-size: 11px;
+                word-break: break-all;
+                max-height: 200px;
+                overflow-y: auto;
+                user-select: all;
+                cursor: text;
+                color: var(--text-secondary);
+                white-space: pre-wrap;
+                margin-bottom: 16px;
+            `
+        });
+
+        // Set the original encoded URL (always visible)
+        encodedUrlDisplay.textContent = url;
+
+        // Decoded URL section in a collapsible dropdown
+        const showDecodedSection = createElement('details', {
+            style: 'margin-bottom: 16px;'
+        });
+
+        const decodedSummary = createElement('summary', {
+            style: 'cursor: pointer; color: var(--text-muted); font-size: 12px; margin-bottom: 8px;'
+        });
+
+        const decodedUrlDisplay = createElement('div', {
+            style: `
+                background: var(--bg-primary);
+                border: 1px solid var(--border-color);
+                border-radius: 4px;
+                padding: 12px;
+                font-family: monospace;
+                font-size: 10px;
+                word-break: break-all;
+                max-height: 120px;
+                overflow-y: auto;
+                user-select: all;
+                cursor: text;
+                color: var(--text-muted);
+                white-space: pre-wrap;
+                margin-top: 8px;
+            `
+        });
+
+        // Set the decoded URL for better readability
+        const decodedUrl = safeDecodeUrl(url);
+        decodedUrlDisplay.textContent = decodedUrl;
+
+        // Create security notice
+        const securityNotice = createElement('div', {
+            style: `
+                background: rgba(59, 130, 246, 0.1);
+                border: 1px solid var(--button-primary);
+                border-radius: 4px;
+                padding: 12px;
+                margin-bottom: 16px;
+                font-size: 13px;
+                color: var(--text-secondary);
+                display: flex;
+                align-items: flex-start;
+                gap: 8px;
+            `
+        });
+
+        const securityIcon = createElement('span', {
+            style: 'flex-shrink: 0;'
+        }, '🔒');
+
+        const securityText = createElement('span');
+
+        securityNotice.appendChild(securityIcon);
+        securityNotice.appendChild(securityText);
+
+        // Create button container
+        const buttonContainer = createElement('div', {
+            style: 'display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap;'
+        });
+
+        // Create copy URL button
+        const copyButton = createElement('button', {
+            style: `
+                padding: 8px 16px;
+                background: var(--bg-tertiary);
+                color: var(--text-primary);
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 13px;
+                font-family: "Liberation Serif";
+                transition: all 0.2s ease;
+            `
+        });
+
+        // Create cancel button
+        const cancelButton = createElement('button', {
+            style: `
+                padding: 8px 16px;
+                background: var(--button-danger);
+                color: var(--text-primary);
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 13px;
+                font-family: "Liberation Serif";
+                transition: all 0.2s ease;
+            `
+        });
+
+        // Create proceed button
+        const proceedButton = createElement('button', {
+            style: `
+                padding: 8px 16px;
+                background: var(--button-primary);
+                color: var(--text-primary);
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 13px;
+                font-family: "Liberation Serif";
+                transition: all 0.2s ease;
+                font-weight: 500;
+            `
+        });
+
+        // Set text content with i18n fallbacks
+    header.textContent = chrome.i18n.getMessage('urlPreviewTitle') || 'URL Preview';
+    warning.textContent = chrome.i18n.getMessage('urlPreviewWarning') || 'Please review the URL that will be opened. This URL contains the information you entered and will redirect you to GitHub.';
+    encodedUrlLabel.textContent = chrome.i18n.getMessage('urlPreviewEncodedUrl') || 'URL to be opened (technical format):';
+    decodedSummary.textContent = chrome.i18n.getMessage('urlPreviewShowDecoded') || 'Show readable format (decoded URL)';
+    copyButton.textContent = chrome.i18n.getMessage('urlPreviewCopy') || 'Copy URL';
+    cancelButton.textContent = chrome.i18n.getMessage('urlPreviewCancelButton') || 'Cancel';
+    proceedButton.textContent = chrome.i18n.getMessage('urlPreviewProceedButton') || 'Open GitHub';
+    const span = createElement('span');
+    span.innerHTML = chrome.i18n.getMessage('urlPreviewSecurityNotice') || 'This URL will redirect you to GitHub. Your data will be subject to GitHub\'s privacy policy once redirected.';
+    securityText.appendChild(span);
+
+        // Add hover effects
+        const addHoverEffect = (button) => {
+            button.addEventListener('mouseenter', () => {
+                button.style.transform = 'translateY(-1px)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translateY(0)';
+            });
+        };
+
+        [copyButton, cancelButton, proceedButton].forEach(addHoverEffect);
+
+        // Add event listener for copy button (copies the original encoded URL)
+        copyButton.addEventListener('click', async () => {
+            try {
+                // Always copy the original encoded URL (the one that actually works)
+                await navigator.clipboard.writeText(url);
+                const originalText = copyButton.textContent;
+                copyButton.textContent = chrome.i18n.getMessage('urlPreviewCopied') || 'Copied!';
+                setTimeout(() => {
+                    copyButton.textContent = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy URL:', err);
+                // Fallback: select the encoded URL text for manual copying (main display)
+                encodedUrlDisplay.focus();
+                const selection = window.getSelection();
+                const range = document.createRange();
+                range.selectNodeContents(encodedUrlDisplay);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        });
+
+        cancelButton.addEventListener('click', () => {
+            document.body.removeChild(overlay);
+            resolve(false);
+        });
+
+        proceedButton.addEventListener('click', () => {
+            document.body.removeChild(overlay);
+            resolve(true);
+        });
+
+        // Close on escape key
+        const handleKeydown = (e) => {
+            if (e.key === 'Escape') {
+                document.body.removeChild(overlay);
+                document.removeEventListener('keydown', handleKeydown);
+                resolve(false);
+            }
+        };
+        document.addEventListener('keydown', handleKeydown);
+
+        // Close on overlay click (but not modal click)
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                document.body.removeChild(overlay);
+                resolve(false);
+            }
+        });
+
+        // Assemble the decoded URL section (collapsible)
+        showDecodedSection.appendChild(decodedSummary);
+        showDecodedSection.appendChild(decodedUrlDisplay);
+
+        // Assemble URL section
+        urlSection.appendChild(encodedUrlLabel);
+        urlSection.appendChild(encodedUrlDisplay);
+        urlSection.appendChild(showDecodedSection);
+        
+        // Assemble button container
+        buttonContainer.appendChild(copyButton);
+        buttonContainer.appendChild(cancelButton);
+        buttonContainer.appendChild(proceedButton);
+
+        // Assemble modal
+        modal.appendChild(header);
+        modal.appendChild(warning);
+        modal.appendChild(urlSection);
+        modal.appendChild(securityNotice);
+        modal.appendChild(buttonContainer);
+
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+
+        // Focus the proceed button
+        setTimeout(() => proceedButton.focus(), 100);
+    });
+}
+
+/******************************************************************************/
+
+// Updated reportIssue function with URL preview
 async function reportIssue() {
     // Check if consent checkbox is checked
     const consentCheckbox = $('#consentCheckbox');
     if (!consentCheckbox?.checked) {
-        alert(chrome.i18n.getMessage('Please check the consent checkbox to proceed.'));
+        alert(chrome.i18n.getMessage('consentRequired') || 'Please check the consent checkbox to proceed.');
         return;
     }
 
     const issueType = getIssueType();
     if (issueType === '[unknown]') {
-        alert(chrome.i18n.getMessage('Please select an issue type.'));
+        alert(chrome.i18n.getMessage('issueTypeRequired') || 'Please select an issue type.');
         return;
     }
     
@@ -405,12 +763,12 @@ async function reportIssue() {
             finalUrl = getSelectedUrl();
             
             if (!finalUrl) {
-                alert('Please provide a URL.');
+                alert(chrome.i18n.getMessage('urlRequired') || 'Please provide a URL.');
                 return;
             }
 
             if (!validateUrl(finalUrl)) {
-                alert('Please enter a valid URL.');
+                alert(chrome.i18n.getMessage('urlInvalid') || 'Please enter a valid URL.');
                 return;
             }
         }
@@ -455,11 +813,49 @@ async function reportIssue() {
         
         // Set the title parameter
         githubURL.searchParams.set('title', title);
-        githubURL.searchParams.set('labels', 'needs-triage');
+        
+        // Set appropriate labels based on issue type
+        let labels = [];
+        let type = [];       
+        switch (issueType) {
+            case 'tracking-not-removed':
+                labels.push('Url parameter not removed');
+                type.push('bug');
+                break;
+            case 'url-broken':
+                labels.push('URL Broken');
+                type.push('bug');
+                break;
+            case 'false-positive':
+                labels.push('False Positive');
+                type.push('bug');
+                break;
+            case 'ui-issue':
+                labels.push('UI Issue');
+                type.push('bug');
+                break;
+            case 'performance':
+                labels.push('Performance');
+                type.push('bug');
+                break;
+            case 'feature-request':
+                labels.push('Feature Request');
+                type.push('Feature');
+                break;
+            case 'rule-suggestion':
+                labels.push('Rule Suggestion');
+                type.push('Feature');
+                break;
+            default:
+                labels.push('Needs triage');
+                type.push('bug');
+        }
+        
+        githubURL.searchParams.set('labels', labels.join(','));
+        githubURL.searchParams.set('type', type.join(','));
         
         // Format description text for the template
-        let descriptionText = `Browser: ${browserInfo}\n`;
-        descriptionText += `Issue Type: ${issueType}\n`;
+        let descriptionText = `Issue Type: ${issueType}\n`;
         
         if (isUrlRelatedIssue && finalUrl) {
             descriptionText += `URL: ${finalUrl}\n`;
@@ -482,20 +878,27 @@ async function reportIssue() {
         // Set the description parameter for the template
         githubURL.searchParams.set('description', descriptionText);
         
-        openURL(githubURL.href);
+        // Show URL preview before proceeding
+        const shouldProceed = await showUrlPreview(githubURL.href);
+        
+        if (shouldProceed) {
+            openURL(githubURL.href);
+        } else {
+            console.log('User cancelled URL redirection');
+        }
     } catch (error) {
         console.error('Error creating GitHub issue:', error);
-        alert('Error creating GitHub issue: ' + error.message);
+        alert((chrome.i18n.getMessage('errorCreatingIssue') || 'Error creating GitHub issue: ') + error.message);
     }
 }
 
 /******************************************************************************/
 
-// Enhanced findExistingIssues function
-function findExistingIssues() {
+// Updated findExistingIssues function with URL preview
+async function findExistingIssues() {
     // Check if the user has provided consent
     if (!$('#findExistingConsentCheckbox').checked) {
-        alert('Please confirm that you understand how your data will be used by checking the consent box.');
+        alert(chrome.i18n.getMessage('findExistingConsentRequired') || 'Please confirm that you understand how your data will be used by checking the consent box.');
         return;
     }
 
@@ -564,10 +967,16 @@ function findExistingIssues() {
         
         queryString += ' sort:updated-desc';
         url.searchParams.set('q', queryString);
-        openURL(url.href);
+        
+        // Show URL preview before proceeding
+        const shouldProceed = await showUrlPreview(url.href);
+        
+        if (shouldProceed) {
+            openURL(url.href);
+        }
     } catch (error) {
         console.error('Error finding existing issues:', error);
-        alert('Error finding existing issues: ' + error.message);
+        alert((chrome.i18n.getMessage('errorFindingIssues') || 'Error finding existing issues: ') + error.message);
     }
 }
 
@@ -585,48 +994,9 @@ function validateUrl(url) {
 
 /******************************************************************************/
 
-// Add function to create consent checkbox sections based on new YAML template requirements
-function createConsentCheckboxes() {
-    const consentContainer = $('#consentContainer');
-    if (!consentContainer) return;
-    
-    // Clear existing checkboxes
-    consentContainer.innerHTML = '';
-    
-    // Create heading
-    const heading = createElement('h3', {}, 'Mandatory Consent');
-    consentContainer.appendChild(heading);
-    
-    // Create consent note
-    const note = createElement('p', {}, 'All checkboxes below must be checked to submit this issue.');
-    consentContainer.appendChild(note);
-    
-    // Create the consent checkboxes
-    const consentOptions = [
-        'I understand that by submitting this issue, I am sharing the information above with the Linkumori project maintainers',
-        'I affirm that I previously gave consent through the Linkumori extension reporting page',
-        'I understand that this submission constitutes my second confirmation of consent to share this information'
-    ];
-    
-    consentOptions.forEach((text, index) => {
-        const checkboxId = `consent-${index + 1}`;
-        const container = createElement('div', { class: 'checkbox-container' });
-        
-        const label = createElement('label', { for: checkboxId });
-        const checkbox = createElement('input', { 
-            type: 'checkbox', 
-            id: checkboxId, 
-            class: 'consent-checkbox' 
-        });
-        
-        const span = createElement('span', {}, text);
-        
-        label.appendChild(checkbox);
-        label.appendChild(span);
-        container.appendChild(label);
-        consentContainer.appendChild(container);
-    });
-}
+
+
+/******************************************************************************/
 
 // Enhanced initialization for the report page
 async function initReportPage() {
@@ -639,7 +1009,6 @@ async function initReportPage() {
         populateUrlDropdown();
         
         // Create consent checkboxes based on the new YAML template
-        createConsentCheckboxes();
         
         // Add event listener for issue type selection
         $('#issueTypeSelect').addEventListener('change', updateURLSelectVisibility);
@@ -707,11 +1076,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Handle placeholders in translations for both consent messages
             if (messageKey === 'consentMessage' || messageKey === 'findExistingConsentMessage') {
-                const message = chrome.i18n.getMessage(messageKey, {
-                    link: messageKey === 'consentMessage' 
-                        ? "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub's Privacy Statement</a>"
-                        : "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub's Search Privacy Policy</a>"
-                });
+                const message = chrome.i18n.getMessage(messageKey);
                 element.innerHTML = message;
             }
         }
@@ -727,7 +1092,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (urlSelect) {
             const customOption = urlSelect.querySelector('option[value="custom"]');
             if (customOption) {
-                customOption.textContent = chrome.i18n.getMessage('enterCustomUrl');
+                customOption.textContent = chrome.i18n.getMessage('enterCustomUrl') || 'Enter custom URL';
             }
         }
         
@@ -748,13 +1113,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const nsfwCheckbox = document.getElementById('isNSFW');
     if (nsfwCheckbox) {
         const checkboxWrap = nsfwCheckbox.closest('.checkbox');
-        nsfwCheckbox.addEventListener('change', function() {
-            if (nsfwCheckbox.checked) {
-                checkboxWrap.classList.add('checked');
-            } else {
-                checkboxWrap.classList.remove('checked');
-            }
-        });
+        if (checkboxWrap) {
+            nsfwCheckbox.addEventListener('change', function() {
+                if (nsfwCheckbox.checked) {
+                    checkboxWrap.classList.add('checked');
+                } else {
+                    checkboxWrap.classList.remove('checked');
+                }
+            });
+        }
     }
     
     // Initialize the report page after DOM is ready

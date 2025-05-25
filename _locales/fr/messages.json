@@ -1,12 +1,15 @@
 {
   "extName": {
-    "message": "Paramètres de Linkumori"
+    "message": "Paramètres Linkumori"
   },
   "extDescription": {
     "message": "Supprimer les paramètres de suivi des URL et protéger votre vie privée"
   },
   "cleanUrlsToolTitle": {
-    "message": "Outil avancé de nettoyage d'URL de Linkumori"
+    "message": "Outil avancé de nettoyage d'URL Linkumori"
+  },
+  "inputUrlsDescription": {
+    "message": "Avec cet outil, vous pouvez coller des URL et l'outil de nettoyage d'URL Linkumori nettoiera les URL après un clic sur le bouton de nettoyage des URL. Vous pouvez coller plusieurs URL à la fois, mais chaque URL doit être sur une ligne séparée."
   },
   "cleanUrlsToolHeader": {
     "message": "Outil de nettoyage d'URL Linkumori"
@@ -18,19 +21,19 @@
     "message": "Copier l'URL nettoyée"
   },
   "statusOn": {
-    "message": "Statut de l'extension : Activée avec protection au niveau réseau"
+    "message": "Statut de l'extension : Activé avec protection au niveau du réseau"
   },
   "statusOff": {
-    "message": "Statut de l'extension : Désactivée"
+    "message": "Statut de l'extension : Désactivé"
   },
   "historyProtectionOn": {
-    "message": "Protection de l'API Historique active"
+    "message": "Protection de l'API d'historique active"
   },
   "historyProtectionOff": {
-    "message": "Protection de l'API Historique désactivée"
+    "message": "Protection de l'API d'historique désactivée"
   },
   "historyProtectionInactive": {
-    "message": "Protection de l'API Historique (Extension inactive)"
+    "message": "Protection de l'API d'historique (Extension inactive)"
   },
   "hyperlinkAuditingOn": {
     "message": "Protection de l'audit des hyperliens active"
@@ -42,13 +45,13 @@
     "message": "Protection de l'audit des hyperliens (Extension inactive)"
   },
   "preventRedirectOn": {
-    "message": "Empêcher les services Google et Yandex de rediriger les URL vers leurs serveurs avant la destination finale : active"
+    "message": "Empêcher les services Google et Yandex de rediriger les URL vers leurs serveurs avant d'atteindre la destination finale : Activé"
   },
   "preventRedirectOff": {
-    "message": "Empêcher Google et Yandex de rediriger les URL vers leurs serveurs avant la destination finale : Désactivé"
+    "message": "Empêcher les services Google et Yandex de rediriger les URL vers leurs serveurs avant d'atteindre la destination finale : Désactivé"
   },
   "preventRedirectInactive": {
-    "message": "Empêcher Google et Yandex de rediriger les URL (Extension inactive)"
+    "message": "Empêcher les services Google et Yandex de rediriger les URL vers leurs serveurs avant d'atteindre la destination finale : (Extension inactive)"
   },
   "badgeOn": {
     "message": "Compteur de badge actif"
@@ -75,7 +78,7 @@
     "message": "Licence"
   },
   "navLegal": {
-    "message": "Informations légales"
+    "message": "Informations sur la licence"
   },
   "navAbout": {
     "message": "À propos"
@@ -90,31 +93,31 @@
     "message": "Gestion de la liste blanche"
   },
   "inputUrlsTitle": {
-    "message": "URLs en entrée"
+    "message": "URL d'entrée"
   },
   "cleanedUrlsTitle": {
-    "message": "URLs nettoyées"
+    "message": "URL nettoyées"
   },
   "inputUrlsPlaceholder": {
-    "message": "Entrez les URLs à nettoyer (une par ligne)"
+    "message": "Entrez les URL à nettoyer (une par ligne)"
   },
   "cleanedUrlsPlaceholder": {
-    "message": "Les URLs nettoyées apparaîtront ici"
+    "message": "Les URL nettoyées apparaîtront ici"
   },
   "cleanUrlsButton": {
-    "message": "Nettoyer les URLs"
+    "message": "Nettoyer les URL"
   },
   "copyUrlsButton": {
     "message": "Copier les résultats"
   },
   "copySuccessMessage": {
-    "message": "URLs copiées dans le presse-papiers"
+    "message": "URL copiées dans le presse-papiers"
   },
   "copyErrorMessage": {
-    "message": "Échec de la copie des URLs"
+    "message": "Échec de la copie des URL"
   },
   "whitelistDomainPlaceholder": {
-    "message": "Entrez un domaine à ajouter à la liste blanche (ex. exemple.com)"
+    "message": "Entrez le domaine à ajouter à la liste blanche (par exemple, exemple.com)"
   },
   "exportWhitelist": {
     "message": "Exporter la liste blanche"
@@ -138,7 +141,7 @@
     "message": "Retirer"
   },
   "removeparameter": {
-    "message": "Supprimer le paramètre"
+    "message": "Retirer le paramètre"
   },
   "editButton": {
     "message": "Modifier"
@@ -162,7 +165,7 @@
     "message": "Aucune règle trouvée correspondant à '$1'"
   },
   "errorMessages_invalidDomain": {
-    "message": "Veuillez entrer un domaine valide (ex. exemple.com)"
+    "message": "Veuillez entrer un domaine valide (par exemple, exemple.com)"
   },
   "errorMessages_domainExists": {
     "message": "Ce domaine est déjà dans la liste blanche"
@@ -195,22 +198,22 @@
     "message": "Importer $1 domaines dans la liste blanche ?"
   },
   "confirmationMessages_removeParameter": {
-    "message": "Supprimer le paramètre '$1' du domaine '$2' ?"
+    "message": "Retirer le paramètre '$1' du domaine '$2' ?"
   },
   "navwhitelist_": {
     "message": "Gestion de la liste blanche"
   },
   "rulesTitle": {
-    "message": "Générateur de règles DNR personnalisées"
+    "message": "Constructeur de règles DNR personnalisées"
   },
   "urlInputPlaceholder": {
-    "message": "Collez l'URL ici pour l'analyser. Après analyse, vous pouvez ajouter des règles"
+    "message": "Coller l'URL ici pour l'analyser après l'analyse, vous pouvez ajouter des règles"
   },
   "ruleDomainPlaceholder": {
-    "message": "Domaine (ex. exemple.com)"
+    "message": "Domaine (par exemple, exemple.com)"
   },
   "ruleParamPlaceholder": {
-    "message": "Paramètre à supprimer (ex. utm_source)"
+    "message": "Paramètre à retirer (par exemple, utm_source)"
   },
   "analyzeButton": {
     "message": "Analyser"
@@ -231,10 +234,10 @@
     "message": "Modifier le paramètre"
   },
   "removeParameter": {
-    "message": "Supprimer le paramètre"
+    "message": "Retirer le paramètre"
   },
   "newParameterPlaceholder": {
-    "message": "Entrez un nouveau paramètre"
+    "message": "Entrez le nouveau paramètre"
   },
   "addSelectedParams": {
     "message": "Ajouter les paramètres sélectionnés"
@@ -243,46 +246,46 @@
     "message": "Statistiques"
   },
   "modifiedRequestsLabel": {
-    "message": "Requêtes modifiées avec suppression de paramètres"
+    "message": "Nombre de requêtes où les paramètres d'URL ont été supprimés avec succès"
   },
   "activeRulesLabel": {
-    "message": "Paramètres supprimés au total"
+    "message": "Nombre total de paramètres supprimés par cette extension"
   },
   "resetStatsButton": {
     "message": "Réinitialiser les statistiques"
   },
   "welcomeTitle": {
-    "message": "Bienvenue sur Linkumori - Nettoyeur d'URL"
+    "message": "Bienvenue dans Linkumori - Nettoyeur d'URL"
   },
   "welcomeHeading": {
-    "message": "Bienvenue sur Linkumori"
+    "message": "Bienvenue dans Linkumori"
   },
   "welcomeDescription": {
-    "message": "Merci d'avoir installé Linkumori, votre outil de protection de la vie privée en ligne. Il supprime les paramètres de suivi des URL pour préserver votre anonymat."
+    "message": "Merci d'avoir installé Linkumori, votre outil personnel de protection de la vie privée et du suivi des URL. Linkumori vous aide à maintenir votre vie privée en ligne en supprimant les paramètres de suivi des URL."
   },
   "feature1": {
-    "message": "Suppression automatique des paramètres de suivi"
+    "message": "Supprimer automatiquement les paramètres de suivi des URL"
   },
   "feature2": {
-    "message": "Protection de la vie privée sur tous les sites"
+    "message": "Protéger votre vie privée sur différents sites web"
   },
   "feature3": {
-    "message": "Liste blanche personnalisable"
+    "message": "Liste blanche facilement personnalisable"
   },
   "feature4": {
-    "message": "Léger et discret"
+    "message": "Léger et non intrusif"
   },
   "getStartedText": {
-    "message": "Cliquez ci-dessous pour configurer l'extension :"
+    "message": "Pour commencer, cliquez sur le bouton ci-dessous pour ouvrir les paramètres de l'extension."
   },
   "openSettings": {
-    "message": "Ouvrir les paramètres"
+    "message": "Ouvrir les paramètres de Linkumori"
   },
   "settingsButtonAriaLabel": {
-    "message": "Outils de configuration"
+    "message": "Outils de paramétrage"
   },
   "themeToggleAriaLabel": {
-    "message": "Changer le thème"
+    "message": "Basculer le thème"
   },
   "aboutTitle": {
     "message": "À propos"
@@ -300,13 +303,13 @@
     "message": "Source inconnue"
   },
   "aboutDetailsGithub": {
-    "message": "Version GitHub avec les dernières fonctionnalités du dépôt."
+    "message": "Cette version est distribuée via GitHub. Elle peut inclure les dernières fonctionnalités et mises à jour directement depuis le dépôt."
   },
   "aboutDetailsChrome": {
-    "message": "Version stable du Chrome Web Store."
+    "message": "Cette version est distribuée via le Chrome Web Store. Il s'agit de la version stable recommandée pour la plupart des utilisateurs."
   },
   "aboutDetailsUnknown": {
-    "message": "Source indéterminée - contactez le support."
+    "message": "La source de cette version n'a pas pu être déterminée. Veuillez vérifier les paramètres de l'extension ou contacter le support pour plus d'informations."
   },
   "version": {
     "message": "Version $1"
@@ -330,16 +333,16 @@
     "message": "https://linkumori.com/"
   },
   "removerule": {
-    "message": "Supprimer la règle"
+    "message": "Retirer la règle"
   },
-  "_MSG_extDescription_": {
+  "__MSG_extDescription__": {
     "message": "Supprimer les paramètres de suivi des URL et protéger votre vie privée"
   },
   "confirmResetStats": {
-    "message": "Confirmez la réinitialisation des statistiques ?"
+    "message": "Êtes-vous sûr de vouloir réinitialiser toutes les statistiques ?"
   },
   "checking_update": {
-    "message": "Recherche de mises à jour..."
+    "message": "Vérification des mises à jour..."
   },
   "update_available": {
     "message": "Une mise à jour est disponible"
@@ -360,16 +363,13 @@
     "message": "Appliquer la mise à jour"
   },
   "update_error": {
-    "message": "Erreur lors de la recherche de mises à jour"
+    "message": "Erreur lors de la vérification des mises à jour"
   },
   "chromeWebStore": {
     "message": "Chrome Web Store :"
   },
   "chromeWebStoreLinkText": {
     "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
-  },
-  "inputUrlsDescription": {
-    "message": "Avec cet outil, vous pouvez coller des URLs et l'outil de nettoyage d'URLs de Linkumori nettoiera les URLs après un clic sur le bouton de nettoyage. Vous pouvez coller plusieurs URLs à la fois, mais chaque URL doit être sur une ligne distincte."
   },
   "confirmRestoreExceptions": {
     "message": "Êtes-vous sûr de vouloir activer toutes les règles de liste blanche intégrées ?"
@@ -381,19 +381,19 @@
     "message": "Désactiver"
   },
   "searchExceptionRulesPlaceholder": {
-    "message": "Rechercher des règles de liste blanche intégrées..."
+    "message": "Rechercher les règles de liste blanche intégrées..."
   },
   "noExceptionRulesFound": {
-    "message": "Aucune règle de liste blanche intégrée correspondant à '$1' trouvée"
+    "message": "Aucune règle de liste blanche intégrée trouvée correspondant à '$1'"
   },
   "noExceptionRulesDefined": {
     "message": "Aucune règle de liste blanche intégrée définie"
   },
   "restoreExceptions": {
-    "message": "Restaurer les règles de liste blanche par défaut"
+    "message": "Restaurer les règles de liste blanche intégrées par défaut"
   },
   "exceptionRulesTitle": {
-    "message": "Règles de liste blanche intégrées de Linkumori"
+    "message": "Règles de liste blanche Linkumori intégrées"
   },
   "exportAllSettings": {
     "message": "Exporter tous les paramètres"
@@ -417,7 +417,7 @@
     "message": "Format de fichier de paramètres invalide"
   },
   "confirmationMessages_importSettings": {
-    "message": "Cela écrasera tous vos paramètres actuels. Êtes-vous sûr de vouloir continuer ?"
+    "message": "Cela remplacera tous vos paramètres actuels. Êtes-vous sûr de vouloir continuer ?"
   },
   "exportRules": {
     "message": "Exporter les règles"
@@ -441,7 +441,7 @@
     "message": "Format de fichier de règles invalide"
   },
   "confirmationMessages_importRules": {
-    "message": "Cela écrasera toutes vos règles personnalisées actuelles. Êtes-vous sûr de vouloir continuer ?"
+    "message": "Cela remplacera toutes vos règles personnalisées actuelles. Êtes-vous sûr de vouloir continuer ?"
   },
   "successMessages_statsImported": {
     "message": "Les statistiques ont été importées avec succès"
@@ -456,10 +456,10 @@
     "message": "Signaler des problèmes ou suggérer des améliorations"
   },
   "reportIssueDescription": {
-    "message": "Un problème avec le nettoyage des URL ou une suggestion ? Aidez-nous à améliorer Linkumori en soumettant un rapport."
+    "message": "Vous avez trouvé un problème avec le nettoyage des URL ou avez une suggestion ? Aidez-nous à améliorer Linkumori en soumettant un rapport."
   },
   "findExistingButton": {
-    "message": "Rechercher les problèmes existants"
+    "message": "Trouver les problèmes existants"
   },
   "beforeReporting": {
     "message": "Avant de signaler, vérifiez si votre problème a déjà été signalé :"
@@ -483,7 +483,7 @@
     "message": "Problème de performance"
   },
   "issueTypeUi": {
-    "message": "Problème d'interface/affichage"
+    "message": "Problème d'interface utilisateur/affichage"
   },
   "issueTypeFeatureRequest": {
     "message": "Demande de fonctionnalité"
@@ -498,7 +498,7 @@
     "message": "https://exemple.com"
   },
   "enterCustomUrl": {
-    "message": "Saisir une URL personnalisée"
+    "message": "Entrez une URL personnalisée"
   },
   "nsfwLabel": {
     "message": "La page contient du contenu pour adultes (NSFW)"
@@ -507,13 +507,19 @@
     "message": "Informations supplémentaires :"
   },
   "additionalInfoPlaceholder": {
-    "message": "Veuillez fournir des détails ou commentaires supplémentaires sur le problème..."
+    "message": "Veuillez fournir tout détail ou commentaire supplémentaire concernant le problème..."
   },
-   "consentMessage": {
-    "message": "Je comprends qu'en cliquant sur \"Signaler sur GitHub\", je serai redirigé vers GitHub avec les informations pré-remplies que j'ai saisies sur cette page, ainsi que les données supplémentaires affichées dans la section Informations de configuration. J'ai examiné la section Informations de configuration, qui comprend des détails tels que mes informations de navigateur (nom et version), les paramètres de l'extension, les domaines en liste blanche, les règles personnalisées (nom de domaine et paramètre), les ID de règles désactivées, ainsi que le nom et la version de l'extension. Je comprends que la création d'un problème nécessite un compte GitHub et qu'une fois redirigé vers GitHub, je serai soumis aux politiques de confidentialité de GitHub comme décrit dans $privacy_link$. En soumettant le problème sur GitHub, j'accepte les politiques de confidentialité de GitHub comme décrit dans $privacy_link$. Je reconnais qu'après avoir été redirigé avec ces informations pré-remplies, je conserve le choix de soumettre ou d'annuler la création du problème sur le dépôt hébergé sur $repo_link$. Je reconnais en outre que même si j'annule la création du problème, GitHub peut toujours collecter des données conformément à leur politique de confidentialité, car j'aurai déjà accédé à leur plateforme.",
+  "consentMessage": {
+    "message": "Je comprends que cliquer sur \"Signaler sur GitHub\" construira une URL GitHub contenant les informations que j'ai entrées et les données de configuration affichées ci-dessous, puis me redirigera vers cette URL. Aucune donnée n'est transmise directement par cette extension. L'extension me montrera l'URL complète avant de l'ouvrir, et je pourrai examiner exactement quelles informations seront incluses. Une fois redirigé vers GitHub, j'aurai le contrôle total pour soit soumettre le formulaire de problème pré-rempli, soit annuler sans soumettre quoi que ce soit. Je comprends que l'accès à GitHub me soumet à $privacy_link$. La création d'un problème nécessite un compte GitHub, et une fois que vous choisissez de continuer et êtes redirigé vers GitHub, votre activité est régie par $privacy_statement$ et $terms_service$. Après avoir été redirigé avec des informations pré-remplies, vous conservez le contrôle total et pouvez choisir de soumettre ou d'annuler la création du problème sur notre dépôt à $repo_link$. Même si vous annulez la création du problème, GitHub peut toujours collecter des données conformément à leur politique de confidentialité en raison de votre interaction avec leur plateforme. Si vous continuez à soumettre le problème, les informations que vous soumettez, y compris tout commentaire supplémentaire, deviendront accessibles au public. Cela est dû au fait que le dépôt est public, et tout problème signalé sera visible par quiconque utilise GitHub ou des services associés.",
     "placeholders": {
       "privacy_link": {
-        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>Déclaration de confidentialité de GitHub</a>"
+        "content": "<a href='https://docs.github.com/fr/site-policy/privacy-policies/github-privacy-statement' target='_blank'>Déclaration de confidentialité de GitHub</a>"
+      },
+      "privacy_statement": {
+        "content": "<a href='https://docs.github.com/fr/site-policy/privacy-policies/github-privacy-statement' target='_blank'>déclaration de confidentialité de GitHub</a>"
+      },
+      "terms_service": {
+        "content": "<a href='https://docs.github.com/fr/site-policy/github-terms/github-terms-of-service' target='_blank'>conditions d'utilisation</a>"
       },
       "repo_link": {
         "content": "<a href='https://github.com/Linkumori/Linkumori-Extension' target='_blank'>https://github.com/Linkumori/Linkumori-Extension</a>"
@@ -527,13 +533,74 @@
     "message": "Informations de configuration"
   },
   "findExistingConsentMessage": {
-    "message": "Je comprends qu'en cliquant sur \"Rechercher des problèmes existants\", je serai redirigé vers GitHub avec des paramètres de recherche incluant le nom de domaine et les détails du problème que j'ai saisis. L'URL peut être visible dans l'historique de recherche GitHub. En continuant, j'accepte les politiques de confidentialité de GitHub concernant les paramètres d'URL. Voir $link$.",
+    "message": "Je comprends que cliquer sur \"Trouver les problèmes existants\" construira une URL de recherche GitHub en utilisant le nom de domaine et les détails du problème que j'ai entrés, puis me redirigera vers cette URL. Aucune donnée n'est transmise directement par cette extension. L'extension me montrera l'URL de recherche complète avant de l'ouvrir, afin que je puisse examiner quels termes de recherche seront utilisés. Une fois redirigé vers GitHub, je serai soumis à $link$ et $terms_service$. Je comprends que cette recherche ne créera aucun problème ni ne soumettra aucune donnée à GitHub ; elle est uniquement destinée à trouver des problèmes existants liés au problème que je rencontre. Si je poursuis la recherche, je pourrai examiner les résultats et choisir de créer un nouveau problème en fonction des résultats.",
     "placeholders": {
       "link": {
-        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>Politique de confidentialité de recherche GitHub</a>"
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>Politique de confidentialité de la recherche GitHub</a>"
+      },
+      "terms_service": {
+        "content": "<a href='https://docs.github.com/fr/site-policy/github-terms/github-terms-of-service' target='_blank'>conditions d'utilisation</a>"
+      }
+    }
+  },
+  "urlPreviewTitle": {
+    "message": "Aperçu de l'URL",
+    "description": "Titre de la boîte de dialogue d'aperçu de l'URL"
+  },
+  "urlPreviewWarning": {
+    "message": "Veuillez examiner l'URL qui sera ouverte. Cette URL contient les informations que vous avez entrées et vous redirigera vers GitHub.",
+    "description": "Avertissement concernant le contenu des URL et la redirection"
+  },
+  "urlPreviewEncodedUrl": {
+    "message": "URL à ouvrir (format technique) :",
+    "description": "Libellé pour l'affichage de l'URL encodée"
+  },
+  "urlPreviewShowDecoded": {
+    "message": "Afficher le format lisible (URL décodée)",
+    "description": "Libellé pour le bouton de bascule de l'URL décodée"
+  },
+  "urlPreviewCopy": {
+    "message": "Copier l'URL",
+    "description": "Libellé pour le bouton de copie de l'URL"
+  },
+  "urlPreviewCopied": {
+    "message": "Copié !",
+    "description": "Message de confirmation après la copie de l'URL"
+  },
+  "urlPreviewCancelButton": {
+    "message": "Annuler",
+    "description": "Libellé pour le bouton d'annulation dans l'aperçu de l'URL"
+  },
+  "urlPreviewProceedButton": {
+    "message": "Ouvrir GitHub",
+    "description": "Libellé pour le bouton de continuation dans l'aperçu de l'URL"
+  },
+  "consentRequired": {
+    "message": "Veuillez cocher la case de consentement pour continuer.",
+    "description": "Message d'erreur lorsque le consentement n'est pas donné"
+  },
+  "issueTypeRequired": {
+    "message": "Veuillez sélectionner un type de problème.",
+    "description": "Message d'erreur lorsque le type de problème n'est pas sélectionné"
+  },
+  "urlRequired": {
+    "message": "Veuillez fournir une URL.",
+    "description": "Message d'erreur lorsque l'URL est manquante"
+  },
+  "urlInvalid": {
+    "message": "Veuillez entrer une URL valide.",
+    "description": "Message d'erreur lorsque l'URL est invalide"
+  },
+  "errorFindingIssues": {
+    "message": "Erreur lors de la recherche de problèmes existants : ",
+    "description": "Préfixe du message d'erreur lorsque la recherche de problèmes existants échoue"
+  },
+  "urlPreviewSecurityNotice": {
+    "message": "Cette URL vous redirigera vers GitHub. Vos données seront soumises à $link$ une fois redirigé.",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>Politique de confidentialité de la recherche GitHub</a>"
       }
     }
   }
 }
-
-

@@ -3,52 +3,55 @@
     "message": "Linkumori 设置"
   },
   "extDescription": {
-    "message": "清除网址中的跟踪参数，保护您的隐私"
+    "message": "移除URL中的跟踪参数，保护您的隐私"
   },
   "cleanUrlsToolTitle": {
-    "message": "Linkumori 高级网址清理工具"
+    "message": "Linkumori 高级URL清理工具"
+  },
+  "inputUrlsDescription": {
+    "message": "在此工具中粘贴URL后，点击清理按钮即可净化链接。支持批量处理，请确保每个URL独占一行。"
   },
   "cleanUrlsToolHeader": {
-    "message": "Linkumori 网址清理工具"
+    "message": "Linkumori URL净化工具"
   },
   "popup": {
     "message": "Linkumori"
   },
   "menuItemCopyCleanUrl": {
-    "message": "复制清理后的网址"
+    "message": "复制净化后链接"
   },
   "statusOn": {
-    "message": "扩展状态：已启用（网络级保护）"
+    "message": "扩展状态：开启（启用网络级保护）"
   },
   "statusOff": {
-    "message": "扩展状态：已关闭"
+    "message": "扩展状态：关闭"
   },
   "historyProtectionOn": {
-    "message": "历史记录 API 保护已启用"
+    "message": "历史API防护已启用"
   },
   "historyProtectionOff": {
-    "message": "历史记录 API 保护已关闭"
+    "message": "历史API防护已关闭"
   },
   "historyProtectionInactive": {
-    "message": "历史记录 API 保护（扩展未激活）"
+    "message": "历史API防护（扩展未激活）"
   },
   "hyperlinkAuditingOn": {
-    "message": "超链接审计保护已启用"
+    "message": "超链接审计防护已启用"
   },
   "hyperlinkAuditingOff": {
-    "message": "超链接审计保护已关闭"
+    "message": "超链接审计防护已关闭"
   },
   "hyperlinkAuditingInactive": {
-    "message": "超链接审计保护（扩展未激活）"
+    "message": "超链接审计防护（扩展未激活）"
   },
   "preventRedirectOn": {
-    "message": "阻止 Google 和 Yandex 服务在到达最终目标前重定向网址：已启用"
+    "message": "阻止Google和Yandex服务重定向URL至其服务器：已启用"
   },
   "preventRedirectOff": {
-    "message": "阻止 Google 和 Yandex 服务在到达最终目标前重定向网址：已关闭"
+    "message": "阻止Google和Yandex服务重定向URL至其服务器：已关闭"
   },
   "preventRedirectInactive": {
-    "message": "阻止 Google 和 Yandex 服务在到达最终目标前重定向网址：（扩展未激活）"
+    "message": "阻止Google和Yandex服务重定向URL（扩展未激活）"
   },
   "badgeOn": {
     "message": "徽章计数器已启用"
@@ -66,13 +69,13 @@
     "message": "白名单"
   },
   "navRules": {
-    "message": "自定义 DNR 规则"
+    "message": "自定义DNR规则"
   },
   "navStats": {
     "message": "统计数据"
   },
   "navLicense": {
-    "message": "许可证"
+    "message": "许可协议"
   },
   "navLegal": {
     "message": "法律信息"
@@ -90,31 +93,31 @@
     "message": "白名单管理"
   },
   "inputUrlsTitle": {
-    "message": "输入网址"
+    "message": "输入URL"
   },
   "cleanedUrlsTitle": {
-    "message": "清理后的网址"
+    "message": "净化后URL"
   },
   "inputUrlsPlaceholder": {
-    "message": "输入要清理的网址（每行一个）"
+    "message": "输入需要清理的URL（每行一个）"
   },
   "cleanedUrlsPlaceholder": {
-    "message": "清理后的网址将显示在此处"
+    "message": "净化后的URL将在此显示"
   },
   "cleanUrlsButton": {
-    "message": "清理网址"
+    "message": "清理URL"
   },
   "copyUrlsButton": {
     "message": "复制结果"
   },
   "copySuccessMessage": {
-    "message": "网址已复制到剪贴板"
+    "message": "URL已复制到剪贴板"
   },
   "copyErrorMessage": {
-    "message": "复制网址失败"
+    "message": "复制URL失败"
   },
   "whitelistDomainPlaceholder": {
-    "message": "输入要加入白名单的域名（例如 example.com）"
+    "message": "输入要加入白名单的域名（如example.com）"
   },
   "exportWhitelist": {
     "message": "导出白名单"
@@ -126,10 +129,10 @@
     "message": "添加当前域名"
   },
   "addDomainToWhitelist": {
-    "message": "将 $1 添加到白名单"
+    "message": "将$1加入白名单"
   },
   "removeDomainFromWhitelist": {
-    "message": "从白名单中移除 $1"
+    "message": "从白名单移除$1"
   },
   "addDomain": {
     "message": "添加"
@@ -150,34 +153,34 @@
     "message": "取消"
   },
   "noDomainsWhitelisted": {
-    "message": "没有已加入白名单的域名"
+    "message": "当前无白名单域名"
   },
   "noDomainsFound": {
-    "message": "未找到匹配 '$1' 的域名"
+    "message": "未找到匹配'$1'的域名"
   },
   "noRulesDefined": {
     "message": "未定义自定义规则"
   },
   "noRulesFound": {
-    "message": "未找到匹配 '$1' 的规则"
+    "message": "未找到匹配'$1'的规则"
   },
   "errorMessages_invalidDomain": {
-    "message": "请输入有效的域名（例如 example.com）"
+    "message": "请输入有效域名（如example.com）"
   },
   "errorMessages_domainExists": {
-    "message": "该域名已存在于白名单中"
+    "message": "该域名已在白名单中"
   },
   "errorMessages_getCurrentDomain": {
     "message": "无法获取当前域名"
   },
   "errorMessages_whitelistImport": {
-    "message": "导入白名单失败：$1"
+    "message": "白名单导入失败：$1"
   },
   "errorMessages_invalidUrl": {
-    "message": "请输入有效的网址"
+    "message": "请输入有效URL"
   },
   "errorMessages_noParamsFound": {
-    "message": "未在网址中找到参数"
+    "message": "URL中未找到参数"
   },
   "errorMessages_noParamsSelected": {
     "message": "未选择任何参数"
@@ -189,28 +192,28 @@
     "message": "白名单导入成功"
   },
   "successMessages_parameterAdded": {
-    "message": "成功添加 $1 个参数"
+    "message": "成功添加$1个参数"
   },
   "confirmationMessages_importWhitelist": {
-    "message": "确认要将 $1 个域名导入白名单吗？"
+    "message": "确认导入$1个域名到白名单？"
   },
   "confirmationMessages_removeParameter": {
-    "message": "确认要从域名 '$2' 中移除参数 '$1' 吗？"
+    "message": "确认从域名'$2'移除参数'$1'？"
   },
   "navwhitelist_": {
     "message": "白名单管理"
   },
   "rulesTitle": {
-    "message": "自定义 DNR 规则构建器"
+    "message": "自定义DNR规则构建器"
   },
   "urlInputPlaceholder": {
-    "message": "粘贴网址进行分析，分析后可添加规则"
+    "message": "粘贴URL进行分析以添加规则"
   },
   "ruleDomainPlaceholder": {
-    "message": "域名（例如 example.com）"
+    "message": "域名（如example.com）"
   },
   "ruleParamPlaceholder": {
-    "message": "要移除的参数（例如 utm_source）"
+    "message": "要移除的参数（如utm_source）"
   },
   "analyzeButton": {
     "message": "分析"
@@ -243,7 +246,7 @@
     "message": "统计数据"
   },
   "modifiedRequestsLabel": {
-    "message": "成功移除 URL 参数的请求数量"
+    "message": "成功移除URL参数的请求数"
   },
   "activeRulesLabel": {
     "message": "本扩展移除的参数总数"
@@ -252,31 +255,31 @@
     "message": "重置统计"
   },
   "welcomeTitle": {
-    "message": "欢迎使用 Linkumori - 网址清理工具"
+    "message": "欢迎使用Linkumori - URL净化器"
   },
   "welcomeHeading": {
-    "message": "欢迎使用 Linkumori"
+    "message": "欢迎使用Linkumori"
   },
   "welcomeDescription": {
-    "message": "感谢安装 Linkumori，您的个人网址隐私和跟踪保护工具。Linkumori 通过移除网址中的跟踪参数，帮助您维护在线隐私。"
+    "message": "感谢安装Linkumori，您的个人URL隐私保护工具。本扩展通过移除URL跟踪参数保护您的在线隐私。"
   },
   "feature1": {
-    "message": "自动移除网址中的跟踪参数"
+    "message": "自动移除URL中的跟踪参数"
   },
   "feature2": {
-    "message": "保护您在不同网站的隐私"
+    "message": "全方位保护网站隐私"
   },
   "feature3": {
-    "message": "易于定制的白名单"
+    "message": "可自定义白名单"
   },
   "feature4": {
-    "message": "轻量且无干扰"
+    "message": "轻量无干扰"
   },
   "getStartedText": {
-    "message": "点击下方按钮打开扩展设置即可开始使用"
+    "message": "点击下方按钮开始设置扩展"
   },
   "openSettings": {
-    "message": "打开 Linkumori 设置"
+    "message": "打开Linkumori设置"
   },
   "settingsButtonAriaLabel": {
     "message": "设置工具"
@@ -288,25 +291,25 @@
     "message": "关于"
   },
   "aboutTeam": {
-    "message": "由 Linkumori 团队开发"
+    "message": "由Linkumori团队开发"
   },
   "aboutSourceGithub": {
-    "message": "GitHub 发布版"
+    "message": "GitHub发布版"
   },
   "aboutSourceChrome": {
-    "message": "Chrome 网上应用店"
+    "message": "Chrome应用商店"
   },
   "aboutSourceUnknown": {
     "message": "未知来源"
   },
   "aboutDetailsGithub": {
-    "message": "此版本通过 GitHub 分发，可能包含仓库中的最新功能和更新"
+    "message": "此版本通过GitHub分发，包含最新功能和更新"
   },
   "aboutDetailsChrome": {
-    "message": "此版本通过 Chrome 网上应用店分发，是推荐大多数用户使用的稳定版本"
+    "message": "此版本通过Chrome应用商店分发，推荐大多数用户使用"
   },
   "aboutDetailsUnknown": {
-    "message": "无法确定此版本的来源。请检查扩展设置或联系支持获取更多信息"
+    "message": "无法确定此版本来源，请检查扩展设置或联系支持"
   },
   "version": {
     "message": "版本 $1"
@@ -327,25 +330,25 @@
     "message": "https://github.com/Linkumori"
   },
   "officialWebsiteLink": {
-    "message": "https://linkumori.com/"
+    "message": " https://linkumori.com/"
   },
   "removerule": {
     "message": "移除规则"
   },
   "__MSG_extDescription__": {
-    "message": "清除网址中的跟踪参数，保护您的隐私"
+    "message": "移除URL中的跟踪参数，保护您的隐私"
   },
   "confirmResetStats": {
-    "message": "确定要重置所有统计信息吗？"
+    "message": "确认重置所有统计数据？"
   },
   "checking_update": {
     "message": "正在检查更新..."
   },
   "update_available": {
-    "message": "有可用更新"
+    "message": "有新版本可用"
   },
   "no_update": {
-    "message": "暂无可用更新"
+    "message": "当前已是最新版本"
   },
   "throttled": {
     "message": "请稍后重试"
@@ -363,16 +366,13 @@
     "message": "检查更新时出错"
   },
   "chromeWebStore": {
-    "message": "Chrome 网上应用店："
+    "message": "Chrome应用商店："
   },
   "chromeWebStoreLinkText": {
     "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
   },
-  "inputUrlsDescription": {
-    "message": "使用此工具，您可以粘贴网址，点击清理网址按钮后，Linkumori 网址清理工具将清理这些网址。您可以一次粘贴多个网址，但每个网址必须单独占一行。"
-  },
   "confirmRestoreExceptions": {
-    "message": "您确定要启用所有内置白名单规则吗？"
+    "message": "确认启用所有内置白名单规则？"
   },
   "enableRule": {
     "message": "启用"
@@ -384,16 +384,16 @@
     "message": "搜索内置白名单规则..."
   },
   "noExceptionRulesFound": {
-    "message": "未找到匹配 '$1' 的内置白名单规则"
+    "message": "未找到匹配'$1'的内置规则"
   },
   "noExceptionRulesDefined": {
     "message": "未定义内置白名单规则"
   },
   "restoreExceptions": {
-    "message": "恢复默认内置白名单规则"
+    "message": "恢复默认内置规则"
   },
   "exceptionRulesTitle": {
-    "message": "Linkumori 内置白名单规则"
+    "message": "内置Linkumori白名单规则"
   },
   "exportAllSettings": {
     "message": "导出所有设置"
@@ -402,22 +402,22 @@
     "message": "导入所有设置"
   },
   "successMessages_settingsExported": {
-    "message": "所有设置已成功导出"
+    "message": "设置导出成功"
   },
   "successMessages_settingsImported": {
-    "message": "所有设置已成功导入"
+    "message": "设置导入成功"
   },
   "errorMessages_settingsExport": {
-    "message": "导出设置失败"
+    "message": "设置导出失败"
   },
   "errorMessages_settingsImport": {
-    "message": "导入设置失败：$1"
+    "message": "设置导入失败：$1"
   },
   "errorMessages_invalidSettingsFile": {
     "message": "无效的设置文件格式"
   },
   "confirmationMessages_importSettings": {
-    "message": "这将覆盖您所有的当前设置。您确定要继续吗？"
+    "message": "此操作将覆盖当前设置，是否继续？"
   },
   "exportRules": {
     "message": "导出规则"
@@ -426,43 +426,43 @@
     "message": "导入规则"
   },
   "successMessages_rulesExported": {
-    "message": "规则已成功导出"
+    "message": "规则导出成功"
   },
   "successMessages_rulesImported": {
-    "message": "规则已成功导入"
+    "message": "规则导入成功"
   },
   "errorMessages_rulesExport": {
-    "message": "导出规则失败"
+    "message": "规则导出失败"
   },
   "errorMessages_rulesImport": {
-    "message": "导入规则失败：$1"
+    "message": "规则导入失败：$1"
   },
   "errorMessages_invalidRulesFile": {
     "message": "无效的规则文件格式"
   },
   "confirmationMessages_importRules": {
-    "message": "这将覆盖您所有的自定义规则。您确定要继续吗？"
+    "message": "此操作将覆盖当前自定义规则，是否继续？"
   },
   "successMessages_statsImported": {
-    "message": "统计数据已成功导入"
+    "message": "统计信息导入成功"
   },
   "errorMessages_statsImport": {
-    "message": "导入统计数据失败：$1"
+    "message": "统计信息导入失败：$1"
   },
   "reportIssueTitle": {
-    "message": "报告问题"
+    "message": "问题反馈"
   },
   "reportIssueHeader": {
-    "message": "报告问题或建议改进"
+    "message": "报告问题或提出建议"
   },
   "reportIssueDescription": {
-    "message": "发现 URL 清理问题或有建议？帮助我们通过提交报告来改进 Linkumori。"
+    "message": "发现URL清理问题或有改进建议？通过提交反馈帮助我们改进Linkumori。"
   },
   "findExistingButton": {
     "message": "查找现有问题"
   },
   "beforeReporting": {
-    "message": "在报告之前，请检查您的问题是否已被报告："
+    "message": "提交前请先查看是否已有相关反馈："
   },
   "issueTypeLabel": {
     "message": "问题类型："
@@ -471,19 +471,19 @@
     "message": "选择问题类型..."
   },
   "issueTypeTrackingNotRemoved": {
-    "message": "跟踪参数未被移除"
+    "message": "跟踪参数未移除"
   },
   "issueTypeUrlBroken": {
-    "message": "URL 清理后损坏"
+    "message": "清理后URL失效"
   },
   "issueTypeFalsePositive": {
-    "message": "误报（不必要的清理）"
+    "message": "误清理（不必要的清理）"
   },
   "issueTypePerformance": {
     "message": "性能问题"
   },
   "issueTypeUi": {
-    "message": "界面/显示问题"
+    "message": "界面显示问题"
   },
   "issueTypeFeatureRequest": {
     "message": "功能请求"
@@ -492,28 +492,34 @@
     "message": "规则建议"
   },
   "urlLabel": {
-    "message": "发生问题的 URL："
+    "message": "问题发生URL："
   },
   "customUrlPlaceholder": {
     "message": "https://example.com"
   },
   "enterCustomUrl": {
-    "message": "输入自定义 URL"
+    "message": "输入自定义URL"
   },
   "nsfwLabel": {
-    "message": "页面包含成人内容 (NSFW)"
+    "message": "页面包含成人内容（NSFW）"
   },
   "additionalInfoLabel": {
-    "message": "附加信息："
+    "message": "补充信息："
   },
   "additionalInfoPlaceholder": {
-    "message": "请提供关于此问题的任何其他详细信息或评论..."
+    "message": "请提供问题详情或备注..."
   },
-   "consentMessage": {
-    "message": "我理解点击\"在 GitHub 上报告\"将使我重定向到 GitHub，其中包含我在此页面上输入的预填信息，以及配置信息部分显示的其他数据。我已查看配置信息部分，其中包括我的浏览器信息（浏览器名称和版本）、扩展设置、白名单域名、自定义规则（域名和参数）、禁用规则 ID 以及扩展名称和版本等详细信息。我理解创建问题需要 GitHub 帐户，一旦重定向到 GitHub，我将受 $privacy_link$ 中概述的 GitHub 隐私政策约束。通过在 GitHub 上提交问题，我同意 $privacy_link$ 中概述的 GitHub 隐私政策。我确认在使用这些预填信息重定向后，我仍可以选择提交或取消在 $repo_link$ 托管的存储库上创建问题。我进一步确认，即使我取消创建问题，GitHub 仍可能根据其隐私政策收集数据，因为我已经访问了他们的平台。",
+  "consentMessage": {
+    "message": "我理解点击\"GitHub提交\"将生成包含所填信息和下方配置数据的GitHub链接，并跳转至该页面。本扩展不会直接传输数据。跳转前将显示完整URL供审核。访问GitHub即表示同意其$privacy_link$。提交问题需GitHub账户，最终是否提交由您决定。即使取消提交，根据GitHub隐私政策，相关交互数据仍可能被收集。提交的问题将公开可见。",
     "placeholders": {
       "privacy_link": {
-        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub 隐私声明</a>"
+        "content": "<a href='https://docs.github.com/zh/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub隐私声明</a>"
+      },
+      "privacy_statement": {
+        "content": "<a href='https://docs.github.com/zh/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub隐私条款</a>"
+      },
+      "terms_service": {
+        "content": "<a href='https://docs.github.com/zh/site-policy/github-terms/github-terms-of-service' target='_blank'>服务条款</a>"
       },
       "repo_link": {
         "content": "<a href='https://github.com/Linkumori/Linkumori-Extension' target='_blank'>https://github.com/Linkumori/Linkumori-Extension</a>"
@@ -521,16 +527,79 @@
     }
   },
   "reportOnGitHub": {
-    "message": "在 GitHub 上报告"
+    "message": "GitHub提交"
   },
   "configInformation": {
     "message": "配置信息"
   },
   "findExistingConsentMessage": {
-    "message": "我理解点击\"查找现有问题\"将使我重定向到 GitHub，其中包含我输入的域名和问题详细信息的搜索参数。该 URL 可能会在 GitHub 的搜索历史记录中可见。继续操作即表示我同意 GitHub 关于 URL 参数的隐私政策。请参阅 $link$。",
+    "message": "我理解点击\"查找现有问题\"将生成GitHub搜索链接并跳转。本扩展不会直接传输数据。跳转即表示同意GitHub的$link$和$terms_service$。搜索不会创建问题，最终是否新建问题由您决定。",
     "placeholders": {
       "link": {
-        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub 搜索隐私政策</a>"
+        "content": "<a href='https://docs.github.com/zh/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub搜索隐私政策</a>"
+      },
+      "terms_service": {
+        "content": "<a href='https://docs.github.com/zh/site-policy/github-terms/github-terms-of-service' target='_blank'>服务条款</a>"
+      }
+    }
+  },
+  "urlPreviewTitle": {
+    "message": "URL预览",
+    "description": "URL预览对话框标题"
+  },
+  "urlPreviewWarning": {
+    "message": "请检查即将打开的URL。此URL包含您输入的信息并将跳转至GitHub。",
+    "description": "关于URL内容和跳转的警告"
+  },
+  "urlPreviewEncodedUrl": {
+    "message": "即将打开的URL（技术格式）：",
+    "description": "编码URL显示标签"
+  },
+  "urlPreviewShowDecoded": {
+    "message": "显示可读格式（解码URL）",
+    "description": "解码URL切换按钮标签"
+  },
+  "urlPreviewCopy": {
+    "message": "复制URL",
+    "description": "复制URL按钮标签"
+  },
+  "urlPreviewCopied": {
+    "message": "已复制！",
+    "description": "复制成功确认信息"
+  },
+  "urlPreviewCancelButton": {
+    "message": "取消",
+    "description": "URL预览取消按钮"
+  },
+  "urlPreviewProceedButton": {
+    "message": "打开GitHub",
+    "description": "URL预览确认按钮"
+  },
+  "consentRequired": {
+    "message": "请勾选同意复选框继续",
+    "description": "未同意时的错误提示"
+  },
+  "issueTypeRequired": {
+    "message": "请选择问题类型",
+    "description": "未选问题类型的错误提示"
+  },
+  "urlRequired": {
+    "message": "请提供URL",
+    "description": "缺少URL的错误提示"
+  },
+  "urlInvalid": {
+    "message": "请输入有效URL",
+    "description": "URL无效的错误提示"
+  },
+  "errorFindingIssues": {
+    "message": "查找现有问题时出错：",
+    "description": "搜索问题失败提示前缀"
+  },
+  "urlPreviewSecurityNotice": {
+    "message": "此URL将跳转至GitHub。您的数据将遵守$link$。",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/zh/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub搜索隐私政策</a>"
       }
     }
   }
