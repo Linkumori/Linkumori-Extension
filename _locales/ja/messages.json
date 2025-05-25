@@ -533,9 +533,9 @@
     "message": "設定情報"
   },
   "findExistingConsentMessage": {
-    "message": "「既存の問題を検索」をクリックすると、私が入力したドメイン名と問題の詳細を使用してGitHub検索URLが作成され、そのURLにリダイレクトされます。この拡張機能から直接データは送信されません。拡張機能は検索URLを開く前に完全な検索URLを表示し、どの検索用語が使用されるかを確認できます。GitHubにリダイレクトされた後、私は$link$と$terms_service$に従います。この検索は問題を作成したりGitHubにデータを送信したりしないことを理解しています。これは私が経験している問題に関連する既存の問題を検索するためだけです。検索を続行すると、結果を確認し、検索結果に基づいて新しい問題を作成するかどうかを選択できます。",
-    "placeholders": {
-      "link": {
+    "message": "「既存の問題を検索」をクリックすると、私が入力したドメイン名と問題の詳細を使用してGitHub検索URLが作成され、そのURLにリダイレクトされます。この拡張機能から直接データは送信されません。拡張機能は検索URLを開く前に完全な検索URLを表示し、どの検索用語が使用されるかを確認できます。GitHubにリダイレクトされた後、私は$link$と$terms_service$に従います",
+     "placeholders": {  
+    "link": {
         "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHubの検索プライバシーポリシー</a>"
       },
       "terms_service": {

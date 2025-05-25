@@ -533,7 +533,7 @@
     "message": "配置信息"
   },
   "findExistingConsentMessage": {
-    "message": "我理解点击\"查找现有问题\"将生成GitHub搜索链接并跳转。本扩展不会直接传输数据。跳转即表示同意GitHub的$link$和$terms_service$。搜索不会创建问题，最终是否新建问题由您决定。",
+    "message": "我理解点击\"查找现有问题\"将生成GitHub搜索链接并跳转。本扩展不会直接传输数据。跳转即表示同意GitHub的$link$和$terms_service$.",
     "placeholders": {
       "link": {
         "content": "<a href='https://docs.github.com/zh/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub搜索隐私政策</a>"

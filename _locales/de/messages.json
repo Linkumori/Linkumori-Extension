@@ -533,7 +533,7 @@
     "message": "Konfigurationsinformationen"
   },
   "findExistingConsentMessage": {
-    "message": "Ich verstehe, dass durch Klicken auf \"Vorhandene Probleme finden\" eine GitHub-Such-URL unter Verwendung des von mir eingegebenen Domainnamens und der Problemdetails erstellt wird und ich dann zu dieser URL weitergeleitet werde. Es werden keine Daten direkt von dieser Erweiterung übertragen. Die Erweiterung zeigt mir die vollständige Such-URL an, bevor sie geöffnet wird, damit ich überprüfen kann, welche Suchbegriffe verwendet werden. Nach der Weiterleitung zu GitHub unterliege ich den $link$ und $terms_service$. Ich verstehe, dass diese Suche keine Probleme erstellt oder Daten an GitHub übermittelt; sie dient nur zum Auffinden vorhandener Probleme im Zusammenhang mit dem Problem, das ich erlebe. Wenn ich mit der Suche fortfahre, kann ich die Ergebnisse überprüfen und entscheiden, ob ich basierend auf den Ergebnissen ein neues Problem erstellen möchte.",
+    "message": "Ich verstehe, dass durch Klicken auf \"Vorhandene Probleme finden\" eine GitHub-Such-URL unter Verwendung des von mir eingegebenen Domainnamens und der Problemdetails erstellt wird und ich dann zu dieser URL weitergeleitet werde. Es werden keine Daten direkt von dieser Erweiterung übertragen. Die Erweiterung zeigt mir die vollständige Such-URL an, bevor sie geöffnet wird, damit ich überprüfen kann, welche Suchbegriffe verwendet werden. Nach der Weiterleitung zu GitHub unterliege ich den $link$ und $terms_service$.",
     "placeholders": {
       "link": {
         "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>Datenschutzrichtlinie für die GitHub-Suche</a>"

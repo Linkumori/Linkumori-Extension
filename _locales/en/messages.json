@@ -534,7 +534,7 @@
     "message": "Configuration Information"
   },
  "findExistingConsentMessage": {
-    "message": "I understand that clicking \"Find Existing Issues\" will construct a GitHub search URL using the domain name and issue details I have entered, and then redirect me to that URL. No data is transmitted directly by this extension. The extension will show me the complete search URL before opening it, so I can review which search terms will be used. Once redirected to GitHub, I will be subject to $link$ and $terms_service$. I understand that this search will not create any issues or submit any data to GitHub; it is only for finding existing issues related to the problem I am experiencing. If I proceed with the search, I can review the results and choose whether to create a new issue based on the findings.",
+    "message": "I understand that clicking \"Find Existing Issues\" will construct a GitHub search URL using the domain name and issue details I have entered, and then redirect me to that URL. No data is transmitted directly by this extension. The extension will show me the complete search URL before opening it, so I can review which search terms will be used. Once redirected to GitHub, I will be subject to $link$ and $terms_service$.",
     "placeholders": {
       "link": {
         "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub's Search Privacy Policy</a>"

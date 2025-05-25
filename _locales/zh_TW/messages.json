@@ -509,31 +509,41 @@
   "additionalInfoPlaceholder": {
     "message": "請提供關於此問題的任何其他詳細資訊或評論..."
   },
-  "consentMessage": {
-    "message": "我了解點擊「在 GitHub 上報告」將使我重定向到 GitHub，其中包含我在此頁面上輸入的預填信息，以及配置信息部分顯示的其他數據。我已查看配置信息部分，其中包括我的瀏覽器信息（瀏覽器名稱和版本）、擴展設置、白名單域名、自定義規則（域名和參數）、禁用規則 ID 以及擴展名稱和版本等詳細信息。我了解創建問題需要 GitHub 帳戶，一旦重定向到 GitHub，我將受 $privacy_link$ 中概述的 GitHub 隱私政策約束。通過在 GitHub 上提交問題，我同意 $privacy_link$ 中概述的 GitHub 隱私政策。我確認在使用這些預填信息重定向後，我仍可以選擇提交或取消在 $repo_link$ 托管的儲存庫上創建問題。我進一步確認，即使我取消創建問題，GitHub 仍可能根據其隱私政策收集數據，因為我已經訪問了他們的平台。",
-    "placeholders": {
-      "privacy_link": {
-        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub 隱私聲明</a>"
-      },
-      "repo_link": {
-        "content": "<a href='https://github.com/Linkumori/Linkumori-Extension' target='_blank'>https://github.com/Linkumori/Linkumori-Extension</a>"
-      }
-    }
-  },
+
   "reportOnGitHub": {
     "message": "在 GitHub 上回報"
   },
   "configInformation": {
     "message": "設定資訊"
   },
-  "findExistingConsentMessage": {
-    "message": "我了解點擊「查找現有問題」將使我重定向到 GitHub，其中包含我輸入的域名和問題詳細信息的搜索參數。該 URL 可能會在 GitHub 的搜索歷史記錄中可見。繼續操作即表示我同意 GitHub 關於 URL 參數的隱私政策。請參閱 $link$。",
-    "placeholders": {
-      "link": {
-        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub 搜索隱私政策</a>"
-      }
+"findExistingConsentMessage": {
+  "message": "我了解點擊「查找現有問題」會根據我輸入的網域名稱和問題細節構建一個 GitHub 搜尋網址，然後將我重新導向至該網址。本擴充功能不會直接傳送任何資料。擴充功能會在開啟前顯示完整的搜尋網址，讓我可以檢查將使用哪些搜尋條件。重新導向至 GitHub 後，我將受 $link$ 和 $terms_service$ 規範。",
+  "placeholders": {
+    "link": {
+      "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub 搜尋隱私權政策</a>"
+    },
+    "terms_service": {
+      "content": "<a href='https://docs.github.com/en/site-policy/github-terms/github-terms-of-service' target='_blank'>服務條款</a>"
     }
-  },
+  }
+},
+"consentMessage": {
+  "message": "我了解點擊「在 GitHub 上回報」會根據我輸入的資訊和下方顯示的設定資料構建一個 GitHub 網址，然後將我重新導向至該網址。本擴充功能不會直接傳送任何資料。擴充功能會在開啟前顯示完整網址，讓我可以檢查將包含哪些資訊。重新導向至 GitHub 後，我可以選擇提交預填寫的問題表單或取消而不提交任何內容。我了解存取 GitHub 會受 $privacy_link$ 規範。建立問題需要 GitHub 帳號，當您選擇繼續並被重新導向至 GitHub 時，您的活動將受 $privacy_statement$ 和 $terms_service$ 規範。被帶到預填資訊的頁面後，您仍然可以選擇是否提交或取消在我們的存放庫 $repo_link$ 上建立問題。即使您取消建立問題，GitHub 仍可能根據其隱私權政策收集資料，因為您與其平台互動。如果您選擇提交問題，您提交的資訊（包括任何附加評論）將會公開，因為該存放庫是公開的，任何人都可以在 GitHub 或相關服務上看到您回報的問題。",
+  "placeholders": {
+    "privacy_link": {
+      "content": "<a href='https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub 隱私權聲明</a>"
+    },
+    "privacy_statement": {
+      "content": "<a href='https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub 隱私權聲明</a>"
+    },
+    "terms_service": {
+      "content": "<a href='https://docs.github.com/en/site-policy/github-terms/github-terms-of-service' target='_blank'>服務條款</a>"
+    },
+    "repo_link": {
+      "content": "<a href='https://github.com/Linkumori/Linkumori-Extension' target='_blank'>https://github.com/Linkumori/Linkumori-Extension</a>"
+    }
+  }
+},
   "urlPreviewTitle": {
     "message": "URL 預覽"
   },
