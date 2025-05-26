@@ -532,17 +532,18 @@
   "configInformation": {
     "message": "配置信息"
   },
-  "findExistingConsentMessage": {
-    "message": "我理解点击\"查找现有问题\"将生成GitHub搜索链接并跳转。本扩展不会直接传输数据。跳转即表示同意GitHub的$link$和$terms_service$.",
-    "placeholders": {
-      "link": {
-        "content": "<a href='https://docs.github.com/zh/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub搜索隐私政策</a>"
-      },
-      "terms_service": {
-        "content": "<a href='https://docs.github.com/zh/site-policy/github-terms/github-terms-of-service' target='_blank'>服务条款</a>"
-      }
+ "findExistingConsentMessage": {
+  "message": "我理解，点击“查找现有问题”将使用我输入的域名和问题详情生成一个GitHub搜索URL，并跳转到该链接。本扩展不会直接传输任何数据。扩展会在打开前显示完整的搜索URL，以便我查看将使用的搜索关键词。跳转至GitHub后，我将受$link$和$terms_service$的约束。",
+  "placeholders": {
+    "link": {
+      "content": "<a href='https://docs.github.com/zh/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub搜索隐私政策</a>"
+    },
+    "terms_service": {
+      "content": "<a href='https://docs.github.com/zh/site-policy/github-terms/github-terms-of-service' target='_blank'>服务条款</a>"
     }
-  },
+  }
+},
+
   "urlPreviewTitle": {
     "message": "URL预览",
     "description": "URL预览对话框标题"
