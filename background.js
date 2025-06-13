@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>..
 
 // ===== Linkumori Engine Start =====//
 import { readPurifyUrlsSettings, setDefaultSettings } from './common/utils.js';
-import { defaultSettings, SETTINGS_KEY, CANT_FIND_SETTINGS_MSG, EXCEPTION_DISABLED_RULES_KEY, EXCEPTION_RULES_KEY } from './common/constants.js';
+import { defaultSettings, SETTINGS_KEY, CANT_FIND_SETTINGS_MSG } from './common/constants.js';
 import { parameterRules, urlPatternRules } from './common/rules.js';
 import punycode from './lib/punycode.js';
 import base64 from './lib/base64.js';
@@ -127,15 +127,25 @@ const RuleManager = {
   RULE_TYPES: {
     STATIC: 'static',
     DYNAMIC: 'dynamic',
-    CUSTOM: 'custom',
-    EXCEPTION: 'exception'
+    CUSTOM: 'custom'
   },
   
-  // Constants for rule IDs
+  // Constants for rule IDs - FIXED RANGES
   RULE_ID_RANGES: {
-    STATIC_START: 1,
-    CUSTOM_START: 40000,
-    EXCEPTION_START: 50000
+    WHITELIST_START: 60000000,  // Whitelist rules start here
+    WHITELIST_END: 69999999,    // Whitelist rules end here
+    CUSTOM_START: 40000,        // Custom rules start here
+    CUSTOM_END: 59999999        // Custom rules end here
+  },
+  
+  // Helper function to determine rule type by ID
+  getRuleType(ruleId) {
+    if (ruleId >= this.RULE_ID_RANGES.WHITELIST_START && ruleId <= this.RULE_ID_RANGES.WHITELIST_END) {
+      return 'whitelist';
+    } else if (ruleId >= this.RULE_ID_RANGES.CUSTOM_START && ruleId <= this.RULE_ID_RANGES.CUSTOM_END) {
+      return 'custom';
+    }
+    return 'unknown';
   },
   
   // Update all rule types
@@ -146,7 +156,6 @@ const RuleManager = {
       await this.updateDNRRules(enabled); 
       // Then update custom rules AFTER (so they respect the whitelist)
       await this.updateAllDNRRules(enabled);
-      await this.updateExceptionRuleStates();
       console.log('All rules updated successfully, enabled:', enabled);
       return true;
     } catch (error) {
@@ -168,12 +177,18 @@ const RuleManager = {
     });
   },
   
-  // Whitelist rule management (only updates whitelist rules)
+  // Whitelist rule management - FIXED VERSION
   async updateDNRRules(enabled) {
     try {
       console.log("=== Starting updateDNRRules (whitelist) ===");
-      // Get all existing rules but DON'T remove them yet
       const existingRules = await chrome.declarativeNetRequest.getDynamicRules();
+      
+      // FIXED: Correctly identify whitelist rules by their ID range
+      const whitelistRuleIds = existingRules
+        .filter(rule => this.getRuleType(rule.id) === 'whitelist')
+        .map(rule => rule.id);
+      
+      console.log(`Found ${whitelistRuleIds.length} existing whitelist rules to update`);
       
       if (enabled) {
         // Get whitelist domains
@@ -184,37 +199,19 @@ const RuleManager = {
         const whitelistRules = [];
         
         whitelist.forEach((domain, index) => {
-          const allowRules = this.createAllowRule(domain, (index * 2) + this.RULE_ID_RANGES.STATIC_START);
+          const allowRules = this.createAllowRule(domain, (index * 2) + this.RULE_ID_RANGES.WHITELIST_START);
           whitelistRules.push(...allowRules);
         });
         
-        // Find rule IDs to keep (for custom parameters) and remove (for whitelist)
-        const customRuleIds = [];
-        const whitelistRuleIds = [];
-        
-        existingRules.forEach(rule => {
-          // Check if this is a custom rule ID
-          if (rule.id >= this.RULE_ID_RANGES.CUSTOM_START) {
-            customRuleIds.push(rule.id);
-          } else {
-            // This is a whitelist rule ID
-            whitelistRuleIds.push(rule.id);
-          }
-        });
-        
-        // Only remove the whitelist rules, keep custom rules
+        // Remove old whitelist rules and add new ones
         await chrome.declarativeNetRequest.updateDynamicRules({
           removeRuleIds: whitelistRuleIds,
           addRules: whitelistRules
         });
         
-        console.log(`Applied ${whitelistRules.length} whitelist rules, preserving ${customRuleIds.length} custom rules`);
+        console.log(`Applied ${whitelistRules.length} whitelist rules`);
       } else {
-        // If disabled, only remove whitelist rules, not custom ones
-        const whitelistRuleIds = existingRules
-          .filter(rule => rule.id < this.RULE_ID_RANGES.CUSTOM_START)
-          .map(rule => rule.id);
-          
+        // If disabled, remove all whitelist rules
         await chrome.declarativeNetRequest.updateDynamicRules({
           removeRuleIds: whitelistRuleIds,
           addRules: []
@@ -228,15 +225,15 @@ const RuleManager = {
     }
   },
   
-  // Custom rules management (respects whitelist)
+  // Custom rules management - FIXED VERSION
   async updateAllDNRRules(enabled) {
     try {
-      console.log("=== Starting updateAllDNRRules ===");
+      console.log("=== Starting updateAllDNRRules (custom rules) ===");
       const existingRules = await chrome.declarativeNetRequest.getDynamicRules();
       
-      // Only get custom rule IDs to remove, leave whitelist rules alone
+      // FIXED: Correctly identify custom rules by their ID range
       const customRuleIds = existingRules
-        .filter(rule => rule.id >= this.RULE_ID_RANGES.CUSTOM_START)
+        .filter(rule => this.getRuleType(rule.id) === 'custom')
         .map(rule => rule.id);
       
       console.log(`Found ${customRuleIds.length} existing custom rules to update`);
@@ -246,15 +243,10 @@ const RuleManager = {
         const whitelist = await Storage.get('whitelist') || [];
         console.log("Whitelist domains:", whitelist);
         
-        // Create parameter removal rules
-        const parameterRules = [];
-        // Track used rule IDs to ensure uniqueness
-        const usedRuleIds = new Set();
-        
         const customRules = await Storage.get('customRules') || [];
         console.log("Custom rules before filtering:", customRules.length);
 
-        // First, filter out any custom rules for whitelisted domains
+        // Filter out any custom rules for whitelisted domains
         const filteredRules = customRules.filter(rule => {
           const isWhitelisted = isDomainWhitelisted(rule.domain, whitelist);
           if (isWhitelisted) {
@@ -265,167 +257,53 @@ const RuleManager = {
         
         console.log("Custom rules after filtering out whitelisted domains:", filteredRules.length);
 
-        // Now create rules for the remaining domains
+        // Create parameter removal rules with sequential IDs
+        const parameterRules = [];
         let ruleId = this.RULE_ID_RANGES.CUSTOM_START;
         
-        // Filter rules before creating DNR rules, but don't modify storage
-filteredRules.forEach(rule => {
-  // Ensure we have an array of params
-  const params = rule.params || [rule.param];
-  
-  // Generate unique rule ID - increment until we find unused ID
-  while (usedRuleIds.has(ruleId)) {
-    ruleId++;
-  }
-  
-  // Only create rules for non-whitelisted domains
-  if (!isDomainWhitelisted(rule.domain, whitelist)) {
-    const newRuleId = ruleId;
-    usedRuleIds.add(newRuleId); // Track the ID before using it
-    
-    parameterRules.push({
-      id: newRuleId,
-      priority: 2, // Lower priority than whitelist rules
-      action: {
-        type: "redirect",
-        redirect: {
-          transform: {
-            queryTransform: {
-              removeParams: params
+        filteredRules.forEach(rule => {
+          // Ensure we have an array of params
+          const params = rule.params || [rule.param];
+          
+          // Create one rule per domain (combining all params for that domain)
+          parameterRules.push({
+            id: ruleId++, // Use sequential IDs to avoid conflicts
+            priority: 1, // Lower priority than whitelist rules
+            action: {
+              type: "redirect",
+              redirect: {
+                transform: {
+                  queryTransform: {
+                    removeParams: params
+                  }
+                }
+              }
+            },
+            condition: {
+              requestDomains: [rule.domain],
+              resourceTypes: ["main_frame", "sub_frame", "xmlhttprequest"]
             }
-          }
-        }
-      },
-      condition: {
-        requestDomains: [rule.domain],
-        resourceTypes: ["main_frame", "sub_frame", "xmlhttprequest"]
-      }
-    });
-    
-    // Increment ruleId for next iteration
-    ruleId++;
-  } else {
-    console.log(`Skipping rule creation for whitelisted domain: ${rule.domain}`);
-  }
-});
+          });
+        });
         
+        // Remove all existing custom rules and add new ones
         await chrome.declarativeNetRequest.updateDynamicRules({
-          removeRuleIds: customRuleIds, // Only remove custom rules, not whitelist rules
-          addRules: parameterRules
+          removeRuleIds: customRuleIds, // Remove only custom rules
+          addRules: parameterRules      // Add new custom rules
         });
         
         console.log(`Applied ${parameterRules.length} custom parameter rules`);
       } else {
+        // If disabled, remove all custom rules
         await chrome.declarativeNetRequest.updateDynamicRules({
-          removeRuleIds: customRuleIds, // Only remove custom rules, not whitelist rules
+          removeRuleIds: customRuleIds,
           addRules: []
         });
         console.log('Custom rules disabled (extension disabled)');
       }
       console.log("=== Finished updateAllDNRRules ===");
     } catch (error) {
-      console.error('Error updating DNR rules:', error);
-    }
-  },
-  
-  // Exception rule management
-  async toggleExceptionRule(ruleId, enabled) {
-    try {
-      // Check if main extension is enabled
-      const settings = await Storage.get(SETTINGS_KEY) || {};
-      const isMainEnabled = settings.status || false;
-      
-      if (!isMainEnabled) {
-        console.log(`Main extension is disabled, not toggling rule #${ruleId}`);
-        return false;
-      }
-      
-      // Convert rule ID to number
-      const numericRuleId = parseInt(ruleId, 10);
-      if (isNaN(numericRuleId)) {
-        throw new Error(`Invalid rule ID: ${ruleId} is not a number`);
-      }
-      
-      // Get current disabled rules
-      const disabledRules = await Storage.get(EXCEPTION_DISABLED_RULES_KEY) || [];
-      
-      // Update disabled rules list
-      let updatedDisabledRules;
-      if (enabled) {
-        updatedDisabledRules = disabledRules.filter(id => id !== numericRuleId);
-      } else {
-        updatedDisabledRules = disabledRules.includes(numericRuleId) 
-          ? disabledRules 
-          : [...disabledRules, numericRuleId];
-      }
-      
-      // Save updated disabled rules
-      await Storage.set({ [EXCEPTION_DISABLED_RULES_KEY]: updatedDisabledRules });
-      
-      // Update ruleset
-      await this.updateRulesetWithExceptions(updatedDisabledRules);
-      
-      console.log(`Rule #${numericRuleId} ${enabled ? 'enabled' : 'disabled'} in exception ruleset`);
-      return true;
-    } catch (error) {
-      console.error(`Error toggling exception rule #${ruleId}:`, error);
-      throw error;
-    }
-  },
-
-  async updateRulesetWithExceptions(disabledRules) {
-    try {
-      const enabledRulesets = await chrome.declarativeNetRequest.getEnabledRulesets();
-      const isExceptionEnabled = enabledRulesets.includes('exception');
-
-      // First, update enabled rulesets
-      await chrome.declarativeNetRequest.updateEnabledRulesets({
-        disableRulesetIds: isExceptionEnabled ? ['exception'] : [],
-        enableRulesetIds: isExceptionEnabled ? [] : ['exception']
-      });
-
-      // Then, update rule states using updateStaticRules
-      if (disabledRules.length > 0) {
-        await chrome.declarativeNetRequest.updateStaticRules({
-          removeRuleIds: [], // Don't remove any rules
-          addRules: [], // Don't add any new rules
-          disableRuleIds: disabledRules
-        });
-      }
-
-      console.log('Exception ruleset updated with disabled rules:', disabledRules);
-    } catch (error) {
-      console.error('Error updating exception ruleset:', error);
-      throw error;
-    }
-  },
-  
-  async updateExceptionRuleStates() {
-    try {
-      const settings = await chrome.storage.local.get(SETTINGS_KEY);
-      const isMainEnabled = settings[SETTINGS_KEY]?.status || false;
-      
-      if (!isMainEnabled) {
-        return false;
-      }
-      
-      const { [EXCEPTION_RULES_KEY]: exceptionRules = [] } = 
-        await chrome.storage.local.get(EXCEPTION_RULES_KEY);
-      
-      const disabledRuleIds = exceptionRules
-        .filter(rule => rule.enabled === false)
-        .map(rule => parseInt(rule.id, 10))
-        .filter(id => !isNaN(id));
-      
-      await chrome.storage.local.set({ [EXCEPTION_DISABLED_RULES_KEY]: disabledRuleIds });
-      
-      await this.updateRulesetWithExceptions(disabledRuleIds);
-      
-      console.log('Exception rules updated, disabled rules:', disabledRuleIds);
-      return true;
-    } catch (error) {
-      console.error('Error updating exception rule states:', error);
-      return false;
+      console.error('Error updating custom rules:', error);
     }
   },
   
@@ -433,7 +311,7 @@ filteredRules.forEach(rule => {
   createAllowRule(domain, ruleId) {
     return [{
       id: ruleId,
-      priority: 1,
+      priority: 100,
       action: {
         type: "allow"
       },
@@ -449,7 +327,7 @@ filteredRules.forEach(rule => {
     },
     {
       id: ruleId + 1,
-      priority: 1,
+      priority: 100,
       action: {
         type: "allow"
       },
@@ -647,7 +525,6 @@ const EventHandlers = {
     badge(badgesettings);
     updateHyperlinkAuditing(updatesettings);
     updateExtensionIcon(currentTheme);
-    RuleManager.updateExceptionRuleStates(); // Update exception rules
 
   },
 
@@ -747,9 +624,6 @@ const EventHandlers = {
 
   async handleStorageChanges(changes, area) {
     if (area === 'local') {
-      // Get disabled rules state early
-      const disabledRules = await Storage.get(EXCEPTION_DISABLED_RULES_KEY) || [];
-
       // Handle settings changes
       if (changes[SETTINGS_KEY]) {
         const newStatus = changes[SETTINGS_KEY].newValue?.status;
@@ -760,12 +634,6 @@ const EventHandlers = {
             resolve(count);
           });
         });
-
-        // If main extension is being enabled
-        if (newStatus) {
-          // Re-apply disabled exception rules after enabling main settings
-          await RuleManager.updateRulesetWithExceptions(disabledRules);
-        }
       }
 
       // Handle whitelist changes
@@ -774,8 +642,6 @@ const EventHandlers = {
         // Update rules in order
         await RuleManager.updateDNRRules(settings?.status);
         await RuleManager.updateAllDNRRules(settings?.status);
-        // Re-apply disabled exception rules
-        await RuleManager.updateRulesetWithExceptions(disabledRules);
         badge(await Storage.get('updateBadgeOnOff'));
       }
       
@@ -783,8 +649,6 @@ const EventHandlers = {
       if (changes.customRules && !changes.whitelist) {
         const settings = await Storage.get(SETTINGS_KEY);
         await RuleManager.updateAllDNRRules(settings?.status);
-        // Re-apply disabled exception rules
-        await RuleManager.updateRulesetWithExceptions(disabledRules);
       }
 
       // Handle badge state changes
@@ -824,16 +688,12 @@ const EventHandlers = {
           RuleManager.updateRuleSet(defaultSettings.status);
           RuleManager.updateDNRRules(defaultSettings.status);
           RuleManager.updateAllDNRRules(defaultSettings.status);
-          RuleManager.updateExceptionRuleStates(); // Update exception rules
-
 
         } else {
           sendResponse(settings);
           RuleManager.updateRuleSet(settings[SETTINGS_KEY].status);
           RuleManager.updateDNRRules(settings[SETTINGS_KEY].status);
           RuleManager.updateAllDNRRules(settings[SETTINGS_KEY].status);
-              RuleManager.updateExceptionRuleStates(); // Update exception rules
-
 
         }
       });
@@ -959,25 +819,6 @@ const EventHandlers = {
           }
           break;
           
-        case 'toggleExceptionRule':
-          try {
-            const success = await RuleManager.toggleExceptionRule(message.ruleId, message.enabled);
-            sendResponse({ success });
-          } catch (error) {
-            sendResponse({ success: false, error: error.message });
-          }
-          break;
-          
-        case 'updateAllExceptionRules':
-        case 'updateExceptionRules':
-          try {
-            const success = await RuleManager.updateExceptionRuleStates();
-            sendResponse({ success });
-          } catch (error) {
-            sendResponse({ success: false, error: error.message });
-          }
-          break;
-          
         case 'addCustomRule':
           try {
             const rules = await RuleManager.saveCustomRule(message.domain, message.param);
@@ -1067,7 +908,6 @@ const EventHandlers = {
             await RuleManager.updateRuleSet(settings.enabled);
             await RuleManager.updateDNRRules(settings.enabled); // Whitelist first
             await RuleManager.updateAllDNRRules(settings.enabled); // Custom rules second
-            await RuleManager.updateExceptionRuleStates(); // Update exception rules
             
             // Reload affected tabs if needed
             if (settings.PreventGoogleandyandexscript) {

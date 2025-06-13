@@ -251,7 +251,6 @@ async function getConfigData() {
             'PreventGoogleandyandexscript',
             'whitelist',
             'customRules',
-            'disabledExceptionRules'
         ]);
 
         // Format settings object using getBrowserInfo() instead of navigator.userAgent
@@ -267,7 +266,6 @@ async function getConfigData() {
             },
             whitelistedDomains: storage.whitelist || [],
             customRules: storage.customRules || [],
-            disabledExceptionRules: storage.disabledExceptionRules || [],
             Browser: getBrowserInfo()  // Use getBrowserInfo instead of navigator.userAgent
         };
         

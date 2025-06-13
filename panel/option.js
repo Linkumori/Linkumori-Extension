@@ -37,9 +37,7 @@ class OptionsMenuController {
                     totalRedirect: 0,
                     totalParameter: 0
                 }
-            },
-            disabledExceptionRules: [], // Initialize as empty array
-            exceptionRules: [] // Initialize as empty array
+            }
         };
 
         this.domElements = {
@@ -68,7 +66,6 @@ class OptionsMenuController {
         this.importWhitelist = this.importWhitelist.bind(this);
         this.setupURLExtractor();  // Already called here
         this.updateStats = this.updateStats.bind(this);
-        this.updateStats = this.updateStats.bind(this);
         this.setupStats();
 
         this.init();
@@ -76,13 +73,8 @@ class OptionsMenuController {
         this.setupAboutSection();
         this.initializeI18n();
         this.setupUpdateChecker();  // Add this line
-
-        // Add stats sync interval reference
     }
-
-    // Add new method for stats synchronization
     
-
     initializeI18n() {
         // Initialize text content
         document.querySelectorAll('[data-i18n]').forEach(element => {
@@ -112,12 +104,10 @@ class OptionsMenuController {
             document.addEventListener('DOMContentLoaded', () => {
                 this.setupDOM();
                 this.setupVersion();
-                this.loadExceptionRules(); // Add this line
             });
         } else {
             this.setupDOM();
             this.setupVersion();
-            this.loadExceptionRules(); // Add this line
         }
 
         chrome.storage.onChanged.addListener(this.handleStorageChanges.bind(this));
@@ -161,6 +151,7 @@ class OptionsMenuController {
 
         this.setupEventListeners();
     }
+
     setupEventListeners() {
         const exportBtn = document.getElementById('exportWhitelist');
         const importBtn = document.getElementById('importWhitelist');
@@ -225,28 +216,11 @@ class OptionsMenuController {
             }, 300);
         });
 
-        // Add exception rules search
-        document.getElementById('searchExceptionRules')?.addEventListener('input', (e) => {
-            clearTimeout(this.searchTimeout);
-            this.searchTimeout = setTimeout(() => {
-                const searchTerm = e.target.value.trim();
-                this.renderExceptionRules(searchTerm);
-            }, 300);
-        });
-
-        // Add restore exceptions button handler
-        document.getElementById('restoreExceptions')?.addEventListener('click', () => {
-            this.restoreDefaultExceptions();
-        });
-
         document.getElementById('exportAllSettings')?.addEventListener('click', () => this.exportAllSettings());
         document.getElementById('importAllSettings')?.addEventListener('click', () => this.importAllSettings());
 
         document.getElementById('exportRules')?.addEventListener('click', () => this.exportRules());
         document.getElementById('importRules')?.addEventListener('click', () => this.importRules());
-
-        // Add stats update message listener
-        
     }
 
     async loadInitialState() {
@@ -267,7 +241,6 @@ class OptionsMenuController {
                 updateBadgeOnOff = false,
                 customRules = [],
                 PreventGoogleandyandexscript = false,
-                disabledExceptionRules = [], // Load disabledExceptionRules here
                 stats = {
                     summary: {
                         totalRedirect: 0,
@@ -282,7 +255,6 @@ class OptionsMenuController {
                 updateBadgeOnOff: false,
                 customRules: [],
                 PreventGoogleandyandexscript: false,
-                disabledExceptionRules: [], // Default to empty array
                 [STATS_KEY]: {
                     summary: {
                         totalRedirect: 0,
@@ -300,7 +272,6 @@ class OptionsMenuController {
                 updateBadgeOnOff,
                 customRules,
                 PreventGoogleandyandexscript,
-                disabledExceptionRules, // Set the loaded value
                 stats
             };
 
@@ -351,13 +322,8 @@ class OptionsMenuController {
             this.state.stats = changes[STATS_KEY].newValue;
             this.updateStatsUI();
         }
-
-        if (Object.hasOwn(changes, 'disabledExceptionRules')) {
-            // Ensure we never set undefined here
-            this.state.disabledExceptionRules = changes.disabledExceptionRules.newValue || [];
-            this.renderExceptionRules();
-        }
     }
+
     async togglePurifyUrlsSettings() {
         try {
             const newStatus = !this.state.isEnabled;
@@ -400,6 +366,7 @@ class OptionsMenuController {
             console.error('Failed to toggle Badge On/Off:', error);
         }
     }
+
     async setupStats() {
         setInterval(this.updateStats, 5000);
         this.updateStats();
@@ -412,9 +379,6 @@ class OptionsMenuController {
         });
      }
 
-
-
-    // Add new method
     async updateStats() {
         try {
             // Get stats from background script
@@ -504,6 +468,7 @@ class OptionsMenuController {
             console.error('Failed to toggle Hyperlink Auditing:', error);
         }
     }
+
     updateUI() {
         this.updateToggleUI();
         this.updateHistoryApiToggleUI();
@@ -514,6 +479,7 @@ class OptionsMenuController {
         this.renderCustomRules();
         this.updateStatsUI();
     }
+
     updateToggleUI() {
         if (!this.domElements.toggleSwitch || !this.domElements.toggleLabel) {
             return;
@@ -661,29 +627,27 @@ class OptionsMenuController {
            }
        }
    
-     // Remove reference to updateAllDynamicButtons in handleWhitelistChange method
-async handleWhitelistChange(domain, shouldAdd) {
-    try {
-        const asciiDomain = punycode.toASCII(domain);
-        let newWhitelist;
-        
-        if (shouldAdd) {
-            newWhitelist = [...this.state.whitelist, asciiDomain];
-        } else {
-            newWhitelist = this.state.whitelist.filter(d => 
-                punycode.toASCII(d) !== asciiDomain
-            );
+    async handleWhitelistChange(domain, shouldAdd) {
+        try {
+            const asciiDomain = punycode.toASCII(domain);
+            let newWhitelist;
+            
+            if (shouldAdd) {
+                newWhitelist = [...this.state.whitelist, asciiDomain];
+            } else {
+                newWhitelist = this.state.whitelist.filter(d => 
+                    punycode.toASCII(d) !== asciiDomain
+                );
+            }
+            
+            await chrome.storage.local.set({ whitelist: newWhitelist });
+            this.state.whitelist = newWhitelist;
+            this.renderWhitelist();
+        } catch (error) {
+            console.error('Failed to update whitelist:', error);
         }
-        
-        await chrome.storage.local.set({ whitelist: newWhitelist });
-        this.state.whitelist = newWhitelist;
-        this.renderWhitelist();
-        // Remove this line:
-        // await this.updateAllDynamicButtons();
-    } catch (error) {
-        console.error('Failed to update whitelist:', error);
     }
-}
+
     async setupURLExtractor() {
         const urlInput = document.getElementById('urlInput');
         const getParamsButton = document.getElementById('getParameters');
@@ -1347,171 +1311,6 @@ async handleWhitelistChange(domain, shouldAdd) {
         }
     }
 
-    // Add this after the class declaration but before the init() method
-
-    async loadExceptionRules() {
-        try {
-            // Load exception rules from JSON
-            const response = await fetch('../rules/exception/rules18.json');
-            const rules = await response.json();
-            this.state.exceptionRules = rules;
-
-            // Load disabled rules from storage
-            const { disabledExceptionRules = [] } = await chrome.storage.local.get('disabledExceptionRules');
-            this.state.disabledExceptionRules = disabledExceptionRules;
-
-            this.renderExceptionRules();
-        } catch (error) {
-            console.error('Failed to load exception rules:', error);
-        }
-    }
-
-    renderExceptionRules(searchTerm = '') {
-        const container = document.getElementById('exceptionRulesContainer');
-        if (!container) return;
-
-        container.innerHTML = '';
-
-        const filteredRules = searchTerm 
-            ? this.state.exceptionRules.filter(rule => 
-                JSON.stringify(rule).toLowerCase().includes(searchTerm.toLowerCase())
-            )
-            : this.state.exceptionRules;
-
-        // Make sure disabledExceptionRules is initialized
-        if (!this.state.disabledExceptionRules) {
-            this.state.disabledExceptionRules = [];
-        }
-
-        filteredRules.forEach(rule => {
-            // Fixed line - add null check and default to false if undefined
-            const isDisabled = this.state.disabledExceptionRules ? 
-                              this.state.disabledExceptionRules.includes(rule.id) : 
-                              false;
-            const ruleElement = this.createExceptionRuleElement(rule, isDisabled);
-            container.appendChild(ruleElement);
-        });
-    }
-
-    createExceptionRuleElement(rule, isDisabled) {
-        const ruleEl = document.createElement('div');
-        ruleEl.className = `exception-rule ${isDisabled ? 'disabled' : ''}`;
-
-        const header = document.createElement('div');
-        header.className = 'rule-header';
-
-        const ruleId = document.createElement('span');
-        ruleId.className = 'rule-id';
-        ruleId.textContent = `Rule ${rule.id}`;
-
-        const toggleButton = document.createElement('button');
-        toggleButton.className = `toggle-rule ${!isDisabled ? 'enabled' : ''}`;
-        toggleButton.textContent = isDisabled ? 
-            chrome.i18n.getMessage('enableRule') : 
-            chrome.i18n.getMessage('disableRule');
-        
-        toggleButton.onclick = () => this.toggleExceptionRule(rule.id);
-
-        header.appendChild(ruleId);
-        header.appendChild(toggleButton);
-
-        const details = document.createElement('div');
-        details.className = 'rule-details';
-
-        // Add rule details
-        const detailsContent = this.createRuleDetailsContent(rule);
-        details.appendChild(detailsContent);
-
-        ruleEl.appendChild(header);
-        ruleEl.appendChild(details);
-
-        return ruleEl;
-    }
-
-    createRuleDetailsContent(rule) {
-        const content = document.createElement('div');
-        content.className = 'rule-info';
-
-        // Add priority
-        const priority = document.createElement('div');
-        priority.className = 'detail-row';
-        priority.innerHTML = `<strong>Priority:</strong> ${rule.priority}`;
-        content.appendChild(priority);
-
-        // Add action type
-        const action = document.createElement('div');
-        action.className = 'detail-row';
-        action.innerHTML = `<strong>Action:</strong> ${rule.action.type}`;
-        content.appendChild(action);
-
-        // Add condition details
-        const condition = document.createElement('div');
-        condition.className = 'detail-row';
-        let conditionText = '<strong>Condition:</strong> ';
-        
-        if (rule.condition.urlFilter) {
-            conditionText += `URL Filter: ${rule.condition.urlFilter}`;
-        } else if (rule.condition.regexFilter) {
-            conditionText += `Regex Filter: ${rule.condition.regexFilter}`;
-        }
-        
-        if (rule.condition.resourceTypes) {
-            conditionText += `<br>Resource Types: ${rule.condition.resourceTypes.join(', ')}`;
-        }
-        
-        condition.innerHTML = conditionText;
-        content.appendChild(condition);
-
-        return content;
-    }
-
-    async toggleExceptionRule(ruleId) {
-        try {
-            // Ensure we're working with an array
-            const currentDisabled = Array.isArray(this.state.disabledExceptionRules) ? 
-                                  [...this.state.disabledExceptionRules] : 
-                                  [];
-            const index = currentDisabled.indexOf(ruleId);
-
-            if (index === -1) {
-                currentDisabled.push(ruleId);
-            } else {
-                currentDisabled.splice(index, 1);
-            }
-
-            await chrome.storage.local.set({ disabledExceptionRules: currentDisabled });
-            this.state.disabledExceptionRules = currentDisabled;
-
-            // Notify background script to update rules
-            await chrome.runtime.sendMessage({
-                action: 'updateExceptionRules',
-                disabledRules: currentDisabled
-            });
-
-            this.renderExceptionRules();
-        } catch (error) {
-            console.error('Failed to toggle exception rule:', error);
-        }
-    }
-
-    async restoreDefaultExceptions() {
-        if (confirm(chrome.i18n.getMessage('confirmRestoreExceptions'))) {
-            try {
-                await chrome.storage.local.remove('disabledExceptionRules');
-                this.state.disabledExceptionRules = [];
-                
-                await chrome.runtime.sendMessage({
-                    action: 'updateExceptionRules',
-                    disabledRules: []
-                });
-
-                this.renderExceptionRules();
-            } catch (error) {
-                console.error('Failed to restore default exceptions:', error);
-            }
-        }
-    }
-
     // Add these new helper methods
     getExpandedStates() {
         const states = new Map();
@@ -1648,8 +1447,6 @@ async handleWhitelistChange(domain, shouldAdd) {
             if (versionSourceLabel) {
                 versionSourceLabel.textContent = chrome.i18n.getMessage('versionLabel');
             }
-
-            // Update repository and related buttons
         } catch (error) {
             console.error('Failed to setup about section:', error);
         }
@@ -1718,9 +1515,7 @@ async handleWhitelistChange(domain, shouldAdd) {
                     updateBadgeOnOff: this.state.updateBadgeOnOff,
                     PreventGoogleandyandexscript: this.state.PreventGoogleandyandexscript,
                     whitelist: this.state.whitelist,
-                    customRules: this.state.customRules,
-                    disabledExceptionRules: this.state.disabledExceptionRules,
-                 
+                    customRules: this.state.customRules
                 }
             };
 
@@ -1789,8 +1584,7 @@ async handleWhitelistChange(domain, shouldAdd) {
                 updateBadgeOnOff: importedData.settings.updateBadgeOnOff,
                 PreventGoogleandyandexscript: importedData.settings.PreventGoogleandyandexscript,
                 whitelist: importedData.settings.whitelist,
-                customRules: importedData.settings.customRules,
-                disabledExceptionRules: importedData.settings.disabledExceptionRules,
+                customRules: importedData.settings.customRules
             });
 
             // Update state
@@ -1802,8 +1596,7 @@ async handleWhitelistChange(domain, shouldAdd) {
                 updateBadgeOnOff: importedData.settings.updateBadgeOnOff,
                 PreventGoogleandyandexscript: importedData.settings.PreventGoogleandyandexscript,
                 whitelist: importedData.settings.whitelist,
-                customRules: importedData.settings.customRules,
-                disabledExceptionRules: importedData.settings.disabledExceptionRules,
+                customRules: importedData.settings.customRules
             };
 
             // Update UI
@@ -1820,8 +1613,7 @@ async handleWhitelistChange(domain, shouldAdd) {
                         updateBadgeOnOff: importedData.settings.updateBadgeOnOff,
                         PreventGoogleandyandexscript: importedData.settings.PreventGoogleandyandexscript,
                         whitelist: importedData.settings.whitelist,
-                        customRules: importedData.settings.customRules,
-                        disabledExceptionRules: importedData.settings.disabledExceptionRules
+                        customRules: importedData.settings.customRules
                     }
                 }),
             ]);
@@ -2004,7 +1796,6 @@ document.getElementById('bug-light.svg')?.addEventListener('click', () => {
 document.getElementById('bug-dark.svg')?.addEventListener('click', () => {
     window.open('https://fontawesome.com/icons/bug?f=classic&s=solid&pc=%23ffffff&sc=%23ffffff');
 });
+
 // Initialize the controller
 const controller = new OptionsMenuController();
-
-// Add cleanup on window unload
