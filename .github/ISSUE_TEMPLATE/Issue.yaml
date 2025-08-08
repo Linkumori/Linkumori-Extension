@@ -10,10 +10,10 @@ body:
       placeholder: "Example: Chrome 123.0.4567.89, Linkumori v1.2.3, Dark mode enabled"
     validations:
       required: false
-
   - type: textarea
-    id: description
+    id: consent_confirmation
     attributes:
+      label: Consent Confirmation
       value: |
         ## Consent Confirmation
         **By submitting this issue, you confirm the following:**
