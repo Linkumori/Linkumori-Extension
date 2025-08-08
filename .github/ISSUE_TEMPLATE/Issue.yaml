@@ -10,8 +10,11 @@ body:
       placeholder: "Example: Chrome 123.0.4567.89, Linkumori v1.2.3, Dark mode enabled"
     validations:
       required: false
-  - type: markdown
+  - type: textarea
+    id: consent_confirmation
     attributes:
+      label: Consent Confirmation
+      description: "⚠️ DO NOT EDIT - This section will be included in your issue submission"
       value: |
         ## Consent Confirmation
         **By submitting this issue, you confirm the following:**
@@ -19,3 +22,5 @@ body:
         - [x] I understand that by submitting this issue, I am sharing the above information with the Linkumori project maintainers.  
         - [x] I confirm that I previously gave consent through the Linkumori extension reporting page.  
         - [x] I understand that this submission serves as a second confirmation of my consent to share this information.
+    validations:
+      required: true
