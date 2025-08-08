@@ -11,7 +11,7 @@ body:
     validations:
       required: false
 
-  - type: markdown
+  - type: textarea
     attributes:
       value: |
         ## Consent Confirmation
