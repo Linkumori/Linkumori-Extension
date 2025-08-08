@@ -12,7 +12,7 @@ body:
       required: false
 
   - type: textarea
-    attributes:
+    id: description
       value: |
         ## Consent Confirmation
         **By submitting this issue, you confirm the following:**
