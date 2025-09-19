@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>ascender</key>
+    <integer>962</integer>
+    <key>capHeight</key>
+    <integer>0</integer>
+    <key>descender</key>
+    <integer>-283</integer>
+    <key>familyName</key>
+    <string>MFB Oldstyle</string>
+    <key>italicAngle</key>
+    <integer>0</integer>
+    <key>openTypeHeadCreated</key>
+    <string>2024/08/05 16:00:15</string>
+    <key>openTypeNameLicenseURL</key>
+    <string>https://creativecommons.org/publicdomain/zero/1.0/</string>
+    <key>postscriptFontName</key>
+    <string>MFBOldstyle-Regular</string>
+    <key>styleName</key>
+    <string>Regular</string>
+    <key>unitsPerEm</key>
+    <integer>1000</integer>
+    <key>versionMajor</key>
+    <integer>1</integer>
+    <key>versionMinor</key>
+    <integer>0</integer>
+    <key>xHeight</key>
+    <integer>0</integer>
+  </dict>
+</plist>

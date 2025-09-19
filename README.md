@@ -302,12 +302,8 @@ For more information about the original work, please see: https://github.com/Adg
 
 ### Font License
 
-This project uses the Liberation Serif Regular font, located in the `./liberation-fonts` directory. The font is licensed under the SIL Open Font License, Version 1.1.
-
-Copyright:
-- Digitized data copyright (c) 2010 Google Corporation with Reserved Font Arimo, Tinos and Cousine
-- Copyright (c) 2012 Red Hat, Inc. with Reserved Font Name Liberation
-
+This project uses the MFBOldstyle-Regular font, with the font name: MFBOldstyle-Regular.
+It is located in the "./mfb-oldstyle" directory and is licensed under CC0 1.0 Universal
 ### Font Awesome Icons
 
 This project uses the Screwdriver Wrench and cog icons from [fontawesome.com](https://fontawesome.com), which are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
@@ -320,9 +316,8 @@ The following icons are used in the Linkumori source code:
 - `/panel/cog-light.svg`
 - `/panel/cog-dark.svg`
 
-Additionally, the following icons from Font Awesome are also used and are licensed under CC BY 4.0:
-- `/panel/bug-light.svg`
-- `/panel/bug-dark.svg`
+Font Awesome icons svg licensed under CC BY 4.0:
+
 
 **Original sources for these icons:**
 - [advanced-tools-dark.svg](https://fontawesome.com/icons/screwdriver-wrench?f=classic&s=solid&pc=%23ffffff&sc=%23FFD43B%2F)

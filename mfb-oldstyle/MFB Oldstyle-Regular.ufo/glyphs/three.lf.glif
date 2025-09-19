@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="three.lf" format="2">
+  <advance width="518"/>
+  <outline>
+    <component base="three" xOffset="-9" identifier="7196DA5B"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.schriftgestaltung.Glyphs.lastChange</key>
+      <string>2024-08-03 06:58:12 +0000</string>
+      <key>public.objectLibs</key>
+      <dict>
+        <key>7196DA5B</key>
+        <dict>
+          <key>com.schriftgestaltung.alignment</key>
+          <integer>-1</integer>
+        </dict>
+      </dict>
+    </dict>
+  </lib>
+</glyph>

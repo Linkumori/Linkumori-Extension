@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Kacute" format="2">
+  <advance width="703"/>
+  <unicode hex="1E30"/>
+  <outline>
+    <component base="K"/>
+    <component base="acutecomb" xOffset="281" yOffset="255"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.schriftgestaltung.Glyphs.lastChange</key>
+      <string>2024-08-03 06:58:11 +0000</string>
+    </dict>
+  </lib>
+</glyph>

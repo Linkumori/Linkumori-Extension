@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="eth.sc" format="2">
+  <advance width="551"/>
+  <outline>
+    <contour>
+      <point x="40" y="240" type="line"/>
+      <point x="285" y="240" type="line"/>
+      <point x="285" y="283" type="line"/>
+      <point x="40" y="283" type="line"/>
+    </contour>
+    <component base="d.sc"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.schriftgestaltung.Glyphs.lastChange</key>
+      <string>2024-08-06 02:25:19 +0000</string>
+    </dict>
+  </lib>
+</glyph>

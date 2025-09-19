@@ -770,12 +770,7 @@ document.getElementById('sun.svg')?.addEventListener('click', () => {
 document.getElementById('moon.svg')?.addEventListener('click', () => {
     window.open('https://github.com/feathericons/feather/blob/main/icons/moon.svg', '_blank');
 });
-document.getElementById('bug-light.svg')?.addEventListener('click', () => {
-    window.open('https://fontawesome.com/icons/bug?f=classic&s=solid&pc=%23334155&sc=%23334155');
-});
-document.getElementById('bug-dark.svg')?.addEventListener('click', () => {
-    window.open('https://fontawesome.com/icons/bug?f=classic&s=solid&pc=%23ffffff&sc=%23ffffff');
-});
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('themeToggle');
@@ -835,27 +830,7 @@ if (settingsBtn) {
 const controller = new PanelMenuController();
 
 // Add this with the other button handlers
-const reportBtn = document.getElementById('reportButton');
-if (reportBtn) {
-    reportBtn.addEventListener('click', async () => {
-        try {
-            // Get current tab URL for the report
-            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-            const reportURL = new URL(chrome.runtime.getURL('panel/report.html'));
-            
-            if (tab?.url) {
-                reportURL.searchParams.set('url', tab.url);
-            }
-            
-            // Open report page in a new tab
-            chrome.tabs.create({
-                url: reportURL.toString()
-            });
-        } catch (error) {
-            console.error('Error opening report page:', error);
-        }
-    });
-}
+
 
    
 

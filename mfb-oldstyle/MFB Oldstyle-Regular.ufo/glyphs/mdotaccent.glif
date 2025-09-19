@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="mdotaccent" format="2">
+  <advance width="818"/>
+  <unicode hex="1E41"/>
+  <outline>
+    <component base="m"/>
+    <component base="dotaccentcomb" xOffset="360"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.schriftgestaltung.Glyphs.lastChange</key>
+      <string>2024-08-03 06:58:11 +0000</string>
+    </dict>
+  </lib>
+</glyph>

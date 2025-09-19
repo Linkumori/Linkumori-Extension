@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="i" format="2">
+  <advance width="270"/>
+  <unicode hex="0069"/>
+  <outline>
+    <component base="idotless"/>
+    <component base="dotaccentcomb" xOffset="83" yOffset="64" identifier="D1803942"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.schriftgestaltung.Glyphs.lastChange</key>
+      <string>2024-08-03 06:58:11 +0000</string>
+      <key>public.objectLibs</key>
+      <dict>
+        <key>D1803942</key>
+        <dict>
+          <key>com.schriftgestaltung.anchor</key>
+          <string>top_dot</string>
+        </dict>
+      </dict>
+    </dict>
+  </lib>
+</glyph>

@@ -1412,7 +1412,6 @@ class OptionsMenuController {
             const aboutDetailsSpan = document.getElementById('aboutDetails');
             const versionSpan = document.getElementById('aboutVersion'); // Add this line
             const githubLink = document.getElementById('githubLink'); // Add this line
-            const officialSiteLink = document.getElementById('officialSiteLink'); // Add this line
             const chromeWebStoreLink = document.getElementById('chromeWebStoreLink'); // Add this line
 
             if (updateUrl.includes('github')) {
@@ -1434,9 +1433,7 @@ class OptionsMenuController {
                 githubLink.href = 'https://github.com/Linkumori';
             }
 
-            if (officialSiteLink) { // Add this block
-                officialSiteLink.href = 'https://linkumori.com/';
-            }
+           
 
             if (chromeWebStoreLink) { // Add this block
                 chromeWebStoreLink.href = 'https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg';

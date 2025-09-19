@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="z" format="2">
+  <advance width="440"/>
+  <unicode hex="007A"/>
+  <anchor x="198" y="0" name="dotbelow"/>
+  <anchor x="240" y="558" name="top"/>
+  <outline>
+    <contour>
+      <point x="24" y="0" type="line"/>
+      <point x="359" y="0" type="line"/>
+      <point x="416" y="154" type="line"/>
+      <point x="384" y="170" type="line"/>
+      <point x="354" y="123"/>
+      <point x="318" y="88"/>
+      <point x="299" y="72" type="curve" smooth="yes"/>
+      <point x="269" y="47"/>
+      <point x="248" y="40"/>
+      <point x="192" y="40" type="curve" smooth="yes"/>
+      <point x="130" y="40" type="line"/>
+      <point x="405" y="435" type="line"/>
+      <point x="395" y="468" type="line"/>
+      <point x="101" y="468" type="line"/>
+      <point x="42" y="322" type="line"/>
+      <point x="72" y="306" type="line"/>
+      <point x="135" y="395"/>
+      <point x="166" y="428"/>
+      <point x="262" y="428" type="curve" smooth="yes"/>
+      <point x="305" y="428" type="line"/>
+      <point x="24" y="30" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.schriftgestaltung.Glyphs.lastChange</key>
+      <string>2024-08-06 02:25:19 +0000</string>
+    </dict>
+  </lib>
+</glyph>

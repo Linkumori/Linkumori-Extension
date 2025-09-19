@@ -17,12 +17,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>..
 
 */
-@font-face {
-    font-family: 'Liberation Serif';
-    src: url('../liberation-fonts/LiberationSerif-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
+     @font-face {
+            font-family: 'MFB Oldstyle';
+            src: url('../mfb-oldstyle/MFB-Oldstyle-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
 
 :root {
     /* Primary Background Colors */
@@ -87,7 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>..
 body {
     width: 300px;
     margin: 0;
-    font-family: "Liberation Serif";
+    font-family: 'MFB Oldstyle';
     background: var(--bg-primary);
     transition: background-color 0.2s;
 }
@@ -285,7 +285,7 @@ body {
     gap: 8px;
     margin-bottom: 12px;
     background: var(--bg-secondary);
-    font-family: "Liberation Serif";
+    font-family: 'MFB Oldstyle';
     padding: 12px;
     border-radius: 4px;
 }
@@ -296,7 +296,7 @@ body {
     border: 1px solid var(--input-border);
     border-radius: 4px;
     font-size: 13px;
-    font-family: "Liberation Serif";
+    font-family: 'MFB Oldstyle';
     background: var(--input-bg);
     color: var(--text-primary-domain);
     transition: border-color 0.2s;
@@ -340,7 +340,7 @@ body {
 
 /* Specific styles for the remove button */
 .domain-item .remove-rule-btn {
-    font-family: "Liberation Serif";
+    font-family: 'MFB Oldstyle';
     font-size: 12px;
     background: var(--button-danger);
     padding: 4px 8px;
@@ -378,7 +378,7 @@ button {
     background: var(--button-primary);
     color: var(--text-primary);
     border: none;
-    font-family: "Liberation Serif";
+    font-family: 'MFB Oldstyle';
     border-radius: 4px;
     cursor: pointer;
     font-size: 13px;
@@ -443,7 +443,7 @@ body * {
 }
 
 .domain-item button {
-    font-family: "Liberation Serif";
+    font-family: 'MFB Oldstyle';
     font-size: 12px;
     background: var(--button-danger);
     padding: 4px 8px;
