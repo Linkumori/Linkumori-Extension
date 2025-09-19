@@ -1787,12 +1787,7 @@ document.getElementById('sun.svg')?.addEventListener('click', () => {
 document.getElementById('moon.svg')?.addEventListener('click', () => {
     window.open('https://github.com/feathericons/feather/blob/main/icons/moon.svg', '_blank');
 });
-document.getElementById('bug-light.svg')?.addEventListener('click', () => {
-    window.open('https://fontawesome.com/icons/bug?f=classic&s=solid&pc=%23334155&sc=%23334155');
-});
-document.getElementById('bug-dark.svg')?.addEventListener('click', () => {
-    window.open('https://fontawesome.com/icons/bug?f=classic&s=solid&pc=%23ffffff&sc=%23ffffff');
-});
+
 
 // Initialize the controller
 const controller = new OptionsMenuController();
