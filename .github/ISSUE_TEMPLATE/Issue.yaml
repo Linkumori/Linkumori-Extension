@@ -10,15 +10,4 @@ body:
       placeholder: "Example: Chrome 123.0.4567.89, Linkumori v1.2.3, Dark mode enabled"
     validations:
       required: false
-  - type: checkboxes
-    id: consent_confirmation
-    attributes:
-      label: Consent Confirmation
-      description: "By submitting this issue, you confirm the following:"
-      options:
-        - label: "I understand that by submitting this issue, I am sharing the above information with the Linkumori project maintainers."
-          required: true
-        - label: "I confirm that I previously gave consent through the Linkumori extension reporting page."
-          required: true
-        - label: "I understand that this submission serves as a second confirmation of my consent to share this information."
-          required: true
+  
