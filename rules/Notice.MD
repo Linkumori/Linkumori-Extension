@@ -122,6 +122,11 @@ The rule system has been expanded and reorganized to provide both mixed-content 
 - License: GPL v3 only
 - Modified files: rules5.json and rules7.json (removed one rule from each JSON file)
 
+## Eleventh Modification
+- Date: February 14, 2026, 00:16 CET
+- License: GPL v3 only
+- Modified by Emil Fridriksson
+
 ## License Information
 This work is licensed under the GNU General Public License version 3 (GPLv3) only.
 
