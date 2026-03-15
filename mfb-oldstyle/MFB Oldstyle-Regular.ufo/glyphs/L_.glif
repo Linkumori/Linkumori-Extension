@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="L" format="2">
+  <advance width="605"/>
+  <unicode hex="004C"/>
+  <anchor x="478" y="735" name="caroncombalt"/>
+  <anchor x="304" y="0" name="commaaccentbelow"/>
+  <anchor x="305" y="0" name="dotbelow"/>
+  <anchor x="411" y="292" name="ldot"/>
+  <anchor x="177" y="813" name="top"/>
+  <outline>
+    <contour>
+      <point x="32" y="0" type="line"/>
+      <point x="538" y="0" type="line"/>
+      <point x="605" y="187" type="line"/>
+      <point x="570" y="202" type="line"/>
+      <point x="548" y="170"/>
+      <point x="526" y="145"/>
+      <point x="496" y="117" type="curve" smooth="yes"/>
+      <point x="437" y="63"/>
+      <point x="396" y="44"/>
+      <point x="311" y="44" type="curve" smooth="yes"/>
+      <point x="245" y="44"/>
+      <point x="227" y="55"/>
+      <point x="227" y="116" type="curve" smooth="yes"/>
+      <point x="227" y="599" type="line" smooth="yes"/>
+      <point x="227" y="662"/>
+      <point x="242" y="679"/>
+      <point x="297" y="679" type="curve" smooth="yes"/>
+      <point x="321" y="679" type="line"/>
+      <point x="321" y="721" type="line"/>
+      <point x="32" y="721" type="line"/>
+      <point x="32" y="679" type="line"/>
+      <point x="56" y="679" type="line" smooth="yes"/>
+      <point x="111" y="679"/>
+      <point x="126" y="662"/>
+      <point x="126" y="599" type="curve" smooth="yes"/>
+      <point x="126" y="131" type="line" smooth="yes"/>
+      <point x="126" y="53"/>
+      <point x="109" y="42"/>
+      <point x="55" y="42" type="curve" smooth="yes"/>
+      <point x="32" y="42" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.schriftgestaltung.Glyphs.lastChange</key>
+      <string>2024-08-06 02:25:19 +0000</string>
+    </dict>
+  </lib>
+</glyph>

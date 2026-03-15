@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="zerowidthspace" format="2">
+  <advance width="0"/>
+  <unicode hex="200B"/>
+  <outline>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.schriftgestaltung.Glyphs.lastChange</key>
+      <string>2024-08-03 06:50:40 +0000</string>
+    </dict>
+  </lib>
+</glyph>

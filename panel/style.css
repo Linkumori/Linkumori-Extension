@@ -1,0 +1,488 @@
+/*
+   SPDX-License-Identifier: GPL-3.0-or-later
+
+Copyright (C) 2024 Subham Mahesh
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>..
+
+*/
+     @font-face {
+            font-family: 'MFB Oldstyle';
+            src: url('../mfb-oldstyle/MFB-Oldstyle-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+:root {
+    /* Primary Background Colors */
+    --bg-primary: #0f172a;      /* Darker slate blue for main background */
+    --bg-secondary: #1e293b;    /* Slightly lighter blue for header */
+    --bg-tertiary: #334155;     /* Even lighter blue for active states */
+    --bg-tertiary-license:#334155;
+    --bg-primary-theme:#1e293b; 
+    /* Interactive Elements */
+    --button-primary: #2563eb;  /* Bright blue for primary buttons */
+    --button-hover: #3b82f6;    /* Lighter blue for hover states */
+    --button-danger: #dc2626;   /* Red for delete/danger actions */
+    --button-danger-hover: #ef4444;
+    --logo-bg: #ffffff;          /* White in dark mode */
+    --logo-accent: #2563eb; 
+    /* Text Colors */
+    --text-primary: #f8fafc;     /* Almost white for primary text */
+    --text-primary-domain: #f8fafc;    
+    --text-secondary: #cbd5e1;  /* Slightly dimmed for secondary text */
+    --text-muted: #94a3b8;      /* More muted for less important text */
+
+    /* Border and Shadow Colors */
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.25);
+
+    /* Input and Interactive Element Colors */
+    --input-bg: rgba(255, 255, 255, 0.05);
+    --input-border: rgba(255, 255, 255, 0.1);
+    --input-focus: #3b82f6;
+    --button-primary-toogle:rgba(255, 255, 255, 0.2);
+}
+
+/* Light theme */
+:root[data-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f1f5f9;
+    --bg-tertiary: #2563eb;
+    --bg-primary-theme:#f1f5f9;
+    --bg-tertiary-license:#818892;
+    --text-primary: #ffffff;
+    --text-secondary: #334155;
+    --text-primary-domain:#334155;
+    --text-muted: #64748b;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --input-bg: rgba(0, 0, 0, 0.05);
+    --input-border: rgba(0, 0, 0, 0.1);
+    --button-primary: #2563eb;
+    --button-hover: #1e40af;      /* Slightly lighter navy blue */
+    --button-danger: #dc2626;
+    --button-danger-hover: #ef4444;
+    --input-focus: #1e3a8a;
+    --logo-bg: #2563eb;          /* Navy blue background in light mode */
+    --logo-accent: #f1f5f9;
+    --button-primary-toogle: #71a7ff;
+}
+
+.centered {
+    text-align: center;
+}
+
+body {
+    width: 300px;
+    margin: 0;
+    font-family: 'MFB Oldstyle';
+    background: var(--bg-primary);
+    transition: background-color 0.2s;
+}
+
+.header {
+    background: var(--bg-secondary);
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    position: relative;
+    justify-content: space-between; /* Align items to the sides */
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Reduced gap to make text closer to the logo */
+}
+
+.header-buttons {
+    display: flex;
+    gap: 2px; /* Further reduced gap to make buttons closer */
+}
+
+.logo {
+    width: 24px;
+    height: 24px;
+}
+
+.header h1 {
+    color: var(--text-secondary);
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Theme Toggle and Advanced Tools Styles */
+.theme-toggle-btn,
+.advanced-tools-btn,
+.setting-tools-btn {
+    background: var(--bg-primary-theme);
+    padding: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+}
+
+.advanced-tools-btn {
+    margin-left: 4px; /* Reduced margin to make buttons closer */
+    margin-right: 4px; /* Reduced margin to make buttons closer */
+}
+
+.setting-tools-btn {
+    margin-right: 4px; /* Reduced margin to make buttons closer */
+}
+
+.theme-toggle-btn:hover,
+.advanced-tools-btn:hover,
+.setting-tools-btn:hover {
+    background: var(--bg-primary-theme);
+}
+
+.theme-toggle-btn:focus,
+.advanced-tools-btn:focus,
+.setting-tools-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--bg-primary-theme);
+}
+
+.sun-icon,
+.moon-icon,
+.setting-light-icon,
+.setting-dark-icon {
+    display: none;
+}
+
+:root[data-theme="light"] .sun-icon,
+:root[data-theme="light"] .setting-light-icon {
+    display: block;
+}
+
+:root[data-theme="light"] .moon-icon,
+:root[data-theme="light"] .setting-dark-icon {
+    display: none;
+}
+
+:root:not([data-theme="light"]) .sun-icon,
+:root:not([data-theme="light"]) .setting-light-icon {
+    display: none;
+}
+
+:root:not([data-theme="light"]) .moon-icon,
+:root:not([data-theme="light"]) .setting-dark-icon {
+    display: block;
+}
+
+/* Advanced Tools Button Icons */
+.advanced-tools-btn .light-icon,
+.advanced-tools-btn .dark-icon {
+  display: none;
+}
+
+:root[data-theme="light"] .advanced-tools-btn .light-icon {
+  display: block;
+}
+
+:root:not([data-theme="light"]) .advanced-tools-btn .dark-icon {
+  display: block;
+}
+
+.tab-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab {
+    padding: 10px;
+    border: none;
+    background: none;
+    font-size: 14px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.tab.active {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.content {
+    display: none;
+    padding: 12px;
+}
+
+#mainContent {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    box-shadow: 0 1px 2px var(--shadow-color);
+}
+
+.toggle-switch {
+    width: 44px;
+    height: 24px;
+    background: var(--button-primary-toogle);
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.toggle-switch.active {
+    background: var(--button-primary);
+}
+
+.toggle-switch:before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: 0.2s;
+    box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+.toggle-switch.active:before {
+    transform: translateX(20px);
+}
+
+.toggle-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.domain-input {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    background: var(--bg-secondary);
+    font-family: 'MFB Oldstyle';
+    padding: 12px;
+    border-radius: 4px;
+}
+
+#domainInput {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: 'MFB Oldstyle';
+    background: var(--input-bg);
+    color: var(--text-primary-domain);
+    transition: border-color 0.2s;
+}
+
+#whitelistContainer {
+    height: 300px;
+    overflow-y: auto;
+    padding-right: 6px;
+    max-height: calc(100% - 80px);
+}
+
+#whitelistContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+#whitelistContainer::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 3px;
+}
+
+#whitelistContainer::-webkit-scrollbar-thumb {
+    background-color: var(--bg-tertiary-license);
+    border-radius: 3px;
+}
+
+.domain-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 12px;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    box-shadow: 0 1px 2px var(--shadow-color);
+    animation: fadeIn 0.2s ease-out;
+    gap: 12px; /* Consistent spacing between button and text */
+}
+
+/* Specific styles for the remove button */
+.domain-item .remove-rule-btn {
+    font-family: 'MFB Oldstyle';
+    font-size: 12px;
+    background: var(--button-danger);
+    padding: 4px 8px;
+    min-width: 60px;
+    white-space: nowrap;
+    border-radius: 4px;
+    color: var(--text-primary);
+    cursor: pointer;
+    flex-shrink: 0; /* Prevents button from shrinking */
+}
+
+/* Specific styles for the domain text */
+.domain-text {
+    flex: 1;
+    word-break: break-all;
+    line-height: 1.4; /* Improves text readability */
+    display: flex;
+    align-items: center; /* Vertically centers the text */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.empty-message {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 16px;
+    font-size: 13px;
+}
+
+button {
+    padding: 8px 12px;
+    background: var(--button-primary);
+    color: var(--text-primary);
+    border: none;
+    font-family: 'MFB Oldstyle';
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background: var(--button-hover);
+}
+
+#licenseContent {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    padding: 12px;
+    box-shadow: 0 1px 2px var(--shadow-color);
+    height: 300px;
+    overflow-y: auto;
+    max-height: calc(100% - 80px);
+}
+
+#licenseContent::-webkit-scrollbar {
+    width: 6px;
+}
+
+#licenseContent::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 3px;
+}
+
+#licenseContent::-webkit-scrollbar-thumb {
+    background-color: var(--bg-tertiary-license);
+    border-radius: 3px;
+}
+
+#licenseContent p {
+    margin-bottom: 8px;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--input-focus);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.3);
+}
+
+/* Add smooth transitions for theme changes */
+body * {
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.no-results {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 16px;
+    font-size: 13px;
+}
+
+.domain-item button {
+    font-family: 'MFB Oldstyle';
+    font-size: 12px;
+    background: var(--button-danger);
+    padding: 4px 8px;
+    min-width: 60px; /* Ensures consistent button width */
+    white-space: nowrap; /* Prevents button text from wrapping */
+    margin-right: 8px;  /* Add some spacing between button and text */
+}
+/* Add this after the .advanced-tools-btn styles */
+.report-btn {
+    background: var(--bg-primary-theme);
+    padding: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+    margin-right: 4px;
+}
+
+.report-btn:hover {
+    background: var(--bg-primary-theme);
+}
+
+.report-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--bg-primary-theme);
+}
+
+/* Add this with the other icon visibility rules */
+.report-btn .light-icon,
+.report-btn .dark-icon {
+    display: none;
+}
+
+:root[data-theme="light"] .report-btn .light-icon {
+    display: block;
+}
+
+:root:not([data-theme="light"]) .report-btn .dark-icon {
+    display: block;
+}

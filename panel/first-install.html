@@ -1,0 +1,183 @@
+<!--
+   SPDX-License-Identifier: GPL-3.0-or-later
+
+Copyright (C) 2024 Subham Mahesh
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>..
+
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title data-i18n="welcomeTitle">Welcome to Linkumori - URL Cleaner</title>
+
+    <style>
+     @font-face {
+            font-family: 'MFB Oldstyle';
+            src: url('../mfb-oldstyle/MFB-Oldstyle-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+
+        :root {
+            /* Primary Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --button-primary: #2563eb;
+            --button-hover: #3b82f6;
+            --logo-accent: #3b82f6; 
+            --logo-bg: #ffffff;
+
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.25);
+        }
+
+        :root[data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f1f5f9;
+            --bg-tertiary: #2563eb;
+            --button-primary: #2563eb;
+            --button-hover: #1e40af;
+            --text-primary: #ffffff;
+            --text-secondary: #334155;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --logo-accent: #ffffff;
+            --logo-bg: #3b82f6;
+
+
+        }
+
+        body {
+            font-family: 'MFB Oldstyle';
+            margin: 0;
+            padding: 20px;
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            padding: 24px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            width: 100px;
+            height: 100px;
+        }
+
+        h1 {
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .features {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .features li {
+            background: var(--bg-primary);
+            margin-bottom: 8px;
+            padding: 12px;
+            border-radius: 4px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+        }
+
+        .features li::before {
+            content: '✓';
+            color: var(--button-primary);
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+
+        .cta-button {
+            font-family: 'MFB Oldstyle';
+
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: var(--button-primary);
+            color: var(--text-primary);
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+            transition: background-color 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: var(--button-hover);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">             
+                <circle cx="50" cy="50" r="45" fill="var(--logo-bg)"/>             
+                <path d="M35 50 Q35 35, 50 35 L65 35 Q80 35, 80 50 Q80 65, 65 65 L60 65" 
+                      fill="none" 
+                      stroke="var(--logo-accent)" 
+                      stroke-width="8" 
+                      stroke-linecap="round"/>             
+                <path d="M65 50 Q65 65, 50 65 L35 65 Q20 65, 20 50 Q20 35, 35 35 L40 35" 
+                      fill="none" 
+                      stroke="var(--logo-accent)" 
+                      stroke-width="8" 
+                      stroke-linecap="round"/>             
+                <polygon points="75,20 78,28 86,31 78,34 75,42 72,34 64,31 72,28" 
+                         fill="var(--logo-accent)"/>         
+            </svg>
+
+        <h1 data-i18n="welcomeHeading">Welcome to Linkumori</h1>
+
+        <p data-i18n="welcomeDescription">Thank you for installing Linkumori, your personal URL privacy and tracking protection tool. Linkumori helps you maintain your online privacy by removing tracking parameters from URLs.</p>
+
+        <ul class="features">
+            <li data-i18n="feature1">Automatically remove tracking parameters from URLs</li>
+            <li data-i18n="feature2">Protect your privacy across different websites</li>
+            <li data-i18n="feature3">Easily customizable whitelist</li>
+            <li data-i18n="feature4">Lightweight and non-intrusive</li>
+        </ul>
+
+        <p data-i18n="getStartedText">To get started, click the button below to open the extension settings.</p>
+
+        <button id="openSettings" class="cta-button" data-i18n="openSettings">Open Linkumori Settings</button>
+    </div>
+
+       <script src="first-install.js"></script>
+</body>
+</html>

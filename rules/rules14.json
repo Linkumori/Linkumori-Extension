@@ -1,0 +1,3 @@
+[
+{"action":{"redirect":{"transform":{"queryTransform":{"removeParams":["buvid","csource","from","from_spm_id","from_spmid","msource","plat_id","seid","share_from","share_medium","share_plat","share_session_id","share_source","share_tag","source","spm_id_from","spmid","timestamp","unique_k","up_id","vd_source"]}}},"type":"redirect"},"condition":{"requestDomains":["bilibili.com"],"resourceTypes":["main_frame","sub_frame","xmlhttprequest"]},"id":1,"priority":2}
+]

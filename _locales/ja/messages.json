@@ -1,0 +1,606 @@
+{
+  "extName": {
+    "message": "Linkumoriの設定"
+  },
+  "extDescription": {
+    "message": "URLからトラッキングパラメータを削除し、プライバシーを保護"
+  },
+  "cleanUrlsToolTitle": {
+    "message": "Linkumori高度なURLクリーンアップツール"
+  },
+  "inputUrlsDescription": {
+    "message": "このツールを使用すると、URLを貼り付けて、LinkumoriクリーンURLツールがURLをクリーンアップします。複数のURLを一度に貼り付けることができますが、各URLは別々の行にする必要があります。"
+  },
+  "cleanUrlsToolHeader": {
+    "message": "LinkumoriクリーンURLツール"
+  },
+  "popup": {
+    "message": "Linkumori"
+  },
+  "menuItemCopyCleanUrl": {
+    "message": "クリーンなURLをコピー"
+  },
+  "statusOn": {
+    "message": "拡張機能の状態: ネットワークレベル保護でオン"
+  },
+  "statusOff": {
+    "message": "拡張機能の状態: オフ"
+  },
+  "historyProtectionOn": {
+    "message": "履歴API保護がアクティブ"
+  },
+  "historyProtectionOff": {
+    "message": "履歴API保護がオフ"
+  },
+  "historyProtectionInactive": {
+    "message": "履歴API保護（拡張機能が非アクティブ）"
+  },
+  "hyperlinkAuditingOn": {
+    "message": "ハイパーリンク監査保護がアクティブ"
+  },
+  "hyperlinkAuditingOff": {
+    "message": "ハイパーリンク監査保護がオフ"
+  },
+  "hyperlinkAuditingInactive": {
+    "message": "ハイパーリンク監査保護（拡張機能が非アクティブ）"
+  },
+  "preventRedirectOn": {
+    "message": "GoogleおよびYandexサービスが最終的な目的地に到達する前にURLをそれらのサーバーにリダイレクトするのを防ぐ: アクティブ"
+  },
+  "preventRedirectOff": {
+    "message": "GoogleおよびYandexサービスが最終的な目的地に到達する前にURLをそれらのサーバーにリダイレクトするのを防ぐ: オフ"
+  },
+  "preventRedirectInactive": {
+    "message": "GoogleおよびYandexサービスが最終的な目的地に到達する前にURLをそれらのサーバーにリダイレクトするのを防ぐ: （拡張機能が非アクティブ）"
+  },
+  "badgeOn": {
+    "message": "バッジカウンターがアクティブ"
+  },
+  "badgeOff": {
+    "message": "バッジカウンターがオフ"
+  },
+  "badgeInactive": {
+    "message": "バッジカウンター（拡張機能が非アクティブ）"
+  },
+  "navMain": {
+    "message": "メイン"
+  },
+  "navWhitelist": {
+    "message": "ホワイトリスト"
+  },
+  "navRules": {
+    "message": "カスタムDNRルール"
+  },
+  "navStats": {
+    "message": "統計"
+  },
+  "navLicense": {
+    "message": "ライセンス"
+  },
+  "navLegal": {
+    "message": "ライセンス情報"
+  },
+  "navAbout": {
+    "message": "について"
+  },
+  "navSettings": {
+    "message": "拡張機能の設定"
+  },
+  "settingsTitle": {
+    "message": "拡張機能の設定"
+  },
+  "whitelistTitle": {
+    "message": "ホワイトリスト管理"
+  },
+  "inputUrlsTitle": {
+    "message": "入力URL"
+  },
+  "cleanedUrlsTitle": {
+    "message": "クリーンなURL"
+  },
+  "inputUrlsPlaceholder": {
+    "message": "クリーンアップするURLを入力（1行に1つ）"
+  },
+  "cleanedUrlsPlaceholder": {
+    "message": "クリーンアップされたURLがここに表示されます"
+  },
+  "cleanUrlsButton": {
+    "message": "URLをクリーンアップ"
+  },
+  "copyUrlsButton": {
+    "message": "結果をコピー"
+  },
+  "copySuccessMessage": {
+    "message": "URLがクリップボードにコピーされました"
+  },
+  "copyErrorMessage": {
+    "message": "URLのコピーに失敗しました"
+  },
+  "whitelistDomainPlaceholder": {
+    "message": "ホワイトリストに追加するドメインを入力（例: example.com）"
+  },
+  "exportWhitelist": {
+    "message": "ホワイトリストをエクスポート"
+  },
+  "importWhitelist": {
+    "message": "ホワイトリストをインポート"
+  },
+  "addCurrentDomain": {
+    "message": "現在のドメインを追加"
+  },
+  "addDomainToWhitelist": {
+    "message": "$1をホワイトリストに追加"
+  },
+  "removeDomainFromWhitelist": {
+    "message": "$1をホワイトリストから削除"
+  },
+  "addDomain": {
+    "message": "追加"
+  },
+  "removeButton": {
+    "message": "削除"
+  },
+  "removeparameter": {
+    "message": "パラメータを削除"
+  },
+  "editButton": {
+    "message": "編集"
+  },
+  "confirmButton": {
+    "message": "確認"
+  },
+  "cancelButton": {
+    "message": "キャンセル"
+  },
+  "noDomainsWhitelisted": {
+    "message": "ホワイトリストにドメインがありません"
+  },
+  "noDomainsFound": {
+    "message": "'$1'に一致するドメインが見つかりません"
+  },
+  "noRulesDefined": {
+    "message": "カスタムルールが定義されていません"
+  },
+  "noRulesFound": {
+    "message": "'$1'に一致するルールが見つかりません"
+  },
+  "errorMessages_invalidDomain": {
+    "message": "有効なドメインを入力してください（例: example.com）"
+  },
+  "errorMessages_domainExists": {
+    "message": "このドメインは既にホワイトリストにあります"
+  },
+  "errorMessages_getCurrentDomain": {
+    "message": "現在のドメインを取得できませんでした"
+  },
+  "errorMessages_whitelistImport": {
+    "message": "ホワイトリストのインポートに失敗しました: $1"
+  },
+  "errorMessages_invalidUrl": {
+    "message": "有効なURLを入力してください"
+  },
+  "errorMessages_noParamsFound": {
+    "message": "URLにパラメータが見つかりません"
+  },
+  "errorMessages_noParamsSelected": {
+    "message": "パラメータが選択されていません"
+  },
+  "errorMessages_removingParameter": {
+    "message": "パラメータの削除に失敗しました"
+  },
+  "successMessages_whitelistImport": {
+    "message": "ホワイトリストが正常にインポートされました"
+  },
+  "successMessages_parameterAdded": {
+    "message": "$1個のパラメータが正常に追加されました"
+  },
+  "confirmationMessages_importWhitelist": {
+    "message": "$1個のドメインをホワイトリストにインポートしますか？"
+  },
+  "confirmationMessages_removeParameter": {
+    "message": "ドメイン'$2'からパラメータ'$1'を削除しますか？"
+  },
+  "navwhitelist_": {
+    "message": "ホワイトリスト管理"
+  },
+  "rulesTitle": {
+    "message": "カスタムDNRルールビルダー"
+  },
+  "urlInputPlaceholder": {
+    "message": "分析後にルールを追加できるように、ここにURLを貼り付けて分析"
+  },
+  "ruleDomainPlaceholder": {
+    "message": "ドメイン（例: example.com）"
+  },
+  "ruleParamPlaceholder": {
+    "message": "削除するパラメータ（例: utm_source）"
+  },
+  "analyzeButton": {
+    "message": "分析"
+  },
+  "addCustomRule": {
+    "message": "ルールを追加"
+  },
+  "searchRulesPlaceholder": {
+    "message": "ルールを検索..."
+  },
+  "searchWhitelistPlaceholder": {
+    "message": "ホワイトリストを検索..."
+  },
+  "addParameterButton": {
+    "message": "パラメータを追加"
+  },
+  "editParameter": {
+    "message": "パラメータを編集"
+  },
+  "removeParameter": {
+    "message": "パラメータを削除"
+  },
+  "newParameterPlaceholder": {
+    "message": "新しいパラメータを入力"
+  },
+  "addSelectedParams": {
+    "message": "選択したパラメータを追加"
+  },
+  "statsTitle": {
+    "message": "統計"
+  },
+  "modifiedRequestsLabel": {
+    "message": "URLパラメータが正常に削除されたリクエストの数"
+  },
+  "activeRulesLabel": {
+    "message": "この拡張機能によって削除されたパラメータの総数"
+  },
+  "resetStatsButton": {
+    "message": "統計をリセット"
+  },
+  "welcomeTitle": {
+    "message": "Linkumori - URLクリーンアップへようこそ"
+  },
+  "welcomeHeading": {
+    "message": "Linkumoriへようこそ"
+  },
+  "welcomeDescription": {
+    "message": "Linkumoriをインストールしていただきありがとうございます。Linkumoriは、URLからトラッキングパラメータを削除することで、オンラインプライバシーを維持するのに役立ちます。"
+  },
+  "feature1": {
+    "message": "URLからトラッキングパラメータを自動的に削除"
+  },
+  "feature2": {
+    "message": "さまざまなウェブサイトでプライバシーを保護"
+  },
+  "feature3": {
+    "message": "簡単にカスタマイズ可能なホワイトリスト"
+  },
+  "feature4": {
+    "message": "軽量で非侵襲的"
+  },
+  "getStartedText": {
+    "message": "始めるには、以下のボタンをクリックして拡張機能の設定を開いてください。"
+  },
+  "openSettings": {
+    "message": "Linkumoriの設定を開く"
+  },
+  "settingsButtonAriaLabel": {
+    "message": "設定ツール"
+  },
+  "themeToggleAriaLabel": {
+    "message": "テーマを切り替え"
+  },
+  "aboutTitle": {
+    "message": "について"
+  },
+  "aboutTeam": {
+    "message": "Linkumoriチームによって開発"
+  },
+  "aboutSourceGithub": {
+    "message": "GitHubリリース"
+  },
+  "aboutSourceChrome": {
+    "message": "Chromeウェブストア"
+  },
+  "aboutSourceUnknown": {
+    "message": "不明なソース"
+  },
+  "aboutDetailsGithub": {
+    "message": "このバージョンはGitHubを通じて配布されています。リポジトリから直接最新の機能や更新を含むことがあります。"
+  },
+  "aboutDetailsChrome": {
+    "message": "このバージョンはChromeウェブストアを通じて配布されています。これはほとんどのユーザーに推奨される安定版です。"
+  },
+  "aboutDetailsUnknown": {
+    "message": "このバージョンのソースは特定できませんでした。詳細については拡張機能の設定を確認するか、サポートにお問い合わせください。"
+  },
+  "version": {
+    "message": "バージョン $1"
+  },
+  "versionUnknown": {
+    "message": "バージョン不明"
+  },
+  "versionLabel": {
+    "message": "バージョン"
+  },
+  "officialRepo": {
+    "message": "公式リポジトリ:"
+  },
+  "officialSite": {
+    "message": "公式ウェブサイト:"
+  },
+  "githubRepoLink": {
+    "message": "https://github.com/Linkumori"
+  },
+  "officialWebsiteLink": {
+    "message": "https://linkumori.com/"
+  },
+  "removerule": {
+    "message": "ルールを削除"
+  },
+  "__MSG_extDescription__": {
+    "message": "URLからトラッキングパラメータを削除し、プライバシーを保護"
+  },
+  "confirmResetStats": {
+    "message": "本当にすべての統計をリセットしますか？"
+  },
+  "checking_update": {
+    "message": "更新を確認中..."
+  },
+  "update_available": {
+    "message": "更新が利用可能です"
+  },
+  "no_update": {
+    "message": "利用可能な更新はありません"
+  },
+  "throttled": {
+    "message": "後でもう一度試してください"
+  },
+  "checkupdate": {
+    "message": "更新を確認"
+  },
+  "applying_update": {
+    "message": "更新を適用中..."
+  },
+  "apply_update": {
+    "message": "更新を適用"
+  },
+  "update_error": {
+    "message": "更新の確認中にエラーが発生しました"
+  },
+  "chromeWebStore": {
+    "message": "Chromeウェブストア:"
+  },
+  "chromeWebStoreLinkText": {
+    "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+  },
+  "confirmRestoreExceptions": {
+    "message": "本当にすべての組み込みホワイトリストルールを有効にしますか？"
+  },
+  "enableRule": {
+    "message": "有効にする"
+  },
+  "disableRule": {
+    "message": "無効にする"
+  },
+  "searchExceptionRulesPlaceholder": {
+    "message": "組み込みホワイトリストルールを検索..."
+  },
+  "noExceptionRulesFound": {
+    "message": "'$1'に一致する組み込みホワイトリストルールが見つかりません"
+  },
+  "noExceptionRulesDefined": {
+    "message": "組み込みホワイトリストルールが定義されていません"
+  },
+  "restoreExceptions": {
+    "message": "デフォルトの組み込みホワイトリストルールを復元"
+  },
+  "exceptionRulesTitle": {
+    "message": "組み込みLinkumoriホワイトリストルール"
+  },
+  "exportAllSettings": {
+    "message": "すべての設定をエクスポート"
+  },
+  "importAllSettings": {
+    "message": "すべての設定をインポート"
+  },
+  "successMessages_settingsExported": {
+    "message": "すべての設定が正常にエクスポートされました"
+  },
+  "successMessages_settingsImported": {
+    "message": "すべての設定が正常にインポートされました"
+  },
+  "errorMessages_settingsExport": {
+    "message": "設定のエクスポートに失敗しました"
+  },
+  "errorMessages_settingsImport": {
+    "message": "設定のインポートに失敗しました: $1"
+  },
+  "errorMessages_invalidSettingsFile": {
+    "message": "無効な設定ファイル形式"
+  },
+  "confirmationMessages_importSettings": {
+    "message": "これは現在のすべての設定を上書きします。本当に続行しますか？"
+  },
+  "exportRules": {
+    "message": "ルールをエクスポート"
+  },
+  "importRules": {
+    "message": "ルールをインポート"
+  },
+  "successMessages_rulesExported": {
+    "message": "ルールが正常にエクスポートされました"
+  },
+  "successMessages_rulesImported": {
+    "message": "ルールが正常にインポートされました"
+  },
+  "errorMessages_rulesExport": {
+    "message": "ルールのエクスポートに失敗しました"
+  },
+  "errorMessages_rulesImport": {
+    "message": "ルールのインポートに失敗しました: $1"
+  },
+  "errorMessages_invalidRulesFile": {
+    "message": "無効なルールファイル形式"
+  },
+  "confirmationMessages_importRules": {
+    "message": "これは現在のすべてのカスタムルールを上書きします。本当に続行しますか？"
+  },
+  "successMessages_statsImported": {
+    "message": "統計が正常にインポートされました"
+  },
+  "errorMessages_statsImport": {
+    "message": "統計のインポートに失敗しました: $1"
+  },
+  "reportIssueTitle": {
+    "message": "問題を報告"
+  },
+  "reportIssueHeader": {
+    "message": "問題を報告または改善を提案"
+  },
+  "reportIssueDescription": {
+    "message": "URLクリーンアップに問題を見つけたり、提案がありますか？Linkumoriを改善するためにレポートを提出してください。"
+  },
+  "findExistingButton": {
+    "message": "既存の問題を検索"
+  },
+  "beforeReporting": {
+    "message": "報告する前に、問題が既に報告されているか確認してください:"
+  },
+  "issueTypeLabel": {
+    "message": "問題の種類:"
+  },
+  "issueTypeSelect": {
+    "message": "問題の種類を選択..."
+  },
+  "issueTypeTrackingNotRemoved": {
+    "message": "トラッキングパラメータが削除されていない"
+  },
+  "issueTypeUrlBroken": {
+    "message": "クリーンアップ後にURLが壊れている"
+  },
+  "issueTypeFalsePositive": {
+    "message": "誤検知（不必要なクリーンアップ）"
+  },
+  "issueTypePerformance": {
+    "message": "パフォーマンスの問題"
+  },
+  "issueTypeUi": {
+    "message": "UI/表示の問題"
+  },
+  "issueTypeFeatureRequest": {
+    "message": "機能リクエスト"
+  },
+  "issueTypeRuleSuggestion": {
+    "message": "ルールの提案"
+  },
+  "urlLabel": {
+    "message": "問題が発生するURL:"
+  },
+  "customUrlPlaceholder": {
+    "message": "https://example.com"
+  },
+  "enterCustomUrl": {
+    "message": "カスタムURLを入力"
+  },
+  "nsfwLabel": {
+    "message": "ページに成人向けコンテンツ（NSFW）が含まれている"
+  },
+  "additionalInfoLabel": {
+    "message": "追加情報:"
+  },
+  "additionalInfoPlaceholder": {
+    "message": "問題に関する追加の詳細やコメントを提供してください..."
+  },
+  "consentMessage": {
+    "message": "「GitHubで報告」をクリックすると、私が入力した情報と以下に表示されている設定データを含むGitHubのURLが作成され、そのURLにリダイレクトされます。この拡張機能から直接データは送信されません。拡張機能はURLを開く前に完全なURLを表示し、どの情報が含まれるかを確認できます。GitHubにリダイレクトされた後、私は完全な制御権を持ち、事前入力された問題フォームを送信するか、何も送信せずにキャンセルすることができます。GitHubにアクセスすると、$privacy_link$に従うことになります。問題を作成するにはGitHubアカウントが必要であり、続行してGitHubにリダイレクトされると、あなたの活動は$privacy_statement$と$terms_service$に従います。事前入力された情報でリダイレクトされた後、私は完全な制御権を持ち、リポジトリ$repo_link$で問題の作成を送信するかキャンセルすることを選択できます。問題の作成をキャンセルした場合でも、GitHubはプラットフォームとのやり取りにより、プライバシーポリシーに従ってデータを収集する可能性があります。問題の送信を続行すると、追加のコメントを含む送信した情報は公開されます。これはリポジトリが公開されているためであり、報告された問題はGitHubまたは関連サービスを使用する誰でも見ることができます。",
+    "placeholders": {
+      "privacy_link": {
+        "content": "<a href='https://docs.github.com/ja/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHubのプライバシーステートメント</a>"
+      },
+      "privacy_statement": {
+        "content": "<a href='https://docs.github.com/ja/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHubのプライバシーステートメント</a>"
+      },
+      "terms_service": {
+        "content": "<a href='https://docs.github.com/ja/site-policy/github-terms/github-terms-of-service' target='_blank'>利用規約</a>"
+      },
+      "repo_link": {
+        "content": "<a href='https://github.com/Linkumori/Linkumori-Extension' target='_blank'>https://github.com/Linkumori/Linkumori-Extension</a>"
+      }
+    }
+  },
+  "reportOnGitHub": {
+    "message": "GitHubで報告"
+  },
+  "configInformation": {
+    "message": "設定情報"
+  },
+  "findExistingConsentMessage": {
+    "message": "「既存の問題を検索」をクリックすると、私が入力したドメイン名と問題の詳細を使用してGitHub検索URLが作成され、そのURLにリダイレクトされます。この拡張機能から直接データは送信されません。拡張機能は検索URLを開く前に完全な検索URLを表示し、どの検索用語が使用されるかを確認できます。GitHubにリダイレクトされた後、私は$link$と$terms_service$に従います",
+     "placeholders": {  
+    "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHubの検索プライバシーポリシー</a>"
+      },
+      "terms_service": {
+        "content": "<a href='https://docs.github.com/ja/site-policy/github-terms/github-terms-of-service' target='_blank'>利用規約</a>"
+      }
+    }
+  },
+  "urlPreviewTitle": {
+    "message": "URLプレビュー",
+    "description": "URLプレビューダイアログのタイトル"
+  },
+  "urlPreviewWarning": {
+    "message": "開かれるURLを確認してください。このURLにはあなたが入力した情報が含まれており、GitHubにリダイレクトされます。",
+    "description": "URLの内容とリダイレクトに関する警告"
+  },
+  "urlPreviewEncodedUrl": {
+    "message": "開かれるURL（技術的な形式）:",
+    "description": "エンコードされたURL表示のラベル"
+  },
+  "urlPreviewShowDecoded": {
+    "message": "読み取り可能な形式を表示（デコードされたURL）",
+    "description": "デコードされたURLのトグルボタンのラベル"
+  },
+  "urlPreviewCopy": {
+    "message": "URLをコピー",
+    "description": "URLコピーボタンのラベル"
+  },
+  "urlPreviewCopied": {
+    "message": "コピーしました！",
+    "description": "URLコピー後の確認メッセージ"
+  },
+  "urlPreviewCancelButton": {
+    "message": "キャンセル",
+    "description": "URLプレビュー内のキャンセルボタンのラベル"
+  },
+  "urlPreviewProceedButton": {
+    "message": "GitHubを開く",
+    "description": "URLプレビュー内の続行ボタンのラベル"
+  },
+  "consentRequired": {
+    "message": "続行するには同意チェックボックスをチェックしてください。",
+    "description": "同意が与えられていない場合のエラーメッセージ"
+  },
+  "issueTypeRequired": {
+    "message": "問題の種類を選択してください。",
+    "description": "問題の種類が選択されていない場合のエラーメッセージ"
+  },
+  "urlRequired": {
+    "message": "URLを提供してください。",
+    "description": "URLが欠けている場合のエラーメッセージ"
+  },
+  "urlInvalid": {
+    "message": "有効なURLを入力してください。",
+    "description": "URLが無効な場合のエラーメッセージ"
+  },
+  "errorFindingIssues": {
+    "message": "既存の問題の検索中にエラーが発生しました: ",
+    "description": "既存の問題の検索が失敗した場合のエラーメッセージのプレフィックス"
+  },
+  "urlPreviewSecurityNotice": {
+    "message": "このURLはGitHubにリダイレクトされます。リダイレクト後、あなたのデータは$link$に従います。",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHubの検索プライバシーポリシー</a>"
+      }
+    }
+  }
+}
