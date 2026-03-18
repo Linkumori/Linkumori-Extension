@@ -1,0 +1,152 @@
+{
+  "manifest_version": 3,
+  "name": "Linkumori (URLs Cleaner)",
+  "version": "174.0",
+"description": "__MSG_extDescription__",
+
+  "icons": {
+    "48": "icons/default/icon48.png",
+    "96": "icons/default/icon96.png",
+    "128": "icons/default/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "default_locale": "en",
+
+  
+  "minimum_chrome_version": "121.0",
+  
+  "action": {
+    "default_icon": "icons/default/icon128.png",
+    "default_title": "Linkumori",
+    "default_popup": "panel/panelMenu.html"
+  },
+  "permissions": [
+    "storage",
+    "tabs", 
+    "declarativeNetRequest",
+    "activeTab",
+    "scripting",
+    "alarms",
+    "unlimitedStorage",
+    "contextMenus",
+    "webNavigation",
+    "webRequest",
+  "downloads"  ],
+  
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  
+  "options_ui": {
+    "page": "panel/option.html",
+    "open_in_tab": true
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "/rules/rules1.json"
+      },
+      {
+        "id": "ruleset_2",
+        "enabled": true,
+        "path": "rules/rules2.json"
+      },
+      {
+        "id": "ruleset_3",
+        "enabled": true,
+        "path": "rules/rules3.json"
+      },
+      {
+        "id": "ruleset_4",
+        "enabled": true,
+        "path": "rules/rules4.json"
+      },
+      {
+        "id": "ruleset_5",
+        "enabled": true,
+        "path": "rules/rules5.json"
+      },
+      {
+        "id": "ruleset_6",
+        "enabled": true,
+        "path": "rules/rules6.json"
+      },
+      {
+        "id": "ruleset_7",
+        "enabled": true,
+        "path": "rules/rules7.json"
+      },
+      {
+        "id": "ruleset_8",
+        "enabled": true,
+        "path": "rules/rules8.json"
+      },
+      {
+        "id": "ruleset_9",
+        "enabled": true,
+        "path": "rules/rules9.json"
+      },
+      {
+        "id": "ruleset_10",
+        "enabled": true,
+        "path": "rules/rules10.json"
+      },
+      {
+        "id": "ruleset_11",
+        "enabled": true,
+        "path": "rules/rules11.json"
+      },
+      {
+        "id": "ruleset_12",
+        "enabled": true,
+        "path": "rules/rules12.json"
+      },
+      {
+        "id": "ruleset_13",
+        "enabled": true,
+        "path": "rules/rules13.json"
+      },
+      {
+        "id": "ruleset_14",
+        "enabled": true,
+        "path": "rules/rules14.json"
+      },
+      {
+        "id": "ruleset_15",
+        "enabled": true,
+        "path": "rules/rules15.json"
+      },
+      {
+        "id": "ruleset_16",
+        "enabled": true,
+        "path": "rules/rules16.json"
+      },
+      {
+        "id": "ruleset_17",
+        "enabled": true,
+        "path": "rules/rules17.json"
+      },
+      {
+        "id": "exception",
+        "enabled": true,
+        "path": "rules/exception/rules18.json"
+      },
+      {
+        "id": "ruleset_19",
+        "enabled": true,
+        "path": "rules/redirect/rules19.json"
+      },
+        {
+          "id": "ruleset_20",
+          "enabled": true,
+          "path": "rules/redirect/rules20.json"
+      }
+    ]
+  }
+}

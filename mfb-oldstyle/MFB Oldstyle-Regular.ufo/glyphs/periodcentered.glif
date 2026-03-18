@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="periodcentered" format="2">
+  <advance width="267"/>
+  <unicode hex="00B7"/>
+  <anchor x="65" y="170" name="_ldot"/>
+  <outline>
+    <component base="period" yOffset="184"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.schriftgestaltung.Glyphs.lastChange</key>
+      <string>2024-08-03 06:58:12 +0000</string>
+    </dict>
+  </lib>
+</glyph>

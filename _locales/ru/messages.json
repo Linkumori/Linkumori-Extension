@@ -1,0 +1,606 @@
+{
+  "extName": {
+    "message": "Настройки Linkumori"
+  },
+  "extDescription": {
+    "message": "Удаление параметров отслеживания из URL и защита вашей конфиденциальности"
+  },
+  "cleanUrlsToolTitle": {
+    "message": "Инструмент расширенной очистки URL Linkumori"
+  },
+  "inputUrlsDescription": {
+    "message": "С помощью этого инструмента вы можете вставлять URL, и инструмент очистки URL Linkumori очистит URL после нажатия на кнопку очистки URL. Вы можете вставлять несколько URL одновременно, но каждый URL должен быть на отдельной строке."
+  },
+  "cleanUrlsToolHeader": {
+    "message": "Инструмент очистки URL Linkumori"
+  },
+  "popup": {
+    "message": "Linkumori"
+  },
+  "menuItemCopyCleanUrl": {
+    "message": "Копировать очищенный URL"
+  },
+  "statusOn": {
+    "message": "Статус расширения: Включено с защитой на уровне сети"
+  },
+  "statusOff": {
+    "message": "Статус расширения: Выключено"
+  },
+  "historyProtectionOn": {
+    "message": "Защита API истории активна"
+  },
+  "historyProtectionOff": {
+    "message": "Защита API истории отключена"
+  },
+  "historyProtectionInactive": {
+    "message": "Защита API истории (расширение неактивно)"
+  },
+  "hyperlinkAuditingOn": {
+    "message": "Защита аудита гиперссылок активна"
+  },
+  "hyperlinkAuditingOff": {
+    "message": "Защита аудита гиперссылок отключена"
+  },
+  "hyperlinkAuditingInactive": {
+    "message": "Защита аудита гиперссылок (расширение неактивно)"
+  },
+  "preventRedirectOn": {
+    "message": "Предотвращение перенаправления URL сервисами Google и Yandex на их серверы перед достижением конечного пункта назначения: Активна"
+  },
+  "preventRedirectOff": {
+    "message": "Предотвращение перенаправления URL сервисами Google и Yandex на их серверы перед достижением конечного пункта назначения: Отключено"
+  },
+  "preventRedirectInactive": {
+    "message": "Предотвращение перенаправления URL сервисами Google и Yandex на их серверы перед достижением конечного пункта назначения: (расширение неактивно)"
+  },
+  "badgeOn": {
+    "message": "Счетчик значков активен"
+  },
+  "badgeOff": {
+    "message": "Счетчик значков отключен"
+  },
+  "badgeInactive": {
+    "message": "Счетчик значков (расширение неактивно)"
+  },
+  "navMain": {
+    "message": "Главная"
+  },
+  "navWhitelist": {
+    "message": "Белый список"
+  },
+  "navRules": {
+    "message": "Пользовательские правила DNR"
+  },
+  "navStats": {
+    "message": "Статистика"
+  },
+  "navLicense": {
+    "message": "Лицензия"
+  },
+  "navLegal": {
+    "message": "Информация о лицензии"
+  },
+  "navAbout": {
+    "message": "О программе"
+  },
+  "navSettings": {
+    "message": "Настройки расширения"
+  },
+  "settingsTitle": {
+    "message": "Настройки расширения"
+  },
+  "whitelistTitle": {
+    "message": "Управление белым списком"
+  },
+  "inputUrlsTitle": {
+    "message": "Входные URL"
+  },
+  "cleanedUrlsTitle": {
+    "message": "Очищенные URL"
+  },
+  "inputUrlsPlaceholder": {
+    "message": "Введите URL для очистки (по одному на строку)"
+  },
+  "cleanedUrlsPlaceholder": {
+    "message": "Очищенные URL появятся здесь"
+  },
+  "cleanUrlsButton": {
+    "message": "Очистить URL"
+  },
+  "copyUrlsButton": {
+    "message": "Копировать результаты"
+  },
+  "copySuccessMessage": {
+    "message": "URL скопированы в буфер обмена"
+  },
+  "copyErrorMessage": {
+    "message": "Не удалось скопировать URL"
+  },
+  "whitelistDomainPlaceholder": {
+    "message": "Введите домен для добавления в белый список (например, example.com)"
+  },
+  "exportWhitelist": {
+    "message": "Экспортировать белый список"
+  },
+  "importWhitelist": {
+    "message": "Импортировать белый список"
+  },
+  "addCurrentDomain": {
+    "message": "Добавить текущий домен"
+  },
+  "addDomainToWhitelist": {
+    "message": "Добавить $1 в белый список"
+  },
+  "removeDomainFromWhitelist": {
+    "message": "Удалить $1 из белого списка"
+  },
+  "addDomain": {
+    "message": "Добавить"
+  },
+  "removeButton": {
+    "message": "Удалить"
+  },
+  "removeparameter": {
+    "message": "Удалить параметр"
+  },
+  "editButton": {
+    "message": "Редактировать"
+  },
+  "confirmButton": {
+    "message": "Подтвердить"
+  },
+  "cancelButton": {
+    "message": "Отмена"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Нет доменов в белом списке"
+  },
+  "noDomainsFound": {
+    "message": "Нет доменов, соответствующих '$1'"
+  },
+  "noRulesDefined": {
+    "message": "Нет определенных пользовательских правил"
+  },
+  "noRulesFound": {
+    "message": "Нет правил, соответствующих '$1'"
+  },
+  "errorMessages_invalidDomain": {
+    "message": "Пожалуйста, введите действительный домен (например, example.com)"
+  },
+  "errorMessages_domainExists": {
+    "message": "Этот домен уже находится в белом списке"
+  },
+  "errorMessages_getCurrentDomain": {
+    "message": "Не удалось получить текущий домен"
+  },
+  "errorMessages_whitelistImport": {
+    "message": "Ошибка импорта белого списка: $1"
+  },
+  "errorMessages_invalidUrl": {
+    "message": "Пожалуйста, введите действительный URL"
+  },
+  "errorMessages_noParamsFound": {
+    "message": "Нет параметров в URL"
+  },
+  "errorMessages_noParamsSelected": {
+    "message": "Нет выбранных параметров"
+  },
+  "errorMessages_removingParameter": {
+    "message": "Не удалось удалить параметр"
+  },
+  "successMessages_whitelistImport": {
+    "message": "Белый список успешно импортирован"
+  },
+  "successMessages_parameterAdded": {
+    "message": "$1 параметр(ов) успешно добавлен(ы)"
+  },
+  "confirmationMessages_importWhitelist": {
+    "message": "Импортировать $1 доменов в белый список?"
+  },
+  "confirmationMessages_removeParameter": {
+    "message": "Удалить параметр '$1' из домена '$2'?"
+  },
+  "navwhitelist_": {
+    "message": "Управление белым списком"
+  },
+  "rulesTitle": {
+    "message": "Конструктор пользовательских правил DNR"
+  },
+  "urlInputPlaceholder": {
+    "message": "Вставьте URL здесь для анализа после анализа вы можете добавить правила"
+  },
+  "ruleDomainPlaceholder": {
+    "message": "Домен (например, example.com)"
+  },
+  "ruleParamPlaceholder": {
+    "message": "Параметр для удаления (например, utm_source)"
+  },
+  "analyzeButton": {
+    "message": "Анализировать"
+  },
+  "addCustomRule": {
+    "message": "Добавить правило"
+  },
+  "searchRulesPlaceholder": {
+    "message": "Поиск правил..."
+  },
+  "searchWhitelistPlaceholder": {
+    "message": "Поиск в белом списке..."
+  },
+  "addParameterButton": {
+    "message": "Добавить параметр"
+  },
+  "editParameter": {
+    "message": "Редактировать параметр"
+  },
+  "removeParameter": {
+    "message": "Удалить параметр"
+  },
+  "newParameterPlaceholder": {
+    "message": "Введите новый параметр"
+  },
+  "addSelectedParams": {
+    "message": "Добавить выбранные параметры"
+  },
+  "statsTitle": {
+    "message": "Статистика"
+  },
+  "modifiedRequestsLabel": {
+    "message": "Количество запросов, где параметры URL были успешно удалены"
+  },
+  "activeRulesLabel": {
+    "message": "Общее количество параметров, удаленных этим расширением"
+  },
+  "resetStatsButton": {
+    "message": "Сбросить статистику"
+  },
+  "welcomeTitle": {
+    "message": "Добро пожаловать в Linkumori - Очиститель URL"
+  },
+  "welcomeHeading": {
+    "message": "Добро пожаловать в Linkumori"
+  },
+  "welcomeDescription": {
+    "message": "Спасибо за установку Linkumori, вашего личного инструмента для защиты конфиденциальности и отслеживания URL. Linkumori помогает вам поддерживать вашу онлайн-конфиденциальность, удаляя параметры отслеживания из URL."
+  },
+  "feature1": {
+    "message": "Автоматическое удаление параметров отслеживания из URL"
+  },
+  "feature2": {
+    "message": "Защита вашей конфиденциальности на различных веб-сайтах"
+  },
+  "feature3": {
+    "message": "Легко настраиваемый белый список"
+  },
+  "feature4": {
+    "message": "Легковесный и ненавязчивый"
+  },
+  "getStartedText": {
+    "message": "Чтобы начать, нажмите кнопку ниже, чтобы открыть настройки расширения."
+  },
+  "openSettings": {
+    "message": "Открыть настройки Linkumori"
+  },
+  "settingsButtonAriaLabel": {
+    "message": "Инструменты настроек"
+  },
+  "themeToggleAriaLabel": {
+    "message": "Переключить тему"
+  },
+  "aboutTitle": {
+    "message": "О программе"
+  },
+  "aboutTeam": {
+    "message": "Разработано командой Linkumori"
+  },
+  "aboutSourceGithub": {
+    "message": "Релиз GitHub"
+  },
+  "aboutSourceChrome": {
+    "message": "Chrome Web Store"
+  },
+  "aboutSourceUnknown": {
+    "message": "Неизвестный источник"
+  },
+  "aboutDetailsGithub": {
+    "message": "Эта версия распространяется через GitHub. Она может включать последние функции и обновления непосредственно из репозитория."
+  },
+  "aboutDetailsChrome": {
+    "message": "Эта версия распространяется через Chrome Web Store. Это стабильная версия, рекомендуемая для большинства пользователей."
+  },
+  "aboutDetailsUnknown": {
+    "message": "Источник этой версии не может быть определен. Пожалуйста, проверьте настройки расширения или обратитесь в службу поддержки для получения дополнительной информации."
+  },
+  "version": {
+    "message": "Версия $1"
+  },
+  "versionUnknown": {
+    "message": "Версия неизвестна"
+  },
+  "versionLabel": {
+    "message": "Версия"
+  },
+  "officialRepo": {
+    "message": "Официальный репозиторий:"
+  },
+  "officialSite": {
+    "message": "Официальный сайт:"
+  },
+  "githubRepoLink": {
+    "message": "https://github.com/Linkumori"
+  },
+  "officialWebsiteLink": {
+    "message": "https://linkumori.com/"
+  },
+  "removerule": {
+    "message": "Удалить правило"
+  },
+  "__MSG_extDescription__": {
+    "message": "Удаление параметров отслеживания из URL и защита вашей конфиденциальности"
+  },
+  "confirmResetStats": {
+    "message": "Вы уверены, что хотите сбросить всю статистику?"
+  },
+  "checking_update": {
+    "message": "Проверка обновлений..."
+  },
+  "update_available": {
+    "message": "Доступно обновление"
+  },
+  "no_update": {
+    "message": "Нет доступных обновлений"
+  },
+  "throttled": {
+    "message": "Пожалуйста, попробуйте позже"
+  },
+  "checkupdate": {
+    "message": "Проверить обновления"
+  },
+  "applying_update": {
+    "message": "Применение обновления..."
+  },
+  "apply_update": {
+    "message": "Применить обновление"
+  },
+  "update_error": {
+    "message": "Ошибка проверки обновлений"
+  },
+  "chromeWebStore": {
+    "message": "Chrome Web Store:"
+  },
+  "chromeWebStoreLinkText": {
+    "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+  },
+  "confirmRestoreExceptions": {
+    "message": "Вы уверены, что хотите включить все встроенные правила белого списка?"
+  },
+  "enableRule": {
+    "message": "Включить"
+  },
+  "disableRule": {
+    "message": "Отключить"
+  },
+  "searchExceptionRulesPlaceholder": {
+    "message": "Поиск встроенных правил белого списка..."
+  },
+  "noExceptionRulesFound": {
+    "message": "Нет встроенных правил белого списка, соответствующих '$1'"
+  },
+  "noExceptionRulesDefined": {
+    "message": "Нет определенных встроенных правил белого списка"
+  },
+  "restoreExceptions": {
+    "message": "Восстановить стандартные встроенные правила белого списка"
+  },
+  "exceptionRulesTitle": {
+    "message": "Встроенные правила белого списка Linkumori"
+  },
+  "exportAllSettings": {
+    "message": "Экспортировать все настройки"
+  },
+  "importAllSettings": {
+    "message": "Импортировать все настройки"
+  },
+  "successMessages_settingsExported": {
+    "message": "Все настройки успешно экспортированы"
+  },
+  "successMessages_settingsImported": {
+    "message": "Все настройки успешно импортированы"
+  },
+  "errorMessages_settingsExport": {
+    "message": "Ошибка экспорта настроек"
+  },
+  "errorMessages_settingsImport": {
+    "message": "Ошибка импорта настроек: $1"
+  },
+  "errorMessages_invalidSettingsFile": {
+    "message": "Неверный формат файла настроек"
+  },
+  "confirmationMessages_importSettings": {
+    "message": "Это заменит все ваши текущие настройки. Вы уверены, что хотите продолжить?"
+  },
+  "exportRules": {
+    "message": "Экспортировать правила"
+  },
+  "importRules": {
+    "message": "Импортировать правила"
+  },
+  "successMessages_rulesExported": {
+    "message": "Правила успешно экспортированы"
+  },
+  "successMessages_rulesImported": {
+    "message": "Правила успешно импортированы"
+  },
+  "errorMessages_rulesExport": {
+    "message": "Ошибка экспорта правил"
+  },
+  "errorMessages_rulesImport": {
+    "message": "Ошибка импорта правил: $1"
+  },
+  "errorMessages_invalidRulesFile": {
+    "message": "Неверный формат файла правил"
+  },
+  "confirmationMessages_importRules": {
+    "message": "Это заменит все ваши текущие пользовательские правила. Вы уверены, что хотите продолжить?"
+  },
+  "successMessages_statsImported": {
+    "message": "Статистика успешно импортирована"
+  },
+  "errorMessages_statsImport": {
+    "message": "Ошибка импорта статистики: $1"
+  },
+  "reportIssueTitle": {
+    "message": "Сообщить о проблеме"
+  },
+  "reportIssueHeader": {
+    "message": "Сообщить о проблемах или предложить улучшения"
+  },
+  "reportIssueDescription": {
+    "message": "Нашли проблему с очисткой URL или есть предложение? Помогите нам улучшить Linkumori, отправив отчет."
+  },
+  "findExistingButton": {
+    "message": "Найти существующие проблемы"
+  },
+  "beforeReporting": {
+    "message": "Перед отправкой отчета проверьте, не была ли ваша проблема уже сообщена:"
+  },
+  "issueTypeLabel": {
+    "message": "Тип проблемы:"
+  },
+  "issueTypeSelect": {
+    "message": "Выберите тип проблемы..."
+  },
+  "issueTypeTrackingNotRemoved": {
+    "message": "Параметр отслеживания не удален"
+  },
+  "issueTypeUrlBroken": {
+    "message": "URL сломан после очистки"
+  },
+  "issueTypeFalsePositive": {
+    "message": "Ложное срабатывание (ненужная очистка)"
+  },
+  "issueTypePerformance": {
+    "message": "Проблема с производительностью"
+  },
+  "issueTypeUi": {
+    "message": "Проблема с интерфейсом/отображением"
+  },
+  "issueTypeFeatureRequest": {
+    "message": "Запрос функции"
+  },
+  "issueTypeRuleSuggestion": {
+    "message": "Предложение правила"
+  },
+  "urlLabel": {
+    "message": "URL, где возникает проблема:"
+  },
+  "customUrlPlaceholder": {
+    "message": "https://example.com"
+  },
+  "enterCustomUrl": {
+    "message": "Введите пользовательский URL"
+  },
+  "nsfwLabel": {
+    "message": "Страница содержит контент для взрослых (NSFW)"
+  },
+  "additionalInfoLabel": {
+    "message": "Дополнительная информация:"
+  },
+  "additionalInfoPlaceholder": {
+    "message": "Пожалуйста, предоставьте любые дополнительные детали или комментарии о проблеме..."
+  },
+  "consentMessage": {
+    "message": "Я понимаю, что нажатие \"Сообщить на GitHub\" создаст URL GitHub, содержащий информацию, которую я ввел, и данные конфигурации, показанные ниже, а затем перенаправит меня на этот URL. Никакие данные не передаются напрямую этим расширением. Расширение покажет мне полный URL перед открытием, и я смогу просмотреть, какая информация будет включена. После перенаправления на GitHub у меня будет полный контроль, чтобы либо отправить предварительно заполненную форму проблемы, либо отменить без отправки. Я понимаю, что доступ к GitHub подчиняет меня $privacy_link$. Создание проблемы требует учетной записи GitHub, и как только вы решите продолжить и будете перенаправлены на GitHub, ваша активность регулируется $privacy_statement$ и $terms_service$. После перенаправления с предварительно заполненной информацией у вас остается полный контроль, и вы можете выбрать, отправить ли проблему в наш репозиторий по адресу $repo_link$ или отменить ее создание. Даже если вы отмените создание проблемы, GitHub может собирать данные в соответствии с их политикой конфиденциальности из-за вашего взаимодействия с их платформой. Если вы продолжите отправку проблемы, информация, которую вы отправляете, включая любые дополнительные комментарии, станет общедоступной. Это связано с тем, что репозиторий является общедоступным, и любая сообщенная проблема будет видна любому, кто использует GitHub или связанные услуги.",
+    "placeholders": {
+      "privacy_link": {
+        "content": "<a href='https://docs.github.com/ru/site-policy/privacy-policies/github-privacy-statement' target='_blank'>Заявление о конфиденциальности GitHub</a>"
+      },
+      "privacy_statement": {
+        "content": "<a href='https://docs.github.com/ru/site-policy/privacy-policies/github-privacy-statement' target='_blank'>заявление о конфиденциальности GitHub</a>"
+      },
+      "terms_service": {
+        "content": "<a href='https://docs.github.com/ru/site-policy/github-terms/github-terms-of-service' target='_blank'>условия обслуживания</a>"
+      },
+      "repo_link": {
+        "content": "<a href='https://github.com/Linkumori/Linkumori-Extension' target='_blank'>https://github.com/Linkumori/Linkumori-Extension</a>"
+      }
+    }
+  },
+  "reportOnGitHub": {
+    "message": "Сообщить на GitHub"
+  },
+  "configInformation": {
+    "message": "Информация о конфигурации"
+  },
+  "findExistingConsentMessage": {
+    "message": "Я понимаю, что нажатие \"Найти существующие проблемы\" создаст URL поиска GitHub с использованием имени домена и деталей проблемы, которые я ввел, а затем перенаправит меня на этот URL. Никакие данные не передаются напрямую этим расширением. Расширение покажет мне полный URL поиска перед открытием, чтобы я мог просмотреть, какие поисковые термины будут использоваться. После перенаправления на GitHub я буду подчиняться $link$ и $terms_service$.",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>Политика конфиденциальности поиска GitHub</a>"
+      },
+      "terms_service": {
+        "content": "<a href='https://docs.github.com/ru/site-policy/github-terms/github-terms-of-service' target='_blank'>условия обслуживания</a>"
+      }
+    }
+  },
+  "urlPreviewTitle": {
+    "message": "Предпросмотр URL",
+    "description": "Заголовок диалогового окна предпросмотра URL"
+  },
+  "urlPreviewWarning": {
+    "message": "Пожалуйста, проверьте URL, который будет открыт. Этот URL содержит информацию, которую вы ввели, и перенаправит вас на GitHub.",
+    "description": "Предупреждение о содержимом URL и перенаправлении"
+  },
+  "urlPreviewEncodedUrl": {
+    "message": "URL для открытия (технический формат):",
+    "description": "Метка для отображения закодированного URL"
+  },
+  "urlPreviewShowDecoded": {
+    "message": "Показать читаемый формат (декодированный URL)",
+    "description": "Метка для кнопки переключения декодированного URL"
+  },
+  "urlPreviewCopy": {
+    "message": "Копировать URL",
+    "description": "Метка для кнопки копирования URL"
+  },
+  "urlPreviewCopied": {
+    "message": "Скопировано!",
+    "description": "Подтверждающее сообщение после копирования URL"
+  },
+  "urlPreviewCancelButton": {
+    "message": "Отмена",
+    "description": "Метка для кнопки отмены в предпросмотре URL"
+  },
+  "urlPreviewProceedButton": {
+    "message": "Открыть GitHub",
+    "description": "Метка для кнопки продолжения в предпросмотре URL"
+  },
+  "consentRequired": {
+    "message": "Пожалуйста, отметьте флажок согласия, чтобы продолжить.",
+    "description": "Сообщение об ошибке, когда согласие не дано"
+  },
+  "issueTypeRequired": {
+    "message": "Пожалуйста, выберите тип проблемы.",
+    "description": "Сообщение об ошибке, когда тип проблемы не выбран"
+  },
+  "urlRequired": {
+    "message": "Пожалуйста, укажите URL.",
+    "description": "Сообщение об ошибке, когда URL отсутствует"
+  },
+  "urlInvalid": {
+    "message": "Пожалуйста, введите действительный URL.",
+    "description": "Сообщение об ошибке, когда URL недействителен"
+  },
+  "errorFindingIssues": {
+    "message": "Ошибка поиска существующих проблем: ",
+    "description": "Префикс сообщения об ошибке, когда поиск существующих проблем не удается"
+  },
+  "urlPreviewSecurityNotice": {
+    "message": "Этот URL перенаправит вас на GitHub. Ваши данные будут подчиняться $link$ после перенаправления.",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>Политика конфиденциальности поиска GitHub</a>"
+      }
+    }
+  }
+}

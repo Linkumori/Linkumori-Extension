@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Adotmacron" format="2">
+  <advance width="643"/>
+  <unicode hex="01E0"/>
+  <outline>
+    <component base="A"/>
+    <component base="dotaccentcomb" xOffset="264" yOffset="255"/>
+    <component base="macroncomb" xOffset="202" yOffset="423"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.schriftgestaltung.Glyphs.lastChange</key>
+      <string>2024-08-03 06:58:11 +0000</string>
+    </dict>
+  </lib>
+</glyph>
