@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="dcaron" format="2">
+  <advance width="631"/>
+  <unicode hex="010F"/>
+  <outline>
+    <component base="d" identifier="172FBD7E"/>
+    <component base="caroncomb.alt" xOffset="494" identifier="3CE662D4"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.schriftgestaltung.Glyphs.lastChange</key>
+      <string>2024-08-03 06:58:11 +0000</string>
+      <key>public.objectLibs</key>
+      <dict>
+        <key>172FBD7E</key>
+        <dict>
+          <key>com.schriftgestaltung.alignment</key>
+          <integer>-1</integer>
+        </dict>
+        <key>3CE662D4</key>
+        <dict>
+          <key>com.schriftgestaltung.alignment</key>
+          <integer>-1</integer>
+        </dict>
+      </dict>
+    </dict>
+  </lib>
+</glyph>

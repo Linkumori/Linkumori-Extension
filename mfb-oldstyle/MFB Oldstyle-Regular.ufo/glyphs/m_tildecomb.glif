@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="m_tildecomb" format="2">
+  <advance width="818"/>
+  <outline>
+    <component base="m"/>
+    <component base="tildecomb" xOffset="281"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.schriftgestaltung.Glyphs.lastChange</key>
+      <string>2024-08-03 06:58:11 +0000</string>
+    </dict>
+  </lib>
+</glyph>

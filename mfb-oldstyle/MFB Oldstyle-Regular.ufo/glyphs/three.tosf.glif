@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="three.tosf" format="2">
+  <advance width="535"/>
+  <outline>
+    <component base="three.osf" xOffset="19" identifier="901BE51F"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.schriftgestaltung.Glyphs.lastChange</key>
+      <string>2024-08-03 06:58:12 +0000</string>
+      <key>public.objectLibs</key>
+      <dict>
+        <key>901BE51F</key>
+        <dict>
+          <key>com.schriftgestaltung.alignment</key>
+          <integer>-1</integer>
+        </dict>
+      </dict>
+    </dict>
+  </lib>
+</glyph>

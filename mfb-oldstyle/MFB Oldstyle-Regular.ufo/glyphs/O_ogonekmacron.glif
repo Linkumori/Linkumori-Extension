@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Oogonekmacron" format="2">
+  <advance width="707"/>
+  <unicode hex="01EC"/>
+  <outline>
+    <component base="O"/>
+    <component base="ogonekcomb" xOffset="323"/>
+    <component base="macroncomb" xOffset="234" yOffset="255"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.schriftgestaltung.Glyphs.lastChange</key>
+      <string>2024-08-03 06:58:11 +0000</string>
+    </dict>
+  </lib>
+</glyph>

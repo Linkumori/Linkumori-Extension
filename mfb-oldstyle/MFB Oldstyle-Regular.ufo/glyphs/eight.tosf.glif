@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="eight.tosf" format="2">
+  <advance width="535"/>
+  <outline>
+    <component base="eight.osf" xOffset="13" identifier="6990614F"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.schriftgestaltung.Glyphs.lastChange</key>
+      <string>2024-08-03 06:58:12 +0000</string>
+      <key>public.objectLibs</key>
+      <dict>
+        <key>6990614F</key>
+        <dict>
+          <key>com.schriftgestaltung.alignment</key>
+          <integer>-1</integer>
+        </dict>
+      </dict>
+    </dict>
+  </lib>
+</glyph>

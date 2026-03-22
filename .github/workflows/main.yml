@@ -1,0 +1,284 @@
+name: Linkumori Builds and release
+
+permissions:
+  contents: write  
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  pack-and-release:
+    runs-on: ubuntu-latest
+    env:
+      EXTENSION_ID: kcpfnbjlimolkcjllfooaipdpdjmjigg
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get previous tag
+        id: previoustag
+        run: |
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "none")
+          echo "tag=$PREVIOUS_TAG" >> $GITHUB_OUTPUT
+
+      - name: Compare versions
+        id: version_check
+        continue-on-error: false
+        run: |
+          CURRENT_VERSION=$(jq -r .version manifest.json)
+          PREVIOUS_VERSION=$(curl -s "https://raw.githubusercontent.com/${{ github.repository }}/${{ steps.previoustag.outputs.tag }}/manifest.json" | jq -r .version 2>/dev/null || echo "0.0.0")
+          
+          echo "Current manifest version: $CURRENT_VERSION"
+          echo "Previous version: $PREVIOUS_VERSION"
+          
+          if [ "$CURRENT_VERSION" = "$PREVIOUS_VERSION" ]; then
+            echo "::error::Manifest version has not been updated from $PREVIOUS_VERSION"
+            exit 1
+          else
+            echo "✅ Manifest version updated from $PREVIOUS_VERSION to $CURRENT_VERSION"
+            echo "update=Updated from $PREVIOUS_VERSION to $CURRENT_VERSION" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Download CONFIG
+        run: |
+          wget https://github.com/Linkumori/Linkumori-Autoupdate/archive/refs/tags/5.0.zip -O config.zip
+          echo "Downloaded configs"
+
+      - name: Decode PEM file
+        run: |
+          if [ -z "${{ secrets.CRX_PEM_BASE64 }}" ]; then
+            echo "::error::CRX_PEM_BASE64 secret is not set or accessible."
+            exit 1
+          fi
+          echo "${{ secrets.CRX_PEM_BASE64 }}" | base64 -d > extension.pem
+          echo "Decoded PEM file"
+          
+      - name: Install Chrome
+        run: |
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d.google-chrome.list
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: Fetch manifest version
+        id: manifest
+        run: |
+          MANIFEST_VERSION=$(jq -r .version manifest.json)
+          echo "version=$MANIFEST_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create Chrome Web Store version
+        run: |
+          # Create webstore directory
+          mkdir webstore_ext
+          
+          # Copy all files except excluded ones to webstore directory
+          rsync -av --exclude='*.pem' --exclude='.git*' --exclude='.github*' --exclude='*.sh' --exclude='*.crx' --exclude='*.zip' --exclude='webstore_ext*' --exclude='_metadata*' --exclude='docs*' . webstore_ext/
+          
+          # Create ZIP file for Chrome Web Store
+          cd webstore_ext
+          zip -r ../Linkumori-webstore.zip .
+          cd ..
+          
+          # Clean up
+          rm -rf webstore_ext
+
+      - name: Pack Self-hosted Extension
+        run: |
+          # Create self-hosted directory
+          mkdir selfhosted_ext
+          
+          # Create manifest with self-hosted update URL
+          jq '.update_url = "https://github.com/Linkumori/Linkumori-Extension/releases/latest/download/updates.xml"' manifest.json > selfhosted_ext/manifest.json
+          
+          # Copy all files except excluded ones to self-hosted directory
+          rsync -av --exclude='*.pem' --exclude='.git*' --exclude='.github*' --exclude='*.sh' --exclude='*.crx' --exclude='*.zip' --exclude='manifest.json' --exclude='selfhosted_ext*' --exclude='_metadata*' --exclude='docs*'  . selfhosted_ext/
+          
+          # Pack extension with PEM file
+          google-chrome --pack-extension="$(pwd)/selfhosted_ext" --pack-extension-key="$(pwd)/extension.pem"
+          mv selfhosted_ext.crx "Linkumori.crx"
+          
+          # Create updates.xml
+           cat > updates.xml << EOL
+          <?xml version='1.0' encoding='UTF-8'?>
+          <gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
+            <app appid="pffeeolamoojgccldanobijnpbjffipb">
+              <updatecheck 
+                codebase='https://github.com/${{ github.repository }}/releases/download/${{ github.event.release.tag_name }}/Linkumori.crx' 
+                version='${{ steps.manifest.outputs.version }}' />
+            </app>
+          </gupdate>
+          EOL
+          
+          
+          # Clean up
+          rm -rf selfhosted_ext
+
+      - name: Get Commit History
+        id: get_commit_history
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "none")
+          if [ "$PREV_TAG" = "none" ]; then
+            HISTORY=$(git log --pretty=format:"* %h - %s (%an)" -10)
+          else
+            HISTORY=$(git log --pretty=format:"* %h - %s (%an)" $PREV_TAG..HEAD)
+          fi
+          echo "history<<EOF" >> $GITHUB_OUTPUT
+          echo "$HISTORY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Get Release Body
+        id: get_release_body
+        run: |
+          body=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/${{ github.event.release.id }}" \
+            | jq -r .body)
+          echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
+          echo "$body" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Get access token
+        id: get-token
+        run: |
+          RESPONSE=$(curl -s -X POST \
+            -d "client_id=${{ secrets.CLIENT_ID }}" \
+            -d "client_secret=${{ secrets.CLIENT_SECRET }}" \
+            -d "refresh_token=${{ secrets.REFRESH_TOKEN }}" \
+            -d "grant_type=refresh_token" \
+            "https://oauth2.googleapis.com/token")
+          
+          ACCESS_TOKEN=$(echo $RESPONSE | jq -r '.access_token')
+          echo "access_token=$ACCESS_TOKEN" >> $GITHUB_OUTPUT
+
+      # Upload to Chrome Web Store
+      - name: Upload to Chrome Web Store
+        id: webstore_upload
+        continue-on-error: true    # Allow continuing if this step fails
+        run: |
+          # Upload the ZIP file
+          UPLOAD_RESPONSE=$(curl -s -X PUT \
+            -H "Authorization: Bearer ${{ steps.get-token.outputs.access_token }}" \
+            -H "x-goog-api-version: 2" \
+            -T Linkumori-webstore.zip \
+            "https://www.googleapis.com/upload/chromewebstore/v1.1/items/${{ env.EXTENSION_ID }}")
+          
+          UPLOAD_STATUS=$(echo $UPLOAD_RESPONSE | jq -r '.uploadState')
+          
+          if [ "$UPLOAD_STATUS" = "SUCCESS" ]; then
+            # Publish the extension
+            PUBLISH_RESPONSE=$(curl -s -X POST \
+              -H "Authorization: Bearer ${{ steps.get-token.outputs.access_token }}" \
+              -H "x-goog-api-version: 2" \
+              -H "Content-Length: 0" \
+              "https://www.googleapis.com/chromewebstore/v1.1/items/${{ env.EXTENSION_ID }}/publish?publishTarget=default")
+            
+            PUBLISH_STATUS=$(echo $PUBLISH_RESPONSE | jq -r '.status[0]')
+            
+            if [ "$PUBLISH_STATUS" = "OK" ]; then
+              echo "Extension successfully uploaded and published!"
+              echo "webstore_success=true" >> $GITHUB_OUTPUT
+            else
+              echo "Publishing failed with response: $PUBLISH_RESPONSE"
+              echo "webstore_success=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "Upload failed with response: $UPLOAD_RESPONSE"
+            echo "webstore_success=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate File Hashes
+        id: generate_hashes
+        run: |
+          echo "Generating file hashes..."
+          
+          # Generate hashes for all release files
+          SHA256_CRX=$(sha256sum Linkumori.crx | awk '{print $1}')
+          SHA256_WEBSTORE=$(sha256sum Linkumori-webstore.zip | awk '{print $1}')
+          SHA256_CONFIG=$(sha256sum config.zip | awk '{print $1}')
+          
+          echo "crx_hash=$SHA256_CRX" >> $GITHUB_OUTPUT
+          echo "webstore_hash=$SHA256_WEBSTORE" >> $GITHUB_OUTPUT
+          echo "config_hash=$SHA256_CONFIG" >> $GITHUB_OUTPUT
+
+      - name: Update Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            Linkumori.crx
+            updates.xml
+            config.zip
+          body: |
+            ${{ env.RELEASE_BODY }}
+            
+            ## 🔄 Version Information
+            - Status: ${{ steps.version_check.outputs.update || steps.version_check.outputs.warning }}
+            - Current Version: ${{ steps.manifest.outputs.version }}
+            
+            ## 📦 Download Options
+            
+            ${{ steps.webstore_upload.outputs.webstore_success == 'true' && '✅ Successfully published to Chrome Web Store!' || '❌ Chrome Web Store upload failed' }}
+            <a href="https://chromewebstore.google.com/detail/linkumori-clean-urls/kcpfnbjlimolkcjllfooaipdpdjmjigg"><img height="58" src="https://i.imgur.com/K9Yh8G9.png" alt="Chrome Web Store"></a>
+        
+            - ✨ Official release channel
+            - 🔄 Automatic updates
+            - ✅ Verified by Google
+            
+            ### 2️⃣ Self-hosted Version
+            - Download: `Linkumori.crx`
+            - Updates through GitHub releases
+            - Installation:
+              1. Go to chrome://extensions
+              2. Enable "Developer mode"
+              3. Drag & drop the .crx file
+            
+            ## 🔒 File Hashes (SHA-256)
+            ```
+            Linkumori.crx:          ${{ steps.generate_hashes.outputs.crx_hash }}
+            Linkumori-webstore.zip: ${{ steps.generate_hashes.outputs.webstore_hash }}
+            config.zip:             ${{ steps.generate_hashes.outputs.config_hash }}
+            ```
+            
+            ## 📝 Changes
+            ### Commit History
+            ```
+            ${{ steps.get_commit_history.outputs.history }}
+            ```
+            
+            ## 🌐 Browser Support
+            | Browser | Status | Tested Version |
+            |---------|--------|----------------|
+            | Google Chrome | ✅ | 121+ |
+            | Microsoft Edge | ✅ | 121+ |
+            | Brave | ✅ | 121+ |
+            | Opera GX | ✅ | Latest |
+            | Vivaldi | ✅ | Latest |
+            
+            ## 🔧 Technical Details
+            - Minimum browser version: 121.0
+            - Extension IDs:
+              - Chrome Web Store (Official): `kcpfnbjlimolkcjllfooaipdpdjmjigg`
+              - Self-hosted (GitHub Release): `pffeeolamoojgccldanobijnpbjffipb`
+            - Auto-update enabled: Yes for both versions
+            
+            ## ⚠️ Important Notes
+            1. If installing from source:
+               - Keep the source folder after installation
+               - Developer mode warnings are normal
+            2. Auto-updates:
+               - Web Store version: Automatic through Chrome Web Store
+               - Self-hosted: Through GitHub releases
+            3. For issues or feature requests:
+               - Use GitHub Issues
+               - Include browser and extension version
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -f extension.pem
+          rm -rf webstore_ext
+          rm -rf selfhosted_ext
+          rm -f *.zip

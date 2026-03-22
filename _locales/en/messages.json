@@ -1,0 +1,611 @@
+{
+  "extName": {
+    "message": "Linkumori settings"
+  },
+  "extDescription": {
+    "message": "Remove tracking parameters from URLs and protect your privacy"
+  },
+  "cleanUrlsToolTitle": {
+    "message": "Linkumori Advanced URL Cleaning Tool"
+  },
+  "inputUrlsDescription": {
+    "message": "With this tool you can paste in URLs and Linkumori Clean URLs Tool will clean the URLs after a click on the clean URLs button. You can paste in multiple URLs at once, but every URL must be on a separate line."
+  },
+  "cleanUrlsToolHeader": {
+    "message": "Linkumori Clean URLs Tool"
+  },
+  "popup": {
+    "message": "Linkumori"
+  },
+  "menuItemCopyCleanUrl": {
+    "message": "Copy Cleaned Url"
+  },
+  "statusOn": {
+    "message": "Extension status:On with Network level protection"
+  },
+  "statusOff": {
+    "message": "Extension status:Off"
+  },
+  "historyProtectionOn": {
+    "message": "History API Protection Active"
+  },
+  "historyProtectionOff": {
+    "message": "History API Protection Off"
+  },
+  "historyProtectionInactive": {
+    "message": "History API Protection (Extension Inactive)"
+  },
+  "hyperlinkAuditingOn": {
+    "message": "Hyperlink Auditing Protection Active"
+  },
+  "hyperlinkAuditingOff": {
+    "message": "Hyperlink Auditing Protection Off"
+  },
+  "hyperlinkAuditingInactive": {
+    "message": "Hyperlink Auditing Protection (Extension Inactive)"
+  },
+  "preventRedirectOn": {
+    "message": "Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached:  Active"
+  },
+  "preventRedirectOff": {
+    "message": "Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached:  Off"
+  },
+  "preventRedirectInactive": {
+    "message": "Prevent Google and Yandex services from redirecting URLs to their servers before the final destination is reached:  (Extension Inactive)"
+  },
+  "badgeOn": {
+    "message": "Badge Counter Active"
+  },
+  "badgeOff": {
+    "message": "Badge Counter Off"
+  },
+  "badgeInactive": {
+    "message": "Badge Counter (Extension Inactive)"
+  },
+  "navMain": {
+    "message": "Main"
+  },
+  "navWhitelist": {
+    "message": "Whitelist"
+  },
+  "navRules": {
+    "message": "Custom DNR Rules"
+  },
+  "navStats": {
+    "message": "Statistics"
+  },
+  "navLicense": {
+    "message": "License"
+  },
+  "navLegal": {
+    "message": "License Information"
+  },
+  "navAbout": {
+    "message": "About"
+  },
+  "navSettings": {
+    "message": "Extension Settings"
+  },
+  "settingsTitle": {
+    "message": "Extension Settings"
+  },
+  "whitelistTitle": {
+    "message": "Whitelist Management"
+  },
+  "inputUrlsTitle": {
+    "message": "Input URLs"
+  },
+  "cleanedUrlsTitle": {
+    "message": "Cleaned URLs"
+  },
+  "inputUrlsPlaceholder": {
+    "message": "Enter URLs to clean (one per line)"
+  },
+  "cleanedUrlsPlaceholder": {
+    "message": "Cleaned URLs will appear here"
+  },
+  "cleanUrlsButton": {
+    "message": "Clean URLs"
+  },
+  "copyUrlsButton": {
+    "message": "Copy Results"
+  },
+  "copySuccessMessage": {
+    "message": "URLs copied to clipboard"
+  },
+  "copyErrorMessage": {
+    "message": "Failed to copy URLs"
+  },
+  "whitelistDomainPlaceholder": {
+    "message": "Enter domain to whitelist (e.g. example.com)"
+  },
+  "exportWhitelist": {
+    "message": "Export Whitelist"
+  },
+  "importWhitelist": {
+    "message": "Import Whitelist"
+  },
+  "addCurrentDomain": {
+    "message": "Add Current Domain"
+  },
+  "addDomainToWhitelist": {
+    "message": "Add $1 to whitelist"
+  },
+  "removeDomainFromWhitelist": {
+    "message": "Remove $1 from whitelist"
+  },
+  "addDomain": {
+    "message": "Add"
+  },
+  "removeButton": {
+    "message": "Remove"
+  },
+  "removeparameter": {
+    "message": "Remove Parameter"
+  },
+  "editButton": {
+    "message": "Edit"
+  },
+  "confirmButton": {
+    "message": "Confirm"
+  },
+  "cancelButton": {
+    "message": "Cancel"
+  },
+  "noDomainsWhitelisted": {
+    "message": "No domains whitelisted"
+  },
+  "noDomainsFound": {
+    "message": "No domains found matching '$1'"
+  },
+  "noRulesDefined": {
+    "message": "No custom rules defined"
+  },
+  "noRulesFound": {
+    "message": "No rules found matching '$1'"
+  },
+  "errorMessages_invalidDomain": {
+    "message": "Please enter a valid domain (e.g. example.com)"
+  },
+  "errorMessages_domainExists": {
+    "message": "This domain is already whitelisted"
+  },
+  "errorMessages_getCurrentDomain": {
+    "message": "Could not get current domain"
+  },
+  "errorMessages_whitelistImport": {
+    "message": "Failed to import whitelist: $1"
+  },
+  "errorMessages_invalidUrl": {
+    "message": "Please enter a valid URL"
+  },
+  "errorMessages_noParamsFound": {
+    "message": "No parameters found in URL"
+  },
+  "errorMessages_noParamsSelected": {
+    "message": "No parameters selected"
+  },
+  "errorMessages_removingParameter": {
+    "message": "Failed to remove parameter"
+  },
+  "successMessages_whitelistImport": {
+    "message": "Whitelist imported successfully"
+  },
+  "successMessages_parameterAdded": {
+    "message": "$1 parameter(s) added successfully"
+  },
+  "confirmationMessages_importWhitelist": {
+    "message": "Import $1 domains to whitelist?"
+  },
+  "confirmationMessages_removeParameter": {
+    "message": "Remove parameter '$1' from domain '$2'?"
+  },
+  "navwhitelist_": {
+    "message": "Whitelist Management"
+  },
+  "rulesTitle": {
+    "message": "Custom DNR Rules Builder"
+  },
+  "urlInputPlaceholder": {
+    "message": "Paste URL here to analyze afher analyzing you can add rules"
+  },
+  "ruleDomainPlaceholder": {
+    "message": "Domain (e.g. example.com)"
+  },
+  "ruleParamPlaceholder": {
+    "message": "Parameter to remove (e.g., utm_source)"
+  },
+  "analyzeButton": {
+    "message": "Analyze"
+  },
+  "addCustomRule": {
+    "message": "Add Rule"
+  },
+  "searchRulesPlaceholder": {
+    "message": "Search rules..."
+  },
+  "searchWhitelistPlaceholder": {
+    "message": "Search whitelist..."
+  },
+  "addParameterButton": {
+    "message": "Add Parameter"
+  },
+  "editParameter": {
+    "message": "Edit parameter"
+  },
+  "removeParameter": {
+    "message": "Remove parameter"
+  },
+  "newParameterPlaceholder": {
+    "message": "Enter new parameter"
+  },
+  "addSelectedParams": {
+    "message": "Add Selected Parameters"
+  },
+  "statsTitle": {
+    "message": "Statistics"
+  },
+  "modifiedRequestsLabel": {
+    "message": "Number of requests where URL parameters were successfully removed"
+  },
+  "activeRulesLabel": {
+    "message": "Total number of parameters removed by this extension"
+  },
+  "resetStatsButton": {
+    "message": "Reset Statistics"
+  },
+  "welcomeTitle": {
+    "message": "Welcome to Linkumori - URL Cleaner"
+  },
+  "welcomeHeading": {
+    "message": "Welcome to Linkumori"
+  },
+  "welcomeDescription": {
+    "message": "Thank you for installing Linkumori, your personal URL privacy and tracking protection tool. Linkumori helps you maintain your online privacy by removing tracking parameters from URLs."
+  },
+  "feature1": {
+    "message": "Automatically remove tracking parameters from URLs"
+  },
+  "feature2": {
+    "message": "Protect your privacy across different websites"
+  },
+  "feature3": {
+    "message": "Easily customizable whitelist"
+  },
+  "feature4": {
+    "message": "Lightweight and non-intrusive"
+  },
+  "getStartedText": {
+    "message": "To get started, click the button below to open the extension settings."
+  },
+  "openSettings": {
+    "message": "Open Linkumori Settings"
+  },
+  "settingsButtonAriaLabel": {
+    "message": "Setting Tools"
+  },
+  "themeToggleAriaLabel": {
+    "message": "Toggle theme"
+  },
+  "aboutTitle": {
+    "message": "About"
+  },
+  "aboutTeam": {
+    "message": "Developed by Team Linkumori"
+  },
+  "aboutSourceGithub": {
+    "message": "GitHub Release"
+  },
+  "aboutSourceChrome": {
+    "message": "Chrome Web Store"
+  },
+  "aboutSourceUnknown": {
+    "message": "Unknown Source"
+  },
+  "aboutDetailsGithub": {
+    "message": "This version is distributed via GitHub. It may include the latest features and updates directly from the repository."
+  },
+  "aboutDetailsChrome": {
+    "message": "This version is distributed via the Chrome Web Store. It is the stable version recommended for most users."
+  },
+  "aboutDetailsUnknown": {
+    "message": "The source of this version could not be determined. Please check the extension settings or contact support for more information."
+  },
+  "version": {
+    "message": "Version $1"
+  },
+  "versionUnknown": {
+    "message": "Version Unknown"
+  },
+  "versionLabel": {
+    "message": "Version"
+  },
+  "officialRepo": {
+    "message": "Official Repository:"
+  },
+  "officialSite": {
+    "message": "Official Website:"
+  },
+  "githubRepoLink": {
+    "message": "https://github.com/Linkumori"
+  },
+  "officialWebsiteLink": {
+    "message": " https://linkumori.com/"
+  },
+  "removerule": {
+    "message": "Remove Rule"
+  },
+  "__MSG_extDescription__": {
+    "message": "Remove tracking parameters from URLs and protect your privacy"
+  },
+  "confirmResetStats": {
+    "message": "Are you sure you want to reset all statistics?"
+  },
+  "checking_update": {
+    "message": "Checking for updates..."
+  },
+  "update_available": {
+    "message": "An update is available"
+  },
+  "no_update": {
+    "message": "No updates available"
+  },
+  "throttled": {
+    "message": "Please try again later"
+  },
+  "checkupdate": {
+    "message": "Check for updates"
+  },
+  "applying_update": {
+    "message": "Applying update..."
+  },
+  "apply_update": {
+    "message": "Apply update"
+  },
+  "update_error": {
+    "message": "Error checking for updates"
+  },
+  "chromeWebStore": {
+    "message": "Chrome Web Store:"
+  },
+  "chromeWebStoreLinkText": {
+    "message": "https://chromewebstore.google.com/detail/linkumori-urls-cleaner/kcpfnbjlimolkcjllfooaipdpdjmjigg"
+  },
+  "confirmRestoreExceptions": {
+    "message": "Are you sure you want to enable all in build whitelist rules?"
+  },
+  "enableRule": {
+    "message": "Enable"
+  },
+  "disableRule": {
+    "message": "Disable"
+  },
+  "searchExceptionRulesPlaceholder": {
+    "message": "Search inbuild whitelist rules..."
+  },
+  "noExceptionRulesFound": {
+    "message": "No in build whitelist rules found matching '$1'"
+  },
+  "noExceptionRulesDefined": {
+    "message": "No in build whitelist rules defined"
+  },
+  "restoreExceptions": {
+    "message": "Restore Default in bulid whitelist Rules"
+  },
+  "exceptionRulesTitle": {
+    "message": "In build linkumori whitelist Rules"
+  },
+  "exportAllSettings": {
+    "message": "Export All Settings"
+  },
+  "importAllSettings": {
+    "message": "Import All Settings"
+  },
+  "successMessages_settingsExported": {
+    "message": "All settings have been exported successfully"
+  },
+  "successMessages_settingsImported": {
+    "message": "All settings have been imported successfully"
+  },
+  "errorMessages_settingsExport": {
+    "message": "Failed to export settings"
+  },
+  "errorMessages_settingsImport": {
+    "message": "Failed to import settings: $1"
+  },
+  "errorMessages_invalidSettingsFile": {
+    "message": "Invalid settings file format"
+  },
+  "confirmationMessages_importSettings": {
+    "message": "This will override all your current settings. Are you sure you want to continue?"
+  },
+  "exportRules": {
+    "message": "Export Rules"
+  },
+  "importRules": {
+    "message": "Import Rules"
+  },
+  "successMessages_rulesExported": {
+    "message": "Rules have been exported successfully"
+  },
+  "successMessages_rulesImported": {
+    "message": "Rules have been imported successfully"
+  },
+  "errorMessages_rulesExport": {
+    "message": "Failed to export rules"
+  },
+  "errorMessages_rulesImport": {
+    "message": "Failed to import rules: $1"
+  },
+  "errorMessages_invalidRulesFile": {
+    "message": "Invalid rules file format"
+  },
+  "confirmationMessages_importRules": {
+    "message": "This will override all your current custom rules. Are you sure you want to continue?"
+  },
+  "successMessages_statsImported": {
+    "message": "Statistics have been imported successfully"
+  },
+  "errorMessages_statsImport": {
+    "message": "Failed to import statistics: $1"
+  },
+  "reportIssueTitle": {
+    "message": "Report Issue"
+  },
+  "reportIssueHeader": {
+    "message": "Report Issues or Suggest Improvements"
+  },
+  "reportIssueDescription": {
+    "message": "Found an issue with URL cleaning or have a suggestion? Help us improve Linkumori by submitting a report."
+  },
+  "findExistingButton": {
+    "message": "Find Existing Issues"
+  },
+  "beforeReporting": {
+    "message": "Before reporting, check if your issue has already been reported:"
+  },
+  "issueTypeLabel": {
+    "message": "Issue type:"
+  },
+  "issueTypeSelect": {
+    "message": "Select issue type..."
+  },
+  "issueTypeTrackingNotRemoved": {
+    "message": "Tracking parameter not removed"
+  },
+  "issueTypeUrlBroken": {
+    "message": "URL broken after cleaning"
+  },
+  "issueTypeFalsePositive": {
+    "message": "False positive (unnecessary cleaning)"
+  },
+  "issueTypePerformance": {
+    "message": "Performance issue"
+  },
+  "issueTypeUi": {
+    "message": "UI/Display issue"
+  },
+  "issueTypeFeatureRequest": {
+    "message": "Feature request"
+  },
+  "issueTypeRuleSuggestion": {
+    "message": "Rule suggestion"
+  },
+  "urlLabel": {
+    "message": "URL where the issue occurs:"
+  },
+  "customUrlPlaceholder": {
+    "message": "https://example.com"
+  },
+  "enterCustomUrl": {
+    "message": "Enter custom URL"
+  },
+  "nsfwLabel": {
+    "message": "Page contains adult content (NSFW)"
+  },
+  "additionalInfoLabel": {
+    "message": "Additional Information:"
+  },
+  "additionalInfoPlaceholder": {
+    "message": "Please provide any additional details or comments about the issue..."
+  },
+  
+  "consentMessage": {
+    "message": "I understand that clicking \"Report on GitHub\" will construct a GitHub URL containing the information I've entered and the configuration data shown below, then redirect me to that URL. No data is transmitted directly by this extension. The extension will show me the complete URL before opening it, and I can review exactly what information will be included. Once redirected to GitHub, I will have full control to either submit the pre-filled issue form or cancel without submitting anything. I understand that accessing GitHub subjects me to $privacy_link$. Creating an issue requires a GitHub account, and once you choose to proceed and are redirected to GitHub, your activity is governed by $privacy_statement$ and $terms_service$. After being redirected with pre-filled information, you retain full control and can choose whether to submit or cancel the issue creation on our repository at $repo_link$. Even if you cancel the issue creation, GitHub may still collect data according to their privacy policy due to your interaction with their platform. If you proceed with submitting the issue, the information you submit, including any additional comments, will become publicly accessible. This is because the repository is public, and any reported issue will be visible to anyone using GitHub or related services.",
+    "placeholders": {
+      "privacy_link": {
+        "content": "<a href='https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub's Privacy Statement</a>"
+      },
+      "privacy_statement": {
+        "content": "<a href='https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement' target='_blank'>GitHub's privacy statement</a>"
+      },
+      "terms_service": {
+        "content": "<a href='https://docs.github.com/en/site-policy/github-terms/github-terms-of-service' target='_blank'>terms of service</a>"
+      },
+      "repo_link": {
+        "content": "<a href='https://github.com/Linkumori/Linkumori-Extension' target='_blank'>https://github.com/Linkumori/Linkumori-Extension</a>"
+      }
+    }
+  },
+  "reportOnGitHub": {
+    "message": "Report on GitHub"
+  },
+  "configInformation": {
+    "message": "Configuration Information"
+  },
+ "findExistingConsentMessage": {
+    "message": "I understand that clicking \"Find Existing Issues\" will construct a GitHub search URL using the domain name and issue details I have entered, and then redirect me to that URL. No data is transmitted directly by this extension. The extension will show me the complete search URL before opening it, so I can review which search terms will be used. Once redirected to GitHub, I will be subject to $link$ and $terms_service$.",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub's Search Privacy Policy</a>"
+      },
+      "terms_service": {
+        "content": "<a href='https://docs.github.com/en/site-policy/github-terms/github-terms-of-service' target='_blank'>terms of service</a>"
+      }
+    }
+},
+    "urlPreviewTitle": {
+    "message": "URL Preview",
+    "description": "Title for URL preview dialog"
+  },
+  "urlPreviewWarning": {
+    "message": "Please review the URL that will be opened. This URL contains the information you entered and will redirect you to GitHub.",
+    "description": "Warning about URL contents and redirection"
+  },
+  "urlPreviewEncodedUrl": {
+    "message": "URL to be opened (technical format):",
+    "description": "Label for encoded URL display"
+  },
+  "urlPreviewShowDecoded": {
+    "message": "Show readable format (decoded URL)",
+    "description": "Label for decoded URL toggle button"
+  },
+  "urlPreviewCopy": {
+    "message": "Copy URL",
+    "description": "Label for copy URL button"
+  },
+  "urlPreviewCopied": {
+    "message": "Copied!",
+    "description": "Confirmation message after copying URL"
+  },
+  "urlPreviewCancelButton": {
+    "message": "Cancel",
+    "description": "Label for cancel button in URL preview"
+  },
+  "urlPreviewProceedButton": {
+    "message": "Open GitHub",
+    "description": "Label for proceed button in URL preview"
+  },
+
+
+  "consentRequired": {
+    "message": "Please check the consent checkbox to proceed.",
+    "description": "Error message when consent is not given"
+  },
+  "issueTypeRequired": {
+    "message": "Please select an issue type.",
+    "description": "Error message when issue type is not selected"
+  },
+  "urlRequired": {
+    "message": "Please provide a URL.",
+    "description": "Error message when URL is missing"
+  },
+  "urlInvalid": {
+    "message": "Please enter a valid URL.",
+    "description": "Error message when URL is invalid"
+  },
+  "errorFindingIssues": {
+    "message": "Error finding existing issues: ",
+    "description": "Error message prefix when searching for existing issues fails"
+  },
+  "urlPreviewSecurityNotice": {
+    "message": "This URL will redirect you to GitHub.  Your data will be subject to  $link$. once redirected.",
+    "placeholders": {
+      "link": {
+        "content": "<a href='https://docs.github.com/site-policy/privacy-policies/github-privacy-statement#github-search' target='_blank'>GitHub's Search Privacy Policy</a>"
+      }
+    }
+}
+}
+
+
