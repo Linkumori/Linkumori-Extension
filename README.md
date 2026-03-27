@@ -1,5 +1,6 @@
-# Linkumori (Clean URLs)
-
+# Linkumori (Clean URLs
+This project is officially completed because chrome DNR api instead use firefox version 
+https://github.com/Linkumori/Linkumori-Addon.git
 ![GitHub release of extension (latest by date)](https://img.shields.io/github/v/release/subham8907/Linkumori?style=flat&label=Extension%20Github%20Release&color=blue)
 
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/kcpfnbjlimolkcjllfooaipdpdjmjigg?label=Chrome%20Web%20Store&logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/linkumori-clean-urls/kcpfnbjlimolkcjllfooaipdpdjmjigg)
